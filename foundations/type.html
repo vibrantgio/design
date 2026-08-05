@@ -91,7 +91,7 @@ h3 {
 <h1>Type</h1>
 <button type="button" class="mode-toggle">Light / dark</button>
 </div>
-<p class="intro">Every type role at its real size, weight, line height and tracking, styled through the <code>--font-&lt;role&gt;-*</code> tokens. The face is the family the tokens name &mdash; Roboto &mdash; via <code>var(--font-family)</code>; the browser must have it installed, otherwise the system fallback face renders at the same metrics.</p>
+<p class="intro">Every type role at its real size, weight, line height and tracking, styled through the <code>--font-&lt;role&gt;-*</code> tokens. The face is the family the tokens name &mdash; Roboto, and Roboto Mono for the code style &mdash; via <code>var(--font-family)</code> and <code>var(--font-family-code)</code>; the browser must have them installed, otherwise the system fallback face renders at the same metrics.</p>
 <section class="type-role">
 <p class="specimen" style="font-size: var(--font-display-large-size); line-height: var(--font-display-large-line-height); font-weight: var(--font-display-large-weight); letter-spacing: var(--font-display-large-tracking)">The five boxing wizards jump quickly</p>
 <p class="annot">display-large &middot; 57px / 64px &middot; weight 400 &middot; tracking -0.25px</p>
@@ -151,6 +151,10 @@ h3 {
 <section class="type-role">
 <p class="specimen" style="font-size: var(--font-body-small-size); line-height: var(--font-body-small-line-height); font-weight: var(--font-body-small-weight); letter-spacing: var(--font-body-small-tracking)">The five boxing wizards jump quickly</p>
 <p class="annot">body-small &middot; 12px / 16px &middot; weight 400 &middot; tracking 0.4px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-family: var(--font-family-code), monospace; font-size: var(--font-code-size); line-height: var(--font-code-line-height); font-weight: var(--font-code-weight); letter-spacing: var(--font-code-tracking)">if mono[0] != prose { align() }</p>
+<p class="annot">code &middot; 14px / 20px &middot; weight 400 &middot; tracking 0.25px</p>
 </section>
 </main>
 <script>

@@ -22,7 +22,8 @@
   },
   "fonts": {
     "heading": "Roboto",
-    "body": "Roboto"
+    "body": "Roboto",
+    "mono": "Roboto Mono"
   },
   "radius": 4,
   "scale": {

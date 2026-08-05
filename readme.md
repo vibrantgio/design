@@ -45,8 +45,9 @@ both modes, labelled `L` and `D`.
 | `--color-tertiary-<step>` | `--color-tertiary-100` … `--color-tertiary-900` | the tertiary ramp; steps in hundreds |
 | `--color-error-<step>` | `--color-error-100` … `--color-error-900` | the error ramp; steps in hundreds |
 | pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-accent`, `--color-on-accent`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error` | pinned bases, their on-colours, and the ramp-resolved surface/divider |
-| `--font-family` | `--font-family` | the typeface every role uses |
-| `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights |
+| `--font-family` | `--font-family` | the typeface every prose role uses |
+| `--font-family-code` | `--font-family-code` | the monospace typeface the code role uses |
+| `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small, code; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights; code is the mono style outside the MD3 grid, at body-medium's metrics |
 | `--density-<metric>` | `--density-control-height`, `--density-padding-x`, `--density-padding-y`, `--density-min-hit-target` | control metrics, px; `:root` is comfortable, `.compact` overrides all but the hit-target floor |
 | `--space-<key>` | `--space-0`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24` | the 4-pt spacing grid, px |
 | `--radius-<key>` | `--radius-none`, `--radius-sm`, `--radius-base`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-3xl`, `--radius-full` | corner radii, Tailwind naming, px |
@@ -111,7 +112,7 @@ round-trip test in `spectrum/export` asserts it — so the file, not this text,
 is the contract. To rebrand, rerun `vg-tokens -seed #rrggbb`; every page here
 reflows because nothing in them is hard-coded.
 
-Fonts: the tokens name Roboto; the pages fall back to system faces when it
-is not installed. An increased-contrast palette variant exists Go-side
+Fonts: the tokens name Roboto (and Roboto Mono for code); the pages fall
+back to system faces when they are not installed. An increased-contrast palette variant exists Go-side
 (`tokens.FromSeedHighContrast`, driven by the OS contrast preference); it is
 not part of this export.

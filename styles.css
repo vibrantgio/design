@@ -59,6 +59,7 @@
   --color-error: #b4271f;
   --color-on-error: #ffffff;
   --font-family: "Roboto";
+  --font-family-code: "Roboto Mono";
   --font-display-large-size: 57px;
   --font-display-large-line-height: 64px;
   --font-display-large-weight: 400;
@@ -119,6 +120,10 @@
   --font-body-small-line-height: 16px;
   --font-body-small-weight: 400;
   --font-body-small-tracking: 0.4px;
+  --font-code-size: 14px;
+  --font-code-line-height: 20px;
+  --font-code-weight: 400;
+  --font-code-tracking: 0.25px;
   --density-control-height: 36px;
   --density-padding-x: 16px;
   --density-padding-y: 8px;
