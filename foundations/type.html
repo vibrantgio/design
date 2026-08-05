@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Type — Vibrant Gio foundations</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family), system-ui, sans-serif;
+  font-size: var(--font-body-medium-size);
+  line-height: var(--font-body-medium-line-height);
+  letter-spacing: var(--font-body-medium-tracking);
+}
+main {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-6) var(--space-16);
+}
+.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+h1 {
+  font-size: var(--font-headline-large-size);
+  line-height: var(--font-headline-large-line-height);
+  font-weight: var(--font-headline-large-weight);
+  letter-spacing: var(--font-headline-large-tracking);
+  margin: var(--space-6) 0 var(--space-2);
+}
+h2 {
+  font-size: var(--font-title-large-size);
+  line-height: var(--font-title-large-line-height);
+  font-weight: var(--font-title-large-weight);
+  letter-spacing: var(--font-title-large-tracking);
+  margin: var(--space-10) 0 var(--space-3);
+}
+h3 {
+  font-size: var(--font-title-medium-size);
+  line-height: var(--font-title-medium-line-height);
+  font-weight: var(--font-title-medium-weight);
+  letter-spacing: var(--font-title-medium-tracking);
+  margin: var(--space-6) 0 var(--space-2);
+}
+.intro {
+  max-width: 48rem;
+  color: var(--color-neutral-700);
+}
+.annot {
+  font-size: var(--font-label-small-size);
+  line-height: var(--font-label-small-line-height);
+  font-weight: var(--font-label-small-weight);
+  letter-spacing: var(--font-label-small-tracking);
+  color: var(--color-neutral-700);
+  margin: var(--space-1) 0 0;
+}
+.mode-toggle {
+  font-family: var(--font-family), system-ui, sans-serif;
+  font-size: var(--font-label-large-size);
+  line-height: var(--font-label-large-line-height);
+  font-weight: var(--font-label-large-weight);
+  letter-spacing: var(--font-label-large-tracking);
+  padding: var(--space-2) var(--space-4);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: thin solid var(--color-neutral-500);
+  border-radius: var(--radius-base);
+  cursor: pointer;
+}
+.mode-toggle:hover {
+  background: var(--color-neutral-300);
+}
+.type-role {
+  margin: var(--space-8) 0;
+  border-bottom: thin solid var(--color-divider);
+  padding-bottom: var(--space-4);
+}
+.specimen {
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<main>
+<div class="masthead">
+<h1>Type</h1>
+<button type="button" class="mode-toggle">Light / dark</button>
+</div>
+<p class="intro">Every type role at its real size, weight, line height and tracking, styled through the <code>--font-&lt;role&gt;-*</code> tokens. The face is the family the tokens name &mdash; Roboto &mdash; via <code>var(--font-family)</code>; the browser must have it installed, otherwise the system fallback face renders at the same metrics.</p>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-display-large-size); line-height: var(--font-display-large-line-height); font-weight: var(--font-display-large-weight); letter-spacing: var(--font-display-large-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">display-large &middot; 57px / 64px &middot; weight 400 &middot; tracking -0.25px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-display-medium-size); line-height: var(--font-display-medium-line-height); font-weight: var(--font-display-medium-weight); letter-spacing: var(--font-display-medium-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">display-medium &middot; 45px / 52px &middot; weight 400 &middot; tracking 0px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-display-small-size); line-height: var(--font-display-small-line-height); font-weight: var(--font-display-small-weight); letter-spacing: var(--font-display-small-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">display-small &middot; 36px / 44px &middot; weight 400 &middot; tracking 0px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-headline-large-size); line-height: var(--font-headline-large-line-height); font-weight: var(--font-headline-large-weight); letter-spacing: var(--font-headline-large-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">headline-large &middot; 32px / 40px &middot; weight 400 &middot; tracking 0px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-headline-medium-size); line-height: var(--font-headline-medium-line-height); font-weight: var(--font-headline-medium-weight); letter-spacing: var(--font-headline-medium-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">headline-medium &middot; 28px / 36px &middot; weight 400 &middot; tracking 0px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-headline-small-size); line-height: var(--font-headline-small-line-height); font-weight: var(--font-headline-small-weight); letter-spacing: var(--font-headline-small-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">headline-small &middot; 24px / 32px &middot; weight 400 &middot; tracking 0px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-title-large-size); line-height: var(--font-title-large-line-height); font-weight: var(--font-title-large-weight); letter-spacing: var(--font-title-large-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">title-large &middot; 22px / 28px &middot; weight 400 &middot; tracking 0px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-title-medium-size); line-height: var(--font-title-medium-line-height); font-weight: var(--font-title-medium-weight); letter-spacing: var(--font-title-medium-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">title-medium &middot; 16px / 24px &middot; weight 500 &middot; tracking 0.15px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-title-small-size); line-height: var(--font-title-small-line-height); font-weight: var(--font-title-small-weight); letter-spacing: var(--font-title-small-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">title-small &middot; 14px / 20px &middot; weight 500 &middot; tracking 0.1px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-label-large-size); line-height: var(--font-label-large-line-height); font-weight: var(--font-label-large-weight); letter-spacing: var(--font-label-large-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">label-large &middot; 14px / 20px &middot; weight 500 &middot; tracking 0.1px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-label-medium-size); line-height: var(--font-label-medium-line-height); font-weight: var(--font-label-medium-weight); letter-spacing: var(--font-label-medium-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">label-medium &middot; 12px / 16px &middot; weight 500 &middot; tracking 0.5px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-label-small-size); line-height: var(--font-label-small-line-height); font-weight: var(--font-label-small-weight); letter-spacing: var(--font-label-small-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">label-small &middot; 11px / 16px &middot; weight 500 &middot; tracking 0.5px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-body-large-size); line-height: var(--font-body-large-line-height); font-weight: var(--font-body-large-weight); letter-spacing: var(--font-body-large-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">body-large &middot; 16px / 24px &middot; weight 400 &middot; tracking 0.5px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-body-medium-size); line-height: var(--font-body-medium-line-height); font-weight: var(--font-body-medium-weight); letter-spacing: var(--font-body-medium-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">body-medium &middot; 14px / 20px &middot; weight 400 &middot; tracking 0.25px</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-body-small-size); line-height: var(--font-body-small-line-height); font-weight: var(--font-body-small-weight); letter-spacing: var(--font-body-small-tracking)">The five boxing wizards jump quickly</p>
+<p class="annot">body-small &middot; 12px / 16px &middot; weight 400 &middot; tracking 0.4px</p>
+</section>
+</main>
+<script>
+document.querySelector(".mode-toggle").addEventListener("click", function () {
+  document.documentElement.classList.toggle("dark");
+});
+</script>
+</body>
+</html>

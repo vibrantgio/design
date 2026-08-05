@@ -1,0 +1,52 @@
+{
+  "seed": "#6750a4",
+  "hue": 293.71,
+  "sat": 0.1305,
+  "pins": {
+    "light": {
+      "bg": "#f7f6fd",
+      "text": "#141318",
+      "accent": "#6750a4",
+      "secondary": "#605b76",
+      "tertiary": "#7e5163",
+      "error": "#b4271f"
+    },
+    "dark": {
+      "bg": "#18171c",
+      "text": "#eeedf4",
+      "accent": "#d0c4ff",
+      "secondary": "#cec8e8",
+      "tertiary": "#f2bed2",
+      "error": "#ffbcb1"
+    }
+  },
+  "fonts": {
+    "heading": "Roboto",
+    "body": "Roboto"
+  },
+  "radius": 4,
+  "scale": {
+    "light": [
+      97,
+      92,
+      85,
+      74,
+      63,
+      51,
+      39,
+      28,
+      6
+    ],
+    "dark": [
+      8,
+      13,
+      19,
+      30,
+      65,
+      74,
+      82,
+      88,
+      94
+    ]
+  }
+}

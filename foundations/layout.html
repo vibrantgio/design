@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layout — Vibrant Gio foundations</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family), system-ui, sans-serif;
+  font-size: var(--font-body-medium-size);
+  line-height: var(--font-body-medium-line-height);
+  letter-spacing: var(--font-body-medium-tracking);
+}
+main {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-6) var(--space-16);
+}
+.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+h1 {
+  font-size: var(--font-headline-large-size);
+  line-height: var(--font-headline-large-line-height);
+  font-weight: var(--font-headline-large-weight);
+  letter-spacing: var(--font-headline-large-tracking);
+  margin: var(--space-6) 0 var(--space-2);
+}
+h2 {
+  font-size: var(--font-title-large-size);
+  line-height: var(--font-title-large-line-height);
+  font-weight: var(--font-title-large-weight);
+  letter-spacing: var(--font-title-large-tracking);
+  margin: var(--space-10) 0 var(--space-3);
+}
+h3 {
+  font-size: var(--font-title-medium-size);
+  line-height: var(--font-title-medium-line-height);
+  font-weight: var(--font-title-medium-weight);
+  letter-spacing: var(--font-title-medium-tracking);
+  margin: var(--space-6) 0 var(--space-2);
+}
+.intro {
+  max-width: 48rem;
+  color: var(--color-neutral-700);
+}
+.annot {
+  font-size: var(--font-label-small-size);
+  line-height: var(--font-label-small-line-height);
+  font-weight: var(--font-label-small-weight);
+  letter-spacing: var(--font-label-small-tracking);
+  color: var(--color-neutral-700);
+  margin: var(--space-1) 0 0;
+}
+.mode-toggle {
+  font-family: var(--font-family), system-ui, sans-serif;
+  font-size: var(--font-label-large-size);
+  line-height: var(--font-label-large-line-height);
+  font-weight: var(--font-label-large-weight);
+  letter-spacing: var(--font-label-large-tracking);
+  padding: var(--space-2) var(--space-4);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: thin solid var(--color-neutral-500);
+  border-radius: var(--radius-base);
+  cursor: pointer;
+}
+.mode-toggle:hover {
+  background: var(--color-neutral-300);
+}
+.space-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: var(--space-2) 0;
+}
+.space-row .annot {
+  flex: 0 0 10rem;
+  margin: 0;
+}
+.space-bar {
+  height: var(--space-4);
+  background: var(--color-accent);
+  border-radius: var(--radius-sm);
+}
+.specimen-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin: var(--space-4) 0;
+}
+.radius-box {
+  width: var(--space-24);
+  height: var(--space-24);
+  background: var(--color-surface);
+  border: thin solid var(--color-neutral-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shadow-card {
+  width: var(--space-24);
+  height: var(--space-20);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
+</head>
+<body>
+<main>
+<div class="masthead">
+<h1>Layout</h1>
+<button type="button" class="mode-toggle">Light / dark</button>
+</div>
+<p class="intro">The spacing scale as sized bars, the radius scale on sample boxes and the elevation steps on cards &mdash; every bar width, corner radius and shadow resolves through its token, so the sheet is the single source of these shapes.</p>
+<section>
+<h2>Spacing</h2>
+<div class="space-row">
+<p class="annot"><code>--space-0</code> &middot; 0px</p>
+<div class="space-bar" style="width: var(--space-0)"></div>
+</div>
+<div class="space-row">
+<p class="annot"><code>--space-1</code> &middot; 4px</p>
+<div class="space-bar" style="width: var(--space-1)"></div>
+</div>
+<div class="space-row">
+<p class="annot"><code>--space-2</code> &middot; 8px</p>
+<div class="space-bar" style="width: var(--space-2)"></div>
+</div>
+<div class="space-row">
+<p class="annot"><code>--space-3</code> &middot; 12px</p>
+<div class="space-bar" style="width: var(--space-3)"></div>
+</div>
+<div class="space-row">
+<p class="annot"><code>--space-4</code> &middot; 16px</p>
+<div class="space-bar" style="width: var(--space-4)"></div>
+</div>
+<div class="space-row">
+<p class="annot"><code>--space-5</code> &middot; 20px</p>
+<div class="space-bar" style="width: var(--space-5)"></div>
+</div>
+<div class="space-row">
+<p class="annot"><code>--space-6</code> &middot; 24px</p>
+<div class="space-bar" style="width: var(--space-6)"></div>
+</div>
+<div class="space-row">
+<p class="annot"><code>--space-8</code> &middot; 32px</p>
+<div class="space-bar" style="width: var(--space-8)"></div>
+</div>
+<div class="space-row">
+<p class="annot"><code>--space-10</code> &middot; 40px</p>
+<div class="space-bar" style="width: var(--space-10)"></div>
+</div>
+<div class="space-row">
+<p class="annot"><code>--space-12</code> &middot; 48px</p>
+<div class="space-bar" style="width: var(--space-12)"></div>
+</div>
+<div class="space-row">
+<p class="annot"><code>--space-16</code> &middot; 64px</p>
+<div class="space-bar" style="width: var(--space-16)"></div>
+</div>
+<div class="space-row">
+<p class="annot"><code>--space-20</code> &middot; 80px</p>
+<div class="space-bar" style="width: var(--space-20)"></div>
+</div>
+<div class="space-row">
+<p class="annot"><code>--space-24</code> &middot; 96px</p>
+<div class="space-bar" style="width: var(--space-24)"></div>
+</div>
+</section>
+<section>
+<h2>Radius</h2>
+<div class="specimen-grid">
+<div>
+<div class="radius-box" style="border-radius: var(--radius-none)">Aa</div>
+<p class="annot"><code>--radius-none</code> &middot; 0px</p>
+</div>
+<div>
+<div class="radius-box" style="border-radius: var(--radius-sm)">Aa</div>
+<p class="annot"><code>--radius-sm</code> &middot; 2px</p>
+</div>
+<div>
+<div class="radius-box" style="border-radius: var(--radius-base)">Aa</div>
+<p class="annot"><code>--radius-base</code> &middot; 4px</p>
+</div>
+<div>
+<div class="radius-box" style="border-radius: var(--radius-md)">Aa</div>
+<p class="annot"><code>--radius-md</code> &middot; 6px</p>
+</div>
+<div>
+<div class="radius-box" style="border-radius: var(--radius-lg)">Aa</div>
+<p class="annot"><code>--radius-lg</code> &middot; 8px</p>
+</div>
+<div>
+<div class="radius-box" style="border-radius: var(--radius-xl)">Aa</div>
+<p class="annot"><code>--radius-xl</code> &middot; 12px</p>
+</div>
+<div>
+<div class="radius-box" style="border-radius: var(--radius-2xl)">Aa</div>
+<p class="annot"><code>--radius-2xl</code> &middot; 16px</p>
+</div>
+<div>
+<div class="radius-box" style="border-radius: var(--radius-3xl)">Aa</div>
+<p class="annot"><code>--radius-3xl</code> &middot; 24px</p>
+</div>
+<div>
+<div class="radius-box" style="border-radius: var(--radius-full)">Aa</div>
+<p class="annot"><code>--radius-full</code> &middot; 9999px</p>
+</div>
+</div>
+</section>
+<section>
+<h2>Elevation</h2>
+<p class="intro">Shadow depths as they stand today: level N casts a y-offset of its dp depth with twice that blur. E2.1 remaps elevation to surface roles and E5.1 re-renders this section.</p>
+<div class="specimen-grid">
+<div>
+<div class="shadow-card" style="box-shadow: var(--shadow-0)">0</div>
+<p class="annot"><code>--shadow-0</code> &middot; depth 0dp</p>
+</div>
+<div>
+<div class="shadow-card" style="box-shadow: var(--shadow-1)">1</div>
+<p class="annot"><code>--shadow-1</code> &middot; depth 1dp</p>
+</div>
+<div>
+<div class="shadow-card" style="box-shadow: var(--shadow-2)">2</div>
+<p class="annot"><code>--shadow-2</code> &middot; depth 3dp</p>
+</div>
+<div>
+<div class="shadow-card" style="box-shadow: var(--shadow-3)">3</div>
+<p class="annot"><code>--shadow-3</code> &middot; depth 6dp</p>
+</div>
+<div>
+<div class="shadow-card" style="box-shadow: var(--shadow-4)">4</div>
+<p class="annot"><code>--shadow-4</code> &middot; depth 8dp</p>
+</div>
+<div>
+<div class="shadow-card" style="box-shadow: var(--shadow-5)">5</div>
+<p class="annot"><code>--shadow-5</code> &middot; depth 12dp</p>
+</div>
+</div>
+</section>
+</main>
+<script>
+document.querySelector(".mode-toggle").addEventListener("click", function () {
+  document.documentElement.classList.toggle("dark");
+});
+</script>
+</body>
+</html>
