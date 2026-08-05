@@ -17,15 +17,19 @@ it by hand — regenerate it.
 ## Files
 
 - `styles.css` — the token sheet: one `:root` block (light colours plus every
-  mode-invariant scale) and one `.dark` class override block (the paired dark
-  colours only). Add `class="dark"` to the root element to switch modes.
+  mode-invariant scale, comfortable density), one `.dark` class override block
+  (the paired dark colours only) and one `.compact` class override block (the
+  compact density metrics only). Add `class="dark"` to the root element to
+  switch modes, `class="compact"` to any subtree to densify it; the two
+  switches are orthogonal.
 - `theme.json` — the generative parameters; see the reproducibility contract
   below.
 - `foundations/color.html` — every ramp, pin, step purpose and measured
   APCA Lc / WCAG ratio per text pair, in both modes.
 - `foundations/type.html` — every type role at its real metrics.
-- `foundations/layout.html` — the spacing, radius and elevation scales as
-  rendered specimens.
+- `foundations/layout.html` — the spacing scale, the control metrics at both
+  density settings, the radius scale and tonal elevation as rendered
+  specimens.
 
 Each page reads only from `styles.css` — every styled value is a `var(--…)`
 reference — and carries a light/dark toggle. Annotation numbers are printed for
@@ -43,9 +47,13 @@ both modes, labelled `L` and `D`.
 | pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-accent`, `--color-on-accent`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error` | pinned bases, their on-colours, and the ramp-resolved surface/divider |
 | `--font-family` | `--font-family` | the typeface every role uses |
 | `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights |
+| `--density-<metric>` | `--density-control-height`, `--density-padding-x`, `--density-padding-y`, `--density-min-hit-target` | control metrics, px; `:root` is comfortable, `.compact` overrides all but the hit-target floor |
 | `--space-<key>` | `--space-0`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24` | the 4-pt spacing grid, px |
 | `--radius-<key>` | `--radius-none`, `--radius-sm`, `--radius-base`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-3xl`, `--radius-full` | corner radii, Tailwind naming, px |
-| `--shadow-<level>` | `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3`, `--shadow-4`, `--shadow-5` | box-shadow elevation approximations; E2.1/E5.1 remap these to surface roles |
+| `--elevation-<level>` | `--elevation-0`, `--elevation-1`, `--elevation-2`, `--elevation-3`, `--elevation-4`, `--elevation-5` | tonal surface fills — the DEFAULT elevation cue; `var()` references into the neutral ramp (level 0 is the bg pin), so they flip with `.dark` |
+| `--shadow-<level>` | `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3`, `--shadow-4`, `--shadow-5` | dp box-shadows — the OPT-IN cue for floating transients (menus, dialogs, tooltips) layered over the tonal fill; resting surfaces use the fill alone |
+| `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | MD3 easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for MD3's two-segment path |
+| `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | MD3-pinned duration stops, ms; the reduce-motion variant zeroes them |
 
 ## Step purposes (ADR-007)
 
@@ -62,14 +70,48 @@ both modes, labelled `L` and `D`.
 The pinned base — not a ramp step — is the solid fill; hover and pressed on a
 solid walk one and two steps from the pin toward 900.
 
+## Elevation: default vs opt-in
+
+Elevation is tonal (E2.1): a raised surface separates from its ground by
+colour, one neutral-ramp step per storey — level 0 is the bg pin over the
+step-100 ground, levels 1–3 fill with neutral 200/300/400, and levels 4–5
+clamp to level 3's step (desktop has no six-storey stack). `--elevation-N`
+is that surface fill and the **default** cue; because the light and dark
+ramps are paired scales, the same level reads as raised in both modes with
+no mode-specific rule. The dp shadow is the **opt-in** secondary cue,
+reserved for floating transients — menus, dialogs, tooltips — which layer
+`--shadow-N` over their tonal fill (E2.2). Resting surfaces never cast one.
+
+## Density
+
+Two published settings, one variable family: comfortable (36 dp controls,
+16/8 dp padding) is the `:root` default; compact (28 dp, 12/6 dp) is the
+`.compact` class override, scoping to any subtree the way `.dark` scopes
+colours. `--density-min-hit-target` (44 dp, WCAG 2.5.5) is deliberately not
+overridden: compact shrinks the drawn control, never the clickable area.
+`theme.json` records both settings' metrics plus which one the theme runs.
+
+## Motion
+
+The MD3 easing presets are emitted as `cubic-bezier()` variables and the
+five duration stops in ms, each pinned to one MD3 duration role. The spring
+presets (default/snappy/gentle) are Go-side damped-oscillator physics with
+no CSS counterpart, so they live only in `theme.json`'s motion parameters.
+Under the OS reduce-motion preference the theme emits the same scale with
+every duration zeroed; the sheet is generated from the non-reduced scale.
+
 ## Reproducibility
 
 `theme.json` records the seed (hex plus its OKLCh hue and sat), the pinned role
-hexes per mode, the faces, the base radius and the measured lightness scales.
+hexes per mode, the faces, the base radius, the measured lightness scales, both
+density settings' metrics, the elevation model (surface steps and shadow dps
+per level) and the motion set (durations, easings, springs).
 `FromSeed(seed)` regenerates every ramp and pin from the seed alone — a
 round-trip test in `spectrum/export` asserts it — so the file, not this text,
 is the contract. To rebrand, rerun `vg-tokens -seed #rrggbb`; every page here
 reflows because nothing in them is hard-coded.
 
 Fonts: the tokens name Roboto; the pages fall back to system faces when it
-is not installed. Density and the motion set are not exported yet (E5.1).
+is not installed. An increased-contrast palette variant exists Go-side
+(`tokens.FromSeedHighContrast`, driven by the OS contrast preference); it is
+not part of this export.

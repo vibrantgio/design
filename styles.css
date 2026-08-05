@@ -119,6 +119,10 @@
   --font-body-small-line-height: 16px;
   --font-body-small-weight: 400;
   --font-body-small-tracking: 0.4px;
+  --density-control-height: 36px;
+  --density-padding-x: 16px;
+  --density-padding-y: 8px;
+  --density-min-hit-target: 44px;
   --space-0: 0px;
   --space-1: 4px;
   --space-2: 8px;
@@ -141,12 +145,29 @@
   --radius-2xl: 16px;
   --radius-3xl: 24px;
   --radius-full: 9999px;
+  --elevation-0: var(--color-bg);
+  --elevation-1: var(--color-neutral-200);
+  --elevation-2: var(--color-neutral-300);
+  --elevation-3: var(--color-neutral-400);
+  --elevation-4: var(--color-neutral-400);
+  --elevation-5: var(--color-neutral-400);
   --shadow-0: none;
   --shadow-1: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   --shadow-2: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
   --shadow-3: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
   --shadow-4: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   --shadow-5: 0 12px 24px 0 rgba(0, 0, 0, 0.2);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --ease-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --duration-x-fast: 50ms;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-x-slow: 500ms;
 }
 
 .dark {
@@ -207,4 +228,10 @@
   --color-on-tertiary: #2f091c;
   --color-error: #ffbcb1;
   --color-on-error: #3a0000;
+}
+
+.compact {
+  --density-control-height: 28px;
+  --density-padding-x: 12px;
+  --density-padding-y: 6px;
 }

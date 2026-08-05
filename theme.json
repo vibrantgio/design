@@ -48,5 +48,101 @@
       88,
       94
     ]
+  },
+  "density": {
+    "setting": "comfortable",
+    "comfortable": {
+      "controlHeight": 36,
+      "paddingX": 16,
+      "paddingY": 8
+    },
+    "compact": {
+      "controlHeight": 28,
+      "paddingX": 12,
+      "paddingY": 6
+    },
+    "minHitTarget": 44
+  },
+  "elevation": {
+    "surfaceSteps": [
+      0,
+      200,
+      300,
+      400,
+      400,
+      400
+    ],
+    "shadowDp": [
+      0,
+      1,
+      3,
+      6,
+      8,
+      12
+    ]
+  },
+  "motion": {
+    "durations": {
+      "xFast": 50,
+      "fast": 150,
+      "normal": 250,
+      "slow": 400,
+      "xSlow": 500
+    },
+    "easings": {
+      "standard": [
+        0.2,
+        0,
+        0,
+        1
+      ],
+      "standardAccelerate": [
+        0.3,
+        0,
+        1,
+        1
+      ],
+      "standardDecelerate": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "emphasized": [
+        0.2,
+        0,
+        0,
+        1
+      ],
+      "emphasizedAccelerate": [
+        0.3,
+        0,
+        0.8,
+        0.15
+      ],
+      "emphasizedDecelerate": [
+        0.05,
+        0.7,
+        0.1,
+        1
+      ]
+    },
+    "springs": {
+      "default": {
+        "mass": 1,
+        "stiffness": 80,
+        "damping": 17.888544
+      },
+      "snappy": {
+        "mass": 1,
+        "stiffness": 300,
+        "damping": 22
+      },
+      "gentle": {
+        "mass": 1,
+        "stiffness": 20,
+        "damping": 8.944272
+      }
+    }
   }
 }

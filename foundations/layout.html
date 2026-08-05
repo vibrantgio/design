@@ -105,11 +105,60 @@ h3 {
   align-items: center;
   justify-content: center;
 }
-.shadow-card {
+.density-pair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin: var(--space-4) 0;
+}
+.density-col {
+  flex: 1 1 18rem;
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: thin solid var(--color-neutral-300);
+  border-radius: var(--radius-md);
+}
+.hit-target {
+  display: flex;
+  align-items: center;
+  min-height: var(--density-min-hit-target);
+  border: thin dashed var(--color-neutral-500);
+  border-radius: var(--radius-sm);
+  margin: var(--space-2) 0;
+}
+.control-bar {
+  height: var(--density-control-height);
+  padding: 0 var(--density-padding-x);
+  display: inline-flex;
+  align-items: center;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border-radius: var(--radius-md);
+  font-size: var(--font-label-large-size);
+  font-weight: var(--font-label-large-weight);
+}
+.pad-box {
+  display: inline-block;
+  padding: var(--density-padding-y) var(--density-padding-x);
+  background: var(--color-neutral-200);
+  border: thin solid var(--color-neutral-500);
+  border-radius: var(--radius-md);
+  margin: var(--space-2) 0;
+}
+.elevation-ground {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  padding: var(--space-6);
+  background: var(--color-neutral-100);
+  border-radius: var(--radius-md);
+  margin: var(--space-4) 0;
+}
+.surface-card {
   width: var(--space-24);
   height: var(--space-20);
-  background: var(--color-surface);
   border-radius: var(--radius-md);
+  border: thin solid var(--color-neutral-300);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,7 +171,7 @@ h3 {
 <h1>Layout</h1>
 <button type="button" class="mode-toggle">Light / dark</button>
 </div>
-<p class="intro">The spacing scale as sized bars, the radius scale on sample boxes and the elevation steps on cards &mdash; every bar width, corner radius and shadow resolves through its token, so the sheet is the single source of these shapes.</p>
+<p class="intro">The spacing scale as sized bars, the control metrics at both density settings, the radius scale on sample boxes and tonal elevation as filled cards &mdash; every bar width, control height, padding, corner radius, surface fill and shadow resolves through its token, so the sheet is the single source of these shapes.</p>
 <section>
 <h2>Spacing</h2>
 <div class="space-row">
@@ -179,6 +228,30 @@ h3 {
 </div>
 </section>
 <section>
+<h2>Density</h2>
+<p class="intro">Two published settings share one variable family: <code>:root</code> carries comfortable, and a <code>.compact</code> class block overrides <code>--density-control-height</code> and <code>--density-padding-x/-y</code> the way <code>.dark</code> overrides the colours &mdash; the right column below is the same markup inside a <code>class="compact"</code> wrapper. The dashed outline is <code>--density-min-hit-target</code>, the WCAG 2.5.5 pointer-target floor: it is not overridden, so compact shrinks the drawn control but never the clickable area.</p>
+<div class="density-pair">
+<div class="density-col">
+<h3>comfortable (root)</h3>
+<div class="hit-target">
+<span class="control-bar">Control</span>
+</div>
+<p class="annot"><code>--density-control-height</code> &middot; 36px &middot; hit target &ge; 44px</p>
+<div class="pad-box">padding</div>
+<p class="annot"><code>--density-padding-x</code> 16px &middot; <code>--density-padding-y</code> 8px</p>
+</div>
+<div class="density-col compact">
+<h3>compact (.compact)</h3>
+<div class="hit-target">
+<span class="control-bar">Control</span>
+</div>
+<p class="annot"><code>--density-control-height</code> &middot; 28px &middot; hit target &ge; 44px</p>
+<div class="pad-box">padding</div>
+<p class="annot"><code>--density-padding-x</code> 12px &middot; <code>--density-padding-y</code> 6px</p>
+</div>
+</div>
+</section>
+<section>
 <h2>Radius</h2>
 <div class="specimen-grid">
 <div>
@@ -221,30 +294,58 @@ h3 {
 </section>
 <section>
 <h2>Elevation</h2>
-<p class="intro">Shadow depths as they stand today: level N casts a y-offset of its dp depth with twice that blur. E2.1 remaps elevation to surface roles and E5.1 re-renders this section.</p>
-<div class="specimen-grid">
+<p class="intro">Elevation is tonal (E2.1): a raised surface separates from its ground by colour, one neutral-ramp step per storey, and <code>--elevation-N</code> is that surface fill &mdash; the default cue, resolved as a <code>var()</code> reference into the neutral ramp so it flips with the mode. The cards below sit on the step-100 ground; level 0 is the bg pin, levels 1&ndash;3 are steps 200/300/400, and levels 4/5 clamp to level 3&rsquo;s step &mdash; desktop has no six-storey stack.</p>
+<div class="elevation-ground">
 <div>
-<div class="shadow-card" style="box-shadow: var(--shadow-0)">0</div>
+<div class="surface-card" style="background: var(--elevation-0)">0</div>
+<p class="annot"><code>--elevation-0</code> &middot; bg pin</p>
+</div>
+<div>
+<div class="surface-card" style="background: var(--elevation-1)">1</div>
+<p class="annot"><code>--elevation-1</code> &middot; neutral-200</p>
+</div>
+<div>
+<div class="surface-card" style="background: var(--elevation-2)">2</div>
+<p class="annot"><code>--elevation-2</code> &middot; neutral-300</p>
+</div>
+<div>
+<div class="surface-card" style="background: var(--elevation-3)">3</div>
+<p class="annot"><code>--elevation-3</code> &middot; neutral-400</p>
+</div>
+<div>
+<div class="surface-card" style="background: var(--elevation-4)">4</div>
+<p class="annot"><code>--elevation-4</code> &middot; neutral-400 &middot; clamped</p>
+</div>
+<div>
+<div class="surface-card" style="background: var(--elevation-5)">5</div>
+<p class="annot"><code>--elevation-5</code> &middot; neutral-400 &middot; clamped</p>
+</div>
+</div>
+<h3>The opt-in shadow</h3>
+<p class="intro">The dp shadows survive as <code>--shadow-N</code> for floating transients only &mdash; menus, dialogs, tooltips (E2.2): a float adds its shadow on top of its tonal fill; resting surfaces use the fill alone.</p>
+<div class="elevation-ground">
+<div>
+<div class="surface-card" style="background: var(--elevation-0); box-shadow: var(--shadow-0)">0</div>
 <p class="annot"><code>--shadow-0</code> &middot; depth 0dp</p>
 </div>
 <div>
-<div class="shadow-card" style="box-shadow: var(--shadow-1)">1</div>
+<div class="surface-card" style="background: var(--elevation-1); box-shadow: var(--shadow-1)">1</div>
 <p class="annot"><code>--shadow-1</code> &middot; depth 1dp</p>
 </div>
 <div>
-<div class="shadow-card" style="box-shadow: var(--shadow-2)">2</div>
+<div class="surface-card" style="background: var(--elevation-2); box-shadow: var(--shadow-2)">2</div>
 <p class="annot"><code>--shadow-2</code> &middot; depth 3dp</p>
 </div>
 <div>
-<div class="shadow-card" style="box-shadow: var(--shadow-3)">3</div>
+<div class="surface-card" style="background: var(--elevation-3); box-shadow: var(--shadow-3)">3</div>
 <p class="annot"><code>--shadow-3</code> &middot; depth 6dp</p>
 </div>
 <div>
-<div class="shadow-card" style="box-shadow: var(--shadow-4)">4</div>
+<div class="surface-card" style="background: var(--elevation-4); box-shadow: var(--shadow-4)">4</div>
 <p class="annot"><code>--shadow-4</code> &middot; depth 8dp</p>
 </div>
 <div>
-<div class="shadow-card" style="box-shadow: var(--shadow-5)">5</div>
+<div class="surface-card" style="background: var(--elevation-5); box-shadow: var(--shadow-5)">5</div>
 <p class="annot"><code>--shadow-5</code> &middot; depth 12dp</p>
 </div>
 </div>
