@@ -9,7 +9,9 @@
       "accent": "#6750a4",
       "secondary": "#605b76",
       "tertiary": "#7e5163",
-      "error": "#b4271f"
+      "error": "#b4271f",
+      "success": "#006e14",
+      "warning": "#795900"
     },
     "dark": {
       "bg": "#18171c",
@@ -17,7 +19,9 @@
       "accent": "#d0c4ff",
       "secondary": "#cec8e8",
       "tertiary": "#f2bed2",
-      "error": "#ffbcb1"
+      "error": "#ffbcb1",
+      "success": "#7fe281",
+      "warning": "#ffc322"
     }
   },
   "fonts": {

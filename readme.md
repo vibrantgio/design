@@ -44,7 +44,9 @@ both modes, labelled `L` and `D`.
 | `--color-secondary-<step>` | `--color-secondary-100` … `--color-secondary-900` | the secondary ramp; steps in hundreds |
 | `--color-tertiary-<step>` | `--color-tertiary-100` … `--color-tertiary-900` | the tertiary ramp; steps in hundreds |
 | `--color-error-<step>` | `--color-error-100` … `--color-error-900` | the error ramp; steps in hundreds |
-| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-accent`, `--color-on-accent`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error` | pinned bases, their on-colours, and the ramp-resolved surface/divider |
+| `--color-success-<step>` | `--color-success-100` … `--color-success-900` | the success ramp; steps in hundreds |
+| `--color-warning-<step>` | `--color-warning-100` … `--color-warning-900` | the warning ramp; steps in hundreds |
+| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-accent`, `--color-on-accent`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning` | pinned bases, their on-colours, and the ramp-resolved surface/divider |
 | `--font-family` | `--font-family` | the typeface every prose role uses |
 | `--font-family-code` | `--font-family-code` | the monospace typeface the code role uses |
 | `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small, code; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights; code is the mono style outside the MD3 grid, at body-medium's metrics |

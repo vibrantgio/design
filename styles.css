@@ -46,6 +46,24 @@
   --color-error-700: #b1241c;
   --color-error-800: #8b0002;
   --color-error-900: #320000;
+  --color-success-100: #dfffde;
+  --color-success-200: #9bff9c;
+  --color-success-300: #88ea89;
+  --color-success-400: #69cb6b;
+  --color-success-500: #4aac4e;
+  --color-success-600: #248c2d;
+  --color-success-700: #006b13;
+  --color-success-800: #004e0b;
+  --color-success-900: #001801;
+  --color-warning-100: #fff6e2;
+  --color-warning-200: #ffe5b1;
+  --color-warning-300: #ffce5f;
+  --color-warning-400: #e6ad00;
+  --color-warning-500: #c19100;
+  --color-warning-600: #9a7300;
+  --color-warning-700: #765700;
+  --color-warning-800: #563e00;
+  --color-warning-900: #1c1200;
   --color-bg: #f7f6fd;
   --color-surface: #e8e7ef;
   --color-text: #141318;
@@ -58,6 +76,10 @@
   --color-on-tertiary: #ffffff;
   --color-error: #b4271f;
   --color-on-error: #ffffff;
+  --color-success: #006e14;
+  --color-on-success: #ffffff;
+  --color-warning: #795900;
+  --color-on-warning: #ffffff;
   --font-family: "Roboto";
   --font-family-code: "Roboto Mono";
   --font-display-large-size: 57px;
@@ -217,6 +239,24 @@
   --color-error-700: #ffbcb1;
   --color-error-800: #ffd3cc;
   --color-error-900: #ffe9e6;
+  --color-success-100: #001d02;
+  --color-success-200: #002903;
+  --color-success-300: #003706;
+  --color-success-400: #00530d;
+  --color-success-500: #4fb253;
+  --color-success-600: #69cb6b;
+  --color-success-700: #7fe281;
+  --color-success-800: #90f391;
+  --color-success-900: #b9ffb8;
+  --color-warning-100: #211600;
+  --color-warning-200: #2d1f00;
+  --color-warning-300: #3d2b00;
+  --color-warning-400: #5b4300;
+  --color-warning-500: #c89600;
+  --color-warning-600: #e6ad00;
+  --color-warning-700: #ffc322;
+  --color-warning-800: #ffd886;
+  --color-warning-900: #ffecc5;
   --color-bg: #18171c;
   --color-surface: #222126;
   --color-text: #eeedf4;
@@ -229,6 +269,10 @@
   --color-on-tertiary: #2f091c;
   --color-error: #ffbcb1;
   --color-on-error: #3a0000;
+  --color-success: #7fe281;
+  --color-on-success: #001d02;
+  --color-warning: #ffc322;
+  --color-on-warning: #211600;
 }
 
 .compact {
