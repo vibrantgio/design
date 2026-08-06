@@ -51,8 +51,8 @@ both modes, labelled `L` and `D`.
 | `--density-<metric>` | `--density-control-height`, `--density-padding-x`, `--density-padding-y`, `--density-min-hit-target` | control metrics, px; `:root` is comfortable, `.compact` overrides all but the hit-target floor |
 | `--space-<key>` | `--space-0`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24` | the 4-pt spacing grid, px |
 | `--radius-<key>` | `--radius-none`, `--radius-sm`, `--radius-base`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-3xl`, `--radius-full` | corner radii, Tailwind naming, px |
-| `--elevation-<level>` | `--elevation-0`, `--elevation-1`, `--elevation-2`, `--elevation-3`, `--elevation-4`, `--elevation-5` | tonal surface fills — the DEFAULT elevation cue; `var()` references into the neutral ramp (level 0 is the bg pin), so they flip with `.dark` |
-| `--shadow-<level>` | `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3`, `--shadow-4`, `--shadow-5` | dp box-shadows — the OPT-IN cue for floating transients (menus, dialogs, tooltips) layered over the tonal fill; resting surfaces use the fill alone |
+| `--elevation-<level>` | `--elevation-0`, `--elevation-1`, `--elevation-2`, `--elevation-3` | tonal surface fills — the DEFAULT elevation cue; `var()` references into the neutral ramp (level 0 is the bg pin), so they flip with `.dark` |
+| `--shadow-<level>` | `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the OPT-IN cue for floating transients (menus, dialogs, tooltips) layered over the tonal fill; resting surfaces use the fill alone |
 | `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | MD3 easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for MD3's two-segment path |
 | `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | MD3-pinned duration stops, ms; the reduce-motion variant zeroes them |
 
@@ -75,8 +75,8 @@ solid walk one and two steps from the pin toward 900.
 
 Elevation is tonal (E2.1): a raised surface separates from its ground by
 colour, one neutral-ramp step per storey — level 0 is the bg pin over the
-step-100 ground, levels 1–3 fill with neutral 200/300/400, and levels 4–5
-clamp to level 3's step (desktop has no six-storey stack). `--elevation-N`
+step-100 ground and levels 1–3 fill with neutral 200/300/400. The ladder
+stops at 3: desktop has no six-storey stack. `--elevation-N`
 is that surface fill and the **default** cue; because the light and dark
 ramps are paired scales, the same level reads as raised in both modes with
 no mode-specific rule. The dp shadow is the **opt-in** secondary cue,
