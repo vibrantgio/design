@@ -27,6 +27,9 @@ it by hand — regenerate it.
 - `foundations/color.html` — every ramp, pin, step purpose and measured
   APCA Lc / WCAG ratio per text pair, in both modes.
 - `foundations/type.html` — every type role at its real metrics.
+- `fonts/` — the faces behind `--font-family` and `--font-family-code`,
+  self-hosted with their licences: the same Roboto regular and medium the
+  Gio applications embed, and Roboto Mono from the font repository.
 - `foundations/layout.html` — the spacing scale, the control metrics at both
   density settings, the radius scale and tonal elevation as rendered
   specimens.
