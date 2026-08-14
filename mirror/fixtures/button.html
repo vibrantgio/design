@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- Harness calibration fixture (design/mirror, G1.1) — NOT part of the
+     published bundle. A faithful HTML mirror of components/button's filled
+     button in its normal state, built from the published styles.css tokens
+     and the same Roboto faces the Gio side pins, sized to fill the
+     220×36 viewport exactly as the Gio render fills its window. -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  @font-face { font-family: Roboto; font-weight: 400; src: url(/fonts/roboto-regular.ttf); }
+  @font-face { font-family: Roboto; font-weight: 500; src: url(/fonts/roboto-medium.ttf); }
+  html, body { margin: 0; }
+  body { background: var(--color-bg); }
+  .btn {
+    box-sizing: border-box;
+    width: 220px;
+    height: var(--density-control-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    border-radius: var(--radius-md);
+    font-family: Roboto;
+    font-size: var(--font-label-large-size);
+    line-height: var(--font-label-large-line-height);
+    font-weight: var(--font-label-large-weight);
+    letter-spacing: var(--font-label-large-tracking);
+  }
+</style>
+<div class="btn">Save Changes</div>
