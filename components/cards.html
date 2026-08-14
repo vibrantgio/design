@@ -1,0 +1,189 @@
+<!-- @dsCard group="Components" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cards &amp; elevation — Vibrant Gio components</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family), system-ui, sans-serif;
+  font-size: var(--font-body-medium-size);
+  line-height: var(--font-body-medium-line-height);
+  letter-spacing: var(--font-body-medium-tracking);
+}
+main {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-6) var(--space-16);
+}
+h1 {
+  font-size: var(--font-headline-large-size);
+  line-height: var(--font-headline-large-line-height);
+  font-weight: var(--font-headline-large-weight);
+  letter-spacing: var(--font-headline-large-tracking);
+  margin: var(--space-6) 0 var(--space-2);
+}
+h2 {
+  font-size: var(--font-title-large-size);
+  line-height: var(--font-title-large-line-height);
+  font-weight: var(--font-title-large-weight);
+  letter-spacing: var(--font-title-large-tracking);
+  margin: var(--space-10) 0 var(--space-3);
+}
+.intro {
+  max-width: 48rem;
+  color: var(--color-neutral-700);
+}
+.annot {
+  font-size: var(--font-label-small-size);
+  line-height: var(--font-label-small-line-height);
+  font-weight: var(--font-label-small-weight);
+  letter-spacing: var(--font-label-small-tracking);
+  color: var(--color-neutral-700);
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-5);
+  padding: var(--space-4);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+.cell .card { width: 17.5rem; }
+/* Slot typography is the content's, not the card's — the Gio card draws no
+   text of its own. These are this page's example slots: a title-medium
+   header, a body-medium body in the low-contrast step, a label-medium
+   footer in the accent pin. */
+.card-title {
+  font-size: var(--font-title-medium-size);
+  line-height: var(--font-title-medium-line-height);
+  font-weight: var(--font-title-medium-weight);
+  letter-spacing: var(--font-title-medium-tracking);
+}
+.card-body {
+  margin: 0;
+  color: var(--color-neutral-700);
+}
+.card-footer {
+  font-size: var(--font-label-medium-size);
+  line-height: var(--font-label-medium-line-height);
+  font-weight: var(--font-label-medium-weight);
+  letter-spacing: var(--font-label-medium-tracking);
+  color: var(--color-accent);
+}
+.storey {
+  width: 8.75rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-title-medium-weight);
+}
+.dark.row {
+  background: var(--color-surface);
+  border-color: var(--color-divider);
+  color: var(--color-text);
+}
+</style>
+</head>
+<body>
+<main>
+<h1>Cards &amp; elevation</h1>
+<p class="intro">The card is <code>.card</code> — a rounded surface container raised in place by <strong>tonal elevation</strong>: a raised surface separates from its ground by colour, one neutral-ramp step per storey, never by a cast shadow, because a card cannot float or leave. The default card fills at <code>--elevation-1</code> under a 1&nbsp;px <code>neutral-500</code> strong stroke; <code>.card.elevated</code> trades the stroke for one storey deeper, <code>--elevation-2</code>. Geometry is <code>--radius-lg</code> corners, a <code>--space-4</code> inset and <code>--space-3</code> gaps between the stacked slots. A card styles no text of its own — header, body and footer are ordinary content whose typography you choose.</p>
+
+<section>
+<h2>Outlined — <code>.card</code></h2>
+<p class="intro">The default variant: the level-1 fill with the strong border. It sits one storey above the app's <code>--color-bg</code> ground.</p>
+<div class="row" style="background: var(--color-bg)">
+<div class="cell">
+<div class="card">
+<div class="card-title">Density</div>
+<p class="card-body">Comfortable and Compact set the control height and the padding around it.</p>
+<div class="card-footer">Read the token</div>
+</div>
+<span class="annot">header + body + footer</span>
+</div>
+<div class="cell">
+<div class="card">
+<div class="card-title">Header only</div>
+</div>
+<span class="annot">a lone slot is not padded for the missing two</span>
+</div>
+</div>
+</section>
+
+<section>
+<h2>Elevated — <code>.card.elevated</code></h2>
+<p class="intro">One storey deeper: the level-2 fill, no stroke — and no shadow. Shadows are reserved for surfaces that float and can leave; a card is raised, not floating.</p>
+<div class="row" style="background: var(--color-bg)">
+<div class="cell">
+<div class="card elevated">
+<div class="card-title">Density</div>
+<p class="card-body">Comfortable and Compact set the control height and the padding around it.</p>
+<div class="card-footer">Read the token</div>
+</div>
+<span class="annot">elevated</span>
+</div>
+</div>
+</section>
+
+<section>
+<h2>The elevation ladder</h2>
+<p class="intro">Each step is a surface fill: <code>--elevation-0</code> is the bg pin, levels 1&ndash;3 are neutral steps 200/300/400, resolved as <code>var()</code> references into the ramp so they flip with dark mode. The ladder stops at 3 &mdash; desktop has no six-storey stack. The card lives at 1 and 2.</p>
+<div class="row" style="background: var(--color-neutral-100)">
+<div class="cell"><div class="storey" style="background: var(--elevation-0)">0</div><span class="annot"><code>--elevation-0</code> &middot; bg pin</span></div>
+<div class="cell"><div class="storey" style="background: var(--elevation-1)">1</div><span class="annot"><code>--elevation-1</code> &middot; <code>.card</code></span></div>
+<div class="cell"><div class="storey" style="background: var(--elevation-2)">2</div><span class="annot"><code>--elevation-2</code> &middot; <code>.card.elevated</code></span></div>
+<div class="cell"><div class="storey" style="background: var(--elevation-3)">3</div><span class="annot"><code>--elevation-3</code></span></div>
+</div>
+</section>
+
+<section>
+<h2>The opt-in shadow</h2>
+<p class="intro">The dp shadows survive as <code>--shadow-N</code> for <strong>floating transients only</strong> &mdash; menus, dialogs, toasts, tooltips: a float adds <code>box-shadow: var(--shadow-N)</code> on top of its tonal fill. Resting surfaces &mdash; and every card &mdash; use the fill alone.</p>
+<div class="row" style="background: var(--color-neutral-100)">
+<div class="cell"><div class="storey" style="background: var(--elevation-1); box-shadow: var(--shadow-1)">1</div><span class="annot"><code>--shadow-1</code> &middot; depth 1dp</span></div>
+<div class="cell"><div class="storey" style="background: var(--elevation-2); box-shadow: var(--shadow-2)">2</div><span class="annot"><code>--shadow-2</code> &middot; depth 3dp</span></div>
+<div class="cell"><div class="storey" style="background: var(--elevation-3); box-shadow: var(--shadow-3)">3</div><span class="annot"><code>--shadow-3</code> &middot; depth 6dp</span></div>
+</div>
+</section>
+
+<section>
+<h2>Dark mode</h2>
+<p class="intro">Nothing here is mode-specific: a <code>class="dark"</code> wrapper flips the colour variables, and because <code>--elevation-N</code> is a reference into the neutral ramp, every storey flips with them.</p>
+<div class="row dark">
+<div class="cell">
+<div class="card">
+<div class="card-title">Density</div>
+<p class="card-body">Comfortable and Compact set the control height and the padding around it.</p>
+<div class="card-footer">Read the token</div>
+</div>
+<span class="annot">outlined</span>
+</div>
+<div class="cell">
+<div class="card elevated">
+<div class="card-title">Density</div>
+<p class="card-body">Comfortable and Compact set the control height and the padding around it.</p>
+<div class="card-footer">Read the token</div>
+</div>
+<span class="annot">elevated</span>
+</div>
+</div>
+</section>
+</main>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- G2.2 mirror fixture (design/mirror) — NOT part of the published bundle.
+     patterns/card's Elevated variant: the published sheet's .card.elevated —
+     one storey deeper (level-2 fill), no stroke, no shadow (E2.2's verdict).
+     Same slot trio as card.html. -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-bg); font-family: var(--font-family); }
+  .card { width: 280px; height: 200px; }
+  .slot-h {
+    font-size: var(--font-title-medium-size);
+    line-height: var(--font-title-medium-line-height);
+    font-weight: var(--font-title-medium-weight);
+    letter-spacing: var(--font-title-medium-tracking);
+    color: var(--color-text);
+  }
+  .slot-b {
+    font-size: var(--font-body-medium-size);
+    line-height: var(--font-body-medium-line-height);
+    font-weight: var(--font-body-medium-weight);
+    letter-spacing: var(--font-body-medium-tracking);
+    color: var(--color-neutral-700);
+  }
+  .slot-f {
+    font-size: var(--font-label-medium-size);
+    line-height: var(--font-label-medium-line-height);
+    font-weight: var(--font-label-medium-weight);
+    letter-spacing: var(--font-label-medium-tracking);
+    color: var(--color-accent);
+  }
+</style>
+<div class="card elevated">
+<div class="slot-h">Density</div>
+<div class="slot-b">Comfortable and Compact</div>
+<div class="slot-f">Read the token</div>
+</div>

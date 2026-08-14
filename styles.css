@@ -307,12 +307,13 @@
   --density-padding-y: 6px;
 }
 
-/* ---- Component classes (G1.2, forms and tags G2.1) ----
+/* ---- Component classes (G1.2, forms and tags G2.1, card and table G2.2) ----
    The class vocabulary, built only on the tokens above. .btn mirrors
    components/button: filled by default, .tonal and .ghost the emphasis
    modifiers, states resolved as ADR-007 ramp walks from the same rungs the
    Gio side draws. .input/.select/.checkbox/.radio mirror components/input,
-   .tag the chip patterns/pricing and patterns/hero draw. The focus ring is
+   .tag the chip patterns/pricing and patterns/hero draw, .card the
+   patterns/card surface and .table the patterns/table grid. The focus ring is
    identical in every register: keyboard visibility is not an emphasis
    property. Each state rule carries a forcing twin class (.is-hover,
    .is-active, .is-focus, .is-checked) so a static page can show the state
@@ -571,3 +572,93 @@
   border-color: color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent);
   background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent) 5px, color-mix(in srgb, var(--color-surface) var(--state-disabled-opacity), transparent) 5px);
 }
+
+/* ---- Card (G2.2) ----
+   patterns/card: a rounded surface raised in place by tonal step alone
+   (ADR-007, E2.2's verdict) — no cast shadow in either variant, because a
+   card is raised, not floating; the dp shadows stay reserved for surfaces
+   that can leave (menus, dialogs, toasts). The default outlined card fills
+   at level 1 (--elevation-1, the neutral-200 storey) under a 1 dp neutral
+   500 strong stroke; .elevated trades the stroke for one storey deeper
+   (--elevation-2, neutral 300). Radius Lg, an S4 inset, S3 gaps between the
+   slots — exactly drawCard's rad.Lg / sp.S4 / sp.S3. The Gio stroke is
+   centred on the card's edge while the CSS border lies inside it, so the
+   outlined padding gives back the border's 1px and the slots land where the
+   Gio inset puts them. The card styles no slot text of its own: the Gio
+   card draws no text, so slot typography belongs to the content. */
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: calc(var(--space-4) - 1px);
+  border: 1px solid var(--color-neutral-500);
+  border-radius: var(--radius-lg);
+  background: var(--elevation-1);
+  color: var(--color-text);
+}
+.card.elevated {
+  padding: var(--space-4);
+  border: none;
+  background: var(--elevation-2);
+}
+
+/* ---- Table (G2.2) ----
+   patterns/table: the whole grid grounds on the Surface pin (drawTable);
+   the header band fills neutral 300 under neutral 700 label-large text
+   (drawHeaderRow / drawHeaderCell). Header and body rows are each exactly
+   one control height tall — the E1.4 row rule (list.RowHeight), so .compact
+   re-pitches the whole grid — and every row closes with a 1 dp Divider rule
+   drawn inside its height. Cells inset horizontally by S3 (cellPadDp,
+   12 dp — static, the E1.3 input rule); body text is body-medium at the
+   Text pin (RenderTextCell). There is no zebra: rows separate by the rules
+   alone. Sort is a 10x5 dp chevron in neutral 700 at the header's right
+   inset (drawSortChevron), drawn on the active column only — .sort-asc /
+   .sort-desc on a .sortable header. */
+.table {
+  box-sizing: border-box;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  width: 100%;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: var(--font-body-medium-size);
+  line-height: var(--font-body-medium-line-height);
+  font-weight: var(--font-body-medium-weight);
+  letter-spacing: var(--font-body-medium-tracking);
+}
+.table th, .table td {
+  box-sizing: border-box;
+  height: var(--density-control-height);
+  padding: 0 var(--space-3);
+  border-bottom: 1px solid var(--color-divider);
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.table th {
+  position: relative;
+  background: var(--color-neutral-300);
+  color: var(--color-neutral-700);
+  font-size: var(--font-label-large-size);
+  line-height: var(--font-label-large-line-height);
+  font-weight: var(--font-label-large-weight);
+  letter-spacing: var(--font-label-large-tracking);
+}
+.table th.sortable { cursor: pointer; }
+.table th.sort-asc::after, .table th.sort-desc::after {
+  content: "";
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;  /* 10 dp chevron width */
+  border-right: 5px solid transparent;
+}
+.table th.sort-asc::after { border-bottom: 5px solid var(--color-neutral-700); }  /* 5 dp tall, apex up */
+.table th.sort-desc::after { border-top: 5px solid var(--color-neutral-700); }

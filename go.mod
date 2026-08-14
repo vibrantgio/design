@@ -8,6 +8,7 @@ require (
 	github.com/chromedp/cdproto v0.0.0-20250724212937-08a3db8b4327
 	github.com/chromedp/chromedp v0.14.2
 	github.com/vibrantgio/components v0.7.0
+	github.com/vibrantgio/patterns v0.6.0
 	github.com/vibrantgio/theme v0.6.0
 )
 

@@ -1,0 +1,25 @@
+<!doctype html>
+<!-- G2.2 mirror fixture (design/mirror) — NOT part of the published bundle.
+     patterns/table at TestTableGolden's light-comfortable configuration: the
+     published sheet's own .table class, three columns (ID pinned 80px
+     sortable and sorted ascending, Name flexed sortable, Steps pinned 96px),
+     four rows. The Gio reference fills its whole 360x200 viewport with the
+     Surface pin before drawing the grid, so the body ground below the last
+     row is Surface here too. -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-surface); }
+  .table { width: 360px; }
+</style>
+<table class="table">
+<colgroup><col style="width: 80px"><col><col style="width: 96px"></colgroup>
+<thead><tr><th class="sortable sort-asc">ID</th><th class="sortable">Name</th><th>Steps</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Tokens</td><td>4</td></tr>
+<tr><td>2</td><td>Density</td><td>8</td></tr>
+<tr><td>3</td><td>Elevation</td><td>12</td></tr>
+<tr><td>4</td><td>Motion</td><td>16</td></tr>
+</tbody>
+</table>
