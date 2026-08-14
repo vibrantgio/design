@@ -16,6 +16,7 @@ func TestBundleCarriesTheSixUploadedPaths(t *testing.T) {
 		"foundations/layout.html",
 		"components/buttons.html",
 		"components/cards.html",
+		"components/dialog.html",
 		"components/forms.html",
 		"components/navigation.html",
 		"components/table.html",

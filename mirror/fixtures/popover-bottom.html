@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- G2.4 mirror fixture (design/mirror) — NOT part of the published bundle.
+     patterns/popover at the bottom-light golden's configuration: the
+     published sheet's .popover + .popover-tail.bottom under a 60x28 anchor
+     stand-in (the goldens' specimen blue) centred in the 320x240 canvas.
+     Geometry mirrors drawPopover: anchor centred (130,106), surface centred
+     on the anchor midline one S2 gap (8px) below it (top 142), the 12x6
+     tail bridging the gap with its tip at the anchor edge (top 136). The
+     content is the goldens' "Sort ascending" line in body-medium at the
+     Text pin — content typography is the caller's, so the fixture carries
+     it. -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  html, body { margin: 0; }
+  body { position: relative; background: var(--color-bg); width: 320px; height: 240px; }
+  .anchor { position: absolute; left: 130px; top: 106px; width: 60px; height: 28px; background: #50a0dc; }
+  .popover {
+    position: absolute;
+    left: 50%;
+    top: 142px;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: var(--font-body-medium-size);
+    line-height: var(--font-body-medium-line-height);
+    font-weight: var(--font-body-medium-weight);
+    letter-spacing: var(--font-body-medium-tracking);
+  }
+  .popover-tail { position: absolute; left: 50%; margin-left: -6px; top: 136px; }
+</style>
+<div class="anchor"></div>
+<div class="popover-tail bottom"></div>
+<div class="popover">Sort ascending</div>

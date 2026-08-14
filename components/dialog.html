@@ -1,0 +1,286 @@
+<!-- @dsCard group="Components" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overlays — Vibrant Gio components</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family), system-ui, sans-serif;
+  font-size: var(--font-body-medium-size);
+  line-height: var(--font-body-medium-line-height);
+  letter-spacing: var(--font-body-medium-tracking);
+}
+main {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-6) var(--space-16);
+}
+h1 {
+  font-size: var(--font-headline-large-size);
+  line-height: var(--font-headline-large-line-height);
+  font-weight: var(--font-headline-large-weight);
+  letter-spacing: var(--font-headline-large-tracking);
+  margin: var(--space-6) 0 var(--space-2);
+}
+h2 {
+  font-size: var(--font-title-large-size);
+  line-height: var(--font-title-large-line-height);
+  font-weight: var(--font-title-large-weight);
+  letter-spacing: var(--font-title-large-tracking);
+  margin: var(--space-10) 0 var(--space-3);
+}
+.intro {
+  max-width: 48rem;
+  color: var(--color-neutral-700);
+}
+.annot {
+  font-size: var(--font-label-small-size);
+  line-height: var(--font-label-small-line-height);
+  font-weight: var(--font-label-small-weight);
+  letter-spacing: var(--font-label-small-tracking);
+  color: var(--color-neutral-700);
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-5);
+  padding: var(--space-4);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+}
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+/* A stage: a window-in-miniature the scrimmed specimens composite over.
+   .scrim is position:absolute against it, exactly as the pattern's scrim
+   is against its window canvas. The stage floor is app content at the
+   level-1 storey, so the scrim visibly dims something. */
+.stage {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 30rem;
+  height: 16rem;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+}
+.stage .floor {
+  position: absolute;
+  inset: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--elevation-1);
+}
+/* Anchored specimens (popover, tooltip, toast) sit on a shallower stage
+   with no scrim. */
+.stage.shallow { height: 11rem; }
+.anchor-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: var(--font-label-large-size);
+  line-height: var(--font-label-large-line-height);
+  font-weight: var(--font-label-large-weight);
+  letter-spacing: var(--font-label-large-tracking);
+}
+.hover-col {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.dialog-body { margin: 0; }
+.dark.row {
+  background: var(--color-bg);
+  border-color: var(--color-divider);
+  color: var(--color-text);
+}
+</style>
+</head>
+<body>
+<main>
+<h1>Overlays</h1>
+<p class="intro">The transient surfaces: the scrimmed <strong>dialog</strong> (<code>.scrim</code> + <code>.dialog</code>), the anchored <strong>popover</strong> (<code>.popover</code> + <code>.popover-tail</code>), the inverse-video <strong>tooltip</strong> (<code>.tooltip</code>) and the floating <strong>toast</strong> (<code>.toast</code>, stacked in a <code>.toast-stack</code>). The elevation grammar separates them: a scrimmed dialog sits at <code>--elevation-2</code> because the scrim, not the fill, isolates it; the unscrimmed, shadowless popover separates by fill alone and takes the deepest <code>--elevation-3</code>; the toast floats and can leave, so it alone keeps a cast shadow (<code>--shadow-3</code>) over its tinted level-2 base; the tooltip takes no storey at all — it inverts, Text ground under a Surface label, the stronger cue at that size.</p>
+
+<section>
+<h2>The decision dialog</h2>
+<p class="intro">A <strong>decision</strong> is a question you must answer. It mandates right-aligned footer actions in a <code>.dialog-footer</code> ending in the default that answers <kbd>Return</kbd>, binds <kbd>Escape</kbd> to Cancel, and shows <strong>no close X anywhere</strong>. <strong>Its scrim is inert</strong>: the backdrop absorbs every press and answers none of them, because dismissal is itself one of the answers and a stray click must not give it. When the primary is destructive — as here — the Return-bound default moves to Cancel: Return may never reach a destructive action.</p>
+<div class="row">
+<div class="cell">
+<div class="stage">
+<div class="floor"></div>
+<div class="scrim">
+<div class="dialog">
+<div class="dialog-header"><div class="dialog-title">Discard changes?</div></div>
+<p class="dialog-body">Your edits to this document have not been saved.</p>
+<div class="dialog-footer">
+<button class="btn ghost">Cancel</button>
+<button class="btn">Discard</button>
+</div>
+</div>
+</div>
+</div>
+<span class="annot">decision &middot; inert scrim &middot; no X &middot; Return answers Cancel (destructive primary)</span>
+</div>
+</div>
+</section>
+
+<section>
+<h2>The dismissable panel</h2>
+<p class="intro">A <strong>panel</strong> is a place you opened and can leave. It mandates a ghost close X top-right (<code>.btn.ghost.icon</code> in the <code>.dialog-header</code>), a scrim click that dismisses, and <kbd>Escape</kbd> likewise; it claims no keys of its own — <kbd>Return</kbd> belongs to whatever holds focus inside it. A panel has no footer: its changes apply live, which is what makes leaving free.</p>
+<div class="row">
+<div class="cell">
+<div class="stage">
+<div class="floor"></div>
+<div class="scrim">
+<div class="dialog">
+<div class="dialog-header">
+<div class="dialog-title">Preferences</div>
+<button class="btn ghost icon" aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="14" y2="14"/><line x1="14" y1="6" x2="6" y2="14"/></svg></button>
+</div>
+<p class="dialog-body">Changes apply live; close whenever you are done.</p>
+</div>
+</div>
+</div>
+<span class="annot">panel &middot; ghost X &middot; scrim click and Escape both close</span>
+</div>
+</div>
+</section>
+
+<section>
+<h2>The focus-trapped state</h2>
+<p class="intro">While a dialog is open, focus is trapped: <kbd>Tab</kbd> and <kbd>Shift+Tab</kbd> cycle only the dialog's own focusables — the close X first, then the footer actions — and never reach the content under the scrim. Each focusable draws its own ring; the dialog wraps and decorates nothing. Shown with the forcing twin <code>.is-focus</code>, which shares the live <code>:focus-visible</code> declarations.</p>
+<div class="row">
+<div class="cell">
+<div class="stage">
+<div class="floor"></div>
+<div class="scrim">
+<div class="dialog">
+<div class="dialog-header">
+<div class="dialog-title">Preferences</div>
+<button class="btn ghost icon is-focus" aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="14" y2="14"/><line x1="14" y1="6" x2="6" y2="14"/></svg></button>
+</div>
+<p class="dialog-body">Initial focus lands on the close affordance.</p>
+</div>
+</div>
+</div>
+<span class="annot">focus trapped &middot; the ring is the focused control's own</span>
+</div>
+</div>
+</section>
+
+<section>
+<h2>Popover</h2>
+<p class="intro">The unscrimmed anchored surface: content plus a <code>--space-3</code> inset over the deepest level-3 fill with the 1&nbsp;px <code>neutral-500</code> stroke, radius <code>--radius-md</code>, and a <code>.popover-tail</code> — a 12&times;6&nbsp;px triangle in the surface's own fill — bridging the <code>--space-2</code> gap to the anchor. The tail modifier names the placement: a <code>.top</code> popover sits above its anchor, tail pointing down. No shadow: an unscrimmed transient separates by fill alone.</p>
+<div class="row">
+<div class="cell">
+<div class="stage shallow">
+<div class="hover-col" style="top: var(--space-6)">
+<div class="popover">Sort ascending</div>
+<div class="popover-tail top"></div>
+<div style="height: var(--space-2)"></div>
+<span class="anchor-chip">Column</span>
+</div>
+</div>
+<span class="annot">placement top &middot; <code>.popover</code> + <code>.popover-tail.top</code></span>
+</div>
+<div class="cell">
+<div class="stage shallow">
+<div class="hover-col" style="top: var(--space-6)">
+<span class="anchor-chip">Column</span>
+<div style="height: var(--space-2)"></div>
+<div class="popover-tail bottom"></div>
+<div class="popover">Sort ascending</div>
+</div>
+</div>
+<span class="annot">placement bottom &middot; <code>.popover-tail.bottom</code></span>
+</div>
+</div>
+</section>
+
+<section>
+<h2>Tooltip</h2>
+<p class="intro">The inverse-video bubble: <code>--color-text</code> as ground under a label in <code>--color-surface</code>, <code>label-small</code> metrics, radius <code>--radius-sm</code>, <code>--space-2</code>/<code>--space-1</code> padding, one <code>--space-1</code> gap from its trigger. It takes no elevation storey and no shadow — at tooltip size, inversion is the whole cue. It appears after a dwell and only one is visible per window.</p>
+<div class="row">
+<div class="cell">
+<div class="stage shallow">
+<div class="hover-col" style="top: var(--space-8)">
+<div class="tooltip">Save</div>
+<div style="height: var(--space-1)"></div>
+<span class="anchor-chip">Save</span>
+</div>
+</div>
+<span class="annot">shown above its trigger after the dwell</span>
+</div>
+</div>
+</section>
+
+<section>
+<h2>Toast</h2>
+<p class="intro">One queued notification: 240&nbsp;px wide with a 36&nbsp;px legibility floor that deliberately does not follow density — a toast is a message, not a control — <code>label-medium</code> text over a level-2 base tinted 20% with the level accent, ringed by the accent outline, and floating on <code>--shadow-3</code>: the one overlay that keeps its cast shadow, because on dark grounds the shadow is what separates it. Level modifiers <code>.success</code>, <code>.warning</code>, <code>.error</code> swap the accent; the default is info on the accent pin. Toasts stack in a corner-anchored <code>.toast-stack</code>, newest nearest the anchored edge.</p>
+<div class="row">
+<div class="cell">
+<div class="toast-stack">
+<div class="toast warning">Connection is slow</div>
+<div class="toast success">Workspace saved</div>
+<div class="toast">Syncing tokens</div>
+</div>
+<span class="annot">top-anchored stack &middot; newest first</span>
+</div>
+<div class="cell">
+<div class="toast error">Upload failed</div>
+<span class="annot"><code>.toast.error</code></span>
+</div>
+</div>
+</section>
+
+<section>
+<h2>Dark mode</h2>
+<p class="intro">Nothing here is mode-specific except the scrim, which deliberately never flips: <code>--color-scrim</code> is black at 50% alpha in both modes, because a scrim dims by reducing luminance. Every fill, stroke and tint is a token reference, so a <code>class="dark"</code> wrapper flips the lot.</p>
+<div class="row dark">
+<div class="cell">
+<div class="stage">
+<div class="floor"></div>
+<div class="scrim">
+<div class="dialog">
+<div class="dialog-header">
+<div class="dialog-title">Preferences</div>
+<button class="btn ghost icon" aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="14" y2="14"/><line x1="14" y1="6" x2="6" y2="14"/></svg></button>
+</div>
+<p class="dialog-body">Changes apply live; close whenever you are done.</p>
+</div>
+</div>
+</div>
+<span class="annot">panel over the dark ground</span>
+</div>
+<div class="cell">
+<div class="toast warning">Connection is slow</div>
+<span class="annot">the shadow separates it here</span>
+</div>
+<div class="cell">
+<div class="tooltip">Save</div>
+<span class="annot">inversion flips with the pins</span>
+</div>
+</div>
+</section>
+</main>
+</body>
+</html>

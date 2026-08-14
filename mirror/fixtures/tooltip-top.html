@@ -1,0 +1,18 @@
+<!doctype html>
+<!-- G2.4 mirror fixture (design/mirror) — NOT part of the published bundle.
+     patterns/tooltip at the light-shown-top golden's configuration: the
+     published sheet's inverse-video .tooltip above a 60x28 trigger stand-in
+     (the goldens' specimen blue) centred in the 320x240 canvas. Geometry
+     mirrors drawSurface: trigger centred (130,106), bubble centred on the
+     trigger midline one S1 gap (4px) above it — bubble height 24 (the
+     label-small line box plus 2*S1), so top 78. -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  html, body { margin: 0; }
+  body { position: relative; background: var(--color-bg); width: 320px; height: 240px; }
+  .trigger { position: absolute; left: 130px; top: 106px; width: 60px; height: 28px; background: #50a0dc; }
+  .tooltip { position: absolute; left: 50%; top: 78px; transform: translateX(-50%); }
+</style>
+<div class="trigger"></div>
+<div class="tooltip">Save</div>

@@ -1,0 +1,21 @@
+<!doctype html>
+<!-- G2.4 mirror fixture (design/mirror) — NOT part of the published bundle.
+     patterns/toast at the light-three-stacked golden's configuration: the
+     published sheet's .toast-stack anchored TopRight — inset S4 (16px) from
+     the canvas edges, exactly paintStack's edgePad — carrying the three
+     level messages toast_test.go shapes, newest (Warning) nearest the
+     anchored top edge. The scene composites over the Surface pin, as the
+     toast goldens do, so the tinted level-2 fills are read against the
+     ground app panes are painted with. -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  html, body { margin: 0; }
+  body { position: relative; background: var(--color-surface); width: 320px; height: 240px; }
+  .toast-stack { position: absolute; top: 16px; right: 16px; }
+</style>
+<div class="toast-stack">
+  <div class="toast warning">Connection is slow</div>
+  <div class="toast success">Workspace saved</div>
+  <div class="toast">Syncing tokens</div>
+</div>
