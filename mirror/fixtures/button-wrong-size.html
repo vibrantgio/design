@@ -1,30 +1,20 @@
 <!doctype html>
 <!-- Harness calibration fixture (design/mirror, G1.1) — deliberately WRONG:
-     compact density metrics (28px control height) where the Gio reference
-     renders Comfortable (36px). The harness must score this ABOVE Tolerance
-     against the correct Gio render. -->
+     the sheet's own .btn class (as button.html wears it) forced to the
+     compact control height (28px) where the Gio reference renders
+     Comfortable (36px). Both height and min-height are overridden because
+     the class floors its height at --density-control-height, which would
+     otherwise silently correct this fixture. The harness must score it
+     ABOVE Tolerance against the correct Gio render. -->
 <meta charset="utf-8">
 <link rel="stylesheet" href="/styles.css">
 <style>
-  @font-face { font-family: Roboto; font-weight: 400; src: url(/fonts/roboto-regular.ttf); }
-  @font-face { font-family: Roboto; font-weight: 500; src: url(/fonts/roboto-medium.ttf); }
   html, body { margin: 0; }
   body { background: var(--color-bg); }
   .btn {
-    box-sizing: border-box;
     width: 220px;
     height: 28px; /* wrong: .compact metrics under a Comfortable reference */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-accent);
-    color: var(--color-on-accent);
-    border-radius: var(--radius-md);
-    font-family: Roboto;
-    font-size: var(--font-label-large-size);
-    line-height: var(--font-label-large-line-height);
-    font-weight: var(--font-label-large-weight);
-    letter-spacing: var(--font-label-large-tracking);
+    min-height: 28px;
   }
 </style>
-<div class="btn">Save Changes</div>
+<button class="btn">Save Changes</button>

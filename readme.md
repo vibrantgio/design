@@ -21,7 +21,8 @@ it by hand — regenerate it.
   (the paired dark colours only) and one `.compact` class override block (the
   compact density metrics only). Add `class="dark"` to the root element to
   switch modes, `class="compact"` to any subtree to densify it; the two
-  switches are orthogonal.
+  switches are orthogonal. Below the token blocks sits the component class
+  layer (`.btn` and its modifiers) — see Component classes.
 - `theme.json` — the generative parameters; see the reproducibility contract
   below.
 - `foundations/color.html` — every ramp, pin, step purpose and measured
@@ -49,7 +50,7 @@ both modes, labelled `L` and `D`.
 | `--color-error-<step>` | `--color-error-100` … `--color-error-900` | the error ramp; steps in hundreds |
 | `--color-success-<step>` | `--color-success-100` … `--color-success-900` | the success ramp; steps in hundreds |
 | `--color-warning-<step>` | `--color-warning-100` … `--color-warning-900` | the warning ramp; steps in hundreds |
-| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-accent`, `--color-on-accent`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning` | pinned bases, their on-colours, and the ramp-resolved surface/divider |
+| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-accent`, `--color-on-accent`, `--color-accent-hover`, `--color-accent-pressed`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning` | pinned bases, their on-colours, and the ramp-resolved surface/divider |
 | `--font-family` | `--font-family` | the typeface every prose role uses |
 | `--font-family-code` | `--font-family-code` | the monospace typeface the code role uses |
 | `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small, code; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights; code is the mono style outside the MD3 grid, at body-medium's metrics |
@@ -60,6 +61,7 @@ both modes, labelled `L` and `D`.
 | `--shadow-<level>` | `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the OPT-IN cue for floating transients (menus, dialogs, tooltips) layered over the tonal fill; resting surfaces use the fill alone |
 | `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | MD3 easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for MD3's two-segment path |
 | `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | MD3-pinned duration stops, ms; the reduce-motion variant zeroes them |
+| interaction states | `--color-focus-ring`, `--focus-ring-width`, `--state-disabled-opacity` | the focus ring (neutral 500 by reference, so it flips with `.dark`; 2 px stroke) and the disabled fade fraction for `color-mix()` |
 
 ## Step purposes (ADR-007)
 
@@ -75,6 +77,25 @@ both modes, labelled `L` and `D`.
 
 The pinned base — not a ramp step — is the solid fill; hover and pressed on a
 solid walk one and two steps from the pin toward 900.
+
+## Component classes
+
+`styles.css` ends with the component class layer, defined entirely over the
+tokens above — no literal colours, sizes or radii — so it re-brands, flips
+to `.dark` and densifies to `.compact` with the sheet.
+
+`.btn` is the button, **filled** by default: the accent pin under its
+on-colour. Two modifier classes select the quieter emphasis registers —
+`.btn.tonal` (a tinted fill: primary 200 under primary 900 text) and
+`.btn.ghost` (no ground at rest; neutral 700 text). Interaction states
+resolve as the step walks above: hover walks one step (`:hover`), pressed
+and selected two (`:active`, `.selected`); a filled button's solid fill
+walks via the emitted `--color-accent-hover` / `--color-accent-pressed`
+stops. Keyboard focus (`:focus-visible`) keeps the resting fill and draws
+the ring — `--focus-ring-width` of `--color-focus-ring`, identical in every
+register. Disabled (`:disabled`) fades each colour to
+`--state-disabled-opacity` of its alpha. A ghost has no selected
+treatment: it stays quiet.
 
 ## Elevation: default vs opt-in
 

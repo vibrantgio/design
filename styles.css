@@ -89,6 +89,8 @@
   --color-divider: #d5d3db;
   --color-accent: #6750a4;
   --color-on-accent: #ffffff;
+  --color-accent-hover: #4d3586;
+  --color-accent-pressed: #23004f;
   --color-secondary: #605b76;
   --color-on-secondary: #ffffff;
   --color-tertiary: #7e5163;
@@ -210,6 +212,9 @@
   --duration-normal: 250ms;
   --duration-slow: 400ms;
   --duration-x-slow: 500ms;
+  --color-focus-ring: var(--color-neutral-500);
+  --focus-ring-width: 2px;
+  --state-disabled-opacity: 38%;
 }
 
 .dark {
@@ -282,6 +287,8 @@
   --color-divider: #2e2e33;
   --color-accent: #d0c4ff;
   --color-on-accent: #22004e;
+  --color-accent-hover: #dfd8ff;
+  --color-accent-pressed: #efecff;
   --color-secondary: #cec8e8;
   --color-on-secondary: #1a142b;
   --color-tertiary: #f2bed2;
@@ -298,4 +305,92 @@
   --density-control-height: 28px;
   --density-padding-x: 12px;
   --density-padding-y: 6px;
+}
+
+/* ---- Component classes (G1.2) ----
+   The class vocabulary, built only on the tokens above. .btn mirrors
+   components/button: filled by default, .tonal and .ghost the emphasis
+   modifiers, states resolved as ADR-007 ramp walks from the same rungs the
+   Gio side draws. The focus ring is identical in every register: keyboard
+   visibility is not an emphasis property. */
+
+.btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  appearance: none;
+  border: none;
+  margin: 0;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+  cursor: pointer;
+  min-height: var(--density-control-height);
+  padding: var(--density-padding-y) var(--density-padding-x);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: var(--font-label-large-size);
+  line-height: var(--font-label-large-line-height);
+  font-weight: var(--font-label-large-weight);
+  letter-spacing: var(--font-label-large-tracking);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+/* Filled states: the solid fill walks from the pin toward the ramp's 900
+   end (hover one rung, pressed and selected two) — the walked stops are
+   tokens, not mixes. */
+.btn:hover { background: var(--color-accent-hover); }
+.btn.selected { background: var(--color-accent-pressed); }
+.btn:active { background: var(--color-accent-pressed); }
+
+/* Keyboard focus keeps the resting fill and adds the ring — a stroke
+   centred on the control's edge, as the Gio side draws it. */
+.btn:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: calc(var(--focus-ring-width) / -2);
+}
+
+/* Disabled is an opacity, not a ramp step: each colour keeps its hue and
+   fades to the disabled fraction of its alpha. */
+.btn:disabled {
+  cursor: default;
+  background: color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent);
+  color: color-mix(in srgb, var(--color-on-accent) var(--state-disabled-opacity), transparent);
+}
+
+/* Tonal: a tinted fill off the role's own ramp — ground 200 under the
+   ramp's 900 text; hover walks one step, pressed and selected two. */
+.btn.tonal {
+  background: var(--color-primary-200);
+  color: var(--color-primary-900);
+}
+.btn.tonal:hover { background: var(--color-primary-300); }
+.btn.tonal.selected { background: var(--color-primary-400); }
+.btn.tonal:active { background: var(--color-primary-400); }
+.btn.tonal:disabled {
+  background: color-mix(in srgb, var(--color-primary-200) var(--state-disabled-opacity), transparent);
+  color: color-mix(in srgb, var(--color-primary-900) var(--state-disabled-opacity), transparent);
+}
+
+/* Ghost: no ground at rest — the neutral ramp's low-contrast text over
+   whatever surface it sits on; under the pointer it performs that
+   surface's own hover (300) and press (400), the text walking to 900 with
+   the ground. No selected treatment: a ghost stays quiet. */
+.btn.ghost {
+  background: transparent;
+  color: var(--color-neutral-700);
+}
+.btn.ghost:hover {
+  background: var(--color-neutral-300);
+  color: var(--color-neutral-900);
+}
+.btn.ghost:active {
+  background: var(--color-neutral-400);
+  color: var(--color-neutral-900);
+}
+.btn.ghost:disabled {
+  background: transparent;
+  color: color-mix(in srgb, var(--color-neutral-700) var(--state-disabled-opacity), transparent);
 }
