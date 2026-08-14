@@ -1,0 +1,26 @@
+<!doctype html>
+<!-- G2.3 mirror fixture (design/mirror) — NOT part of the published bundle.
+     patterns/breadcrumb at the breadcrumb goldens' light configuration: the
+     published sheet's own .crumbs classes, breadcrumb_test.go's trail
+     (Home / Design / Tokens), the last segment on the Text pin, on the
+     Background pin ground the Gio capture wraps the trail in. The trail
+     fills the 320x32 canvas the way the Gio capture does: layout.Exact
+     hands every Rigid segment the full 32 cross minimum, so the labels
+     draw their title-small line box at the top of the slot while the 12px
+     chevrons centre against the whole height — reproduced here by
+     top-aligning the .crumb segments inside a centred 32px row. -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-bg); }
+  .crumbs { width: 320px; height: 32px; }
+  .crumb { align-self: flex-start; }
+</style>
+<nav class="crumbs">
+  <a class="crumb" href="#">Home</a>
+  <span class="crumb-sep"></span>
+  <a class="crumb" href="#">Design</a>
+  <span class="crumb-sep"></span>
+  <span class="crumb">Tokens</span>
+</nav>

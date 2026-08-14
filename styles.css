@@ -307,13 +307,16 @@
   --density-padding-y: 6px;
 }
 
-/* ---- Component classes (G1.2, forms and tags G2.1, card and table G2.2) ----
+/* ---- Component classes (G1.2, forms and tags G2.1, card and table G2.2,
+   navigation G2.3) ----
    The class vocabulary, built only on the tokens above. .btn mirrors
    components/button: filled by default, .tonal and .ghost the emphasis
    modifiers, states resolved as ADR-007 ramp walks from the same rungs the
    Gio side draws. .input/.select/.checkbox/.radio mirror components/input,
    .tag the chip patterns/pricing and patterns/hero draw, .card the
-   patterns/card surface and .table the patterns/table grid. The focus ring is
+   patterns/card surface, .table the patterns/table grid, and the navigation
+   family — .navbar, .tabs, .sidebar, .crumbs — the four patterns of the same
+   names. The focus ring is
    identical in every register: keyboard visibility is not an emphasis
    property. Each state rule carries a forcing twin class (.is-hover,
    .is-active, .is-focus, .is-checked) so a static page can show the state
@@ -662,3 +665,220 @@
 }
 .table th.sort-asc::after { border-bottom: 5px solid var(--color-neutral-700); }  /* 5 dp tall, apex up */
 .table th.sort-desc::after { border-top: 5px solid var(--color-neutral-700); }
+
+/* ---- Navigation (G2.3) ----
+   The four navigation patterns. All four rest their interactive cells on
+   the Surface ground (neutral 200), so the pointer states are that ground's
+   own ADR-007 walk — hover one rung to neutral 300, exactly the wash the
+   ghost register performs on the same storey. The Gio side draws no hover
+   (a native window has the pointer; a static page shows the resolution),
+   but the rungs are the tokens' StateColor walk from ground 200, not a new
+   mix. Selection is what the Gio side does draw: the 2 dp Primary underline
+   (navbar.go / tabs.go underlineDp) or the sidebar's StateColor(RolePrimary,
+   200, StateSelected) two-step walk to primary 400. */
+
+/* Navbar (patterns/navbar navbar.go): a horizontal Surface bar —
+   drawNavbar fills Surface, insets PaddingY vertically and S4 horizontally,
+   and patterns/shell pins the bar to ControlHeight + 2*PaddingY (52 dp
+   comfortable, 40 compact). Slots run brand, centred links, actions; the
+   links row centres in the space brand and actions leave over (two equal
+   flexed spacers), which margin-inline auto reproduces exactly, including
+   the documented off-centre approximation when the end slots differ. */
+.navbar {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: calc(var(--density-control-height) + 2 * var(--density-padding-y));
+  padding: var(--density-padding-y) var(--space-4);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);  /* linksRow's HSpacer(sp.S2) between link cells */
+  margin-inline: auto;  /* the two equal flexed spacers */
+}
+
+/* A link cell (navbar.go linkWidget): label-large at the Text pin inside
+   (S3, PaddingY) padding, with a 2 dp underline slot along the bottom edge
+   that the Active link fills with the Primary pin — the underline runs the
+   full cell width, padding included, exactly the image.Rect the Gio side
+   fills. Hover is the Surface ground's one-rung walk. */
+.navbar-link, .tab {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  appearance: none;
+  margin: 0;
+  border: none;
+  background: transparent;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-label-large-size);
+  line-height: var(--font-label-large-line-height);
+  font-weight: var(--font-label-large-weight);
+  letter-spacing: var(--font-label-large-tracking);
+  color: var(--color-text);
+  border-bottom: 2px solid transparent;  /* underlineDp: the underline slot */
+}
+.navbar-link {
+  padding: var(--density-padding-y) var(--space-3);
+}
+.navbar-link:hover, .navbar-link.is-hover,
+.tab:hover, .tab.is-hover {
+  background: var(--color-neutral-300);
+}
+.navbar-link.selected, .tab.selected {
+  border-bottom-color: var(--color-accent);
+}
+
+/* Tabs (patterns/tabs tabs.go): the strip is a Surface row of tab cells
+   exactly ControlHeight tall (drawTabs pins stripH to the density), each
+   cell its label plus 2*S3 horizontal padding with the label centred in the
+   height that remains above the 2 dp underline slot — which border-box
+   centring reproduces. The selected cell fills the slot with the Primary
+   pin; content panels below the strip are the caller's. */
+.tabs {
+  box-sizing: border-box;
+  display: flex;
+  align-items: stretch;
+  height: var(--density-control-height);
+  background: var(--color-surface);
+}
+.tab {
+  height: 100%;
+  padding: 0 var(--space-3);
+  justify-content: center;
+}
+
+/* Sidebar (patterns/sidebar sidebar.go): a vertical Surface rail at the
+   pattern's two contractual widths — 192 dp expanded, 48 dp collapsed
+   (expandedDp/collapsedDp: component constants, deliberately not tokens
+   and not density-responsive; a different rail copies the pattern). The
+   toggle row and every item row are exactly ControlHeight tall (the E1.4
+   row rule, list.RowHeight), so .compact re-pitches the rail. The whole
+   rail is one keyboard stop — the focus ring belongs to the rail, and the
+   Arrow keys move .selected — so the ring rule below targets .sidebar
+   itself, not the rows. */
+.sidebar {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 192px;  /* expandedDp */
+  background: var(--color-surface);
+  color: var(--color-text);
+  overflow: hidden;
+}
+.sidebar.collapsed { width: 48px; }  /* collapsedDp */
+
+/* The collapse affordance (drawToggle): a full-width ControlHeight row with
+   a 16 dp neutral-700 placeholder glyph centred in it — pointer-only, never
+   a Tab stop. */
+.sidebar-toggle {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--density-control-height);
+  cursor: pointer;
+}
+.sidebar-toggle::after {
+  content: "";
+  width: 16px;   /* drawToggle's 16 dp glyph */
+  height: 16px;
+  background: var(--color-neutral-700);
+}
+
+/* An item row (drawItem): a 48 dp leading icon column (iconColDp) with the
+   glyph centred in it, the label-large label starting at exactly the column
+   edge, vertically centred, one line, clipped rather than wrapped — which
+   is also what hides the labels at the collapsed width. Selected is
+   StateColor(RolePrimary, 200, StateSelected): the two-step walk past the
+   Surface ground to primary 400. */
+.sidebar-item {
+  box-sizing: border-box;
+  flex: none;
+  display: flex;
+  align-items: center;
+  height: var(--density-control-height);
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-label-large-size);
+  line-height: var(--font-label-large-line-height);
+  font-weight: var(--font-label-large-weight);
+  letter-spacing: var(--font-label-large-tracking);
+  color: var(--color-text);
+  text-decoration: none;
+  user-select: none;
+}
+.sidebar-item:hover, .sidebar-item.is-hover { background: var(--color-neutral-300); }
+.sidebar-item.selected { background: var(--color-primary-400); }
+.sidebar-item-icon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;  /* iconColDp */
+  height: 100%;
+}
+
+/* Breadcrumb (patterns/breadcrumb breadcrumb.go): a row of title-small
+   segments with S2 gaps around 12 dp chevron separators (chevronDp). The
+   last segment is the current location at the Text pin; ancestors rest on
+   neutral 700 and, being links, hover to neutral 900 — the ghost register's
+   text walk on the same ground. Colour follows position (labelColor), so
+   :last-child carries it; .current forces it for a specimen. */
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-family);
+  font-size: var(--font-title-small-size);
+  line-height: var(--font-title-small-line-height);
+  font-weight: var(--font-title-small-weight);
+  letter-spacing: var(--font-title-small-tracking);
+}
+.crumb {
+  color: var(--color-neutral-700);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.crumb:hover, .crumb.is-hover { color: var(--color-neutral-900); }
+.crumbs .crumb:last-child, .crumb.current { color: var(--color-text); }
+
+/* The chevron separator (chevronWidget/drawChevron): a right-pointing
+   triangle half the 12 dp box wide and the full box tall, centred in it,
+   in neutral 700 — the low-contrast glyph step. */
+.crumb-sep {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;   /* chevronDp */
+  height: 12px;
+}
+.crumb-sep::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;    /* 12 dp tall */
+  border-bottom: 6px solid transparent;
+  border-left: 6px solid var(--color-neutral-700);  /* 6 dp deep, apex along +X */
+}
+
+/* The keyboard ring, identical to every other control's: per-cell for the
+   navbar, tabs and breadcrumb (each cell is its own Clickable focus tag);
+   on the rail itself for the sidebar, whose single stop is the item list. */
+.navbar-link:focus-visible, .navbar-link.is-focus,
+.tab:focus-visible, .tab.is-focus,
+.crumb:focus-visible, .crumb.is-focus,
+.sidebar:focus-visible, .sidebar.is-focus {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: calc(var(--focus-ring-width) / -2);
+}

@@ -1,0 +1,20 @@
+<!doctype html>
+<!-- G2.3 mirror fixture (design/mirror) — NOT part of the published bundle.
+     patterns/navbar at the navbar goldens' light-comfortable configuration:
+     the published sheet's own .navbar classes, no brand, no actions, the two
+     link labels navbar_test.go shapes (Docs, Components) with the second
+     Active. The Gio bar fills its whole viewport with the Surface pin, so
+     the .navbar spans the full 480x52. -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-surface); }
+  .navbar { width: 480px; height: 52px; }
+</style>
+<nav class="navbar">
+  <div class="navbar-links">
+    <a class="navbar-link" href="#">Docs</a>
+    <a class="navbar-link selected" href="#">Components</a>
+  </div>
+</nav>

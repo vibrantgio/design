@@ -1,0 +1,20 @@
+<!doctype html>
+<!-- G2.3 mirror fixture (design/mirror) — NOT part of the published bundle.
+     patterns/sidebar collapsed: the same three items as sidebar.html behind
+     .sidebar.collapsed — the 48px rail width is the icon column, so the
+     labels fall entirely outside the clip and only the icons remain, which
+     is the Gio collapsed contract. Viewport 48x256. -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-surface); }
+  .sidebar { height: 256px; }
+  .demo-icon { width: 16px; height: 16px; background: #3b82f6; }
+</style>
+<nav class="sidebar collapsed">
+  <div class="sidebar-toggle"></div>
+  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Overview</a>
+  <a class="sidebar-item selected" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Tokens</a>
+  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Colour</a>
+</nav>
