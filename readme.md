@@ -34,6 +34,10 @@ it by hand — regenerate it.
 - `foundations/layout.html` — the spacing scale, the control metrics at both
   density settings, the radius scale and tonal elevation as rendered
   specimens.
+- `components/*.html` — hand-authored component pages (not generated):
+  every class-layer component in every register and state, at both
+  densities, as copyable markup. `buttons.html` covers `.btn` and `.tag`,
+  `forms.html` the native-element form controls.
 
 Each page reads only from `styles.css` — every styled value is a `var(--…)`
 reference — and carries a light/dark toggle. Annotation numbers are printed for
@@ -80,9 +84,15 @@ solid walk one and two steps from the pin toward 900.
 
 ## Component classes
 
-`styles.css` ends with the component class layer, defined entirely over the
-tokens above — no literal colours, sizes or radii — so it re-brands, flips
-to `.dark` and densifies to `.compact` with the sheet.
+`styles.css` ends with the component class layer, defined over the tokens
+above — no literal colours anywhere, the only literal lengths being the
+component constants the Gio side also hardcodes (the 20 dp checkbox/radio
+glyph, its 10 dp dot, the 16 dp dropdown chevron, the 1/2 dp input
+borders) — so it re-brands, flips to `.dark` and densifies to `.compact`
+with the sheet. Every pointer/keyboard state rule carries a forcing twin
+class (`.is-hover`, `.is-active`, `.is-focus`, `.is-checked`) grouped into
+the same rule, so a static page can show a state with exactly the live
+declarations; disabled is forced with the native attribute.
 
 `.btn` is the button, **filled** by default: the accent pin under its
 on-colour. Two modifier classes select the quieter emphasis registers —
@@ -95,7 +105,26 @@ stops. Keyboard focus (`:focus-visible`) keeps the resting fill and draws
 the ring — `--focus-ring-width` of `--color-focus-ring`, identical in every
 register. Disabled (`:disabled`) fades each colour to
 `--state-disabled-opacity` of its alpha. A ghost has no selected
-treatment: it stays quiet.
+treatment: it stays quiet. `.btn.icon` is the icon-only form: a square
+the density's control height on a side, the glyph (an inline SVG on
+`currentColor`) inset by the density's vertical padding.
+
+`.tag` is the chip the patterns draw: a Full-radius pill at `label-small`
+metrics with S1/S2 padding — filled (accent under on-accent) by default,
+`.tag.tonal` the primary-200 tinted fill under the accent pin. Tags are
+labels, not controls: no interaction states.
+
+The form controls dress native elements — no script anywhere:
+`.input` (text `<input>`, and `<select class="input select">` inside a
+`.select-wrap` for the chevron), `.checkbox` and `.radio` on their native
+input types with `appearance: none`. They resolve exactly as
+`components/input` does: Surface ground under `body-large` text, neutral
+500 strong border, neutral 700 placeholder and chevron, focus promoting
+the border to the accent pin (2 dp on the text field, the shared ring on
+checkbox/radio), disabled fading every colour via `color-mix()`. The
+checkbox's checked state is the solid accent fill (the Gio side draws no
+checkmark); the radio's is the accent ring and 10 dp dot around a Surface
+gap.
 
 ## Elevation: default vs opt-in
 

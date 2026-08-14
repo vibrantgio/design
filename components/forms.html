@@ -1,0 +1,164 @@
+<!-- @dsCard group="Components" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forms — Vibrant Gio components</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family), system-ui, sans-serif;
+  font-size: var(--font-body-medium-size);
+  line-height: var(--font-body-medium-line-height);
+  letter-spacing: var(--font-body-medium-tracking);
+}
+main {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-6) var(--space-16);
+}
+h1 {
+  font-size: var(--font-headline-large-size);
+  line-height: var(--font-headline-large-line-height);
+  font-weight: var(--font-headline-large-weight);
+  letter-spacing: var(--font-headline-large-tracking);
+  margin: var(--space-6) 0 var(--space-2);
+}
+h2 {
+  font-size: var(--font-title-large-size);
+  line-height: var(--font-title-large-line-height);
+  font-weight: var(--font-title-large-weight);
+  letter-spacing: var(--font-title-large-tracking);
+  margin: var(--space-10) 0 var(--space-3);
+}
+.intro {
+  max-width: 48rem;
+  color: var(--color-neutral-700);
+}
+.annot {
+  font-size: var(--font-label-small-size);
+  line-height: var(--font-label-small-line-height);
+  font-weight: var(--font-label-small-weight);
+  letter-spacing: var(--font-label-small-tracking);
+  color: var(--color-neutral-700);
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-5);
+  padding: var(--space-4);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+.cell > .input, .cell > .select-wrap { width: 14rem; }
+.dark.row {
+  background: var(--color-surface);
+  border-color: var(--color-divider);
+  color: var(--color-text);
+}
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-body-medium-size);
+  line-height: var(--font-body-medium-line-height);
+  letter-spacing: var(--font-body-medium-tracking);
+}
+</style>
+</head>
+<body>
+<main>
+<h1>Forms</h1>
+<p class="intro">Form controls are native elements wearing the token sheet's classes — no script anywhere on this page. <code>.input</code> dresses a text <code>&lt;input&gt;</code>; a dropdown is <code>&lt;select class="input select"&gt;</code> inside a <code>.select-wrap</code>, which draws the chevron; <code>.checkbox</code> and <code>.radio</code> dress their native input types. Resolution mirrors <code>components/input</code>: Surface ground under <code>body-large</code> text, neutral&nbsp;500 strong border, neutral&nbsp;700 placeholder, focus promoting the border to the accent pin, disabled fading every colour. Heights come from <code>--density-control-height</code>; density is the size axis.</p>
+
+<section>
+<h2>Text field — <code>.input</code></h2>
+<div class="row">
+<div class="cell"><input class="input" type="text" placeholder="Placeholder"><span class="annot">empty</span></div>
+<div class="cell"><input class="input" type="text" value="Vibrant Gio"><span class="annot">filled in</span></div>
+<div class="cell"><input class="input is-focus" type="text" value="Vibrant Gio"><span class="annot">focus — accent border, 2&nbsp;px</span></div>
+<div class="cell"><input class="input" type="text" placeholder="Placeholder" disabled><span class="annot">disabled</span></div>
+</div>
+</section>
+
+<section>
+<h2>Dropdown — <code>.input.select</code> in <code>.select-wrap</code></h2>
+<div class="row">
+<div class="cell">
+<span class="select-wrap"><select class="input select"><option selected>Comfortable</option><option>Compact</option></select></span>
+<span class="annot">enabled</span>
+</div>
+<div class="cell">
+<span class="select-wrap"><select class="input select is-focus"><option selected>Comfortable</option><option>Compact</option></select></span>
+<span class="annot">focus</span>
+</div>
+<div class="cell">
+<span class="select-wrap"><select class="input select" disabled><option selected>Comfortable</option><option>Compact</option></select></span>
+<span class="annot">disabled</span>
+</div>
+</div>
+</section>
+
+<section>
+<h2>Checkbox — <code>.checkbox</code></h2>
+<p class="intro">A 20&nbsp;px glyph at every density (the glyph does not shrink; the Gio side centres it in the control-height row and keeps the 44&nbsp;px pointer target). Checked is the solid accent fill.</p>
+<div class="row">
+<div class="cell"><label class="choice"><input class="checkbox" type="checkbox"> Unchecked</label><span class="annot">unchecked</span></div>
+<div class="cell"><label class="choice"><input class="checkbox" type="checkbox" checked> Checked</label><span class="annot">checked</span></div>
+<div class="cell"><label class="choice"><input class="checkbox is-focus" type="checkbox" checked> Focused</label><span class="annot">focus ring</span></div>
+<div class="cell"><label class="choice"><input class="checkbox" type="checkbox" disabled> Disabled</label><span class="annot">disabled</span></div>
+<div class="cell"><label class="choice"><input class="checkbox" type="checkbox" checked disabled> Disabled checked</label><span class="annot">disabled checked</span></div>
+</div>
+</section>
+
+<section>
+<h2>Radio — <code>.radio</code></h2>
+<p class="intro">The same 20&nbsp;px glyph as a circle; selected keeps a Surface gap between the accent ring and the 10&nbsp;px accent dot.</p>
+<div class="row">
+<div class="cell"><label class="choice"><input class="radio" type="radio" name="r1"> Off</label><span class="annot">unselected</span></div>
+<div class="cell"><label class="choice"><input class="radio" type="radio" name="r1" checked> On</label><span class="annot">selected</span></div>
+<div class="cell"><label class="choice"><input class="radio is-focus" type="radio" name="r2" checked> Focused</label><span class="annot">focus ring</span></div>
+<div class="cell"><label class="choice"><input class="radio" type="radio" name="r3" disabled> Disabled</label><span class="annot">disabled</span></div>
+<div class="cell"><label class="choice"><input class="radio" type="radio" name="r4" checked disabled> Disabled selected</label><span class="annot">disabled selected</span></div>
+</div>
+</section>
+
+<section>
+<h2>Compact density</h2>
+<p class="intro">The same markup inside a <code>class="compact"</code> wrapper: fields drop to the 28&nbsp;px control height. The 20&nbsp;px checkbox and radio glyphs deliberately keep their size — on the Gio side density shrinks the row they centre in, never the glyph.</p>
+<div class="row compact">
+<div class="cell"><input class="input" type="text" placeholder="Placeholder"><span class="annot">text field</span></div>
+<div class="cell">
+<span class="select-wrap"><select class="input select"><option selected>Comfortable</option><option>Compact</option></select></span>
+<span class="annot">dropdown</span>
+</div>
+<div class="cell"><label class="choice"><input class="checkbox" type="checkbox" checked> Checked</label><span class="annot">checkbox</span></div>
+<div class="cell"><label class="choice"><input class="radio" type="radio" name="rc" checked> Selected</label><span class="annot">radio</span></div>
+</div>
+</section>
+
+<section>
+<h2>Dark mode</h2>
+<p class="intro">A <code>class="dark"</code> wrapper flips the colour variables; every border, ground and glyph resolves from the paired ramp.</p>
+<div class="row dark">
+<div class="cell"><input class="input" type="text" placeholder="Placeholder"><span class="annot">text field</span></div>
+<div class="cell"><input class="input is-focus" type="text" value="Vibrant Gio"><span class="annot">focus</span></div>
+<div class="cell"><label class="choice"><input class="checkbox" type="checkbox" checked> Checked</label><span class="annot">checkbox</span></div>
+<div class="cell"><label class="choice"><input class="radio" type="radio" name="rd" checked> Selected</label><span class="annot">radio</span></div>
+</div>
+</section>
+</main>
+</body>
+</html>

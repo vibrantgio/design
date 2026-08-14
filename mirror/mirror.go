@@ -40,11 +40,12 @@ const ChromiumPath = "/Applications/Chromium.app/Contents/MacOS/Chromium"
 // now requires.
 const ChromiumVersion = "Chromium 153.0.8008.0"
 
-// fixtures are the harness's own calibration pages, embedded here and served
-// beside the bundle under /fixtures/. They are deliberately NOT part of
-// design.Bundle: scripts/push-design.sh uploads exactly six paths
-// (readme.md, theme.json, styles.css, foundations/*.html) and test fixtures
-// have no business on claude.ai/design.
+// fixtures are the harness's own calibration and per-specimen pages,
+// embedded here and served beside the bundle under /fixtures/. They are
+// deliberately NOT part of design.Bundle: scripts/push-design.sh uploads
+// only the bundle's document paths (readme.md, theme.json, styles.css,
+// foundations/*.html, components/*.html, fonts/*) and test fixtures have no
+// business on claude.ai/design.
 //
 //go:embed fixtures
 var fixtures embed.FS

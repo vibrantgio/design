@@ -14,6 +14,8 @@ func TestBundleCarriesTheSixUploadedPaths(t *testing.T) {
 		"foundations/color.html",
 		"foundations/type.html",
 		"foundations/layout.html",
+		"components/buttons.html",
+		"components/forms.html",
 		"fonts/roboto-regular.ttf",
 		"fonts/roboto-medium.ttf",
 		"fonts/robotomono-regular.ttf",

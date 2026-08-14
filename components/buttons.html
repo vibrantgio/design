@@ -1,0 +1,159 @@
+<!-- @dsCard group="Components" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buttons &amp; tags — Vibrant Gio components</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family), system-ui, sans-serif;
+  font-size: var(--font-body-medium-size);
+  line-height: var(--font-body-medium-line-height);
+  letter-spacing: var(--font-body-medium-tracking);
+}
+main {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-6) var(--space-16);
+}
+h1 {
+  font-size: var(--font-headline-large-size);
+  line-height: var(--font-headline-large-line-height);
+  font-weight: var(--font-headline-large-weight);
+  letter-spacing: var(--font-headline-large-tracking);
+  margin: var(--space-6) 0 var(--space-2);
+}
+h2 {
+  font-size: var(--font-title-large-size);
+  line-height: var(--font-title-large-line-height);
+  font-weight: var(--font-title-large-weight);
+  letter-spacing: var(--font-title-large-tracking);
+  margin: var(--space-10) 0 var(--space-3);
+}
+h3 {
+  font-size: var(--font-title-medium-size);
+  line-height: var(--font-title-medium-line-height);
+  font-weight: var(--font-title-medium-weight);
+  letter-spacing: var(--font-title-medium-tracking);
+  margin: var(--space-6) 0 var(--space-2);
+}
+.intro {
+  max-width: 48rem;
+  color: var(--color-neutral-700);
+}
+.annot {
+  font-size: var(--font-label-small-size);
+  line-height: var(--font-label-small-line-height);
+  font-weight: var(--font-label-small-weight);
+  letter-spacing: var(--font-label-small-tracking);
+  color: var(--color-neutral-700);
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-5);
+  padding: var(--space-4);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+.dark.row {
+  background: var(--color-surface);
+  border-color: var(--color-divider);
+  color: var(--color-text);
+}
+</style>
+</head>
+<body>
+<main>
+<h1>Buttons &amp; tags</h1>
+<p class="intro">The button is <code>.btn</code> — <strong>filled</strong> by default, with <code>.tonal</code> and <code>.ghost</code> selecting the quieter emphasis registers. Emphasis is a colour property and nothing else: every register keeps the same size and the same focus ring. There is no size prop — heights come from <code>--density-control-height</code>, and density (<code>.compact</code> on any subtree) is the size axis. States shown statically wear the forcing twins (<code>.is-hover</code>, <code>.is-active</code>, <code>.is-focus</code>) that the token sheet groups into the live pseudo-class rules; disabled uses the native attribute.</p>
+
+<section>
+<h2>Filled — <code>.btn</code></h2>
+<p class="intro">The loudest register: the accent pin under its on-colour. One per surface — the action the screen is about. Hover and press walk the solid fill one and two steps toward the ramp's 900 end.</p>
+<div class="row">
+<div class="cell"><button class="btn">Save Changes</button><span class="annot">enabled</span></div>
+<div class="cell"><button class="btn is-hover">Save Changes</button><span class="annot">hover</span></div>
+<div class="cell"><button class="btn is-active">Save Changes</button><span class="annot">pressed</span></div>
+<div class="cell"><button class="btn is-focus">Save Changes</button><span class="annot">focus ring</span></div>
+<div class="cell"><button class="btn" disabled>Save Changes</button><span class="annot">disabled</span></div>
+<div class="cell"><button class="btn icon" aria-label="Add"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M9 3h2v6h6v2h-6v6H9v-6H3V9h6z"/></svg></button><span class="annot">icon-only</span></div>
+</div>
+</section>
+
+<section>
+<h2>Tonal — <code>.btn.tonal</code></h2>
+<p class="intro">The middle register: a tinted fill off the role's own ramp — ground 200 under the ramp's 900 text. The register for a secondary action, and the one a row of equals wears.</p>
+<div class="row">
+<div class="cell"><button class="btn tonal">Save Changes</button><span class="annot">enabled</span></div>
+<div class="cell"><button class="btn tonal is-hover">Save Changes</button><span class="annot">hover</span></div>
+<div class="cell"><button class="btn tonal is-active">Save Changes</button><span class="annot">pressed</span></div>
+<div class="cell"><button class="btn tonal is-focus">Save Changes</button><span class="annot">focus ring</span></div>
+<div class="cell"><button class="btn tonal" disabled>Save Changes</button><span class="annot">disabled</span></div>
+<div class="cell"><button class="btn tonal icon" aria-label="Add"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M9 3h2v6h6v2h-6v6H9v-6H3V9h6z"/></svg></button><span class="annot">icon-only</span></div>
+</div>
+</section>
+
+<section>
+<h2>Ghost — <code>.btn.ghost</code></h2>
+<p class="intro">The quietest register: no ground at rest, neutral 700 text, and a neutral wash only under the pointer. For affordances that must be present without being the subject — a dialog's close X, a toolbar of icons. A ghost is quiet, not small: full height, full focus ring.</p>
+<div class="row">
+<div class="cell"><button class="btn ghost">Save Changes</button><span class="annot">enabled</span></div>
+<div class="cell"><button class="btn ghost is-hover">Save Changes</button><span class="annot">hover</span></div>
+<div class="cell"><button class="btn ghost is-active">Save Changes</button><span class="annot">pressed</span></div>
+<div class="cell"><button class="btn ghost is-focus">Save Changes</button><span class="annot">focus ring</span></div>
+<div class="cell"><button class="btn ghost" disabled>Save Changes</button><span class="annot">disabled</span></div>
+<div class="cell"><button class="btn ghost icon" aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5.4 4 10 8.6 14.6 4 16 5.4 11.4 10l4.6 4.6-1.4 1.4L10 11.4 5.4 16 4 14.6 8.6 10 4 5.4z"/></svg></button><span class="annot">icon-only</span></div>
+</div>
+</section>
+
+<section>
+<h2>Compact density</h2>
+<p class="intro">The same markup inside a <code>class="compact"</code> wrapper: <code>--density-control-height</code> drops from 36 to 28&nbsp;px and the padding follows. Density is the size axis — there is no small or large button. The pointer target keeps its 44&nbsp;px floor on the Gio side regardless.</p>
+<div class="row compact">
+<div class="cell"><button class="btn">Save Changes</button><span class="annot">filled</span></div>
+<div class="cell"><button class="btn is-hover">Save Changes</button><span class="annot">filled hover</span></div>
+<div class="cell"><button class="btn tonal">Save Changes</button><span class="annot">tonal</span></div>
+<div class="cell"><button class="btn ghost">Save Changes</button><span class="annot">ghost</span></div>
+<div class="cell"><button class="btn" disabled>Save Changes</button><span class="annot">disabled</span></div>
+<div class="cell"><button class="btn icon" aria-label="Add"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M9 3h2v6h6v2h-6v6H9v-6H3V9h6z"/></svg></button><span class="annot">icon-only</span></div>
+</div>
+</section>
+
+<section>
+<h2>Tags — <code>.tag</code></h2>
+<p class="intro">The chip the patterns draw: a Full-radius pill at <code>label-small</code> metrics, sized to its label. Filled (the accent pin under its on-colour) is the pricing card's "Popular" chip; <code>.tag.tonal</code> (primary&nbsp;200 under the accent pin) is the hero's eyebrow. A tag is a label, not a control: it has no interaction states.</p>
+<div class="row">
+<div class="cell"><span class="tag">Popular</span><span class="annot">filled</span></div>
+<div class="cell"><span class="tag tonal">New in 2.0</span><span class="annot">tonal</span></div>
+</div>
+</section>
+
+<section>
+<h2>Dark mode</h2>
+<p class="intro">Nothing here is mode-specific: a <code>class="dark"</code> wrapper flips the colour variables and every register and state resolves from the paired ramp.</p>
+<div class="row dark">
+<div class="cell"><button class="btn">Save Changes</button><span class="annot">filled</span></div>
+<div class="cell"><button class="btn is-hover">Save Changes</button><span class="annot">filled hover</span></div>
+<div class="cell"><button class="btn tonal">Save Changes</button><span class="annot">tonal</span></div>
+<div class="cell"><button class="btn ghost">Save Changes</button><span class="annot">ghost</span></div>
+<div class="cell"><button class="btn" disabled>Save Changes</button><span class="annot">disabled</span></div>
+<div class="cell"><span class="tag">Popular</span><span class="annot">tag</span></div>
+</div>
+</section>
+</main>
+</body>
+</html>

@@ -307,12 +307,16 @@
   --density-padding-y: 6px;
 }
 
-/* ---- Component classes (G1.2) ----
+/* ---- Component classes (G1.2, forms and tags G2.1) ----
    The class vocabulary, built only on the tokens above. .btn mirrors
    components/button: filled by default, .tonal and .ghost the emphasis
    modifiers, states resolved as ADR-007 ramp walks from the same rungs the
-   Gio side draws. The focus ring is identical in every register: keyboard
-   visibility is not an emphasis property. */
+   Gio side draws. .input/.select/.checkbox/.radio mirror components/input,
+   .tag the chip patterns/pricing and patterns/hero draw. The focus ring is
+   identical in every register: keyboard visibility is not an emphasis
+   property. Each state rule carries a forcing twin class (.is-hover,
+   .is-active, .is-focus, .is-checked) so a static page can show the state
+   with the very declarations the live pseudo-class applies. */
 
 .btn {
   box-sizing: border-box;
@@ -341,13 +345,15 @@
 /* Filled states: the solid fill walks from the pin toward the ramp's 900
    end (hover one rung, pressed and selected two) — the walked stops are
    tokens, not mixes. */
-.btn:hover { background: var(--color-accent-hover); }
+.btn:hover, .btn.is-hover { background: var(--color-accent-hover); }
 .btn.selected { background: var(--color-accent-pressed); }
-.btn:active { background: var(--color-accent-pressed); }
+.btn:active, .btn.is-active { background: var(--color-accent-pressed); }
 
 /* Keyboard focus keeps the resting fill and adds the ring — a stroke
    centred on the control's edge, as the Gio side draws it. */
-.btn:focus-visible {
+.btn:focus-visible, .btn.is-focus,
+.checkbox:focus-visible, .checkbox.is-focus,
+.radio:focus-visible, .radio.is-focus {
   outline: var(--focus-ring-width) solid var(--color-focus-ring);
   outline-offset: calc(var(--focus-ring-width) / -2);
 }
@@ -366,9 +372,9 @@
   background: var(--color-primary-200);
   color: var(--color-primary-900);
 }
-.btn.tonal:hover { background: var(--color-primary-300); }
+.btn.tonal:hover, .btn.tonal.is-hover { background: var(--color-primary-300); }
 .btn.tonal.selected { background: var(--color-primary-400); }
-.btn.tonal:active { background: var(--color-primary-400); }
+.btn.tonal:active, .btn.tonal.is-active { background: var(--color-primary-400); }
 .btn.tonal:disabled {
   background: color-mix(in srgb, var(--color-primary-200) var(--state-disabled-opacity), transparent);
   color: color-mix(in srgb, var(--color-primary-900) var(--state-disabled-opacity), transparent);
@@ -382,15 +388,186 @@
   background: transparent;
   color: var(--color-neutral-700);
 }
-.btn.ghost:hover {
+.btn.ghost:hover, .btn.ghost.is-hover {
   background: var(--color-neutral-300);
   color: var(--color-neutral-900);
 }
-.btn.ghost:active {
+.btn.ghost:active, .btn.ghost.is-active {
   background: var(--color-neutral-400);
   color: var(--color-neutral-900);
 }
 .btn.ghost:disabled {
   background: transparent;
   color: color-mix(in srgb, var(--color-neutral-700) var(--state-disabled-opacity), transparent);
+}
+
+/* Icon-only form (components/button drawIconButton): a square the
+   density's control height on a side, the glyph inset by the density's
+   vertical padding — content box ControlHeight − 2·PaddingY, icon.Size's
+   rule (20 dp comfortable, 16 dp compact). Emphasis reaches the colours
+   and stops there: the square never shrinks. The glyph inherits the
+   register's text colour via currentColor. */
+.btn.icon {
+  width: var(--density-control-height);
+  height: var(--density-control-height);
+  min-height: var(--density-control-height);
+  padding: var(--density-padding-y);
+}
+.btn.icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* ---- Tag (G2.1) ----
+   The chip the patterns draw: a Full-radius pill, S1/S2 padding, sized to
+   its label-small text. Filled by default — patterns/pricing's "Popular"
+   chip, the accent pin under its on-colour; .tonal is patterns/hero's
+   eyebrow — the primary 200 tinted fill under the accent pin. Both call
+   sites request SemiBold, which the pinned shaper resolves to the Medium
+   face (the nearest registered weight), so the sheet says the label role's
+   own weight rather than asking the browser to synthesize a 600. A tag is
+   a label, not a control: it has no interaction states. */
+.tag {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  font-family: var(--font-family);
+  font-size: var(--font-label-small-size);
+  line-height: var(--font-label-small-line-height);
+  font-weight: var(--font-label-small-weight);
+  letter-spacing: var(--font-label-small-tracking);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+.tag.tonal {
+  background: var(--color-primary-200);
+  color: var(--color-accent);
+}
+
+/* ---- Form controls (G2.1) ----
+   Native elements wearing components/input's resolution: Surface ground
+   under body-large text, neutral 500 strong border, neutral 700
+   placeholder, focus promoting the border to the accent pin, disabled
+   fading every colour to the disabled fraction of its alpha. */
+
+/* Text field (components/input textfield.go). Height = ControlHeight as a
+   floor, vertical inset PaddingY, horizontal inset S3 (12 dp — static, it
+   does not follow density). The Gio border is drawn inside the field
+   (nested fills), so the CSS padding gives back the 1px the border
+   occupies and the outer geometry matches exactly. */
+.input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  margin: 0;
+  appearance: none;
+  min-height: var(--density-control-height);
+  padding: calc(var(--density-padding-y) - 1px) calc(var(--space-3) - 1px);
+  border: 1px solid var(--color-neutral-500);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: var(--font-body-large-size);
+  line-height: var(--font-body-large-line-height);
+  font-weight: var(--font-body-large-weight);
+  letter-spacing: var(--font-body-large-tracking);
+}
+.input::placeholder { color: var(--color-neutral-700); opacity: 1; }
+
+/* Focus promotes the border to the accent pin and doubles it to the 2 dp
+   the Gio side draws — the second pixel as an inset shadow, so the field's
+   outer geometry and text position do not move (Gio thickens the border
+   inward the same way). */
+.input:focus-visible, .input.is-focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+.input:disabled {
+  background: color-mix(in srgb, var(--color-surface) var(--state-disabled-opacity), transparent);
+  color: color-mix(in srgb, var(--color-text) var(--state-disabled-opacity), transparent);
+  border-color: color-mix(in srgb, var(--color-neutral-500) var(--state-disabled-opacity), transparent);
+}
+.input:disabled::placeholder {
+  color: color-mix(in srgb, var(--color-neutral-700) var(--state-disabled-opacity), transparent);
+}
+
+/* Dropdown (components/input dropdown.go): the trigger is a text field
+   whose right side reserves S3 + 16 dp chevron + S3, the same inset
+   drawTrigger keeps clear of the label. The chevron itself is drawn by the
+   .select-wrap wrapper — a native select cannot carry a generated child —
+   as a border-built triangle 16 dp wide and 8 dp tall (drawChevron's
+   half/quarter geometry) in neutral 700, the low-contrast glyph step. */
+.select { padding-right: calc(var(--space-3) * 2 + 16px - 1px); }
+.select-wrap { position: relative; display: block; }
+.select-wrap::after {
+  content: "";
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  margin-top: -4px; /* half the 8px glyph height */
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;  /* 16 dp chevron width */
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--color-neutral-700);
+  pointer-events: none;
+}
+.select-wrap:has(.select:disabled)::after {
+  border-top-color: color-mix(in srgb, var(--color-neutral-700) var(--state-disabled-opacity), transparent);
+}
+
+/* Checkbox (components/input checkbox.go): a 20 dp glyph (checkboxBoxSize
+   — a component constant, not a token; it does not follow density) with a
+   2 dp neutral 500 border over Surface when unchecked, a solid accent fill
+   when checked — no checkmark glyph: the Gio side draws none. The focus
+   ring is the shared rule above. */
+.checkbox, .radio {
+  box-sizing: border-box;
+  appearance: none;
+  flex: none;
+  width: 20px;  /* checkboxBoxSize / radioCircleSize: 20 dp */
+  height: 20px;
+  margin: 0;
+  border: 2px solid var(--color-neutral-500);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+.checkbox { border-radius: var(--radius-sm); }
+.checkbox:checked, .checkbox.is-checked {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+.checkbox:disabled {
+  cursor: default;
+  border-color: color-mix(in srgb, var(--color-neutral-500) var(--state-disabled-opacity), transparent);
+  background: color-mix(in srgb, var(--color-surface) var(--state-disabled-opacity), transparent);
+}
+.checkbox:checked:disabled, .checkbox.is-checked:disabled {
+  border-color: color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent);
+  background: color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent);
+}
+
+/* Radio (components/input radio.go): the same 20 dp glyph as a circle;
+   selected keeps the Surface gap ring and fills a 10 dp accent dot
+   (radioDotSize) — outer accent ring, surface, dot, exactly the Gio
+   nested fills. */
+.radio { border-radius: var(--radius-full); }
+.radio:checked, .radio.is-checked {
+  border-color: var(--color-accent);
+  background: radial-gradient(circle, var(--color-accent) 5px, var(--color-surface) 5px); /* 10 dp dot */
+}
+.radio:disabled {
+  cursor: default;
+  border-color: color-mix(in srgb, var(--color-neutral-500) var(--state-disabled-opacity), transparent);
+  background: color-mix(in srgb, var(--color-surface) var(--state-disabled-opacity), transparent);
+}
+.radio:checked:disabled, .radio.is-checked:disabled {
+  border-color: color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent);
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent) 5px, color-mix(in srgb, var(--color-surface) var(--state-disabled-opacity), transparent) 5px);
 }
