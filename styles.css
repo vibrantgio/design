@@ -308,11 +308,10 @@
   --density-padding-y: 6px;
 }
 
-/* ---- Component classes (G1.2, forms and tags G2.1, card and table G2.2,
-   navigation G2.3, overlays G2.4) ----
+/* ---- Component classes ----
    The class vocabulary, built only on the tokens above. .btn mirrors
    components/button: filled by default, .tonal and .ghost the emphasis
-   modifiers, states resolved as ADR-007 ramp walks from the same rungs the
+   modifiers, states resolved as one-rung ramp walks from the same rungs the
    Gio side draws. .input/.select/.checkbox/.radio mirror components/input,
    .tag the chip patterns/pricing and patterns/hero draw, .card the
    patterns/card surface, .table the patterns/table grid, the navigation
@@ -425,7 +424,7 @@
   fill: currentColor;
 }
 
-/* ---- Tag (G2.1) ----
+/* ---- Tag ----
    The chip the patterns draw: a Full-radius pill, S1/S2 padding, sized to
    its label-small text. Filled by default — patterns/pricing's "Popular"
    chip, the accent pin under its on-colour; .tonal is patterns/hero's
@@ -454,7 +453,7 @@
   color: var(--color-accent);
 }
 
-/* ---- Form controls (G2.1) ----
+/* ---- Form controls ----
    Native elements wearing components/input's resolution: Surface ground
    under body-large text, neutral 500 strong border, neutral 700
    placeholder, focus promoting the border to the accent pin, disabled
@@ -578,9 +577,9 @@
   background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent) 5px, color-mix(in srgb, var(--color-surface) var(--state-disabled-opacity), transparent) 5px);
 }
 
-/* ---- Card (G2.2) ----
+/* ---- Card ----
    patterns/card: a rounded surface raised in place by tonal step alone
-   (ADR-007, E2.2's verdict) — no cast shadow in either variant, because a
+   — no cast shadow in either variant, because a
    card is raised, not floating; the dp shadows stay reserved for surfaces
    that can leave (menus, dialogs, toasts). The default outlined card fills
    at level 1 (--elevation-1, the neutral-200 storey) under a 1 dp neutral
@@ -608,14 +607,14 @@
   background: var(--elevation-2);
 }
 
-/* ---- Table (G2.2) ----
+/* ---- Table ----
    patterns/table: the whole grid grounds on the Surface pin (drawTable);
    the header band fills neutral 300 under neutral 700 label-large text
    (drawHeaderRow / drawHeaderCell). Header and body rows are each exactly
-   one control height tall — the E1.4 row rule (list.RowHeight), so .compact
+   one control height tall — the row-height rule (list.RowHeight), so .compact
    re-pitches the whole grid — and every row closes with a 1 dp Divider rule
    drawn inside its height. Cells inset horizontally by S3 (cellPadDp,
-   12 dp — static, the E1.3 input rule); body text is body-medium at the
+   12 dp — static, the same inset rule the input uses); body text is body-medium at the
    Text pin (RenderTextCell). There is no zebra: rows separate by the rules
    alone. Sort is a 10x5 dp chevron in neutral 700 at the header's right
    inset (drawSortChevron), drawn on the active column only — .sort-asc /
@@ -668,10 +667,10 @@
 .table th.sort-asc::after { border-bottom: 5px solid var(--color-neutral-700); }  /* 5 dp tall, apex up */
 .table th.sort-desc::after { border-top: 5px solid var(--color-neutral-700); }
 
-/* ---- Navigation (G2.3) ----
+/* ---- Navigation ----
    The four navigation patterns. All four rest their interactive cells on
    the Surface ground (neutral 200), so the pointer states are that ground's
-   own ADR-007 walk — hover one rung to neutral 300, exactly the wash the
+   own one-rung ramp walk — hover one rung to neutral 300, exactly the wash the
    ghost register performs on the same storey. The Gio side draws no hover
    (a native window has the pointer; a static page shows the resolution),
    but the rungs are the tokens' StateColor walk from ground 200, not a new
@@ -761,8 +760,8 @@
    pattern's two contractual widths — 192 dp expanded, 48 dp collapsed
    (expandedDp/collapsedDp: component constants, deliberately not tokens
    and not density-responsive; a different rail copies the pattern). The
-   toggle row and every item row are exactly ControlHeight tall (the E1.4
-   row rule, list.RowHeight), so .compact re-pitches the rail. The whole
+   toggle row and every item row are exactly ControlHeight tall (the
+   row-height rule, list.RowHeight), so .compact re-pitches the rail. The whole
    rail is one keyboard stop — the focus ring belongs to the rail, and the
    Arrow keys move .selected — so the ring rule below targets .sidebar
    itself, not the rows. */
@@ -885,11 +884,11 @@
   outline-offset: calc(var(--focus-ring-width) / -2);
 }
 
-/* ---- Overlays (G2.4) ----
+/* ---- Overlays ----
    The transient surfaces: the scrimmed dialog (patterns/modal), the
    unscrimmed popover (patterns/popover), the inverse-video tooltip
    (patterns/tooltip) and the floating toast (patterns/toast). The elevation
-   grammar is E2.2's: a scrimmed modal sits at level 2 (the scrim, not the
+   grammar: a scrimmed modal sits at level 2 (the scrim, not the
    fill, isolates it); an unscrimmed, shadowless popover separates by fill
    alone and takes the deepest level 3; a toast floats and can leave, so it
    keeps the level-3 cast shadow on its level-2 tinted base; the tooltip
@@ -1032,8 +1031,8 @@
 }
 
 /* Toast (toast.go paintToast): one queued notification — 240 dp wide, a
-   36 dp legibility floor that deliberately does not follow density (E1.4:
-   a toast is not a control), radius Md, label-medium at the Text pin over
+   36 dp legibility floor that deliberately does not follow density (a
+   toast is not a control), radius Md, label-medium at the Text pin over
    a level-2 base tinted 20% with the level accent, ringed by the 1 dp
    accent outline (padding gives the ring's 1px back), and floating on the
    level-3 cast shadow — the one overlay that keeps its shadow, because on

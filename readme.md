@@ -6,7 +6,7 @@ applications. The entire colour system derives from one brand seed — currently
 **nine-step functional ramp (100–900)** on a shared lightness scale, with the
 role's **base pinned separately** so the brand colour is reproduced exactly, and
 **dark mode is the paired ramp** — the same step keeps the same job in both
-modes, so nothing is assigned twice (ADR-007). The contrast gate is APCA
+modes, so nothing is assigned twice. The contrast gate is APCA
 (step 900 reaches |Lc| 90 and step 700 |Lc| 60 over the 100/200 grounds, every
 pin's on-colour |Lc| 60 over its pin); WCAG 2 ratios are reported alongside but
 do not gate.
@@ -68,7 +68,7 @@ both modes, labelled `L` and `D`.
 | interaction states | `--color-focus-ring`, `--focus-ring-width`, `--state-disabled-opacity` | the focus ring (neutral 500 by reference, so it flips with `.dark`; 2 px stroke) and the disabled fade fraction for `color-mix()` |
 | scrim | `--color-scrim` | the modal backdrop dimmer: translucent black, identical in both modes — a scrim dims by reducing luminance, so it never flips with `.dark`. The alpha is the sRGB-compositing equivalent of the Gio pattern's 50% linear-space black |
 
-## Step purposes (ADR-007)
+## Step purposes
 
 | Step | Job |
 | --- | --- |
@@ -129,7 +129,7 @@ gap.
 
 ## Elevation: default vs opt-in
 
-Elevation is tonal (E2.1): a raised surface separates from its ground by
+Elevation is tonal: a raised surface separates from its ground by
 colour, one neutral-ramp step per storey — level 0 is the bg pin over the
 step-100 ground and levels 1–3 fill with neutral 200/300/400. The ladder
 stops at 3: desktop has no six-storey stack. `--elevation-N`
@@ -137,7 +137,7 @@ is that surface fill and the **default** cue; because the light and dark
 ramps are paired scales, the same level reads as raised in both modes with
 no mode-specific rule. The dp shadow is the **opt-in** secondary cue,
 reserved for floating transients — menus, dialogs, tooltips — which layer
-`--shadow-N` over their tonal fill (E2.2). Resting surfaces never cast one.
+`--shadow-N` over their tonal fill. Resting surfaces never cast one.
 
 ## Density
 
