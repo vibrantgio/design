@@ -313,7 +313,8 @@
    components/button: filled by default, .tonal and .ghost the emphasis
    modifiers, states resolved as one-rung ramp walks from the same rungs the
    Gio side draws. .input/.select/.checkbox/.radio mirror components/input,
-   .tag the chip patterns/pricing and patterns/hero draw, .card the
+   .tag the chip patterns/tag draws (for pricing, hero, and the status
+   levels), .card the
    patterns/card surface, .table the patterns/table grid, the navigation
    family — .navbar, .tabs, .sidebar, .crumbs — the four patterns of the same
    names, and the overlay family — .scrim/.dialog (patterns/modal), .popover,
@@ -425,14 +426,15 @@
 }
 
 /* ---- Tag ----
-   The chip the patterns draw: a Full-radius pill, S1/S2 padding, sized to
-   its label-small text. Filled by default — patterns/pricing's "Popular"
-   chip, the accent pin under its on-colour; .tonal is patterns/hero's
-   eyebrow — the primary 200 tinted fill under the accent pin. Both call
-   sites request SemiBold, which the pinned shaper resolves to the Medium
-   face (the nearest registered weight), so the sheet says the label role's
-   own weight rather than asking the browser to synthesize a 600. A tag is
-   a label, not a control: it has no interaction states. */
+   The chip patterns/tag draws (the shared home of patterns/pricing's
+   "Popular" chip and patterns/hero's eyebrow): a Full-radius pill, S1/S2
+   padding, sized to its label-small text. Filled by default — the accent
+   pin under its on-colour; .tonal is the eyebrow — the primary 200 tinted
+   fill under the accent pin. All call sites request SemiBold, which the
+   pinned shaper resolves to the Medium face (the nearest registered
+   weight), so the sheet says the label role's own weight rather than
+   asking the browser to synthesize a 600. A tag is a label, not a
+   control: it has no interaction states. */
 .tag {
   box-sizing: border-box;
   display: inline-flex;
@@ -451,6 +453,30 @@
 .tag.tonal {
   background: var(--color-primary-200);
   color: var(--color-accent);
+}
+
+/* Status tags (tag.go colors): the level modifiers carry the same level
+   colour the toast carries, resolved the same way — the pinned fixed-hue
+   role tinted 20% over the ground and drawn pure as the 1 dp outline
+   (padding gives the ring's 1px back), under the Text pin. The ground is
+   the Surface pin rather than the toast's level-2 fill because a chip
+   rests on the pane it labels; it does not float. Status is vocabulary:
+   compose these, never inline-style a status colour. */
+.tag.success, .tag.warning, .tag.error {
+  padding: calc(var(--space-1) - 1px) calc(var(--space-2) - 1px);
+  color: var(--color-text);
+}
+.tag.success {
+  border: 1px solid var(--color-success);
+  background: color-mix(in srgb, var(--color-success) 20%, var(--color-surface));
+}
+.tag.warning {
+  border: 1px solid var(--color-warning);
+  background: color-mix(in srgb, var(--color-warning) 20%, var(--color-surface));
+}
+.tag.error {
+  border: 1px solid var(--color-error);
+  background: color-mix(in srgb, var(--color-error) 20%, var(--color-surface));
 }
 
 /* ---- Form controls ----

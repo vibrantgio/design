@@ -112,8 +112,12 @@ the density's control height on a side, the glyph (an inline SVG on
 
 `.tag` is the chip the patterns draw: a Full-radius pill at `label-small`
 metrics with S1/S2 padding — filled (accent under on-accent) by default,
-`.tag.tonal` the primary-200 tinted fill under the accent pin. Tags are
-labels, not controls: no interaction states.
+`.tag.tonal` the primary-200 tinted fill under the accent pin. Status
+chips are `.tag.success` / `.tag.warning` / `.tag.error`: the same
+level colour the toast carries, resolved the same way — the level pin
+tinted 20% over the Surface ground, ringed by the 1 dp level outline,
+under the text pin. Compose them for status; never inline-style a
+status colour. Tags are labels, not controls: no interaction states.
 
 The form controls dress native elements — no script anywhere:
 `.input` (text `<input>`, and `<select class="input select">` inside a

@@ -30,7 +30,11 @@ never invent a class, a token, or a size variant.
   selected treatment. There is **no size modifier** — density is the size
   axis.
 - **Tags** — `.tag`, `.tag.tonal`: label-small pills. Labels, not controls —
-  no interaction states.
+  no interaction states. Status chips are `.tag.success` / `.tag.warning` /
+  `.tag.error`: the same level colour the toast carries (the level pin
+  tinted over the Surface ground, ringed by the level outline). Compose
+  these for any status — a build state, a health badge — and never
+  inline-style a status colour.
 - **Forms** — native elements, no script: `.input` on a text `<input>`;
   a dropdown is `<select class="input select">` inside a `.select-wrap`
   (which draws the chevron); `.checkbox` and `.radio` on their native input
