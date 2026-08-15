@@ -42,8 +42,12 @@ never invent a class, a token, or a size variant.
 - **Cards** — `.card` (outlined, elevation-1 fill), `.card.elevated`
   (borderless, elevation-2 fill).
 - **Table** — `.table` on a real `<table>`: header band, one-control-height
-  rows, divider rules, no zebra. Sortable headers take `th.sortable` plus
-  `.sort-asc` or `.sort-desc` on the active column only.
+  rows, divider rules, no zebra. Tables are unframed: the Surface ground and
+  the header band *are* the frame, so never wrap a table in a card, an
+  outline or a border of your own. A framed table is not in the vocabulary;
+  if one is ever wanted it enters the Gio library first, never these pages.
+  Sortable headers take `th.sortable` plus `.sort-asc` or `.sort-desc` on
+  the active column only.
 - **Navigation** — `.navbar` bar with a centred `.navbar-links` row of
   `.navbar-link`s; `.tabs` strip of `.tab`s (`role="tablist"`/`role="tab"`);
   `.sidebar` (modifier `.collapsed`) with `.sidebar-toggle`, `.sidebar-item`
@@ -55,7 +59,9 @@ never invent a class, a token, or a size variant.
   a right-aligned `.dialog-footer`. Two intents: a **decision** dialog has a
   footer ending in the Return-bound default and **no close X**; a
   dismissable **panel** has a ghost close (`.btn.ghost.icon`) top-right and
-  no footer. Anchored surfaces: `.popover` with a `.popover-tail` on side
+  no footer. A corner affordance like that close draws at control height,
+  the same as every control — density is the only size knob, and the 44 dp
+  accessibility floor is an invisible hit target, never a painted size. Anchored surfaces: `.popover` with a `.popover-tail` on side
   `.top`/`.bottom`/`.left`/`.right`; `.tooltip` (inverse video); `.toast`
   (intents `.success`/`.warning`/`.error`) stacked in a `.toast-stack`.
 - **State-forcing twins** — `.is-hover`, `.is-active`, `.is-focus`,
@@ -79,6 +85,9 @@ never invent a class, a token, or a size variant.
   `--color-warning`/`--color-on-warning`. Solid fills use the pin; their
   hover/pressed stops are emitted as `--color-accent-hover` and
   `--color-accent-pressed` — use those, never a `color-mix()` of your own.
+  For grounds, prefer the semantic pins `--color-bg` and `--color-surface`
+  over `--color-neutral-*` ramp steps: they render the same today, but the
+  semantic survives a theme remap.
 - Type: `--font-family`, `--font-family-code`, and per-role
   `--font-<role>-size`/`-line-height`/`-weight`/`-tracking` for roles
   `display-large`…`body-small` plus `code` (e.g.
