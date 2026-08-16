@@ -5,17 +5,18 @@
      (Home / Design / Tokens), the last segment on the Text pin, on the
      Background pin ground the Gio capture wraps the trail in. The trail
      fills the 320x32 canvas the way the Gio capture does: layout.Exact
-     hands every Rigid segment the full 32 cross minimum, so the labels
-     draw their title-small line box at the top of the slot while the 12px
-     chevrons centre against the whole height — reproduced here by
-     top-aligning the .crumb segments inside a centred 32px row. -->
+     hands every Rigid segment the full 32 cross minimum, and the labels
+     centre their title-small line box within that slot the same way the
+     published .crumbs row centres its items — no per-segment alignment
+     override. (This fixture used to top-align the .crumb segments to
+     reproduce a Gio-side flooring bug; the label layer centres in its
+     floor now, so the published sheet's centring is the shared truth.) -->
 <meta charset="utf-8">
 <link rel="stylesheet" href="/styles.css">
 <style>
   html, body { margin: 0; }
   body { background: var(--color-bg); }
   .crumbs { width: 320px; height: 32px; }
-  .crumb { align-self: flex-start; }
 </style>
 <nav class="crumbs">
   <a class="crumb" href="#">Home</a>
