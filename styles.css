@@ -201,17 +201,17 @@
   --shadow-1: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   --shadow-2: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
   --shadow-3: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
-  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
-  --ease-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
-  --ease-standard-decelerate: cubic-bezier(0, 0, 0, 1);
-  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
-  --ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
-  --ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
-  --duration-x-fast: 50ms;
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --duration-slow: 400ms;
-  --duration-x-slow: 500ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1); /* @kind other */
+  --ease-standard-accelerate: cubic-bezier(0.3, 0, 1, 1); /* @kind other */
+  --ease-standard-decelerate: cubic-bezier(0, 0, 0, 1); /* @kind other */
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1); /* @kind other */
+  --ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15); /* @kind other */
+  --ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1); /* @kind other */
+  --duration-x-fast: 50ms; /* @kind other */
+  --duration-fast: 150ms; /* @kind other */
+  --duration-normal: 250ms; /* @kind other */
+  --duration-slow: 400ms; /* @kind other */
+  --duration-x-slow: 500ms; /* @kind other */
   --color-focus-ring: var(--color-neutral-500);
   --focus-ring-width: 2px;
   --state-disabled-opacity: 38%;
