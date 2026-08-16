@@ -407,6 +407,30 @@
   color: color-mix(in srgb, var(--color-neutral-700) var(--state-disabled-opacity), transparent);
 }
 
+/* A ghost's wash derives from the local ground it sits on, not the window
+   ground: inside a raised host the hover and press washes re-derive as the
+   host surface's own ramp walk (components/button buttonColors, walking
+   from RenderState.Ground's storey). The dialog and the elevated card sit
+   at level 2 — ground 300, hover 400, press 500 — and the popover at the
+   deepest level 3 — ground 400, hover 500, press 600. The text stays the
+   ramp's 900 end, where the walk itself clamps. The level-1 hosts (card,
+   the Surface panes) need no rule: their step is the walk the base ghost
+   already performs. */
+.dialog .btn.ghost:hover, .dialog .btn.ghost.is-hover,
+.card.elevated .btn.ghost:hover, .card.elevated .btn.ghost.is-hover {
+  background: var(--color-neutral-400);
+}
+.dialog .btn.ghost:active, .dialog .btn.ghost.is-active,
+.card.elevated .btn.ghost:active, .card.elevated .btn.ghost.is-active {
+  background: var(--color-neutral-500);
+}
+.popover .btn.ghost:hover, .popover .btn.ghost.is-hover {
+  background: var(--color-neutral-500);
+}
+.popover .btn.ghost:active, .popover .btn.ghost.is-active {
+  background: var(--color-neutral-600);
+}
+
 /* Icon-only form (components/button drawIconButton): a square the
    density's control height on a side, the glyph inset by the density's
    vertical padding — content box ControlHeight − 2·PaddingY, icon.Size's

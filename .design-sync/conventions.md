@@ -25,7 +25,10 @@ never invent a class, a token, or a size variant.
 
 - **Buttons** — `.btn` on `<button>`: filled by default (accent under
   on-accent). Emphasis modifiers: `.btn.tonal` (tinted fill), `.btn.ghost`
-  (no ground at rest). `.btn.icon` is the square icon-only form (inline SVG
+  (no ground at rest). A ghost's wash is its host surface's own one-rung
+  walk — inside `.dialog`, `.card.elevated` or `.popover` the hover/press
+  washes re-derive from that surface's ground automatically; never restyle
+  them by hand. `.btn.icon` is the square icon-only form (inline SVG
   on `currentColor`). `.selected` marks a toggled-on button; ghosts have no
   selected treatment. There is **no size modifier** — density is the size
   axis.

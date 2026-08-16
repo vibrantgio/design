@@ -1,0 +1,20 @@
+<!doctype html>
+<!-- I3.1 mirror fixture (design/mirror) — NOT part of the published bundle.
+     The ghost icon close hovering inside a dialog host: the published
+     sheet's contextual walk (.dialog .btn.ghost:hover) must wash one rung
+     above the dialog's own level-2 ground, not the window ground's rung
+     that dissolves into it. The capture frames only the button, so the
+     dialog ancestor is reduced to its ground: display contents strips its
+     box while keeping the descendant selector live, and the body paints
+     the host's own fill token. The SVG carries the modal crossIcon
+     geometry (20x20 glyph box, strokes 2, inked from 6 to 14). -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  html, body { margin: 0; }
+  body { background: var(--elevation-2); }
+  .dialog { display: contents; }
+</style>
+<div class="dialog">
+  <button class="btn ghost icon is-hover" aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="14" y2="14"/><line x1="14" y1="6" x2="6" y2="14"/></svg></button>
+</div>
