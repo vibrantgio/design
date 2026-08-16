@@ -9,7 +9,7 @@ require (
 	github.com/chromedp/chromedp v0.14.2
 	github.com/vibrantgio/components v0.8.0
 	github.com/vibrantgio/patterns v0.6.1
-	github.com/vibrantgio/theme v0.6.0
+	github.com/vibrantgio/theme v0.6.1
 )
 
 require (
