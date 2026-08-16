@@ -7,8 +7,8 @@ require (
 	gioui.org v0.10.1
 	github.com/chromedp/cdproto v0.0.0-20250724212937-08a3db8b4327
 	github.com/chromedp/chromedp v0.14.2
-	github.com/vibrantgio/components v0.7.0
-	github.com/vibrantgio/patterns v0.6.0
+	github.com/vibrantgio/components v0.8.0
+	github.com/vibrantgio/patterns v0.6.1
 	github.com/vibrantgio/theme v0.6.0
 )
 
@@ -22,6 +22,7 @@ require (
 	github.com/gobwas/ws v1.4.0 // indirect
 	github.com/reactivego/rx v0.3.0 // indirect
 	github.com/reactivego/scheduler v0.2.0 // indirect
+	github.com/vibrantgio/effects v0.2.0 // indirect
 	github.com/vibrantgio/font v0.1.0 // indirect
 	github.com/vibrantgio/mvu v0.5.0 // indirect
 	golang.org/x/exp/shiny v0.0.0-20260727155853-b88d891fe743 // indirect
