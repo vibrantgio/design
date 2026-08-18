@@ -2,7 +2,7 @@
 
 Vibrant Gio is a generative design system for [Gio](https://gioui.org) desktop
 applications. The entire colour system derives from one brand seed — currently
-`#6750a4` — through `theme/tokens.FromSeed`: every colour role carries a
+`#723ad4` — through `theme/tokens.FromSeed`: every colour role carries a
 **nine-step functional ramp (100–900)** on a shared lightness scale, with the
 role's **base pinned separately** so the brand colour is reproduced exactly, and
 **dark mode is the paired ramp** — the same step keeps the same job in both
