@@ -87,6 +87,8 @@
   --color-surface: #e8e7ef;
   --color-text: #141318;
   --color-divider: #d5d3db;
+  --color-inverse-surface: #222126;
+  --color-on-inverse-surface: #eeedf4;
   --color-accent: #6750a4;
   --color-on-accent: #ffffff;
   --color-accent-hover: #4d3586;
@@ -286,6 +288,8 @@
   --color-surface: #222126;
   --color-text: #eeedf4;
   --color-divider: #2e2e33;
+  --color-inverse-surface: #e8e7ef;
+  --color-on-inverse-surface: #141318;
   --color-accent: #d0c4ff;
   --color-on-accent: #22004e;
   --color-accent-hover: #dfd8ff;
@@ -479,13 +483,13 @@
   color: var(--color-accent);
 }
 
-/* Status tags (tag.go colors): the level modifiers carry the same level
-   colour the toast carries, resolved the same way — the pinned fixed-hue
-   role tinted 20% over the ground and drawn pure as the 1 dp outline
-   (padding gives the ring's 1px back), under the Text pin. The ground is
-   the Surface pin rather than the toast's level-2 fill because a chip
-   rests on the pane it labels; it does not float. Status is vocabulary:
-   compose these, never inline-style a status colour. */
+/* Status tags (tag.go colors): the level modifiers carry the level's
+   pinned fixed-hue role tinted 20% over the ground and drawn pure as the
+   1 dp outline (padding gives the ring's 1px back), under the Text pin.
+   The ground is the Surface pin because a chip rests on the pane it
+   labels; it does not float, which is the whole of the difference between
+   a status chip and a transient message. Status is vocabulary: compose
+   these, never inline-style a status colour. */
 .tag.success, .tag.warning, .tag.error {
   padding: calc(var(--space-1) - 1px) calc(var(--space-2) - 1px);
   color: var(--color-text);
@@ -940,8 +944,8 @@
    (patterns/tooltip) and the floating toast (patterns/toast). The elevation
    grammar: a scrimmed modal sits at level 2 (the scrim, not the
    fill, isolates it); an unscrimmed, shadowless popover separates by fill
-   alone and takes the deepest level 3; a toast floats and can leave, so it
-   keeps the level-3 cast shadow on its level-2 tinted base; the tooltip
+   alone and takes the deepest level 3; a toast takes no storey at all — it
+   inverts, and keeps the level-3 cast shadow to say it can leave; the tooltip
    takes no rung at all — it inverts instead, because a bubble that small
    needs the stronger cue. */
 
@@ -1080,26 +1084,32 @@
   letter-spacing: var(--font-label-small-tracking);
 }
 
-/* Toast (toast.go paintToast): one queued notification — 240 dp wide, a
-   36 dp legibility floor that deliberately does not follow density (a
-   toast is not a control), radius Md, label-medium at the Text pin over
-   a level-2 base tinted 20% with the level accent, ringed by the 1 dp
-   accent outline (padding gives the ring's 1px back), and floating on the
-   level-3 cast shadow — the one overlay that keeps its shadow, because on
-   dark themes the shadow, not the fill, is what separates it. The level
-   modifiers swap the accent exactly as accentColor maps them: the accent
-   pin for info (the default), then the success, warning and error pins. */
+/* Toast: one queued notification — 240 dp wide, a 36 dp legibility floor
+   that deliberately does not follow density (a toast is not a control),
+   radius Md, label-medium on the inverse pair, and floating on the level-3
+   cast shadow. It is the one surface built out of the counterpart scheme:
+   dark on a light scheme, light on a dark one, so a message that can
+   appear over any pane separates from all of them without claiming a
+   storey none of them can be under. The shadow stays for what it says
+   rather than for the separation — this layer is temporary — and there is
+   no outline, which on the old tinted level-2 base was the only thing
+   giving the chip an edge.
+   The level shows as a leading edge one S1 wide, painted as a two-stop
+   gradient so the chip's own radius rounds it: the level's ramp at step
+   400, the deepest rung that still reads over the inverse ground in both
+   schemes (step 500 collapses on a light scheme's dark chip). Info takes
+   the primary ramp, then success, warning and error. */
 .toast {
   box-sizing: border-box;
   display: flex;
   align-items: center;
   width: 240px;
   min-height: 36px;
-  padding: calc(var(--space-2) - 1px) calc(var(--space-3) - 1px);
-  border: 1px solid var(--color-accent);
+  padding: var(--space-2) var(--space-3);
+  padding-left: calc(var(--space-1) + var(--space-3));
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--color-accent) 20%, var(--elevation-2));
-  color: var(--color-text);
+  background: linear-gradient(to right, var(--color-primary-400) 0 var(--space-1), var(--color-inverse-surface) var(--space-1));
+  color: var(--color-on-inverse-surface);
   box-shadow: var(--shadow-3);
   font-family: var(--font-family);
   font-size: var(--font-label-medium-size);
@@ -1108,16 +1118,13 @@
   letter-spacing: var(--font-label-medium-tracking);
 }
 .toast.success {
-  border-color: var(--color-success);
-  background: color-mix(in srgb, var(--color-success) 20%, var(--elevation-2));
+  background: linear-gradient(to right, var(--color-success-400) 0 var(--space-1), var(--color-inverse-surface) var(--space-1));
 }
 .toast.warning {
-  border-color: var(--color-warning);
-  background: color-mix(in srgb, var(--color-warning) 20%, var(--elevation-2));
+  background: linear-gradient(to right, var(--color-warning-400) 0 var(--space-1), var(--color-inverse-surface) var(--space-1));
 }
 .toast.error {
-  border-color: var(--color-error);
-  background: color-mix(in srgb, var(--color-error) 20%, var(--elevation-2));
+  background: linear-gradient(to right, var(--color-error-400) 0 var(--space-1), var(--color-inverse-surface) var(--space-1));
 }
 
 /* The stack (toast.go paintStack): a corner-anchored column with S2 gaps,

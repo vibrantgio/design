@@ -54,7 +54,7 @@ both modes, labelled `L` and `D`.
 | `--color-error-<step>` | `--color-error-100` … `--color-error-900` | the error ramp; steps in hundreds |
 | `--color-success-<step>` | `--color-success-100` … `--color-success-900` | the success ramp; steps in hundreds |
 | `--color-warning-<step>` | `--color-warning-100` … `--color-warning-900` | the warning ramp; steps in hundreds |
-| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-accent`, `--color-on-accent`, `--color-accent-hover`, `--color-accent-pressed`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning` | pinned bases, their on-colours, and the ramp-resolved surface/divider |
+| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-inverse-surface`, `--color-on-inverse-surface`, `--color-accent`, `--color-on-accent`, `--color-accent-hover`, `--color-accent-pressed`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning` | pinned bases, their on-colours, the ramp-resolved surface/divider, and the inverse pair the counterpart scheme's ramp resolves |
 | `--font-family` | `--font-family` | the typeface every prose role uses |
 | `--font-family-code` | `--font-family-code` | the monospace typeface the code role uses |
 | `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small, code; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights; code is the mono style outside the MD3 grid, at body-medium's metrics |
@@ -113,10 +113,9 @@ the density's control height on a side, the glyph (an inline SVG on
 `.tag` is the chip the patterns draw: a Full-radius pill at `label-small`
 metrics with S1/S2 padding — filled (accent under on-accent) by default,
 `.tag.tonal` the primary-200 tinted fill under the accent pin. Status
-chips are `.tag.success` / `.tag.warning` / `.tag.error`: the same
-level colour the toast carries, resolved the same way — the level pin
-tinted 20% over the Surface ground, ringed by the 1 dp level outline,
-under the text pin. Compose them for status; never inline-style a
+chips are `.tag.success` / `.tag.warning` / `.tag.error`: the level
+pin tinted 20% over the Surface ground, ringed by the 1 dp level
+outline, under the text pin. Compose them for status; never inline-style a
 status colour. Tags are labels, not controls: no interaction states.
 
 The form controls dress native elements — no script anywhere:
