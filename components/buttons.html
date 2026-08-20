@@ -135,14 +135,14 @@ h3 {
 
 <section>
 <h2>Tags — <code>.tag</code></h2>
-<p class="intro">The chip the patterns draw: a Full-radius pill at <code>label-small</code> metrics, sized to its label. Filled (the accent pin under its on-colour) is the pricing card's "Popular" chip; <code>.tag.tonal</code> (primary&nbsp;200 under the accent pin) is the hero's eyebrow. A tag is a label, not a control: it has no interaction states.</p>
+<p class="intro">The chip the patterns draw: a Full-radius pill at <code>label-small</code> metrics, sized to its label, the line box plus one <code>S1</code> tall. Filled (the accent pin under its on-colour) is the pricing card's "Popular" chip; <code>.tag.tonal</code> (primary&nbsp;200 under the accent pin) is the hero's eyebrow, ringed in that pin because a tint and the pane it rests on are the same lightness and the pill's edge would not read otherwise. The pill itself has no interaction states; the dismissible chip's close affordance is a Gio interaction and has no class in this sheet.</p>
 <div class="row">
 <div class="cell"><span class="tag">Popular</span><span class="annot">filled</span></div>
 <div class="cell"><span class="tag tonal">New in 2.0</span><span class="annot">tonal</span></div>
 </div>
 
 <h2>Status tags — <code>.tag.success</code> / <code>.tag.warning</code> / <code>.tag.error</code></h2>
-<p class="intro">The status chip: the same level colour the toast carries, resolved the same way — the level pin tinted 20% over the Surface ground, ringed by the 1&nbsp;dp level outline, under the text pin. Status is vocabulary: compose these; never inline-style a status colour.</p>
+<p class="intro">The status chip: the same level the toast and the alert carry — the level's tonal container, the role's own hue realized at one chroma and depth rather than mixed, ringed by the 1&nbsp;dp level outline, under the text pin. Status is vocabulary: compose these; never inline-style a status colour.</p>
 <div class="row">
 <div class="cell"><span class="tag success">Passing</span><span class="annot">success</span></div>
 <div class="cell"><span class="tag warning">Degraded</span><span class="annot">warning</span></div>

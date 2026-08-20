@@ -56,33 +56,42 @@
   --color-tertiary-700: #8e4265;
   --color-tertiary-800: #70284a;
   --color-tertiary-900: #2f0019;
-  --color-error-100: #fff4f2;
-  --color-error-200: #ffe2dd;
-  --color-error-300: #ffc7bf;
-  --color-error-400: #ff9b8d;
-  --color-error-500: #fa6b5b;
-  --color-error-600: #d5493c;
-  --color-error-700: #b1241c;
-  --color-error-800: #8b0002;
-  --color-error-900: #320000;
-  --color-success-100: #dfffde;
-  --color-success-200: #9bff9c;
-  --color-success-300: #88ea89;
-  --color-success-400: #69cb6b;
-  --color-success-500: #4aac4e;
-  --color-success-600: #248c2d;
-  --color-success-700: #006b13;
-  --color-success-800: #004e0b;
-  --color-success-900: #001801;
-  --color-warning-100: #fff6e2;
-  --color-warning-200: #ffe5b1;
-  --color-warning-300: #ffce5f;
-  --color-warning-400: #e6ad00;
-  --color-warning-500: #c19100;
-  --color-warning-600: #9a7300;
-  --color-warning-700: #765700;
-  --color-warning-800: #563e00;
-  --color-warning-900: #1c1200;
+  --color-error-100: #fff4f3;
+  --color-error-200: #ffe2de;
+  --color-error-300: #ffc7c1;
+  --color-error-400: #ff9b92;
+  --color-error-500: #fa6a63;
+  --color-error-600: #d54844;
+  --color-error-700: #b12226;
+  --color-error-800: #8a0010;
+  --color-error-900: #320002;
+  --color-success-100: #deffe0;
+  --color-success-200: #96ffa4;
+  --color-success-300: #7feb8f;
+  --color-success-400: #5fcc71;
+  --color-success-500: #3ead54;
+  --color-success-600: #0c8d35;
+  --color-success-700: #006b24;
+  --color-success-800: #004e18;
+  --color-success-900: #001803;
+  --color-warning-100: #fff5e4;
+  --color-warning-200: #ffe5b7;
+  --color-warning-300: #ffcd6e;
+  --color-warning-400: #eaab00;
+  --color-warning-500: #c58f00;
+  --color-warning-600: #9e7200;
+  --color-warning-700: #785600;
+  --color-warning-800: #573e00;
+  --color-warning-900: #1c1100;
+  --color-info-100: #f0f7ff;
+  --color-info-200: #d8eaff;
+  --color-info-300: #b5d8ff;
+  --color-info-400: #7cbaff;
+  --color-info-500: #3a9cfd;
+  --color-info-600: #097bd9;
+  --color-info-700: #005da8;
+  --color-info-800: #00437c;
+  --color-info-900: #00142c;
   --color-bg: #f6f6f6;
   --color-surface: #e8e8e8;
   --color-text: #131313;
@@ -97,12 +106,26 @@
   --color-on-secondary: #ffffff;
   --color-tertiary: #914567;
   --color-on-tertiary: #ffffff;
-  --color-error: #b4271f;
+  --color-error: #b12226;
   --color-on-error: #ffffff;
-  --color-success: #006e14;
+  --color-success: #006b24;
   --color-on-success: #ffffff;
-  --color-warning: #795900;
+  --color-warning: #785600;
   --color-on-warning: #ffffff;
+  --color-info: #005da8;
+  --color-on-info: #ffffff;
+  --color-error-container: #f9c9c4;
+  --color-on-error-container: #b12226;
+  --color-success-container: #bbddbe;
+  --color-on-success-container: #006b24;
+  --color-warning-container: #e7d2ac;
+  --color-on-warning-container: #785600;
+  --color-info-container: #bbd7f8;
+  --color-on-info-container: #005da8;
+  --color-error-on-inverse: #fa6a63;
+  --color-success-on-inverse: #3ead54;
+  --color-warning-on-inverse: #c58f00;
+  --color-info-on-inverse: #3a9cfd;
   --font-family: "Roboto";
   --font-family-code: "Roboto Mono";
   --font-display-large-size: 57px;
@@ -257,33 +280,42 @@
   --color-tertiary-700: #ffb8d4;
   --color-tertiary-800: #ffd0e2;
   --color-tertiary-900: #ffe8f0;
-  --color-error-100: #3a0000;
-  --color-error-200: #4d0001;
-  --color-error-300: #650001;
-  --color-error-400: #930003;
-  --color-error-500: #ff7161;
-  --color-error-600: #ff9b8d;
-  --color-error-700: #ffbcb1;
-  --color-error-800: #ffd3cc;
+  --color-error-100: #3a0003;
+  --color-error-200: #4d0005;
+  --color-error-300: #640008;
+  --color-error-400: #930012;
+  --color-error-500: #ff7169;
+  --color-error-600: #ff9b92;
+  --color-error-700: #ffbbb4;
+  --color-error-800: #ffd3ce;
   --color-error-900: #ffe9e6;
-  --color-success-100: #001d02;
-  --color-success-200: #002903;
-  --color-success-300: #003706;
-  --color-success-400: #00530d;
-  --color-success-500: #4fb253;
-  --color-success-600: #69cb6b;
-  --color-success-700: #7fe281;
-  --color-success-800: #90f391;
-  --color-success-900: #b9ffb8;
-  --color-warning-100: #211600;
-  --color-warning-200: #2d1f00;
-  --color-warning-300: #3d2b00;
-  --color-warning-400: #5b4300;
-  --color-warning-500: #c89600;
-  --color-warning-600: #e6ad00;
-  --color-warning-700: #ffc322;
-  --color-warning-800: #ffd886;
-  --color-warning-900: #ffecc5;
+  --color-success-100: #001d05;
+  --color-success-200: #002808;
+  --color-success-300: #00370e;
+  --color-success-400: #00531a;
+  --color-success-500: #44b35a;
+  --color-success-600: #5fcc71;
+  --color-success-700: #77e387;
+  --color-success-800: #88f497;
+  --color-success-900: #b7ffbe;
+  --color-warning-100: #221500;
+  --color-warning-200: #2e1f00;
+  --color-warning-300: #3e2b00;
+  --color-warning-400: #5d4200;
+  --color-warning-500: #cc9400;
+  --color-warning-600: #eaab00;
+  --color-warning-700: #ffc242;
+  --color-warning-800: #ffd78f;
+  --color-warning-900: #ffecc9;
+  --color-info-100: #001833;
+  --color-info-200: #002244;
+  --color-info-300: #002f5a;
+  --color-info-400: #004884;
+  --color-info-500: #46a1ff;
+  --color-info-600: #7cbaff;
+  --color-info-700: #a6d0ff;
+  --color-info-800: #c4e0ff;
+  --color-info-900: #e2efff;
   --color-bg: #181818;
   --color-surface: #222222;
   --color-text: #eeeeee;
@@ -298,12 +330,26 @@
   --color-on-secondary: #1c1037;
   --color-tertiary: #ffb8d4;
   --color-on-tertiary: #37001d;
-  --color-error: #ffbcb1;
-  --color-on-error: #3a0000;
-  --color-success: #7fe281;
-  --color-on-success: #001d02;
-  --color-warning: #ffc322;
-  --color-on-warning: #211600;
+  --color-error: #ffbbb4;
+  --color-on-error: #3a0003;
+  --color-success: #77e387;
+  --color-on-success: #001d05;
+  --color-warning: #ffc242;
+  --color-on-warning: #221500;
+  --color-info: #a6d0ff;
+  --color-on-info: #001833;
+  --color-error-container: #482421;
+  --color-on-error-container: #ff7169;
+  --color-success-container: #18341c;
+  --color-on-success-container: #44b35a;
+  --color-warning-container: #3d2b08;
+  --color-on-warning-container: #cc9400;
+  --color-info-container: #183049;
+  --color-on-info-container: #46a1ff;
+  --color-error-on-inverse: #930012;
+  --color-success-on-inverse: #00531a;
+  --color-warning-on-inverse: #5d4200;
+  --color-info-on-inverse: #004884;
 }
 
 .compact {
@@ -317,8 +363,9 @@
    components/button: filled by default, .tonal and .ghost the emphasis
    modifiers, states resolved as one-rung ramp walks from the same rungs the
    Gio side draws. .input/.select/.checkbox/.radio mirror components/input,
-   .tag the chip patterns/tag draws (for pricing, hero, and the status
-   levels), .card the
+   .tag the pill patterns/tag draws (for pricing, hero, and the status
+   levels; the chip's dismiss affordance is a Gio interaction and has no
+   class here), .card the
    patterns/card surface, .table the patterns/table grid, the navigation
    family — .navbar, .tabs, .sidebar, .crumbs — the four patterns of the same
    names, and the overlay family — .scrim/.dialog (patterns/modal), .popover,
@@ -455,19 +502,27 @@
 
 /* ---- Tag ----
    The chip patterns/tag draws (the shared home of patterns/pricing's
-   "Popular" chip and patterns/hero's eyebrow): a Full-radius pill, S1/S2
-   padding, sized to its label-small text. Filled by default — the accent
-   pin under its on-colour; .tonal is the eyebrow — the primary 200 tinted
-   fill under the accent pin. All call sites request SemiBold, which the
-   pinned shaper resolves to the Medium face (the nearest registered
-   weight), so the sheet says the label role's own weight rather than
-   asking the browser to synthesize a 600. A tag is a label, not a
-   control: it has no interaction states. */
+   "Popular" chip and patterns/hero's eyebrow): a Full-radius pill sized to
+   its label-small text, S2 either side and the S1 stop spent once across
+   the two vertical edges rather than once on each — so the pill is the
+   label's line box plus S1, and the type inside it is untouched. Filled by
+   default — the accent pin under its on-colour; .tonal is the eyebrow — the
+   primary 200 tinted fill under the accent pin. All call sites request
+   SemiBold, which the pinned shaper resolves to the Medium face (the
+   nearest registered weight), so the sheet says the label role's own weight
+   rather than asking the browser to synthesize a 600.
+
+   Every modifier but the default rings itself, and the ring is not
+   decoration: a tint and the surface it rests on are the same lightness by
+   construction, so a tinted pill measures around 1:1 against the pane it
+   sits on and its edge would be invisible. The accent pin's fill separates
+   on its own and takes no ring. The padding gives the ring's 1px back so
+   every chip measures the same box. */
 .tag {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
-  padding: var(--space-1) var(--space-2);
+  padding: calc(var(--space-1) / 2) var(--space-2);
   border-radius: var(--radius-full);
   white-space: nowrap;
   font-family: var(--font-family);
@@ -479,32 +534,36 @@
   color: var(--color-on-accent);
 }
 .tag.tonal {
+  padding: calc(var(--space-1) / 2 - 1px) calc(var(--space-2) - 1px);
+  border: 1px solid var(--color-accent);
   background: var(--color-primary-200);
   color: var(--color-accent);
 }
 
-/* Status tags (tag.go colors): the level modifiers carry the level's
-   pinned fixed-hue role tinted 20% over the ground and drawn pure as the
-   1 dp outline (padding gives the ring's 1px back), under the Text pin.
-   The ground is the Surface pin because a chip rests on the pane it
-   labels; it does not float, which is the whole of the difference between
-   a status chip and a transient message. Status is vocabulary: compose
-   these, never inline-style a status colour. */
+/* Status tags (tag.go colors): the level modifiers carry the level's tonal
+   container — the role's own hue realized at one measured chroma and depth
+   by the theme, which is why the background names a token rather than
+   mixing one — ringed by the 1 dp level pin, under the Text pin. A mixed
+   ground was what these used to wear, and compositing a pinned base over
+   the neutral Surface in non-linear sRGB holds neither the hue nor the
+   chroma: the four came out near enough to grey that no two of them could
+   be told apart. Status is vocabulary: compose these, never inline-style a
+   status colour. */
 .tag.success, .tag.warning, .tag.error {
-  padding: calc(var(--space-1) - 1px) calc(var(--space-2) - 1px);
+  padding: calc(var(--space-1) / 2 - 1px) calc(var(--space-2) - 1px);
   color: var(--color-text);
 }
 .tag.success {
   border: 1px solid var(--color-success);
-  background: color-mix(in srgb, var(--color-success) 20%, var(--color-surface));
+  background: var(--color-success-container);
 }
 .tag.warning {
   border: 1px solid var(--color-warning);
-  background: color-mix(in srgb, var(--color-warning) 20%, var(--color-surface));
+  background: var(--color-warning-container);
 }
 .tag.error {
   border: 1px solid var(--color-error);
-  background: color-mix(in srgb, var(--color-error) 20%, var(--color-surface));
+  background: var(--color-error-container);
 }
 
 /* ---- Form controls ----
@@ -1094,11 +1153,24 @@
    rather than for the separation — this layer is temporary — and there is
    no outline, which on the old tinted level-2 base was the only thing
    giving the chip an edge.
-   The level shows as a leading edge one S1 wide, painted as a two-stop
-   gradient so the chip's own radius rounds it: the level's ramp at step
-   400, the deepest rung that still reads over the inverse ground in both
-   schemes (step 500 collapses on a light scheme's dark chip). Info takes
-   the primary ramp, then success, warning and error. */
+   The level shows as a leading edge one S2 wide, painted as a two-stop
+   gradient so the chip's own radius rounds it: the level's own mark on the
+   inverse surface, the rung of that level's ramp nearest its mid-value step
+   that still reads over the chip. It was one S1, which is the width this
+   desktop keeps for separators, pane strokes and insets — furniture it does
+   not want looked at — and a mark identified by its colour cannot be drawn
+   at furniture width. Two stops is as wide as the air above the message and
+   two thirds of the air beside it, which is where the widening stops: an
+   edge as wide as the gap it holds the text off by reads as a panel the
+   message sits next to rather than as the chip's own edge.
+   The mark arrives as a token rather than as a ramp reference because the
+   two schemes do not land on one rung — a light scheme's marks come off
+   step 500 and a dark scheme's off step 400 — and because one rung for both
+   cost the light scheme its reds, the error edge coming out the pale salmon
+   a red turns into when it is asked to sit as light as an amber wants to.
+   Each level takes its own status ramp — info included, which reads off the
+   info ramp rather than off the accent, so a themed brand cannot make an
+   informational chip wear the colour of an alarming one. */
 .toast {
   box-sizing: border-box;
   display: flex;
@@ -1106,9 +1178,9 @@
   width: 240px;
   min-height: 36px;
   padding: var(--space-2) var(--space-3);
-  padding-left: calc(var(--space-1) + var(--space-3));
+  padding-left: calc(var(--space-2) + var(--space-3));
   border-radius: var(--radius-md);
-  background: linear-gradient(to right, var(--color-primary-400) 0 var(--space-1), var(--color-inverse-surface) var(--space-1));
+  background: linear-gradient(to right, var(--color-info-on-inverse) 0 var(--space-2), var(--color-inverse-surface) var(--space-2));
   color: var(--color-on-inverse-surface);
   box-shadow: var(--shadow-3);
   font-family: var(--font-family);
@@ -1118,13 +1190,13 @@
   letter-spacing: var(--font-label-medium-tracking);
 }
 .toast.success {
-  background: linear-gradient(to right, var(--color-success-400) 0 var(--space-1), var(--color-inverse-surface) var(--space-1));
+  background: linear-gradient(to right, var(--color-success-on-inverse) 0 var(--space-2), var(--color-inverse-surface) var(--space-2));
 }
 .toast.warning {
-  background: linear-gradient(to right, var(--color-warning-400) 0 var(--space-1), var(--color-inverse-surface) var(--space-1));
+  background: linear-gradient(to right, var(--color-warning-on-inverse) 0 var(--space-2), var(--color-inverse-surface) var(--space-2));
 }
 .toast.error {
-  background: linear-gradient(to right, var(--color-error-400) 0 var(--space-1), var(--color-inverse-surface) var(--space-1));
+  background: linear-gradient(to right, var(--color-error-on-inverse) 0 var(--space-2), var(--color-inverse-surface) var(--space-2));
 }
 
 /* The stack (toast.go paintStack): a corner-anchored column with S2 gaps,

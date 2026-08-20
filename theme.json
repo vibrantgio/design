@@ -9,9 +9,10 @@
       "accent": "#723ad4",
       "secondary": "#625886",
       "tertiary": "#914567",
-      "error": "#b4271f",
-      "success": "#006e14",
-      "warning": "#795900"
+      "error": "#b12226",
+      "success": "#006b24",
+      "warning": "#785600",
+      "info": "#005da8"
     },
     "dark": {
       "bg": "#181818",
@@ -19,9 +20,10 @@
       "accent": "#d0c4ff",
       "secondary": "#d0c5fa",
       "tertiary": "#ffb8d4",
-      "error": "#ffbcb1",
-      "success": "#7fe281",
-      "warning": "#ffc322"
+      "error": "#ffbbb4",
+      "success": "#77e387",
+      "warning": "#ffc242",
+      "info": "#a6d0ff"
     }
   },
   "fonts": {

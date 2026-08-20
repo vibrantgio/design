@@ -19,9 +19,9 @@ import (
 )
 
 // tagSize is the status-chip capture viewport: room for a label-small pill
-// (16 dp line box plus twice the 4 dp vertical padding) with ground around
-// it, so the 1 dp level outline is read against the Surface pin on every
-// side.
+// (16 dp line box plus the S1 stop spent once across both edges) with ground
+// around it, so the 1 dp level outline is read against the Surface pin on
+// every side.
 //
 // The size is calibrated, not arbitrary. A tag is the first intrinsic-width
 // specimen in the harness: unlike a button (which fills its viewport on
@@ -29,27 +29,41 @@ import (
 // label's, and the two shapers disagree about label-small most of all —
 // the browser applies the role's 0.5px tracking, Gio's typeset does not —
 // so the whole right edge of the pill lands shifted, which the box filter
-// reads as displaced cells. Measured on the authoritative machine
-// (Chromium 153.0.8008.0, 2026-08-15), per-level matches against the three
-// fixtures at candidate viewports, with wrong-level cross-pairs beside
-// them:
+// reads as displaced cells.
 //
-//	120x40: matches 0.0180–0.0241, cross-pairs 0.0347–0.0452
-//	160x48: matches 0.0113–0.0150, cross-pairs 0.0217–0.0282
-//	200x56: matches 0.0077–0.0103, cross-pairs 0.0149–0.0194
+// The table below was re-measured when the pill compressed and its ring
+// moved inside the box. Both moved the numbers, in opposite directions: a
+// shorter chip is less of its own viewport, so the edge shift weighs more,
+// while a ring drawn as nested fills lands on the same pixels the CSS
+// border does instead of straddling the pill's edge, which is worth more
+// than the compression cost. Measured on the authoritative machine
+// (Chromium 153.0.8008.0), the worst per-level match against the three
+// fixtures and the closest wrong-level cross-pair, at candidate viewports:
 //
-// 160x48 is the one viewport where every match clears Tolerance (0.017)
-// and every wrong-level pair still fails it — smaller punishes the edge
-// shift a correct mirror cannot avoid, larger dilutes the chip until a
-// wrong level reads as a match.
+//	100x32: worst match 0.0272, closest cross-pair 0.0488
+//	120x40: worst match 0.0181, closest cross-pair 0.0325
+//	140x40: worst match 0.0156, closest cross-pair 0.0279
+//	160x44: worst match 0.0124, closest cross-pair 0.0222
+//	160x48: worst match 0.0113, closest cross-pair 0.0203
+//	180x48: worst match 0.0101, closest cross-pair 0.0181
+//	200x56: worst match 0.0078, closest cross-pair 0.0139
+//	240x64: worst match 0.0057, closest cross-pair 0.0102
+//
+// The viewport has to put every match under Tolerance (0.017) and leave
+// every wrong-level pair over it — smaller punishes the edge shift a
+// correct mirror cannot avoid, larger dilutes the chip until a wrong level
+// reads as a match, which 200x56 and 240x64 both now do. 160x48 keeps the
+// widest margin on the side that can fail either way: matches clear by
+// 0.0057 and cross-pairs fail by 0.0033, where 180x48 leaves the cross-pair
+// only 0.0011 of room.
 var tagSize = image.Pt(160, 48)
 
 // TestStatusTagMirrors scores each I2.1 specimen pair: the patterns/tag
 // status chip in a given level against the browser render of the matching
 // fixture, both at the same viewport over the Surface pin — the ground a
-// resting chip sits on, and the base its 20% level tint blends over. Every
-// distance is logged; each must land under Tolerance for the page to count
-// as a mirror of the chip rather than a drawing of one.
+// resting chip sits on, and the pane its level container separates from.
+// Every distance is logged; each must land under Tolerance for the page to
+// count as a mirror of the chip rather than a drawing of one.
 func TestStatusTagMirrors(t *testing.T) {
 	srv := Serve(t)
 	shaper := tokens.DefaultTypography.DeterministicShaper()
