@@ -795,9 +795,11 @@
    drawNavbar fills Surface, insets PaddingY vertically and S4 horizontally,
    and patterns/shell pins the bar to ControlHeight + 2*PaddingY (52 dp
    comfortable, 40 compact). Slots run brand, centred links, actions; the
-   links row centres in the space brand and actions leave over (two equal
-   flexed spacers), which margin-inline auto reproduces exactly, including
-   the documented off-centre approximation when the end slots differ. */
+   links row centres in the space brand and actions leave over (that space
+   halved), which margin-inline auto reproduces exactly, including the
+   documented off-centre approximation when the end slots differ. Each slot
+   is drawn on the bar's own centre line, whatever height it comes back —
+   align-items centre over a definite content box is that same line. */
 .navbar {
   box-sizing: border-box;
   display: flex;
@@ -811,7 +813,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);  /* linksRow's HSpacer(sp.S2) between link cells */
-  margin-inline: auto;  /* the two equal flexed spacers */
+  margin-inline: auto;  /* the leftover space, halved on either side */
 }
 
 /* A link cell (navbar.go linkWidget): label-large at the Text pin inside
