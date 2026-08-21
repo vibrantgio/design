@@ -115,8 +115,10 @@ Notes the table needs to be read with:
   layers above their parent; their parents may not inherit that edge. This is
   the mechanism that keeps a demo from re-closing a cycle — the org's one
   real dependency cycle (pulse into prism) was a single demo file's doing.
-- **`workbench` carries no root module** — it is seven application modules in
-  subdirectories, and no library imports them.
+- **`workbench` is eight application modules in subdirectories**, each
+  released on its own cadence, beside a root module that collects them. No
+  library imports any of them, and a nested module stands outside its parent
+  by Go's own rules, so the root never swallows an application.
 
 The table is enforced, not aspirational: the org's `check-layers.sh` script
 walks `go list -deps` for every module and asserts only the edges the table
