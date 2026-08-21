@@ -15,7 +15,7 @@
 **Two documents, two jobs.** This file is the design rationale — *why* the
 system is shaped the way it is, for people (and agents) working **on** the
 design system. The canonical guide for building applications **with** it is
-[`llms.txt`](https://raw.githubusercontent.com/vibrantgio/.github/master/llms.txt)
+[`llms.txt`](https://raw.githubusercontent.com/vibrantgio/workbench/master/llms.txt)
 at the root of the org's `.github` repository (ADR-004): bootstrap skeleton,
 token vocabulary, component catalogue, pitfalls. If you are writing an app,
 read that first; if you are changing the system, read this. This file lives
@@ -609,11 +609,17 @@ window. (`textdraw` is *not* deprecated — it is the low-level text layer and
 has no replacement; only the scale froze.) The default Typography grew a
 sixteenth style, `Code`, on the Roboto Mono face packaged alongside Roboto.
 
-### ADR-004: The canonical agent guide lives in `.github`
+### ADR-004: The canonical agent guide lives in `workbench`
 
-**Decision.** `llms.txt` lives at the root of the org's `.github` repository
-and is the single source. Every repository carries an `AGENTS.md` that links
-its raw URL. The content is never duplicated — only pointed at.
+**Decision (amended 2026-08-21).** `llms.txt` lives at the root of the
+`workbench` repository and is the single source. Every repository carries an
+`AGENTS.md` that links its raw URL. The content is never duplicated — only
+pointed at. The original decision placed the guide in `.github`; that is
+reversed: `workbench` is where the org showcases how to build applications
+with Vibrant Gio, and so is the natural home for the guide that teaches
+exactly that, while `.github` is where Vibrant Gio itself is built — the
+plan, the templates, the gates. The version-sync scripts stay in `.github`
+and reach across to the workbench clone.
 
 **Why.** The guide was genuinely good — hundreds of accurate lines on the
 MVU loop, rx semantics and real pitfalls — but it existed exactly once,
