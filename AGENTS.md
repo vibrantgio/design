@@ -16,12 +16,12 @@ design system. Its bundle is generated: emitted by theme's `cmd/vg-tokens`
 and pushed to `claude.ai/design` by the org's `scripts/push-design.sh`, so
 a change to a token lands in theme first and is re-emitted here rather than
 edited here — only the two `DESIGN*.md` documents are edited in place. Its
-root module imports nothing else in the organization. That direction is
-measured rather than typed — `scripts/check-layers.sh --edges` reports the
-graph and `scripts/sync-agents.sh` renders these sentences from it — so
-correcting them here changes nothing. The other direction is measured too
-and deliberately not written down: the gate checks the graph both ways, but
-a public API's consumers are unknowable, so this file says what its module
+root module imports `font`. That direction is measured rather than typed —
+`scripts/check-layers.sh --edges` reports the graph and
+`scripts/sync-agents.sh` renders these sentences from it — so correcting
+them here changes nothing. The other direction is measured too and
+deliberately not written down: the gate checks the graph both ways, but a
+public API's consumers are unknowable, so this file says what its module
 needs and never who needs it.
 
 **Read the canonical guide before you write code against this module.** It is
