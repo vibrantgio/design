@@ -17,10 +17,10 @@ import (
 	"testing"
 	"time"
 
-	"eliasnaur.com/font/roboto/robotomedium"
-	"eliasnaur.com/font/roboto/robotoregular"
 	"github.com/chromedp/cdproto/runtime"
 	"github.com/chromedp/chromedp"
+	robotomedium "github.com/vibrantgio/font/roboto/regular/medium"
+	robotoregular "github.com/vibrantgio/font/roboto/regular/normal"
 
 	"github.com/vibrantgio/design"
 )
