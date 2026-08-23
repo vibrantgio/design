@@ -16,7 +16,7 @@
 system is shaped the way it is, for people (and agents) working **on** the
 design system. The canonical guide for building applications **with** it is
 [`llms.txt`](https://raw.githubusercontent.com/vibrantgio/workbench/master/llms.txt)
-at the root of the org's `.github` repository (ADR-004): bootstrap skeleton,
+in the `workbench` repository (ADR-004): bootstrap skeleton,
 token vocabulary, component catalogue, pitfalls. If you are writing an app,
 read that first; if you are changing the system, read this. This file lives
 in the `design` repository, beside the published token bundle it explains;
@@ -611,15 +611,17 @@ sixteenth style, `Code`, on the Roboto Mono face packaged alongside Roboto.
 
 ### ADR-004: The canonical agent guide lives in `workbench`
 
-**Decision (amended 2026-08-21).** `llms.txt` lives at the root of the
-`workbench` repository and is the single source. Every repository carries an
-`AGENTS.md` that links its raw URL. The content is never duplicated — only
-pointed at. The original decision placed the guide in `.github`; that is
-reversed: `workbench` is where the org showcases how to build applications
-with Vibrant Gio, and so is the natural home for the guide that teaches
-exactly that, while `.github` is where Vibrant Gio itself is built — the
-plan, the templates, the gates. The version-sync scripts stay in `.github`
-and reach across to the workbench clone.
+**Decision (amended 2026-08-23).** `llms.txt` lives at the root of the
+`workbench` repository and is the single source. Every repository carries a
+short, static `AGENTS.md` that names the module in one sentence and links
+that raw URL. The content is never duplicated — only pointed at. `AGENTS.md`
+is not generated, does not embed tags or import graphs, and is not rewritten
+when `.github` changes. The original decision placed the guide in `.github`;
+that is reversed: `workbench` is where the org showcases how to build
+applications with Vibrant Gio, and so is the natural home for the guide that
+teaches exactly that, while `.github` is where Vibrant Gio itself is built —
+the plan and the gates. The version-sync scripts stay in `.github` and reach
+across to the workbench clone.
 
 **Why.** The guide was genuinely good — hundreds of accurate lines on the
 MVU loop, rx semantics and real pitfalls — but it existed exactly once,
@@ -631,10 +633,14 @@ and stopped. Worse, the guide taught the then-current defect: it omitted
 it perfectly shipped a gofont application.
 
 **Consequences.** The guide was moved, corrected, and has been rewritten
-against each phase as it landed; every repo's `AGENTS.md` links it. The
-division of labour it creates is the one this document's preamble states:
-`llms.txt` teaches building *with* the system, DESIGN.md records *why* the
-system is shaped this way.
+against each phase as it landed; every repo's `AGENTS.md` is a pointer to
+it. The generated `AGENTS.md` machinery — `sync-agents.sh`,
+`check-agents.sh`, `templates/` — was removed: a second copy of measurable
+facts forced a commit in every sibling whenever the template or a nested
+tag moved, which made `git log` on a leaf unreadable. The division of
+labour that remains is the one this document's preamble states: `llms.txt`
+teaches building *with* the system, DESIGN.md records *why* the system is
+shaped this way.
 
 ### ADR-005: MD3's system, not MD3's look
 
