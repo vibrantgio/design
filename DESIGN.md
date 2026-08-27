@@ -192,10 +192,15 @@ ramp, with the level naming the rung:
 | 2 | menus, toasts, higher panels | neutral 300 |
 | 3 | the top of the desktop ladder | neutral 400 |
 
-Because the ramps are paired, a raised surface lightens in dark mode and
-darkens in light mode with no second rule — dark-mode surface tint, the one
-thing MD3's tonal elevation existed to encode, falls out of the pairing for
-free. State walks compose on top with the level's step as the ground. MD3's
+The pairing gives dark-mode surface tint — the one thing MD3's tonal
+elevation existed to encode — for free. What it does *not* give is the
+direction: ADR-021 let the pairing decide it, so a raised surface darkened in
+light and lightened in dark, and ADR-022 overturns that. In both schemes a
+surface nearer the viewer is lighter, and the ladder gains a storey below the
+pin for the window's furniture (§Which region wears which rung). The table
+above is the ladder as the released tokens still resolve it; the storeys, not
+the mirror, are the model it is being re-founded on. State walks compose on
+top with the storey's step as the ground. MD3's
 levels 4 and 5 survived only as shims clamping to level 3 until the breaking
 release deleted them: desktop has no six-storey stack. Shadows are opt-in vibrancy,
 not part of elevation (§Desktop divergences).
@@ -203,48 +208,84 @@ not part of elevation (§Desktop divergences).
 ### Which region wears which rung
 
 The ladder says how high a surface stands; this says which part of a window
-stands where. It was implicit in what shipped for a year and written down
-only in ADR-021, which is why applications derived it independently and some
-derived it backwards. Three kinds of area, three rungs:
+stands where, and which way its light comes from. The anatomy was implicit in
+what shipped for a year and written down only in ADR-021, which is why
+applications derived it independently and some derived it backwards. The
+direction was written down there too, and got it wrong; ADR-022 re-founds it.
 
-| area | rung | resolves to |
+**The linchpin (ADR-022): in both schemes, a surface nearer the viewer is
+lighter.** One perceptual rule. There is no second rule for dark mode and no
+mirror — elevation reads as elevation because a surface nearer the viewer
+catches more light, and reflectance does not invert when the room goes dark.
+The consequence that reorganises the rest: **chrome furniture is the window's
+floor, not a storey above the paper.** A sidebar, a rail, a toolbar is the
+desk the document lies on, so it is darker than the document in the light
+scheme and in the dark one. ADR-021 had furniture one rung *up* because the
+ladder only counted upward from the pin; the ladder was short a storey at the
+bottom.
+
+Four storeys, ordered away from the desk and toward the reader:
+
+| storey | what wears it | lightness |
 | --- | --- | --- |
-| **content ground** — the document, the transcript, the list the window exists to show | 0 | the Background pin |
-| **chrome furniture** — sidebars, asides, rails, toolbars, inspectors | 1 | `Surface`, neutral 200 |
-| **transient surfaces and edges** — what appears and leaves, what draws a boundary or a state | 2–3 | neutral 300 / 400, `Divider` |
+| **floor** | **chrome furniture** — sidebars, asides, rails, toolbars, inspectors | darkest in the window |
+| **paper** | **the content ground** — the document, the transcript, the list the window exists to show | the Background pin |
+| **raised** | **filled insets on the paper** — cards, code fences, a band's own controls, a text field | above the pin |
+| **floating** | **what appears and leaves** — dialogs, menus, popovers, toasts | nearest the light extreme |
 
-- **The resting content ground is level 0** — the Background pin, which is
+Read the table down and lightness increases, in both schemes. That is the
+whole model.
+
+- **The resting content ground is the paper** — the Background pin, which is
   why the ladder's step‑0 is a sentinel rather than a ramp step and why
   `RenderState.Ground`'s zero value is documented as "the window ground".
-- **Furniture stands exactly one rung up.** One step of the neutral ramp is
-  the whole separation between chrome and content; two is a mistake.
-- **Levels 2 and 3 are transient, or they are edges** — a dialog and a
-  toast's base at level 2, a popover and a dropdown at level 3, `Divider`
-  and the state walks at neutral 300. No resting expanse of a window fills
-  at level 2 or deeper, however it is labelled: permanence is the test and
-  size is its tell.
-- **Rungs walk from the local ground, not from the window.** A card on the
-  content ground is level 1 over level 0; a control inside a dialog walks
-  from level 2, which is what `RenderState.Ground` exists to say. A *filled*
-  inset inside a level‑0 body — a code fence — steps up from the paper it
-  lies on; an inset that is *marked* rather than filled — a blockquote's bar
-  and muted ink, a rule — stands off its page by contrast and owes no rung
-  at all, because the ladder is for fills. Level 0
-  itself answers differently, because the Background pin is off the ramp and
-  has no step to walk from: a raised thing on the content ground is drawn as
-  a level‑1 surface and its state walk starts from level 1's step — which is
-  what `SurfaceAt` already says ("treat interactive regions on it as level‑1
-  surfaces instead") and what the button register already resolves level 0
-  to. A shared surface takes its ground as a parameter, because it cannot
-  know it: a pattern that paints a plane and then a band over it — a table's
-  grid and its header, a tab panel and its strip — walks that band from the
-  plane's own rung and never from an absolute step, which is right only for
-  as long as every caller happens to rest where it was written.
+- **Furniture is the floor, exactly one step below the paper.** One step of
+  the ramp is the whole separation between chrome and content; two is a
+  mistake. Only the direction changed with ADR-022 — the magnitude is what
+  ADR-021 measured and what the platform independently arrives at.
+- **Nothing resting takes a floating storey.** A dialog and a toast's base,
+  a popover and a dropdown are what appears and leaves; `Divider` and the
+  state walks are edges. No resting expanse of a window takes either,
+  however it is labelled: permanence is the test and size is its tell.
+- **Rungs walk from the local ground, not from the window, and a step
+  toward the viewer is a step toward the scheme's light extreme.** A card on
+  the paper is one storey up from the paper; a control inside a dialog walks
+  from the dialog's own fill, which is what `RenderState.Ground` exists to
+  say. A *filled* inset inside a body — a code fence — steps up from the
+  paper it lies on and is drawn lighter than it in both schemes; an inset
+  that is *marked* rather than filled — a blockquote's bar and muted ink, a
+  rule — stands off its page by contrast and owes no rung at all, because
+  the ladder is for fills. The paper itself answers differently, because the
+  Background pin is off the ramp and has no step to walk from: a raised
+  thing on the content ground is drawn at the storey above the pin and its
+  state walk starts there — which is what `SurfaceAt` already says ("treat
+  interactive regions on it as level‑1 surfaces instead") and what the
+  button register already resolves the window ground to. A shared surface
+  takes its ground as a parameter, because it cannot know it: a pattern that
+  paints a plane and then a band over it — a table's grid and its header, a
+  tab panel and its strip — walks that band from the plane's own storey and
+  never from an absolute step, which is right only for as long as every
+  caller happens to rest where it was written.
+- **A filled inset is a raised chip, never a recessed well.** There is no
+  recessed class (ADR-022): the one test the system has for what owes a rung
+  is filled versus marked, and it already assigns the fence to the fills. So
+  a fenced code block is lighter than the page it lies on, in both schemes,
+  with its hairline and its corner radius carrying the visible edge — which
+  is what the platform-adjacent reference measures in both appearances
+  (page `#151515` under fence `#1A1A1A` in dark, page `#FCFCFB` under fence
+  `#FDFDFD` in light; 2.5 L\* and 0.4 L\*). The precedents that look like
+  wells are mirrors rather than recessions — a light fence darker than its
+  page and a dark fence lighter than its page is a step taken in whichever
+  direction the scheme had room for, and a text well drawn at the scale's
+  extreme in each appearance is a convention about where content lives. If
+  a fence receded and a card rose, one page would show two directions from
+  one ground and the check below would stop being decidable by looking.
 - **What is chosen is Primary‑tinted; what is transient is a neutral walk.**
   The item a window is currently showing takes `Ramps.Primary.Step(300)`;
   hover, pressed and a keyboard cursor stay step walks (§States are step
   walks), so a list can show a cursor and a current item at once without
-  the two colliding.
+  the two colliding. Direction has nothing to say about hue, and this rule
+  is untouched by ADR-022.
 - **The titlebar wears the ground of the region it caps** — content behind
   the strip where the platform allows it, an application-painted band where
   it does not, never an unpainted native strip over a painted window. Taking
@@ -255,22 +296,32 @@ derived it backwards. Three kinds of area, three rungs:
   native strip, so the capping regions say where the window may be picked up.
   Where the strip crosses a seam, each side wears its own fill and both hold
   one height — two depths across one strip read as a step in the window's top
-  edge.
-- **The check:** walk out from the middle of the window at rest — overlays
-  dismissed — and the rung numbers must never decrease. A dialog stands in
-  the middle at level 2 by design, and a control inside it one deeper, so
-  the check is taken on the window a dismissal leaves behind.
+  edge. Untouched by ADR-022: this is about which region and how tall, never
+  about which way the light comes from.
+- **The check, in one sentence:** *walking toward the viewer never gets
+  darker, in either scheme.* It needs no mirror clause, because it does not
+  care which scheme is on, and no dismiss-the-overlays exception, because it
+  is taken along the depth axis rather than across the window's plane — a
+  dialog is nearer than the paper *and* lighter than it, so a modal
+  satisfies the check instead of breaking it. The composition corollary is
+  now the same sentence in both schemes: **a window's furniture is its
+  darkest region and the nearest surface its lightest.** A window darker in
+  its middle than at its edges has the grammar inverted somewhere.
 
-Because the ramps are paired, that one statement dresses both schemes and
-inverts itself for free: in light the window is lightest at its centre and
-steps darker outward (`#F6F6F6` → `#E8E8E8` → `#D4D4D4`), in dark it is
-darkest at its centre and steps lighter (`#181818` → `#222222` → `#2E2E2E`).
-The hexes are evidence; the rungs are the rule. Nothing here needs a token
-that does not already exist — the grammar was read off `vaultview`'s frame,
-where it already held, and written down because `mindchat`'s transcript
-filled most of a window with the level‑2 rung and the window read darker in
-its middle than at its edges.
-
+The measured evidence is a desktop application in both appearances — sidebar
+251,251,249 → content 252,252,251 → composer 255,255,255 in light, sidebar
+17,17,17 → content 21,21,21 → composer 32,32,31 in dark, monotonic in both
+and in the same direction — the current macOS Settings window in dark, whose
+sidebar `#1C2123` sits under its content ground `#23292C` under its setting
+cards `#2A2F32`, and our own stored light references, where panes `#E8E8E8`
+already sit below paper `#F6F6F6`. Light-scheme steps up there are fractions
+of an L\* and the visible separation is carried by hairlines and insets
+rather than by the fill; dark-scheme steps run a few L\*. ADR-021 read the
+same platform reference and concluded it imposed no direction, because the
+half it was looking at — the light scheme at rest — is the half where the
+mirror and the linchpin agree. Nothing here needs a token that does not
+already exist in role: the grammar was read off `vaultview`'s frame, and its
+direction off the platform's own windows.
 ### Density is a theme token
 
 `tokens.Density` carries the drawn control height and inner padding:
