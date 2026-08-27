@@ -240,7 +240,15 @@ derived it backwards. Three kinds of area, three rungs:
   the two colliding.
 - **The titlebar wears the ground of the region it caps** — content behind
   the strip where the platform allows it, an application-painted band where
-  it does not, never an unpainted native strip over a painted window.
+  it does not, never an unpainted native strip over a painted window. Taking
+  that treatment takes on what came with the strip: the platform's window
+  controls now stand inside the application's own layout, so the region that
+  reaches the top-leading corner owes them a measured run and reads their
+  geometry off the band it gave them; and the native drag leaves with the
+  native strip, so the capping regions say where the window may be picked up.
+  Where the strip crosses a seam, each side wears its own fill and both hold
+  one height — two depths across one strip read as a step in the window's top
+  edge.
 - **The check:** walk out from the middle of the window and the rung
   numbers must never decrease.
 
