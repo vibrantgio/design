@@ -256,8 +256,10 @@ derived it backwards. Three kinds of area, three rungs:
   Where the strip crosses a seam, each side wears its own fill and both hold
   one height — two depths across one strip read as a step in the window's top
   edge.
-- **The check:** walk out from the middle of the window and the rung
-  numbers must never decrease.
+- **The check:** walk out from the middle of the window at rest — overlays
+  dismissed — and the rung numbers must never decrease. A dialog stands in
+  the middle at level 2 by design, and a control inside it one deeper, so
+  the check is taken on the window a dismissal leaves behind.
 
 Because the ramps are paired, that one statement dresses both schemes and
 inverts itself for free: in light the window is lightest at its centre and
