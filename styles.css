@@ -131,6 +131,8 @@
   --color-dialog-border: #5c5c5c;
   --color-popover-border: #5c5c5c;
   --color-focus-ring: #8c59f4;
+  --color-dialog-focus-ring: #6f36d1;
+  --color-popover-focus-ring: #6f36d1;
   --color-focus-ring-on-accent: #bdaaff;
   --font-family: "Roboto";
   --font-family-code: "Roboto Mono";
@@ -360,6 +362,8 @@
   --color-dialog-border: #9e9e9e;
   --color-popover-border: #9e9e9e;
   --color-focus-ring: #a98bff;
+  --color-dialog-focus-ring: #a98bff;
+  --color-popover-focus-ring: #a98bff;
   --color-focus-ring-on-accent: #5c15b7;
 }
 
@@ -422,14 +426,14 @@
    centred on the control's edge, as the Gio side draws it. One width, one
    hue, one measured floor: the ring is the rung of the primary ramp
    nearest its mid-value step that still reaches 3:1 against the ground it
-   circles. Every ground in this layer answers with the one rung named by
-   var(--color-focus-ring), except the accent fill a filled button's ring
-   lies on: no rung that reads against the page reads against that fill, so
-   that one ground takes var(--color-focus-ring-on-accent), and it is the
-   same ring in the same place at the same width. A ghost's ring in a raised
-   host circles that storey and would walk one rung deeper again; the sheet
-   does not yet carry per-storey ring tokens, and the generator's comment
-   records what it measures there. */
+   circles. Which ground that is depends on where the control was put, so the
+   rules name var(--ground-focus-ring) — the storey-local pair declared below
+   — and fall back to var(--color-focus-ring), the ground floor's answer, for
+   a control nothing has raised. The one ground that belongs to no storey is
+   the accent fill a filled button's ring lies on: no rung that reads against
+   the page reads against that fill, so that one takes
+   var(--color-focus-ring-on-accent) wherever the button stands, and it is
+   the same ring in the same place at the same width. */
 .btn:focus-visible, .btn.is-focus {
   outline: var(--focus-ring-width) solid var(--color-focus-ring-on-accent);
   outline-offset: calc(var(--focus-ring-width) / -2);
@@ -438,9 +442,32 @@
 .btn.ghost:focus-visible, .btn.ghost.is-focus,
 .checkbox:focus-visible, .checkbox.is-focus,
 .radio:focus-visible, .radio.is-focus {
-  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline: var(--focus-ring-width) solid var(--ground-focus-ring, var(--color-focus-ring));
   outline-offset: calc(var(--focus-ring-width) / -2);
 }
+
+/* --ground-focus-ring and --ground-border are the storey-local pair, and the
+   whole of how a raised host reaches the controls inside it. --ground-border
+   is the neutral rung that reads on this storey and --ground-focus-ring the
+   primary one; both inherit, so a surface declares them once — in its own
+   rule, beside the --elevation-N it fills with — and every control below it
+   re-derives, with no descendant selector anywhere in this sheet. It is the
+   sheet's spelling of RenderState.Ground on the Gio side, which is why the
+   two carry the same word.
+
+   Nothing declares the pair at the root. A control that no raised host
+   contains stands on the ground floor, and the fallback inside each var() IS
+   the ground floor's answer — so the default is written once, at the point of
+   use, and cannot drift from the tokens the rules already name.
+
+   The two halves are the same walk against the same fill, which is why a
+   checkbox in a dialog wears the edge the dialog's own outline wears. The
+   ground floor's rungs do not carry that far: in the light scheme the page's
+   edge measures 2.94:1 over a level-2 fill and 2.15:1 over a level-3 one, and
+   its ring 2.92:1 and 2.14:1, all under the 3:1 a graphic owes its ground. A
+   dark scheme's ladder is shallower and its ground-floor rungs already clear
+   every storey, so the raised tokens repeat there and nothing moves — the
+   derivation reporting that nothing needs to. */
 
 /* Disabled is an opacity, not a ramp step: each colour keeps its hue and
    fades to the disabled fraction of its alpha. */
@@ -612,7 +639,7 @@
   appearance: none;
   min-height: var(--density-control-height);
   padding: calc(var(--density-padding-y) - 1px) calc(var(--space-3) - 1px);
-  border: 1px solid var(--color-control-border);
+  border: 1px solid var(--ground-border, var(--color-control-border));
   border-radius: var(--radius-md);
   background: var(--color-surface);
   color: var(--color-text);
@@ -624,19 +651,25 @@
 }
 .input::placeholder { color: var(--color-neutral-700); opacity: 1; }
 
-/* Focus promotes the border to the accent pin and doubles it to the 2 dp
-   the Gio side draws — the second pixel as an inset shadow, so the field's
-   outer geometry and text position do not move (Gio thickens the border
-   inward the same way). */
+/* Focus promotes the border to the ring and doubles it to the 2 dp the Gio
+   side draws — the second pixel as an inset shadow, so the field's outer
+   geometry and text position do not move (Gio thickens the border inward the
+   same way). The colour is the ring rule above, not the accent pin: a
+   promoted border IS the ring, and the accent pin is the seed a caller chose,
+   which measures as low as 1.00:1 against the surface it would be drawn on.
+   So the field takes the storey's measured rung like every other control —
+   and it is the storey rather than the field's own fill because that band has
+   the fill inside it and the host outside, and the storey is the harder of
+   the two. */
 .input:focus-visible, .input.is-focus {
   outline: none;
-  border-color: var(--color-accent);
-  box-shadow: inset 0 0 0 1px var(--color-accent);
+  border-color: var(--ground-focus-ring, var(--color-focus-ring));
+  box-shadow: inset 0 0 0 1px var(--ground-focus-ring, var(--color-focus-ring));
 }
 .input:disabled {
   background: color-mix(in srgb, var(--color-surface) var(--state-disabled-opacity), transparent);
   color: color-mix(in srgb, var(--color-text) var(--state-disabled-opacity), transparent);
-  border-color: color-mix(in srgb, var(--color-control-border) var(--state-disabled-opacity), transparent);
+  border-color: color-mix(in srgb, var(--ground-border, var(--color-control-border)) var(--state-disabled-opacity), transparent);
 }
 .input:disabled::placeholder {
   color: color-mix(in srgb, var(--color-neutral-700) var(--state-disabled-opacity), transparent);
@@ -669,10 +702,11 @@
 
 /* Checkbox (components/input checkbox.go): a 20 dp glyph (checkboxBoxSize
    — a component constant, not a token; it does not follow density) over
-   Surface. Unchecked, its 2 dp edge is --color-control-border, the
-   neutral rung the ramp answers with for a 3:1 graphic on the window
-   ground (600 in the light scheme, 500 in the dark) — the same edge the
-   radio, the text field and the dropdown trigger wear, all four asking the
+   Surface. Unchecked, its 2 dp edge is the neutral rung the ramp answers
+   with for a 3:1 graphic on the storey the box stands on — the ground
+   floor's --color-control-border (600 in the light scheme, 500 in the dark)
+   unless a raised host has re-pointed --ground-border. The radio, the text
+   field and the dropdown trigger wear that same edge, all four asking the
    ramp the one question rather than naming a rung between them.
    Checked, the box is the
    accent fill under a check mark in the on-accent pin, because a fill says
@@ -706,7 +740,7 @@
   width: 20px;  /* checkboxBoxSize / radioCircleSize: 20 dp */
   height: 20px;
   margin: 0;
-  border: 2px solid var(--color-control-border);
+  border: 2px solid var(--ground-border, var(--color-control-border));
   background: var(--color-surface);
   cursor: pointer;
 }
@@ -730,7 +764,7 @@
    layer geometry and the disabled-checked box would lose its mark. */
 .checkbox:disabled {
   cursor: default;
-  border-color: color-mix(in srgb, var(--color-control-border) var(--state-disabled-opacity), transparent);
+  border-color: color-mix(in srgb, var(--ground-border, var(--color-control-border)) var(--state-disabled-opacity), transparent);
   background-color: color-mix(in srgb, var(--color-surface) var(--state-disabled-opacity), transparent);
 }
 .checkbox:checked:disabled, .checkbox.is-checked:disabled {
@@ -752,7 +786,7 @@
 }
 .radio:disabled {
   cursor: default;
-  border-color: color-mix(in srgb, var(--color-control-border) var(--state-disabled-opacity), transparent);
+  border-color: color-mix(in srgb, var(--ground-border, var(--color-control-border)) var(--state-disabled-opacity), transparent);
   background: color-mix(in srgb, var(--color-surface) var(--state-disabled-opacity), transparent);
 }
 .radio:checked:disabled, .radio.is-checked:disabled {
@@ -788,6 +822,8 @@
   padding: var(--space-4);
   border: none;
   background: var(--elevation-2);
+  --ground-border: var(--color-dialog-border);
+  --ground-focus-ring: var(--color-dialog-focus-ring);
 }
 
 /* ---- Table ----
@@ -1065,7 +1101,7 @@
 .tab:focus-visible, .tab.is-focus,
 .crumb:focus-visible, .crumb.is-focus,
 .sidebar:focus-visible, .sidebar.is-focus {
-  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline: var(--focus-ring-width) solid var(--ground-focus-ring, var(--color-focus-ring));
   outline-offset: calc(var(--focus-ring-width) / -2);
 }
 
@@ -1121,6 +1157,8 @@
   border-radius: var(--radius-lg);
   background: var(--elevation-2);
   color: var(--color-text);
+  --ground-border: var(--color-dialog-border);
+  --ground-focus-ring: var(--color-dialog-focus-ring);
 }
 
 /* The header row (modal.go headerWidget): the title-medium title on the
@@ -1165,6 +1203,8 @@
   border-radius: var(--radius-md);
   background: var(--elevation-3);
   color: var(--color-text);
+  --ground-border: var(--color-popover-border);
+  --ground-focus-ring: var(--color-popover-focus-ring);
 }
 
 /* The tail (popover.go drawTail): a triangle 12 dp across the base and
