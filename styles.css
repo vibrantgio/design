@@ -128,12 +128,17 @@
   --color-info-on-inverse: #3a9cfd;
   --color-control-border: #797979;
   --color-card-border: #797979;
-  --color-dialog-border: #5c5c5c;
-  --color-popover-border: #5c5c5c;
+  --color-dialog-border: #797979;
+  --color-popover-border: #797979;
   --color-focus-ring: #8c59f4;
-  --color-dialog-focus-ring: #6f36d1;
-  --color-popover-focus-ring: #6f36d1;
+  --color-dialog-focus-ring: #8c59f4;
+  --color-popover-focus-ring: #8c59f4;
   --color-focus-ring-on-accent: #bdaaff;
+  --elevation-floor: #e8e8e8;
+  --elevation-0: #f6f6f6;
+  --elevation-1: #f8f8f8;
+  --elevation-2: #fbfbfb;
+  --elevation-3: #ffffff;
   --font-family: "Roboto";
   --font-family-code: "Roboto Mono";
   --font-display-large-size: 57px;
@@ -226,10 +231,7 @@
   --radius-2xl: 16px;
   --radius-3xl: 24px;
   --radius-full: 9999px;
-  --elevation-0: var(--color-bg);
-  --elevation-1: var(--color-neutral-200);
-  --elevation-2: var(--color-neutral-300);
-  --elevation-3: var(--color-neutral-400);
+  --shadow-floor: none;
   --shadow-0: none;
   --shadow-1: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   --shadow-2: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
@@ -365,6 +367,11 @@
   --color-dialog-focus-ring: #a98bff;
   --color-popover-focus-ring: #a98bff;
   --color-focus-ring-on-accent: #5c15b7;
+  --elevation-floor: #0c0c0c;
+  --elevation-0: #181818;
+  --elevation-1: #222222;
+  --elevation-2: #2e2e2e;
+  --elevation-3: #474747;
 }
 
 .compact {
@@ -799,9 +806,11 @@
    — no cast shadow in either variant, because a
    card is raised, not floating; the dp shadows stay reserved for surfaces
    that can leave (menus, dialogs, toasts). The default outlined card fills
-   at level 1 (--elevation-1, the neutral-200 storey) under a 1 dp neutral
-   500 strong stroke; .elevated trades the stroke for one storey deeper
-   (--elevation-2, neutral 300). Radius Lg, an S4 inset, S3 gaps between the
+   at level 1 (--elevation-1, the raised storey) under a 1 dp neutral
+   500 strong stroke; .elevated trades the stroke for one storey nearer the
+   viewer (--elevation-2). Since ADR-022 a storey is lighter than the one
+   below it in both schemes, so in the light scheme the card is a whisper
+   above the page and the stroke says most of where it is. Radius Lg, an S4 inset, S3 gaps between the
    slots — exactly drawCard's rad.Lg / sp.S4 / sp.S3. The Gio stroke is
    centred on the card's edge while the CSS border lies inside it, so the
    outlined padding gives back the border's 1px and the slots land where the
@@ -827,9 +836,13 @@
 }
 
 /* ---- Table ----
-   patterns/table: the whole grid grounds on the Surface pin (drawTable);
-   the header band fills neutral 300 under neutral 700 label-large text
-   (drawHeaderRow / drawHeaderCell). Header and body rows are each exactly
+   patterns/table: the whole grid grounds on the raised storey (drawTable
+   fills Props.Ground, which defaults to level 1) and the header band on
+   the storey above it (drawHeaderRow walks Ground.Raised(), never an
+   absolute step), under neutral 700 label-large text (drawHeaderCell).
+   Both name --elevation-N rather than a ramp step, because since ADR-022 a
+   storey is not a ramp step in both schemes and a table that named one
+   would read as a mirror of itself between the two. Header and body rows are each exactly
    one control height tall — the row-height rule (list.RowHeight), so .compact
    re-pitches the whole grid — and every row closes with a 1 dp Divider rule
    drawn inside its height. Cells inset horizontally by S3 (cellPadDp,
@@ -844,7 +857,7 @@
   border-spacing: 0;
   table-layout: fixed;
   width: 100%;
-  background: var(--color-surface);
+  background: var(--elevation-1);
   color: var(--color-text);
   font-family: var(--font-family);
   font-size: var(--font-body-medium-size);
@@ -864,7 +877,7 @@
 }
 .table th {
   position: relative;
-  background: var(--color-neutral-300);
+  background: var(--elevation-2);
   color: var(--color-neutral-700);
   font-size: var(--font-label-large-size);
   line-height: var(--font-label-large-line-height);
@@ -958,7 +971,7 @@
   border-bottom-color: var(--color-accent);
 }
 
-/* Tabs (patterns/tabs tabs.go): the strip is a Surface row of tab cells
+/* Tabs (patterns/tabs tabs.go): the strip is a raised row of tab cells
    exactly ControlHeight tall (drawTabs pins stripH to the density), each
    cell its label plus 2*S3 horizontal padding with the label centred in the
    height that remains above the 2 dp underline slot — which border-box
@@ -969,7 +982,7 @@
   display: flex;
   align-items: stretch;
   height: var(--density-control-height);
-  background: var(--color-surface);
+  background: var(--elevation-1);
 }
 .tab {
   height: 100%;

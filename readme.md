@@ -16,9 +16,10 @@ it by hand — regenerate it.
 
 ## Files
 
-- `styles.css` — the token sheet: one `:root` block (light colours plus every
-  mode-invariant scale, comfortable density), one `.dark` class override block
-  (the paired dark colours only) and one `.compact` class override block (the
+- `styles.css` — the token sheet: one `:root` block (light colours and
+  elevation storeys plus every mode-invariant scale, comfortable density),
+  one `.dark` class override block (the paired dark colours and storeys)
+  and one `.compact` class override block (the
   compact density metrics only). Add `class="dark"` to the root element to
   switch modes, `class="compact"` to any subtree to densify it; the two
   switches are orthogonal. Below the token blocks sits the component class
@@ -62,8 +63,8 @@ both modes, labelled `L` and `D`.
 | `--density-<metric>` | `--density-control-height`, `--density-padding-x`, `--density-padding-y`, `--density-min-hit-target` | control metrics, px; `:root` is comfortable, `.compact` overrides all but the hit-target floor |
 | `--space-<key>` | `--space-0`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24` | the 4-pt spacing grid, px |
 | `--radius-<key>` | `--radius-none`, `--radius-sm`, `--radius-base`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-3xl`, `--radius-full` | corner radii, Tailwind naming, px |
-| `--elevation-<level>` | `--elevation-0`, `--elevation-1`, `--elevation-2`, `--elevation-3` | tonal surface fills — the DEFAULT elevation cue; `var()` references into the neutral ramp (level 0 is the bg pin), so they flip with `.dark` |
-| `--shadow-<level>` | `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the OPT-IN cue for floating transients (menus, dialogs, tooltips) layered over the tonal fill; resting surfaces use the fill alone |
+| `--elevation-<storey>` | `--elevation-floor`, `--elevation-0`, `--elevation-1`, `--elevation-2`, `--elevation-3` | tonal surface fills — the DEFAULT elevation cue; ordered away from the desk and toward the reader, and resolved per scheme, so both blocks state their own five |
+| `--shadow-<storey>` | `--shadow-floor`, `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the OPT-IN cue for floating transients (menus, dialogs, tooltips) layered over the tonal fill; resting surfaces use the fill alone |
 | `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | MD3 easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for MD3's two-segment path |
 | `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | MD3-pinned duration stops, ms; the reduce-motion variant zeroes them |
 | interaction states | `--focus-ring-width`, `--state-disabled-opacity` | the ring's 2 px stroke and the disabled fade fraction for `color-mix()` — both mode-invariant, unlike the ring's colour, which is measured against a ground that flips and so sits with the colours above |
@@ -74,7 +75,7 @@ both modes, labelled `L` and `D`.
 | Step | Job |
 | --- | --- |
 | 100 | tinted fill · app ground |
-| 200 | tinted fill · card / raised surface |
+| 200 | tinted fill · one step off the app ground |
 | 300 | hover · subtle border, separator |
 | 400 / 600 / 800 | intermediate steps; interaction states walk through them |
 | 500 | mid-value reference · strong border |
@@ -154,15 +155,32 @@ gap.
 
 ## Elevation: default vs opt-in
 
-Elevation is tonal: a raised surface separates from its ground by
-colour, one neutral-ramp step per storey — level 0 is the bg pin over the
-step-100 ground and levels 1–3 fill with neutral 200/300/400. The ladder
-stops at 3: desktop has no six-storey stack. `--elevation-N`
-is that surface fill and the **default** cue; because the light and dark
-ramps are paired scales, the same level reads as raised in both modes with
-no mode-specific rule. The dp shadow is the **opt-in** secondary cue,
-reserved for floating transients — menus, dialogs, tooltips — which layer
-`--shadow-N` over their tonal fill. Resting surfaces never cast one.
+Elevation is tonal, and it climbs toward the light: **in both schemes, a
+surface nearer the viewer is lighter.** One perceptual rule, no second
+rule for dark mode and no mirror — a surface nearer the viewer catches
+more light, and reflectance does not invert when the room goes dark.
+Five storeys, ordered away from the desk and toward the reader:
+
+| Storey | What wears it |
+| --- | --- |
+| `--elevation-floor` | chrome furniture — sidebars, rails, toolbars, inspectors; the window's darkest region |
+| `--elevation-0` | the paper: the content ground, the bg pin |
+| `--elevation-1` | raised insets on the paper — cards, code fences, text fields |
+| `--elevation-2` | floating — dialogs, toasts |
+| `--elevation-3` | floating, nearest the scheme's light extreme — menus, popovers |
+
+Read that down and the fill gets lighter, in `:root` and in `.dark`
+alike. The ladder stops at 3: desktop has no six-storey stack. Note the
+sizes — a light scheme has spent almost all of the tonal axis on its
+paper, so its storeys above the paper are separated by a fraction of an
+L\* and the derived hairline (`--card-border`, `--dialog-border`,
+`--popover-border`) is what says where a surface is. That is what the
+desktop applications this system is judged against measure too.
+
+The surface fill is the **default** cue. The dp shadow is the **opt-in**
+secondary cue, reserved for floating transients — menus, dialogs,
+tooltips — which layer `--shadow-N` over their tonal fill. Resting
+surfaces never cast one.
 
 ## Density
 

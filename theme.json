@@ -71,13 +71,24 @@
     "minHitTarget": 44
   },
   "elevation": {
-    "surfaceSteps": [
-      0,
-      200,
-      300,
-      400
-    ],
+    "surfaces": {
+      "light": [
+        "#e8e8e8",
+        "#f6f6f6",
+        "#f8f8f8",
+        "#fbfbfb",
+        "#ffffff"
+      ],
+      "dark": [
+        "#0c0c0c",
+        "#181818",
+        "#222222",
+        "#2e2e2e",
+        "#474747"
+      ]
+    },
     "shadowDp": [
+      0,
       0,
       1,
       3,

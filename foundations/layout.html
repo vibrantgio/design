@@ -295,28 +295,36 @@ h3 {
 </section>
 <section>
 <h2>Elevation</h2>
-<p class="intro">Elevation is tonal: a raised surface separates from its ground by colour, one neutral-ramp step per storey, and <code>--elevation-N</code> is that surface fill &mdash; the default cue, resolved as a <code>var()</code> reference into the neutral ramp so it flips with the mode. The cards below sit on the step-100 ground; level 0 is the bg pin and levels 1&ndash;3 are steps 200/300/400. The ladder stops at 3 &mdash; desktop has no six-storey stack.</p>
+<p class="intro">Elevation is tonal, and it climbs toward the light: <strong>in both schemes, a surface nearer the viewer is lighter</strong> &mdash; one rule, no mirror. <code>--elevation-*</code> is the surface fill and the default cue, resolved per scheme, so both blocks state their own five. The storeys run away from the desk and toward the reader: the floor a window's chrome furniture wears, the paper the content ground fills with, then raised insets and floating transients. Read the cards below left to right and the fill gets lighter, in either mode. The ladder stops at 3 &mdash; desktop has no six-storey stack.</p>
 <div class="elevation-ground">
 <div>
+<div class="surface-card" style="background: var(--elevation-floor)">floor</div>
+<p class="annot"><code>--elevation-floor</code> &middot; chrome furniture</p>
+</div>
+<div>
 <div class="surface-card" style="background: var(--elevation-0)">0</div>
-<p class="annot"><code>--elevation-0</code> &middot; bg pin</p>
+<p class="annot"><code>--elevation-0</code> &middot; the paper</p>
 </div>
 <div>
 <div class="surface-card" style="background: var(--elevation-1)">1</div>
-<p class="annot"><code>--elevation-1</code> &middot; neutral-200</p>
+<p class="annot"><code>--elevation-1</code> &middot; cards, fences, fields</p>
 </div>
 <div>
 <div class="surface-card" style="background: var(--elevation-2)">2</div>
-<p class="annot"><code>--elevation-2</code> &middot; neutral-300</p>
+<p class="annot"><code>--elevation-2</code> &middot; dialogs, toasts</p>
 </div>
 <div>
 <div class="surface-card" style="background: var(--elevation-3)">3</div>
-<p class="annot"><code>--elevation-3</code> &middot; neutral-400</p>
+<p class="annot"><code>--elevation-3</code> &middot; menus, popovers</p>
 </div>
 </div>
 <h3>The opt-in shadow</h3>
 <p class="intro">The dp shadows survive as <code>--shadow-N</code> for floating transients only &mdash; menus, dialogs, tooltips: a float adds its shadow on top of its tonal fill; resting surfaces use the fill alone.</p>
 <div class="elevation-ground">
+<div>
+<div class="surface-card" style="background: var(--elevation-floor); box-shadow: var(--shadow-floor)">floor</div>
+<p class="annot"><code>--shadow-floor</code> &middot; depth 0dp</p>
+</div>
 <div>
 <div class="surface-card" style="background: var(--elevation-0); box-shadow: var(--shadow-0)">0</div>
 <p class="annot"><code>--shadow-0</code> &middot; depth 0dp</p>
