@@ -225,8 +225,11 @@ derived it backwards. Three kinds of area, three rungs:
   size is its tell.
 - **Rungs walk from the local ground, not from the window.** A card on the
   content ground is level 1 over level 0; a control inside a dialog walks
-  from level 2, which is what `RenderState.Ground` exists to say. A raised
-  inset inside a level‑0 body steps up from the paper it lies on. Level 0
+  from level 2, which is what `RenderState.Ground` exists to say. A *filled*
+  inset inside a level‑0 body — a code fence — steps up from the paper it
+  lies on; an inset that is *marked* rather than filled — a blockquote's bar
+  and muted ink, a rule — stands off its page by contrast and owes no rung
+  at all, because the ladder is for fills. Level 0
   itself answers differently, because the Background pin is off the ramp and
   has no step to walk from: a raised thing on the content ground is drawn as
   a level‑1 surface and its state walk starts from level 1's step — which is
