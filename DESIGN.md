@@ -226,7 +226,13 @@ derived it backwards. Three kinds of area, three rungs:
 - **Rungs walk from the local ground, not from the window.** A card on the
   content ground is level 1 over level 0; a control inside a dialog walks
   from level 2, which is what `RenderState.Ground` exists to say. A raised
-  inset inside a level‑0 body steps up from the paper it lies on.
+  inset inside a level‑0 body steps up from the paper it lies on. Level 0
+  itself answers differently, because the Background pin is off the ramp and
+  has no step to walk from: a raised thing on the content ground is drawn as
+  a level‑1 surface and its state walk starts from level 1's step — which is
+  what `SurfaceAt` already says ("treat interactive regions on it as level‑1
+  surfaces instead") and what the button register already resolves level 0
+  to.
 - **What is chosen is Primary‑tinted; what is transient is a neutral walk.**
   The item a window is currently showing takes `Ramps.Primary.Step(300)`;
   hover, pressed and a keyboard cursor stay step walks (§States are step
