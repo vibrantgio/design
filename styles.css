@@ -126,7 +126,10 @@
   --color-success-on-inverse: #3ead54;
   --color-warning-on-inverse: #ed7819;
   --color-info-on-inverse: #3a9cfd;
-  --color-checkbox-border: #797979;
+  --color-control-border: #797979;
+  --color-card-border: #797979;
+  --color-dialog-border: #5c5c5c;
+  --color-popover-border: #5c5c5c;
   --color-focus-ring: #8c59f4;
   --color-focus-ring-on-accent: #bdaaff;
   --font-family: "Roboto";
@@ -352,7 +355,10 @@
   --color-success-on-inverse: #00531a;
   --color-warning-on-inverse: #743500;
   --color-info-on-inverse: #004884;
-  --color-checkbox-border: #9e9e9e;
+  --color-control-border: #9e9e9e;
+  --color-card-border: #9e9e9e;
+  --color-dialog-border: #9e9e9e;
+  --color-popover-border: #9e9e9e;
   --color-focus-ring: #a98bff;
   --color-focus-ring-on-accent: #5c15b7;
 }
@@ -606,7 +612,7 @@
   appearance: none;
   min-height: var(--density-control-height);
   padding: calc(var(--density-padding-y) - 1px) calc(var(--space-3) - 1px);
-  border: 1px solid var(--color-neutral-500);
+  border: 1px solid var(--color-control-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
   color: var(--color-text);
@@ -630,7 +636,7 @@
 .input:disabled {
   background: color-mix(in srgb, var(--color-surface) var(--state-disabled-opacity), transparent);
   color: color-mix(in srgb, var(--color-text) var(--state-disabled-opacity), transparent);
-  border-color: color-mix(in srgb, var(--color-neutral-500) var(--state-disabled-opacity), transparent);
+  border-color: color-mix(in srgb, var(--color-control-border) var(--state-disabled-opacity), transparent);
 }
 .input:disabled::placeholder {
   color: color-mix(in srgb, var(--color-neutral-700) var(--state-disabled-opacity), transparent);
@@ -663,10 +669,12 @@
 
 /* Checkbox (components/input checkbox.go): a 20 dp glyph (checkboxBoxSize
    — a component constant, not a token; it does not follow density) over
-   Surface. Unchecked, its 2 dp edge is --color-checkbox-border, the
+   Surface. Unchecked, its 2 dp edge is --color-control-border, the
    neutral rung the ramp answers with for a 3:1 graphic on the window
-   ground (600 in the light scheme, 500 in the dark) — the radio keeps the
-   named neutral 500 its own source still draws. Checked, the box is the
+   ground (600 in the light scheme, 500 in the dark) — the same edge the
+   radio, the text field and the dropdown trigger wear, all four asking the
+   ramp the one question rather than naming a rung between them.
+   Checked, the box is the
    accent fill under a check mark in the on-accent pin, because a fill says
    a colour was applied and only the mark says what that means: a column of
    fills carries completion in hue alone, which is the one channel a reader
@@ -698,13 +706,12 @@
   width: 20px;  /* checkboxBoxSize / radioCircleSize: 20 dp */
   height: 20px;
   margin: 0;
-  border: 2px solid var(--color-neutral-500);
+  border: 2px solid var(--color-control-border);
   background: var(--color-surface);
   cursor: pointer;
 }
 .checkbox {
   border-radius: var(--radius-sm);
-  border-color: var(--color-checkbox-border);
 }
 .checkbox:checked, .checkbox.is-checked {
   border-color: var(--color-accent);
@@ -723,7 +730,7 @@
    layer geometry and the disabled-checked box would lose its mark. */
 .checkbox:disabled {
   cursor: default;
-  border-color: color-mix(in srgb, var(--color-checkbox-border) var(--state-disabled-opacity), transparent);
+  border-color: color-mix(in srgb, var(--color-control-border) var(--state-disabled-opacity), transparent);
   background-color: color-mix(in srgb, var(--color-surface) var(--state-disabled-opacity), transparent);
 }
 .checkbox:checked:disabled, .checkbox.is-checked:disabled {
@@ -745,7 +752,7 @@
 }
 .radio:disabled {
   cursor: default;
-  border-color: color-mix(in srgb, var(--color-neutral-500) var(--state-disabled-opacity), transparent);
+  border-color: color-mix(in srgb, var(--color-control-border) var(--state-disabled-opacity), transparent);
   background: color-mix(in srgb, var(--color-surface) var(--state-disabled-opacity), transparent);
 }
 .radio:checked:disabled, .radio.is-checked:disabled {
@@ -772,7 +779,7 @@
   flex-direction: column;
   gap: var(--space-3);
   padding: calc(var(--space-4) - 1px);
-  border: 1px solid var(--color-neutral-500);
+  border: 1px solid var(--color-card-border);
   border-radius: var(--radius-lg);
   background: var(--elevation-1);
   color: var(--color-text);
@@ -1110,7 +1117,7 @@
   max-height: min(75%, 560px);
   overflow: hidden;
   padding: calc(var(--space-5) - 1px);
-  border: 1px solid var(--color-neutral-500);
+  border: 1px solid var(--color-dialog-border);
   border-radius: var(--radius-lg);
   background: var(--elevation-2);
   color: var(--color-text);
@@ -1154,7 +1161,7 @@
   min-width: 48px;
   min-height: 24px;
   padding: calc(var(--space-3) - 1px);
-  border: 1px solid var(--color-neutral-500);
+  border: 1px solid var(--color-popover-border);
   border-radius: var(--radius-md);
   background: var(--elevation-3);
   color: var(--color-text);
