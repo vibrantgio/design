@@ -139,6 +139,16 @@
   --elevation-1: #f8f8f8;
   --elevation-2: #fbfbfb;
   --elevation-3: #ffffff;
+  --elevation-floor-hover: #d4d4d4;
+  --elevation-floor-active: #b6b6b6;
+  --elevation-0-hover: #e8e8e8;
+  --elevation-0-active: #d4d4d4;
+  --elevation-1-hover: #e8e8e8;
+  --elevation-1-active: #d4d4d4;
+  --elevation-2-hover: #e8e8e8;
+  --elevation-2-active: #d4d4d4;
+  --elevation-3-hover: #e8e8e8;
+  --elevation-3-active: #d4d4d4;
   --font-family: "Roboto";
   --font-family-code: "Roboto Mono";
   --font-display-large-size: 57px;
@@ -372,6 +382,16 @@
   --elevation-1: #222222;
   --elevation-2: #2e2e2e;
   --elevation-3: #474747;
+  --elevation-floor-hover: #222222;
+  --elevation-floor-active: #2e2e2e;
+  --elevation-0-hover: #222222;
+  --elevation-0-active: #2e2e2e;
+  --elevation-1-hover: #2e2e2e;
+  --elevation-1-active: #474747;
+  --elevation-2-hover: #474747;
+  --elevation-2-active: #9e9e9e;
+  --elevation-3-hover: #9e9e9e;
+  --elevation-3-active: #b6b6b6;
 }
 
 .compact {
@@ -500,18 +520,27 @@
 
 /* Ghost: no ground at rest — the neutral ramp's low-contrast text over
    whatever surface it sits on; under the pointer it performs that
-   surface's own hover (300) and press (400), the text walking to 900 with
-   the ground. No selected treatment: a ghost stays quiet. */
+   surface's own hover and press walk, the text walking to 900 with the
+   ground. No selected treatment: a ghost stays quiet.
+
+   The walk is named as a storey's own state rather than as a ramp step,
+   because since ADR-022 a storey is not a ramp step: the fills above the
+   pin are off the ramp in the light scheme and the floor is off it in the
+   dark one, so there is no index left to walk from. The
+   --elevation-N-hover and --elevation-N-active pairs are that walk taken
+   from each storey's own fill (components/button ghostWash, which is
+   tokens.ColorTokens.StateAt). A ghost told nothing stands on the paper,
+   so the base rule is level 0's. */
 .btn.ghost {
   background: transparent;
   color: var(--color-neutral-700);
 }
 .btn.ghost:hover, .btn.ghost.is-hover {
-  background: var(--color-neutral-300);
+  background: var(--elevation-0-hover);
   color: var(--color-neutral-900);
 }
 .btn.ghost:active, .btn.ghost.is-active {
-  background: var(--color-neutral-400);
+  background: var(--elevation-0-active);
   color: var(--color-neutral-900);
 }
 .btn.ghost:disabled {
@@ -520,27 +549,37 @@
 }
 
 /* A ghost's wash derives from the local ground it sits on, not the window
-   ground: inside a raised host the hover and press washes re-derive as the
-   host surface's own ramp walk (components/button buttonColors, walking
-   from RenderState.Ground's storey). The dialog and the elevated card sit
-   at level 2 — ground 300, hover 400, press 500 — and the popover at the
-   deepest level 3 — ground 400, hover 500, press 600. The text stays the
-   ramp's 900 end, where the walk itself clamps. The level-1 hosts (card,
-   the Surface panes) need no rule: their step is the walk the base ghost
-   already performs. */
+   ground: inside a host that is not the paper the hover and press washes
+   re-derive as that host surface's own walk (components/button
+   buttonColors, walking from RenderState.Ground's storey). The card sits
+   at level 1, the dialog and the elevated card at level 2, the popover at
+   the deepest level 3; the text stays the ramp's 900 end, where the walk
+   itself clamps.
+
+   The level-1 rule is new with ADR-022 and the plain card is why. While a
+   storey was a ramp step, level 0 and level 1 walked from the same index
+   and one rule covered both; now level 0 walks from the Background pin and
+   level 1 from the storey above it, which are two different fills and, in
+   the dark scheme, two different washes. */
+.card .btn.ghost:hover, .card .btn.ghost.is-hover {
+  background: var(--elevation-1-hover);
+}
+.card .btn.ghost:active, .card .btn.ghost.is-active {
+  background: var(--elevation-1-active);
+}
 .dialog .btn.ghost:hover, .dialog .btn.ghost.is-hover,
 .card.elevated .btn.ghost:hover, .card.elevated .btn.ghost.is-hover {
-  background: var(--color-neutral-400);
+  background: var(--elevation-2-hover);
 }
 .dialog .btn.ghost:active, .dialog .btn.ghost.is-active,
 .card.elevated .btn.ghost:active, .card.elevated .btn.ghost.is-active {
-  background: var(--color-neutral-500);
+  background: var(--elevation-2-active);
 }
 .popover .btn.ghost:hover, .popover .btn.ghost.is-hover {
-  background: var(--color-neutral-500);
+  background: var(--elevation-3-hover);
 }
 .popover .btn.ghost:active, .popover .btn.ghost.is-active {
-  background: var(--color-neutral-600);
+  background: var(--elevation-3-active);
 }
 
 /* Icon-only form (components/button drawIconButton): a square the
@@ -925,7 +964,7 @@
   align-items: center;
   min-height: calc(var(--density-control-height) + 2 * var(--density-padding-y));
   padding: var(--density-padding-y) var(--space-4);
-  background: var(--color-surface);
+  background: var(--elevation-floor);
   color: var(--color-text);
 }
 .navbar-links {
@@ -1004,7 +1043,7 @@
   display: flex;
   flex-direction: column;
   width: 192px;  /* expandedDp */
-  background: var(--color-surface);
+  background: var(--elevation-floor);
   color: var(--color-text);
   overflow: hidden;
 }
