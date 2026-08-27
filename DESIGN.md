@@ -232,7 +232,11 @@ derived it backwards. Three kinds of area, three rungs:
   a level‑1 surface and its state walk starts from level 1's step — which is
   what `SurfaceAt` already says ("treat interactive regions on it as level‑1
   surfaces instead") and what the button register already resolves level 0
-  to.
+  to. A shared surface takes its ground as a parameter, because it cannot
+  know it: a pattern that paints a plane and then a band over it — a table's
+  grid and its header, a tab panel and its strip — walks that band from the
+  plane's own rung and never from an absolute step, which is right only for
+  as long as every caller happens to rest where it was written.
 - **What is chosen is Primary‑tinted; what is transient is a neutral walk.**
   The item a window is currently showing takes `Ramps.Primary.Step(300)`;
   hover, pressed and a keyboard cursor stay step walks (§States are step
