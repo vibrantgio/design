@@ -55,7 +55,7 @@ both modes, labelled `L` and `D`.
 | `--color-success-<step>` | `--color-success-100` … `--color-success-900` | the success ramp; steps in hundreds |
 | `--color-warning-<step>` | `--color-warning-100` … `--color-warning-900` | the warning ramp; steps in hundreds |
 | `--color-info-<step>` | `--color-info-100` … `--color-info-900` | the info ramp; steps in hundreds |
-| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-inverse-surface`, `--color-on-inverse-surface`, `--color-accent`, `--color-on-accent`, `--color-accent-hover`, `--color-accent-pressed`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning`, `--color-info`, `--color-on-info`, `--color-error-container`, `--color-on-error-container`, `--color-success-container`, `--color-on-success-container`, `--color-warning-container`, `--color-on-warning-container`, `--color-info-container`, `--color-on-info-container`, `--color-error-on-inverse`, `--color-success-on-inverse`, `--color-warning-on-inverse`, `--color-info-on-inverse` | pinned bases, their on-colours, the ramp-resolved surface/divider, and the inverse pair the counterpart scheme's ramp resolves |
+| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-inverse-surface`, `--color-on-inverse-surface`, `--color-accent`, `--color-on-accent`, `--color-accent-hover`, `--color-accent-pressed`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning`, `--color-info`, `--color-on-info`, `--color-error-container`, `--color-on-error-container`, `--color-success-container`, `--color-on-success-container`, `--color-warning-container`, `--color-on-warning-container`, `--color-info-container`, `--color-on-info-container`, `--color-error-on-inverse`, `--color-success-on-inverse`, `--color-warning-on-inverse`, `--color-info-on-inverse`, `--color-checkbox-border`, `--color-focus-ring`, `--color-focus-ring-on-accent` | pinned bases, their on-colours, the ramp-resolved surface/divider, the inverse pair the counterpart scheme's ramp resolves, and the control marks each ramp measures for itself — the checkbox's edge and the two focus-ring grounds |
 | `--font-family` | `--font-family` | the typeface every prose role uses |
 | `--font-family-code` | `--font-family-code` | the monospace typeface the code role uses |
 | `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small, code; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights; code is the mono style outside the MD3 grid, at body-medium's metrics |
@@ -66,7 +66,7 @@ both modes, labelled `L` and `D`.
 | `--shadow-<level>` | `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the OPT-IN cue for floating transients (menus, dialogs, tooltips) layered over the tonal fill; resting surfaces use the fill alone |
 | `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | MD3 easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for MD3's two-segment path |
 | `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | MD3-pinned duration stops, ms; the reduce-motion variant zeroes them |
-| interaction states | `--color-focus-ring`, `--focus-ring-width`, `--state-disabled-opacity` | the focus ring (neutral 500 by reference, so it flips with `.dark`; 2 px stroke) and the disabled fade fraction for `color-mix()` |
+| interaction states | `--focus-ring-width`, `--state-disabled-opacity` | the ring's 2 px stroke and the disabled fade fraction for `color-mix()` — both mode-invariant, unlike the ring's colour, which is measured against a ground that flips and so sits with the colours above |
 | scrim | `--color-scrim` | the modal backdrop dimmer: translucent black, identical in both modes — a scrim dims by reducing luminance, so it never flips with `.dark`. The alpha is the sRGB-compositing equivalent of the Gio pattern's 50% linear-space black |
 
 ## Step purposes
@@ -104,8 +104,11 @@ resolve as the step walks above: hover walks one step (`:hover`), pressed
 and selected two (`:active`, `.selected`); a filled button's solid fill
 walks via the emitted `--color-accent-hover` / `--color-accent-pressed`
 stops. Keyboard focus (`:focus-visible`) keeps the resting fill and draws
-the ring — `--focus-ring-width` of `--color-focus-ring`, identical in every
-register. Disabled (`:disabled`) fades each colour to
+the ring: `--focus-ring-width` of the rung its ramp measures against the
+ground the ring circles — `--color-focus-ring-on-accent` over a filled
+button's own fill, `--color-focus-ring` everywhere else. Same ring, same
+width, same 3:1 floor in every register; only the ground moves.
+Disabled (`:disabled`) fades each colour to
 `--state-disabled-opacity` of its alpha. A ghost has no selected
 treatment: it stays quiet. `.btn.icon` is the icon-only form: a square
 the density's control height on a side, the glyph (an inline SVG on
@@ -124,11 +127,17 @@ The form controls dress native elements — no script anywhere:
 `.select-wrap` for the chevron), `.checkbox` and `.radio` on their native
 input types with `appearance: none`. They resolve exactly as
 `components/input` does: Surface ground under `body-large` text, neutral
-500 strong border, neutral 700 placeholder and chevron, focus promoting
-the border to the accent pin (2 dp on the text field, the shared ring on
-checkbox/radio), disabled fading every colour via `color-mix()`. The
-checkbox's checked state is the solid accent fill (the Gio side draws no
-checkmark); the radio's is the accent ring and 10 dp dot around a Surface
+500 strong border on the text field and the radio, neutral 700 placeholder
+and chevron, focus promoting the border to the accent pin (2 dp on the
+text field, the shared ring on checkbox/radio), disabled fading every
+colour via `color-mix()`. The checkbox edges itself with
+`--color-checkbox-border` instead — the neutral rung its own ramp measures
+as reaching 3:1 against the window ground, which is 600 in the light
+scheme and 500 in the dark; one named rung would read below the floor in
+one of them. Checked, the box is the accent fill under a check mark in the
+on-accent pin, drawn from the icon set's grid as two gradient bands — a
+fill says a colour was applied and only the mark says what it means. The
+radio's selected state is the accent ring and 10 dp dot around a Surface
 gap.
 
 ## Elevation: default vs opt-in

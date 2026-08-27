@@ -126,6 +126,9 @@
   --color-success-on-inverse: #3ead54;
   --color-warning-on-inverse: #ed7819;
   --color-info-on-inverse: #3a9cfd;
+  --color-checkbox-border: #797979;
+  --color-focus-ring: #8c59f4;
+  --color-focus-ring-on-accent: #bdaaff;
   --font-family: "Roboto";
   --font-family-code: "Roboto Mono";
   --font-display-large-size: 57px;
@@ -237,7 +240,6 @@
   --duration-normal: 250ms; /* @kind other */
   --duration-slow: 400ms; /* @kind other */
   --duration-x-slow: 500ms; /* @kind other */
-  --color-focus-ring: var(--color-neutral-500);
   --focus-ring-width: 2px;
   --state-disabled-opacity: 38%;
   --color-scrim: rgba(0, 0, 0, 0.28);
@@ -350,6 +352,9 @@
   --color-success-on-inverse: #00531a;
   --color-warning-on-inverse: #743500;
   --color-info-on-inverse: #004884;
+  --color-checkbox-border: #9e9e9e;
+  --color-focus-ring: #a98bff;
+  --color-focus-ring-on-accent: #5c15b7;
 }
 
 .compact {
@@ -369,8 +374,9 @@
    patterns/card surface, .table the patterns/table grid, the navigation
    family — .navbar, .tabs, .sidebar, .crumbs — the four patterns of the same
    names, and the overlay family — .scrim/.dialog (patterns/modal), .popover,
-   .tooltip, .toast — the transient surfaces. The focus ring is
-   identical in every register: keyboard visibility is not an emphasis
+   .tooltip, .toast — the transient surfaces. The focus ring is the same
+   ring in every register — one width, one hue, one measured floor against
+   whatever ground it circles: keyboard visibility is not an emphasis
    property. Each state rule carries a forcing twin class (.is-hover,
    .is-active, .is-focus, .is-checked) so a static page can show the state
    with the very declarations the live pseudo-class applies. */
@@ -407,8 +413,23 @@
 .btn:active, .btn.is-active { background: var(--color-accent-pressed); }
 
 /* Keyboard focus keeps the resting fill and adds the ring — a stroke
-   centred on the control's edge, as the Gio side draws it. */
-.btn:focus-visible, .btn.is-focus,
+   centred on the control's edge, as the Gio side draws it. One width, one
+   hue, one measured floor: the ring is the rung of the primary ramp
+   nearest its mid-value step that still reaches 3:1 against the ground it
+   circles. Every ground in this layer answers with the one rung named by
+   var(--color-focus-ring), except the accent fill a filled button's ring
+   lies on: no rung that reads against the page reads against that fill, so
+   that one ground takes var(--color-focus-ring-on-accent), and it is the
+   same ring in the same place at the same width. A ghost's ring in a raised
+   host circles that storey and would walk one rung deeper again; the sheet
+   does not yet carry per-storey ring tokens, and the generator's comment
+   records what it measures there. */
+.btn:focus-visible, .btn.is-focus {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring-on-accent);
+  outline-offset: calc(var(--focus-ring-width) / -2);
+}
+.btn.tonal:focus-visible, .btn.tonal.is-focus,
+.btn.ghost:focus-visible, .btn.ghost.is-focus,
 .checkbox:focus-visible, .checkbox.is-focus,
 .radio:focus-visible, .radio.is-focus {
   outline: var(--focus-ring-width) solid var(--color-focus-ring);
@@ -641,9 +662,34 @@
 }
 
 /* Checkbox (components/input checkbox.go): a 20 dp glyph (checkboxBoxSize
-   — a component constant, not a token; it does not follow density) with a
-   2 dp neutral 500 border over Surface when unchecked, a solid accent fill
-   when checked — no checkmark glyph: the Gio side draws none. The focus
+   — a component constant, not a token; it does not follow density) over
+   Surface. Unchecked, its 2 dp edge is --color-checkbox-border, the
+   neutral rung the ramp answers with for a 3:1 graphic on the window
+   ground (600 in the light scheme, 500 in the dark) — the radio keeps the
+   named neutral 500 its own source still draws. Checked, the box is the
+   accent fill under a check mark in the on-accent pin, because a fill says
+   a colour was applied and only the mark says what that means: a column of
+   fills carries completion in hue alone, which is the one channel a reader
+   may not have.
+
+   The mark is drawn, not encoded. Gio strokes the icon set's centre line —
+   (4.5,12) → (9,16.5) → (19.5,6) on the set's 24-unit grid, a 2-unit
+   DIAGONAL band, round caps and joins — and at the 20 px glyph one grid
+   unit is 5/6 px, so the band is 1.667 px wide (±0.833 either side of the
+   centre) and the arms run from (3.75,10) to (7.5,13.75) to (16.25,5).
+   Each arm is one background layer: a linear-gradient banding its own box
+   perpendicular to the arm, 45deg for the short "\" arm and 135deg for the
+   long "/" one. Every stop is written from 50% because each box is sized
+   to its arm — the segment grown by half a band along its own axis, which
+   makes the arm the box's diagonal and the box's corners the round caps'
+   own tips:
+     short arm: 4.929 px square at 3.161,9.411   (3.75,10)→(7.5,13.75)
+     long arm:  9.929 px square at 6.911,4.411   (7.5,13.75)→(16.25,5)
+   CSS has no line cap, so the caps come out cut square inside those tips
+   rather than rounded — the same trade the icon set's own SVG files make
+   when they draw their caps as an explicit contour, and a sub-pixel one at
+   this size. background-origin is the border box so the grid is the 20 px
+   glyph the Gio side scales on, not the 16 px inside the edge. The focus
    ring is the shared rule above. */
 .checkbox, .radio {
   box-sizing: border-box;
@@ -656,19 +702,36 @@
   background: var(--color-surface);
   cursor: pointer;
 }
-.checkbox { border-radius: var(--radius-sm); }
+.checkbox {
+  border-radius: var(--radius-sm);
+  border-color: var(--color-checkbox-border);
+}
 .checkbox:checked, .checkbox.is-checked {
   border-color: var(--color-accent);
-  background: var(--color-accent);
+  background-color: var(--color-accent);
+  background-image:
+    linear-gradient(45deg, transparent calc(50% - 0.833px), var(--color-on-accent) calc(50% - 0.833px), var(--color-on-accent) calc(50% + 0.833px), transparent calc(50% + 0.833px)),
+    linear-gradient(135deg, transparent calc(50% - 0.833px), var(--color-on-accent) calc(50% - 0.833px), var(--color-on-accent) calc(50% + 0.833px), transparent calc(50% + 0.833px));
+  background-origin: border-box;
+  background-repeat: no-repeat;
+  background-position: 3.161px 9.411px, 6.911px 4.411px;
+  background-size: 4.929px 4.929px, 9.929px 9.929px;
 }
+/* Disabled fades the box and its mark together, so the check stays the
+   on-colour of the fill it is drawn on. background-color rather than the
+   background shorthand: the shorthand would reset the checked rule's
+   layer geometry and the disabled-checked box would lose its mark. */
 .checkbox:disabled {
   cursor: default;
-  border-color: color-mix(in srgb, var(--color-neutral-500) var(--state-disabled-opacity), transparent);
-  background: color-mix(in srgb, var(--color-surface) var(--state-disabled-opacity), transparent);
+  border-color: color-mix(in srgb, var(--color-checkbox-border) var(--state-disabled-opacity), transparent);
+  background-color: color-mix(in srgb, var(--color-surface) var(--state-disabled-opacity), transparent);
 }
 .checkbox:checked:disabled, .checkbox.is-checked:disabled {
   border-color: color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent);
-  background: color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent);
+  background-color: color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent);
+  background-image:
+    linear-gradient(45deg, transparent calc(50% - 0.833px), color-mix(in srgb, var(--color-on-accent) var(--state-disabled-opacity), transparent) calc(50% - 0.833px), color-mix(in srgb, var(--color-on-accent) var(--state-disabled-opacity), transparent) calc(50% + 0.833px), transparent calc(50% + 0.833px)),
+    linear-gradient(135deg, transparent calc(50% - 0.833px), color-mix(in srgb, var(--color-on-accent) var(--state-disabled-opacity), transparent) calc(50% - 0.833px), color-mix(in srgb, var(--color-on-accent) var(--state-disabled-opacity), transparent) calc(50% + 0.833px), transparent calc(50% + 0.833px));
 }
 
 /* Radio (components/input radio.go): the same 20 dp glyph as a circle;

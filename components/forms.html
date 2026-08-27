@@ -81,7 +81,7 @@ h2 {
 <body>
 <main>
 <h1>Forms</h1>
-<p class="intro">Form controls are native elements wearing the token sheet's classes — no script anywhere on this page. <code>.input</code> dresses a text <code>&lt;input&gt;</code>; a dropdown is <code>&lt;select class="input select"&gt;</code> inside a <code>.select-wrap</code>, which draws the chevron; <code>.checkbox</code> and <code>.radio</code> dress their native input types. Resolution mirrors <code>components/input</code>: Surface ground under <code>body-large</code> text, neutral&nbsp;500 strong border, neutral&nbsp;700 placeholder, focus promoting the border to the accent pin, disabled fading every colour. Heights come from <code>--density-control-height</code>; density is the size axis.</p>
+<p class="intro">Form controls are native elements wearing the token sheet's classes — no script anywhere on this page. <code>.input</code> dresses a text <code>&lt;input&gt;</code>; a dropdown is <code>&lt;select class="input select"&gt;</code> inside a <code>.select-wrap</code>, which draws the chevron; <code>.checkbox</code> and <code>.radio</code> dress their native input types. Resolution mirrors <code>components/input</code>: Surface ground under <code>body-large</code> text, neutral&nbsp;500 strong border on the field and the radio, the rung the neutral ramp measures for a 3:1 graphic on the window ground (<code>--color-checkbox-border</code>) on the checkbox, neutral&nbsp;700 placeholder, focus promoting the border to the accent pin, disabled fading every colour. Heights come from <code>--density-control-height</code>; density is the size axis.</p>
 
 <section>
 <h2>Text field — <code>.input</code></h2>
@@ -113,7 +113,7 @@ h2 {
 
 <section>
 <h2>Checkbox — <code>.checkbox</code></h2>
-<p class="intro">A 20&nbsp;px glyph at every density (the glyph does not shrink; the Gio side centres it in the control-height row and keeps the 44&nbsp;px pointer target). Checked is the solid accent fill.</p>
+<p class="intro">A 20&nbsp;px glyph at every density (the glyph does not shrink; the Gio side centres it in the control-height row and keeps the 44&nbsp;px pointer target). Checked is the accent fill under a check mark in the on-accent pin — the same figure the Gio side strokes on the icon set's 24-unit grid, drawn here out of two gradient bands. A fill says a colour was applied; only the mark says what that means.</p>
 <div class="row">
 <div class="cell"><label class="choice"><input class="checkbox" type="checkbox"> Unchecked</label><span class="annot">unchecked</span></div>
 <div class="cell"><label class="choice"><input class="checkbox" type="checkbox" checked> Checked</label><span class="annot">checked</span></div>
