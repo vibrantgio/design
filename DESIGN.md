@@ -200,6 +200,54 @@ levels 4 and 5 survived only as shims clamping to level 3 until the breaking
 release deleted them: desktop has no six-storey stack. Shadows are opt-in vibrancy,
 not part of elevation (§Desktop divergences).
 
+### Which region wears which rung
+
+The ladder says how high a surface stands; this says which part of a window
+stands where. It was implicit in what shipped for a year and written down
+only in ADR-021, which is why applications derived it independently and some
+derived it backwards. Three kinds of area, three rungs:
+
+| area | rung | resolves to |
+| --- | --- | --- |
+| **content ground** — the document, the transcript, the list the window exists to show | 0 | the Background pin |
+| **chrome furniture** — sidebars, asides, rails, toolbars, inspectors | 1 | `Surface`, neutral 200 |
+| **transient surfaces and edges** — what appears and leaves, what draws a boundary or a state | 2–3 | neutral 300 / 400, `Divider` |
+
+- **The resting content ground is level 0** — the Background pin, which is
+  why the ladder's step‑0 is a sentinel rather than a ramp step and why
+  `RenderState.Ground`'s zero value is documented as "the window ground".
+- **Furniture stands exactly one rung up.** One step of the neutral ramp is
+  the whole separation between chrome and content; two is a mistake.
+- **Levels 2 and 3 are transient, or they are edges** — a dialog and a
+  toast's base at level 2, a popover and a dropdown at level 3, `Divider`
+  and the state walks at neutral 300. No resting expanse of a window fills
+  at level 2 or deeper, however it is labelled: permanence is the test and
+  size is its tell.
+- **Rungs walk from the local ground, not from the window.** A card on the
+  content ground is level 1 over level 0; a control inside a dialog walks
+  from level 2, which is what `RenderState.Ground` exists to say. A raised
+  inset inside a level‑0 body steps up from the paper it lies on.
+- **What is chosen is Primary‑tinted; what is transient is a neutral walk.**
+  The item a window is currently showing takes `Ramps.Primary.Step(300)`;
+  hover, pressed and a keyboard cursor stay step walks (§States are step
+  walks), so a list can show a cursor and a current item at once without
+  the two colliding.
+- **The titlebar wears the ground of the region it caps** — content behind
+  the strip where the platform allows it, an application-painted band where
+  it does not, never an unpainted native strip over a painted window.
+- **The check:** walk out from the middle of the window and the rung
+  numbers must never decrease.
+
+Because the ramps are paired, that one statement dresses both schemes and
+inverts itself for free: in light the window is lightest at its centre and
+steps darker outward (`#F6F6F6` → `#E8E8E8` → `#D4D4D4`), in dark it is
+darkest at its centre and steps lighter (`#181818` → `#222222` → `#2E2E2E`).
+The hexes are evidence; the rungs are the rule. Nothing here needs a token
+that does not already exist — the grammar was read off `vaultview`'s frame,
+where it already held, and written down because `mindchat`'s transcript
+filled most of a window with the level‑2 rung and the window read darker in
+its middle than at its edges.
+
 ### Density is a theme token
 
 `tokens.Density` carries the drawn control height and inner padding:
