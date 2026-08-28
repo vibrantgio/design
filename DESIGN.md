@@ -182,28 +182,34 @@ the dark ramp is paired, every state resolves in both modes with one rule.
 
 ### Elevation is a ladder
 
-Elevation is to surfaces what states are to fills — a walk up the neutral
-ramp, with the level naming the rung:
+Elevation is to surfaces what states are to fills, but since ADR-022 it is a
+*depth against the Background pin*, not a walk up the neutral ramp. The
+ladder is five storeys, anchored on the pin and measured in CIELAB L\*, and
+in both schemes a surface nearer the viewer is lighter:
 
-| Level | Surface | Step |
-| --- | --- | --- |
-| 0 | the app background | the Background pin (step‑100 ground) |
-| 1 | card / raised-in-place surface | neutral 200 |
-| 2 | menus, toasts, higher panels | neutral 300 |
-| 3 | the top of the desktop ladder | neutral 400 |
+| Level | Surface | Light | Dark |
+| --- | --- | --- | --- |
+| floor | chrome furniture — sidebars, rails, toolbars, inspectors | `#E8E8E8` | `#151515` |
+| 0 | the app background | the Background pin, `#F6F6F6` | the Background pin, `#181818` |
+| 1 | card / raised-in-place surface | `#F8F8F8` | `#222222` |
+| 2 | dialogs, toasts | `#FBFBFB` | `#2E2E2E` |
+| 3 | the top of the desktop ladder — menus, popovers | `#FFFFFF` | `#474747` |
 
-The pairing gives dark-mode surface tint — the one thing MD3's tonal
-elevation existed to encode — for free. What it does *not* give is the
-direction: ADR-021 let the pairing decide it, so a raised surface darkened in
-light and lightened in dark, and ADR-022 overturns that. In both schemes a
-surface nearer the viewer is lighter, and the ladder gains a storey below the
-pin for the window's furniture (§Which region wears which rung). The table
-above is the ladder as the released tokens still resolve it; the storeys, not
-the mirror, are the model it is being re-founded on. State walks compose on
-top with the storey's step as the ground. MD3's
-levels 4 and 5 survived only as shims clamping to level 3 until the breaking
-release deleted them: desktop has no six-storey stack. Shadows are opt-in vibrancy,
-not part of elevation (§Desktop divergences).
+The floor's step is a *measurement* of the platform rather than a
+derivation — one number per scheme, because the platform itself takes a
+different step in each (§Which region wears which rung carries the
+captures). Above the pin, a storey takes the surface band's own shape,
+scaled into whatever headroom the scheme has: in the dark scheme the band's
+own top is the ceiling, so levels 1–3 land back byte-for-byte on neutral
+200, 300 and 400 — the pairing still gives dark-mode surface tint, the one
+thing MD3's tonal elevation existed to encode, for free. In the light
+scheme the pin has already spent nearly all the axis, so the same shape
+compresses into whispers toward white, with hairlines carrying the visible
+edge no fill step can. State walks compose on top with the storey's own
+colour as the ground. MD3's levels 4 and 5 survived only as shims clamping
+to level 3 until the breaking release deleted them: desktop has no
+six-storey stack. Shadows are opt-in vibrancy, not part of elevation
+(§Desktop divergences).
 
 ### Which region wears which rung
 
