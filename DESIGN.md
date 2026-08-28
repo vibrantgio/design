@@ -950,7 +950,9 @@ Three lessons that cost time and will cost it again:
   minor is spent only on a release that changes an existing contract: an
   exported symbol moved, removed or re-signatured, or observable behaviour a
   caller could have relied on. Everything else — additive API, new
-  components, fixes, re-pins, docs — is a patch. This deliberately
+  components, fixes, re-pins, docs, and a repaint that moves pixels but no
+  contract — is a patch; the goldens and the tag annotation carry the news
+  a wider bump used to. This deliberately
   under-promises against strict SemVer, which would call additive API a
   minor; the signal that a release is purely additive is traded for the
   survival of the major, and a consumer that needs a new symbol names the
