@@ -942,6 +942,21 @@ Three lessons that cost time and will cost it again:
   the rule's own: bury them. Spectrum's next tag was **v0.1.0** and pulse's
   was **v0.1.0**, cut exactly as the release tasks named them — and neither
   repo has published another v0.0.x since.
+- **The patch is the default bump; the minor is rationed.** Single-digit
+  components give a major ten minors, and past v1.0.0 the series has no
+  relief valve: v1.9's only successor is v2.0.0, which in Go is not a bigger
+  number but a different module — a `/v2` in the module path that every
+  consumer must edit into every import. So nothing takes the major, and a
+  minor is spent only on a release that changes an existing contract: an
+  exported symbol moved, removed or re-signatured, or observable behaviour a
+  caller could have relied on. Everything else — additive API, new
+  components, fixes, re-pins, docs — is a patch. This deliberately
+  under-promises against strict SemVer, which would call additive API a
+  minor; the signal that a release is purely additive is traded for the
+  survival of the major, and a consumer that needs a new symbol names the
+  exact version rather than reading the bump's width. The same default holds
+  under v0.x. A patch series that hits .9 still rolls the minor — that spend
+  is the double-digit rule being mechanical, not a judgment.
 - **A nested module's tag mirrors its root's version.** A module in a
   subdirectory is tagged `<subdir>/vX.Y.Z`, requiring the root at exactly
   `vX.Y.Z`; root first (committed, tagged, *pushed* — the submodule cannot
