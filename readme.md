@@ -171,7 +171,15 @@ Five storeys, ordered away from the desk and toward the reader:
 | `--elevation-3` | floating, nearest the scheme's light extreme — menus, popovers |
 
 Read that down and the fill gets lighter, in `:root` and in `.dark`
-alike. The ladder stops at 3: desktop has no six-storey stack. Note the
+alike. The floor is the one storey the ramp does not place: its step
+under the paper is measured off the platform rather than derived, and
+the two schemes measure differently — about 4.9 L\* under a light
+paper, about 1.5 under a dark one, where a full ramp step would read as
+a hole rather than as furniture. That asymmetry is the platform's own,
+not a rule mirrored between the schemes. A chrome pane that floats is
+still chrome and still fills at the floor: what says it is a floating
+object is its own hairline edge and its shadow, never a lighter fill.
+The ladder stops at 3: desktop has no six-storey stack. Note the
 sizes — a light scheme has spent almost all of the tonal axis on its
 paper, so its storeys above the paper are separated by a fraction of an
 L\* and the derived hairline (`--card-border`, `--dialog-border`,

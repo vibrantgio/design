@@ -228,7 +228,7 @@ Four storeys, ordered away from the desk and toward the reader:
 
 | storey | what wears it | lightness |
 | --- | --- | --- |
-| **floor** | **chrome furniture** — sidebars, asides, rails, toolbars, inspectors | darkest in the window |
+| **floor** | **chrome furniture** — sidebars, asides, rails, toolbars, inspectors, and a chrome pane that floats | darkest in the window — a *measured* step under the paper, 4.89 L\* in the light scheme (`#E8E8E8`) and 1.48 in the dark one (`#151515`); amended 2026-08-28 |
 | **paper** | **the content ground** — the document, the transcript, the list the window exists to show | the Background pin |
 | **raised** | **filled insets on the paper** — cards, code fences, a band's own controls, a text field | above the pin |
 | **floating** | **what appears and leaves** — dialogs, menus, popovers, toasts | nearest the light extreme |
@@ -239,10 +239,36 @@ whole model.
 - **The resting content ground is the paper** — the Background pin, which is
   why the ladder's step‑0 is a sentinel rather than a ramp step and why
   `RenderState.Ground`'s zero value is documented as "the window ground".
-- **Furniture is the floor, exactly one step below the paper.** One step of
-  the ramp is the whole separation between chrome and content; two is a
-  mistake. Only the direction changed with ADR-022 — the magnitude is what
-  ADR-021 measured and what the platform independently arrives at.
+- **Furniture is the floor, one measured step below the paper** (amended
+  2026-08-28). One small step is the whole separation between chrome and
+  content; two is a mistake. The direction changed with ADR-022; the
+  magnitude is now a *measurement of the platform taken per scheme* rather
+  than a step of the neutral ramp, because the platform takes a different
+  one in each. A light window separates its furniture by about 4.9 L\* —
+  which is also the ramp's own first surface interval, 4.89, so the light
+  floor is unchanged at `#E8E8E8` under the `#F6F6F6` paper — and a dark
+  window by a whisper: Voice Memos measures 1.50 L\* (`#1B1B1B` under
+  `#1E1E1E`), the reference chat application 1.71, the platform's settings
+  window 3.81 with its wallpaper tint on. A full band step in the dark
+  scheme is 4.93 L\* realized and lands on `#0C0C0C`, which reads as a hole
+  rather than as furniture, so the dark floor is the measured `#151515`,
+  1.48 L\* under the `#181818` paper. The asymmetry is the platform's own
+  and is recorded as a measurement, not chosen; the tokens tell the two
+  schemes apart off the direction of the surface band, so neither scheme is
+  named in the code and neither number is derived from the other.
+- **A floating chrome pane is still chrome** (amended 2026-08-28). Chrome's
+  depth is *semantic*, not geometric: a sidebar a button slides out of the
+  window, an inspector that detaches, is still furniture and still fills at
+  the floor. It does not climb the ladder by leaving the wall. What says a
+  pane is a floating object is its own hairline edge and its shadow, never
+  a lighter fill — the platform paints even the floating panel darker than
+  the content beside it. Voice Memos draws both kinds in one window: the
+  floating panel sits 1.50 L\* under the content and is outlined internally
+  at `#3A3A3A` on `#1B1B1B`, a deliberate 1.51:1 whisper of a seam rather
+  than a 3:1 mark, while its flush side carries no outline and its boundary
+  is a plain seam. So a pane that can slide is outlined and shadowed at its
+  own storey; integral furniture — fixed, flush, unable to slide — is a
+  flush region with a plain seam.
 - **Nothing resting takes a floating storey.** A dialog and a toast's base,
   a popover and a dropdown are what appears and leaves; `Divider` and the
   state walks are edges. No resting expanse of a window takes either,
