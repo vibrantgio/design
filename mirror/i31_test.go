@@ -1,6 +1,6 @@
 package mirror
 
-// The I3.1 contextual-ghost verdict: a ghost hosted on a raised surface
+// The contextual-ghost verdict: a ghost hosted on a raised surface
 // washes one rung above the host's own ground, not the window ground's rung
 // that resolves to the very fill it sits on. The sheet carries this as the
 // contextual walk (.dialog .btn.ghost:hover — neutral 400 over the level-2
@@ -53,7 +53,7 @@ func modalCross(gtx layout.Context, sizePx int, col color.NRGBA) {
 	paint.FillShape(gtx.Ops, col, clip.Stroke{Path: p.End(), Width: stroke}.Op())
 }
 
-// TestRaisedGhostMirrors scores the I3.1 pair: the Gio icon ghost hovering
+// TestRaisedGhostMirrors scores the raised-ghost pair: the Gio icon ghost hovering
 // on its level-2 ground against the browser render of the dialog-hosted
 // fixture, both at the same viewport. The distance is logged and must land
 // under Tolerance for the sheet's contextual walk to count as a mirror of

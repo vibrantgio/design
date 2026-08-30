@@ -27,15 +27,13 @@ const cellPx = 4
 // The threshold sits at 0.017, the geometric midpoint of the two clusters'
 // nearest members: 1.6× the measured matching distance and 1.6× below the
 // nearest wrong variant (the pill radius), so both clear it with equal
-// margin. Against the F5.7 floor — the same Gio code diverging macOS-vs-mesa
-// on 9 of 21 images, one by 36% of its frame — note that byte-count
-// divergence and this metric are different axes: F5.7's divergence is
-// antialiasing and gradient dithering, exactly the noise the box filter
-// averages away, so the honest floor is measured, not derived. The measured
+// margin. The floor must be measured, not derived from byte-count divergence
+// between two Gio backends: that divergence is antialiasing and gradient
+// dithering, exactly the noise the box filter averages away. The measured
 // Chrome-vs-Gio matching distance (0.0106 — different text shaper, different
 // rasteriser, different gamma handling) IS the cross-renderer floor under
 // this metric, and Tolerance stands above it; a tolerance below that number
-// would fail a correct mirror, which is the packet's "provably too tight".
+// would fail a correct mirror.
 const Tolerance = 0.017
 
 // Distance reports the perceptual distance between two equally-sized images

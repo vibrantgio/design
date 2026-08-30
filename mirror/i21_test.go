@@ -1,9 +1,7 @@
 package mirror
 
-// The I2.1 status-tag verdicts: the .tag.success/.tag.warning/.tag.error
-// classes — the status vocabulary the G3.2 validation found missing, which
-// the composing agent answered by inline-styling an invented variant —
-// captured from the real patterns/tag chip and compared against browser
+// The status-tag verdicts: the .tag.success/.tag.warning/.tag.error
+// classes — captured from the real patterns/tag chip and compared against browser
 // captures of per-specimen fixtures wearing exactly the published sheet's
 // classes. Like TestCalibration and the earlier mirror verdicts, these only
 // deliver a verdict on the authoritative machine; elsewhere one half of the
@@ -31,12 +29,7 @@ import (
 // so the whole right edge of the pill lands shifted, which the box filter
 // reads as displaced cells.
 //
-// The table below was re-measured when the pill compressed and its ring
-// moved inside the box. Both moved the numbers, in opposite directions: a
-// shorter chip is less of its own viewport, so the edge shift weighs more,
-// while a ring drawn as nested fills lands on the same pixels the CSS
-// border does instead of straddling the pill's edge, which is worth more
-// than the compression cost. Measured on the authoritative machine
+// Measured on the authoritative machine
 // (Chromium 153.0.8008.0), the worst per-level match against the three
 // fixtures and the closest wrong-level cross-pair, at candidate viewports:
 //
@@ -58,7 +51,7 @@ import (
 // only 0.0011 of room.
 var tagSize = image.Pt(160, 48)
 
-// TestStatusTagMirrors scores each I2.1 specimen pair: the patterns/tag
+// TestStatusTagMirrors scores each status-tag specimen pair: the patterns/tag
 // status chip in a given level against the browser render of the matching
 // fixture, both at the same viewport over the Surface pin — the ground a
 // resting chip sits on, and the pane its level container separates from.

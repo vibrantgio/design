@@ -1,6 +1,6 @@
 package mirror
 
-// The calibration and proof for the G1.1 harness. These tests only deliver a
+// The calibration and proof for the harness. These tests only deliver a
 // verdict on the authoritative machine (see the package comment): elsewhere
 // either the pinned Chromium is missing (CaptureBrowser skips loudly) or
 // headless Gio is unavailable (golden.Capture skips loudly). A green run on a
@@ -27,7 +27,7 @@ var mirrorSize = image.Pt(220, 36)
 
 // gioFilledButton captures the reference render: components/button's filled
 // button, normal state, DefaultLight, Comfortable density, drawn with the
-// DeterministicShaper (F4.2: a golden must pin its faces — a system-shaped
+// DeterministicShaper (a golden must pin its faces — a system-shaped
 // render would measure the machine, not the mirror) over the scheme's
 // background pin, exactly as components' own emphasis goldens are recorded.
 func gioFilledButton(t *testing.T) *image.RGBA {

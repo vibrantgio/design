@@ -1,6 +1,6 @@
 package mirror
 
-// The G2.2 pattern-page verdicts: .card and .table — the classes the
+// The pattern-page verdicts: .card and .table — the classes the
 // cards.html and table.html component pages compose with — captured from
 // the real patterns widgets (patterns/card, patterns/table) and compared
 // against browser captures of per-specimen fixtures wearing exactly the
@@ -90,7 +90,7 @@ func tableWidget(shaper *text.Shaper) layout.Widget {
 		tokens.DefaultLight, tokens.Spacing, tokens.DefaultTypography.LabelLarge, tokens.Comfortable)
 }
 
-// TestPatternMirrors scores each G2.2 specimen pair: the patterns widget
+// TestPatternMirrors scores each pattern specimen pair: the patterns widget
 // against the browser render of the matching fixture, both at the same
 // viewport. Every distance is logged; each must land under Tolerance for
 // the page to count as a mirror of the pattern rather than a drawing of

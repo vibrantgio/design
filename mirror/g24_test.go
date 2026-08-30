@@ -1,11 +1,11 @@
 package mirror
 
-// The G2.4 overlay-page verdicts: the .scrim/.dialog, .popover, .tooltip
+// The overlay-page verdicts: the .scrim/.dialog, .popover, .tooltip
 // and .toast classes — the vocabulary components/dialog.html composes with —
 // captured from the real patterns widgets (patterns/modal, patterns/popover,
 // patterns/tooltip, patterns/toast) and compared against browser captures of
 // per-specimen fixtures wearing exactly the published sheet's classes. Like
-// TestCalibration and the G2.1–G2.3 verdicts, these only deliver a verdict
+// TestCalibration and the other mirror verdicts, these only deliver a verdict
 // on the authoritative machine; elsewhere one half of the harness skips
 // loudly.
 
@@ -96,7 +96,7 @@ var (
 	lightGround = tokens.DefaultLight.Surface
 )
 
-// TestOverlayMirrors scores each G2.4 specimen pair: the patterns widget
+// TestOverlayMirrors scores each overlay specimen pair: the patterns widget
 // against the browser render of the matching fixture, both at the same
 // viewport. Every distance is logged; each must land under Tolerance for
 // the page to count as a mirror of the pattern rather than a drawing of
