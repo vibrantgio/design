@@ -1,14 +1,13 @@
 package mirror
 
-// The storey-ring verdict: a focus ring derives against the storey the
-// control stands on, not against the page. The sheet carries this as a pair
-// of inherited custom properties a raised surface declares beside its own
-// fill (--ground-focus-ring, --ground-border), and the Gio side as the Ground
-// field every control's render state carries; this pair scores the two
-// against each other in the hardest configuration — a text field focused
-// inside a level-2 dialog, where the ground floor's ring rung measures
-// 2.92:1 against the fill it is drawn on. Like TestCalibration and the other
-// mirror verdicts, it only delivers a verdict on the authoritative machine;
+// The focus-ring verdict: a focused control wears one ring colour per
+// scheme, on every storey. The sheet carries that as a single token both
+// its ground-floor and its raised rules name, and the Gio side as a
+// derivation that takes the scheme and nothing else; this pair scores the
+// two against each other on a raised storey, which is where a
+// ground-derived ring would part from a scheme-derived one: a text field
+// focused inside a level-2 dialog. Like TestCalibration and the other mirror
+// verdicts, it only delivers a verdict on the authoritative machine;
 // elsewhere one half of the harness skips loudly.
 //
 // The text field is the specimen because its ring is its own promoted border,
@@ -26,7 +25,7 @@ import (
 	"github.com/vibrantgio/theme/tokens"
 )
 
-func TestStoreyFocusRingMirrors(t *testing.T) {
+func TestFocusRingMirrors(t *testing.T) {
 	srv := Serve(t)
 	shaper := tokens.DefaultTypography.DeterministicShaper()
 
@@ -44,6 +43,6 @@ func TestStoreyFocusRingMirrors(t *testing.T) {
 	d := Distance(gio, web)
 	t.Logf("distance gio vs %s: %.4f (Tolerance %.4f)", fixture, d, Tolerance)
 	if d > Tolerance {
-		t.Errorf("pair %s scored %.4f > %.4f: the sheet's storey-local ring does not read as the component's own", fixture, d, Tolerance)
+		t.Errorf("pair %s scored %.4f > %.4f: the sheet's ring does not read as the component's own on a raised storey", fixture, d, Tolerance)
 	}
 }

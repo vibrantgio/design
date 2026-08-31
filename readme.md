@@ -56,7 +56,7 @@ both modes, labelled `L` and `D`.
 | `--color-success-<step>` | `--color-success-100` … `--color-success-900` | the success ramp; steps in hundreds |
 | `--color-warning-<step>` | `--color-warning-100` … `--color-warning-900` | the warning ramp; steps in hundreds |
 | `--color-info-<step>` | `--color-info-100` … `--color-info-900` | the info ramp; steps in hundreds |
-| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-inverse-surface`, `--color-on-inverse-surface`, `--color-accent`, `--color-on-accent`, `--color-accent-hover`, `--color-accent-pressed`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning`, `--color-info`, `--color-on-info`, `--color-error-container`, `--color-on-error-container`, `--color-success-container`, `--color-on-success-container`, `--color-warning-container`, `--color-on-warning-container`, `--color-info-container`, `--color-on-info-container`, `--color-error-on-inverse`, `--color-success-on-inverse`, `--color-warning-on-inverse`, `--color-info-on-inverse`, `--color-badge-neutral-fill`, `--color-badge-neutral`, `--color-badge-success-fill`, `--color-badge-success`, `--color-badge-warning-fill`, `--color-badge-warning`, `--color-badge-error-fill`, `--color-badge-error`, `--color-badge-info-fill`, `--color-badge-info`, `--color-control-border`, `--color-card-border`, `--color-dialog-border`, `--color-popover-border`, `--color-focus-ring`, `--color-dialog-focus-ring`, `--color-popover-focus-ring`, `--color-focus-ring-on-accent` | pinned bases, their on-colours, the ramp-resolved surface/divider, the inverse pair the counterpart scheme's ramp resolves, and the edges and rings each ramp measures for itself against the storey they are drawn on — a resting border for the page, the outlined card, the dialog and the popover, a focus ring for the page and for the two storeys whose ground the page's ring cannot carry to, and the accent fill a filled button's ring lies on, which belongs to no storey at all |
+| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-inverse-surface`, `--color-on-inverse-surface`, `--color-accent`, `--color-on-accent`, `--color-accent-hover`, `--color-accent-pressed`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning`, `--color-info`, `--color-on-info`, `--color-error-container`, `--color-on-error-container`, `--color-success-container`, `--color-on-success-container`, `--color-warning-container`, `--color-on-warning-container`, `--color-info-container`, `--color-on-info-container`, `--color-error-on-inverse`, `--color-success-on-inverse`, `--color-warning-on-inverse`, `--color-info-on-inverse`, `--color-badge-neutral-fill`, `--color-badge-neutral`, `--color-badge-success-fill`, `--color-badge-success`, `--color-badge-warning-fill`, `--color-badge-warning`, `--color-badge-error-fill`, `--color-badge-error`, `--color-badge-info-fill`, `--color-badge-info`, `--color-control-border`, `--color-card-border`, `--color-dialog-border`, `--color-popover-border`, `--color-focus-ring`, `--color-focus-ring-on-accent` | pinned bases, their on-colours, the ramp-resolved surface/divider, the inverse pair the counterpart scheme's ramp resolves, and the edges and rings each ramp measures for itself — a resting border per storey, for the page, the outlined card, the dialog and the popover, and one focus ring for the whole scheme, measured against every storey at once, plus the accent fill a filled button's ring lies on, which belongs to no storey at all |
 | `--font-family` | `--font-family` | the typeface every prose role uses |
 | `--font-family-code` | `--font-family-code` | the monospace typeface the code role uses |
 | `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small, code; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights; code is the mono style outside the MD3 grid, at body-medium's metrics |
@@ -106,13 +106,13 @@ resolve as the step walks above: hover walks one step (`:hover`), pressed
 and selected two (`:active`, `.selected`); a filled button's solid fill
 walks via the emitted `--color-accent-hover` / `--color-accent-pressed`
 stops. Keyboard focus (`:focus-visible`) keeps the resting fill and draws
-the ring: `--focus-ring-width` of the rung its ramp measures against the
-ground the ring circles — `--color-focus-ring-on-accent` over a filled
-button's own fill, and otherwise the storey the control stands on:
-`--color-focus-ring` on the ground floor, `--color-dialog-focus-ring`
-inside a dialog or an elevated card, `--color-popover-focus-ring` inside
-a popover. Same ring, same
-width, same 3:1 floor in every register; only the ground moves.
+the ring: `--focus-ring-width` of `--color-focus-ring`, the one ring the
+scheme carries — the rung of the primary ramp nearest its mid-value step
+that reaches 3:1 against every storey at once, so a control wears the
+same ring wherever it is put. `--color-focus-ring-on-accent` is the sole
+exception, for the ring a filled button insets in its own fill: that
+fill is a rung of the primary ramp too, and the scheme's ring cannot
+read on it. Same ring, same width, same 3:1 floor in every register.
 Disabled (`:disabled`) fades each colour to
 `--state-disabled-opacity` of its alpha. A ghost has no selected
 treatment: it stays quiet. `.btn.icon` is the icon-only form: a square
@@ -145,15 +145,17 @@ disabled fading every colour via `color-mix()`. That border is the
 neutral rung the ramp measures as reaching 3:1 against the window
 ground, which is 600 in the light scheme and 500 in the dark; the named
 rung it replaced read below the floor in one of them, at 2.67:1 in the
-scheme most people read in. Both the edge and the ring follow the
-control into a raised host: a surface that fills a deeper storey
-declares `--ground-border` and `--ground-focus-ring` beside its own
-fill, the rules name those with the ground floor's tokens as their
-fallback, and every control inside re-derives — the same walk against
-the same fill the host measures its own outline against, which is why a
-checkbox in a dialog wears the dialog's edge. On the ground floor the
-page's own rungs read 2.94:1 and 2.92:1 over a level-2 fill and 2.15:1
-and 2.14:1 over a level-3 one, all under the floor.
+scheme most people read in. The edge follows the control into a raised
+host: a surface that fills a deeper storey declares `--ground-border`
+beside its own fill, the rules name it with the ground floor's token as
+the fallback, and every control inside re-derives — the same walk
+against the same fill the host measures its own outline against, which
+is why a checkbox in a dialog wears the dialog's edge. In the dark
+scheme the page's own rung reads 2.62:1 over a level-2 fill and 1.80:1
+over a level-3 one, both under the floor; in the light scheme it clears
+every storey and the handed-down token repeats. The ring does not
+follow, because it never left: it is measured against every storey at
+once and is one colour for the scheme.
 Checked, the box is the accent fill under a check mark in the
 on-accent pin, drawn from the icon set's grid as two gradient bands — a
 fill says a colour was applied and only the mark says what it means. The

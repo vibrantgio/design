@@ -141,8 +141,6 @@
   --color-dialog-border: #797979;
   --color-popover-border: #797979;
   --color-focus-ring: #8c59f4;
-  --color-dialog-focus-ring: #8c59f4;
-  --color-popover-focus-ring: #8c59f4;
   --color-focus-ring-on-accent: #bdaaff;
   --elevation-floor: #e8e8e8;
   --elevation-0: #f6f6f6;
@@ -393,9 +391,7 @@
   --color-card-border: #6d6d6d;
   --color-dialog-border: #9b9b9b;
   --color-popover-border: #9b9b9b;
-  --color-focus-ring: #804be5;
-  --color-dialog-focus-ring: #a787ff;
-  --color-popover-focus-ring: #a787ff;
+  --color-focus-ring: #a787ff;
   --color-focus-ring-on-accent: #804be5;
   --elevation-floor: #151515;
   --elevation-0: #181818;
@@ -471,14 +467,13 @@
 
 /* Keyboard focus keeps the resting fill and adds the ring — a stroke
    centred on the control's edge, as the Gio side draws it. One width, one
-   hue, one measured floor: the ring is the rung of the primary ramp
-   nearest its mid-value step that still reaches 3:1 against the ground it
-   circles. Which ground that is depends on where the control was put, so the
-   rules name var(--ground-focus-ring) — the storey-local pair declared below
-   — and fall back to var(--color-focus-ring), the ground floor's answer, for
-   a control nothing has raised. The one ground that belongs to no storey is
-   the accent fill a filled button's ring lies on: no rung that reads against
-   the page reads against that fill, so that one takes
+   hue, one value: var(--color-focus-ring) is the rung of the primary ramp
+   nearest its mid-value step that reaches 3:1 against every storey at once,
+   so a control wears the same ring wherever it was put and no rule here
+   asks where that is. The one ground that belongs to no storey is the
+   accent fill a filled button's ring lies on — that ring is inset in the
+   button's own background rather than drawn at its boundary, and no rung
+   that reads against the page reads against that fill — so that one takes
    var(--color-focus-ring-on-accent) wherever the button stands, and it is
    the same ring in the same place at the same width. */
 .btn:focus-visible, .btn.is-focus {
@@ -489,40 +484,41 @@
 .btn.ghost:focus-visible, .btn.ghost.is-focus,
 .checkbox:focus-visible, .checkbox.is-focus,
 .radio:focus-visible, .radio.is-focus {
-  outline: var(--focus-ring-width) solid var(--ground-focus-ring, var(--color-focus-ring));
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
   outline-offset: calc(var(--focus-ring-width) / -2);
 }
 
-/* --ground-border, --ground-focus-ring and --ground-raised are the
-   storey-local set, and the whole of how a raised host reaches the controls
-   inside it. --ground-border is the neutral rung that reads on this
-   storey, --ground-focus-ring the primary one, and --ground-raised the
-   storey a control that fills a box of its own is raised TO from here —
-   the rung above the host's own.
-   All three inherit, so a surface declares them once — in its
+/* --ground-border and --ground-raised are the storey-local pair, and the
+   whole of how a raised host reaches the controls inside it. The first is
+   the neutral rung that reads on this storey; the second is the storey a
+   control that fills a box of its own is raised TO from here — the rung
+   above the host's own.
+   Both inherit, so a surface declares them once — in its
    own rule, beside the --elevation-N it fills with — and every control below
    it re-derives, with no descendant selector anywhere in this sheet. It is
    the sheet's spelling of RenderState.Ground on the Gio side, which is why
-   the three carry the same word.
+   the two carry the same word.
 
    Nothing declares them at the root. A control that no raised host contains
    stands on the ground floor, and the fallback inside each var() IS the
    ground floor's answer — so the default is written once, at the point of
    use, and cannot drift from the tokens the rules already name.
 
-   The first two are the same walk against the same fill, which is why a
+   A focus ring is not among them, and that absence is the point: the ring
+   is one colour per scheme, measured against the whole ladder at once, so a
+   raised host has nothing to hand down. A resting edge is the boundary of
+   one surface and may differ per storey — in the dark scheme the ground
+   floor's neutral rung reads 2.62:1 over a level-2 fill and 1.80:1 over a
+   level-3 one, under the 3:1 a graphic owes its ground, which is why a
    checkbox in a dialog wears the edge the dialog's own outline wears. The
-   ground floor's rungs do not carry that far: in the light scheme the page's
-   edge measures 2.94:1 over a level-2 fill and 2.15:1 over a level-3 one, and
-   its ring 2.92:1 and 2.14:1, all under the 3:1 a graphic owes its ground. A
-   dark scheme's ladder is shallower and its ground-floor rungs already clear
-   every storey, so the raised tokens repeat there and nothing moves — the
-   derivation reporting that nothing needs to.
+   light scheme's ladder climbs less far from its floor and its ground-floor
+   rung already clears every storey, so the handed-down token repeats there
+   and nothing moves — the derivation reporting that nothing needs to.
 
-   The third joins them under a different rule, and the difference is
-   worth stating. The other two are MEASUREMENTS, so a host only declares them
+   The two join under different rules, and the difference is
+   worth stating. --ground-border is a MEASUREMENT, so a host only declares it
    where the ground floor's answer stops clearing — which is why an outlined
-   .card, at level 1, declares neither. --ground-raised is a STOREY, and a
+   .card, at level 1, does not. --ground-raised is a STOREY, and a
    storey differs by construction: a control filling at its host's own rung is
    invisible against it whatever the contrast table says. So all four
    container surfaces a control can be put inside declare it — .card,
@@ -757,14 +753,14 @@
    same way). The colour is the ring rule above, not the accent pin: a
    promoted border IS the ring, and the accent pin is the seed a caller chose,
    which measures as low as 1.00:1 against the surface it would be drawn on.
-   So the field takes the storey's measured rung like every other control —
-   and it is the storey rather than the field's own fill because that band has
-   the fill inside it and the host outside, and the storey is the harder of
-   the two. */
+   So the field takes the scheme's measured rung like every other control —
+   and that rung is measured against the storeys rather than the field's own
+   fill because the band has the fill inside it and the storey outside, and
+   the storey is the side every control on it shares. */
 .input:focus-visible, .input.is-focus {
   outline: none;
-  border-color: var(--ground-focus-ring, var(--color-focus-ring));
-  box-shadow: inset 0 0 0 1px var(--ground-focus-ring, var(--color-focus-ring));
+  border-color: var(--color-focus-ring);
+  box-shadow: inset 0 0 0 1px var(--color-focus-ring);
 }
 .input:disabled {
   background: color-mix(in srgb, var(--ground-raised, var(--elevation-1)) var(--state-disabled-opacity), transparent);
@@ -928,7 +924,6 @@
   border: none;
   background: var(--elevation-2);
   --ground-border: var(--color-dialog-border);
-  --ground-focus-ring: var(--color-dialog-focus-ring);
   --ground-raised: var(--elevation-3);
 }
 
@@ -1211,7 +1206,7 @@
 .tab:focus-visible, .tab.is-focus,
 .crumb:focus-visible, .crumb.is-focus,
 .sidebar:focus-visible, .sidebar.is-focus {
-  outline: var(--focus-ring-width) solid var(--ground-focus-ring, var(--color-focus-ring));
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
   outline-offset: calc(var(--focus-ring-width) / -2);
 }
 
@@ -1268,7 +1263,6 @@
   background: var(--elevation-2);
   color: var(--color-text);
   --ground-border: var(--color-dialog-border);
-  --ground-focus-ring: var(--color-dialog-focus-ring);
   --ground-raised: var(--elevation-3);
 }
 
@@ -1315,7 +1309,6 @@
   background: var(--elevation-3);
   color: var(--color-text);
   --ground-border: var(--color-popover-border);
-  --ground-focus-ring: var(--color-popover-focus-ring);
   --ground-raised: var(--elevation-3);
 }
 
