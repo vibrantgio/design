@@ -6,10 +6,10 @@ require (
 	gioui.org v0.10.2
 	github.com/chromedp/cdproto v0.0.0-20250724212937-08a3db8b4327
 	github.com/chromedp/chromedp v0.14.2
-	github.com/vibrantgio/components v1.3.1
+	github.com/vibrantgio/components v1.3.2
 	github.com/vibrantgio/font v0.4.1
 	github.com/vibrantgio/patterns v1.0.1
-	github.com/vibrantgio/theme v1.3.1
+	github.com/vibrantgio/theme v1.3.2
 )
 
 require (
