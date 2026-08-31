@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Buttons &amp; tags — Vibrant Gio components</title>
+<title>Buttons &amp; badges — Vibrant Gio components</title>
 <link rel="stylesheet" href="../styles.css">
 <style>
 body {
@@ -78,7 +78,7 @@ h3 {
 </head>
 <body>
 <main>
-<h1>Buttons &amp; tags</h1>
+<h1>Buttons &amp; badges</h1>
 <p class="intro">The button is <code>.btn</code> — <strong>filled</strong> by default, with <code>.tonal</code> and <code>.ghost</code> selecting the quieter emphasis registers. Emphasis is a colour property and nothing else: every register keeps the same size and the same focus ring. There is no size prop — heights come from <code>--density-control-height</code>, and density (<code>.compact</code> on any subtree) is the size axis. States shown statically wear the forcing twins (<code>.is-hover</code>, <code>.is-active</code>, <code>.is-focus</code>) that the token sheet groups into the live pseudo-class rules; disabled uses the native attribute.</p>
 
 <section>
@@ -134,19 +134,20 @@ h3 {
 </section>
 
 <section>
-<h2>Tags — <code>.tag</code></h2>
-<p class="intro">The chip the patterns draw: a Full-radius pill at <code>label-small</code> metrics, sized to its label, the line box plus one <code>S1</code> tall. Filled (the accent pin under its on-colour) is the pricing card's "Popular" chip; <code>.tag.tonal</code> (primary&nbsp;200 under the accent pin) is the hero's eyebrow, ringed in that pin because a tint and the pane it rests on are the same lightness and the pill's edge would not read otherwise. The pill itself has no interaction states; the dismissible chip's close affordance is a Gio interaction and has no class in this sheet.</p>
+<h2>Badges — <code>.badge</code></h2>
+<p class="intro">The system's own word about a thing, set inline at <code>label-medium</code> metrics: no fill, no corner, no boundary and no padding, so the height is the role's line box and the width is the words in it. A badge beside a button is a fraction of that button's height and is meant to be — it is off the control ladder entirely, because it is read rather than used. The default is the plain category label. A badge speaks as a word or as a count; the close mark a dismissible one carries is a Gio interaction and has no class in this sheet.</p>
 <div class="row">
-<div class="cell"><span class="tag">Popular</span><span class="annot">filled</span></div>
-<div class="cell"><span class="tag tonal">New in 2.0</span><span class="annot">tonal</span></div>
+<div class="cell"><span class="badge">Popular</span><span class="annot">word</span></div>
+<div class="cell"><span class="badge">128</span><span class="annot">count</span></div>
 </div>
 
-<h2>Status tags — <code>.tag.success</code> / <code>.tag.warning</code> / <code>.tag.error</code></h2>
-<p class="intro">The status chip: the same level the toast and the alert carry — the level's tonal container, the role's own hue realized at one chroma and depth rather than mixed, ringed by the 1&nbsp;dp level outline, under the text pin. Status is vocabulary: compose these; never inline-style a status colour.</p>
+<h2>Status badges — <code>.badge.success</code> / <code>.badge.warning</code> / <code>.badge.error</code> / <code>.badge.info</code></h2>
+<p class="intro">The four statuses, differing from the default and from each other in hue alone: there is no emphasis axis, because emphasis belongs where interaction does. Each ink is derived against the ground rather than named on a ramp — the role's pinned base while that base clears the text floor, and the nearest rung to the mid-value that does otherwise. Status is vocabulary: compose these; never inline-style a status colour.</p>
 <div class="row">
-<div class="cell"><span class="tag success">Passing</span><span class="annot">success</span></div>
-<div class="cell"><span class="tag warning">Degraded</span><span class="annot">warning</span></div>
-<div class="cell"><span class="tag error">Failing</span><span class="annot">error</span></div>
+<div class="cell"><span class="badge success">Passing</span><span class="annot">success</span></div>
+<div class="cell"><span class="badge warning">Degraded</span><span class="annot">warning</span></div>
+<div class="cell"><span class="badge error">Failing</span><span class="annot">error</span></div>
+<div class="cell"><span class="badge info">Preview</span><span class="annot">info</span></div>
 </div>
 </section>
 
@@ -159,10 +160,11 @@ h3 {
 <div class="cell"><button class="btn tonal">Save Changes</button><span class="annot">tonal</span></div>
 <div class="cell"><button class="btn ghost">Save Changes</button><span class="annot">ghost</span></div>
 <div class="cell"><button class="btn" disabled>Save Changes</button><span class="annot">disabled</span></div>
-<div class="cell"><span class="tag">Popular</span><span class="annot">tag</span></div>
-<div class="cell"><span class="tag success">Passing</span><span class="annot">success</span></div>
-<div class="cell"><span class="tag warning">Degraded</span><span class="annot">warning</span></div>
-<div class="cell"><span class="tag error">Failing</span><span class="annot">error</span></div>
+<div class="cell"><span class="badge">Popular</span><span class="annot">badge</span></div>
+<div class="cell"><span class="badge success">Passing</span><span class="annot">success</span></div>
+<div class="cell"><span class="badge warning">Degraded</span><span class="annot">warning</span></div>
+<div class="cell"><span class="badge error">Failing</span><span class="annot">error</span></div>
+<div class="cell"><span class="badge info">Preview</span><span class="annot">info</span></div>
 </div>
 </section>
 </main>

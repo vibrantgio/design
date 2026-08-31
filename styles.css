@@ -126,6 +126,11 @@
   --color-success-on-inverse: #3ead54;
   --color-warning-on-inverse: #ed7819;
   --color-info-on-inverse: #3a9cfd;
+  --color-badge-neutral: #5c5c5c;
+  --color-badge-success: #006b24;
+  --color-badge-warning: #944600;
+  --color-badge-error: #b12226;
+  --color-badge-info: #005da8;
   --color-control-border: #797979;
   --color-card-border: #797979;
   --color-dialog-border: #797979;
@@ -369,6 +374,11 @@
   --color-success-on-inverse: #00531a;
   --color-warning-on-inverse: #743500;
   --color-info-on-inverse: #004884;
+  --color-badge-neutral: #9e9e9e;
+  --color-badge-success: #77e387;
+  --color-badge-warning: #ffc242;
+  --color-badge-error: #ffbbb4;
+  --color-badge-info: #a6d0ff;
   --color-control-border: #9e9e9e;
   --color-card-border: #9e9e9e;
   --color-dialog-border: #9e9e9e;
@@ -405,9 +415,9 @@
    components/button: filled by default, .tonal and .ghost the emphasis
    modifiers, states resolved as one-rung ramp walks from the same rungs the
    Gio side draws. .input/.select/.checkbox/.radio mirror components/input,
-   .tag the pill patterns/tag draws (for pricing, hero, and the status
-   levels; the chip's dismiss affordance is a Gio interaction and has no
-   class here), .card the
+   .badge the inline annotation components/badge draws (the plain category
+   label and the four status roles; the close mark is a Gio interaction and
+   has no class here), .card the
    patterns/card surface, .table the patterns/table grid, the navigation
    family — .navbar, .tabs, .sidebar, .crumbs — the four patterns of the same
    names, and the overlay family — .scrim/.dialog (patterns/modal), .popover,
@@ -539,7 +549,7 @@
    ground. No selected treatment: a ghost stays quiet.
 
    The walk is named as a storey's own state rather than as a ramp step,
-   because since ADR-022 a storey is not a ramp step: the fills above the
+   because a storey is not a ramp step: the fills above the
    pin are off the ramp in the light scheme and the floor is off it in the
    dark one, so there is no index left to walk from. Each storey's own
    -hover and -active pair is that walk taken
@@ -571,11 +581,9 @@
    the deepest level 3; the text stays the ramp's 900 end, where the walk
    itself clamps.
 
-   The level-1 rule is new with ADR-022 and the plain card is why. While a
-   storey was a ramp step, level 0 and level 1 walked from the same index
-   and one rule covered both; now level 0 walks from the Background pin and
-   level 1 from the storey above it, which are two different fills and, in
-   the dark scheme, two different washes. */
+   Level 1 carries its own rule and the plain card is why: level 0 walks
+   from the Background pin and level 1 from the storey above it, which are
+   two different fills and, in the dark scheme, two different washes. */
 .card .btn.ghost:hover, .card .btn.ghost.is-hover {
   background: var(--elevation-1-hover);
 }
@@ -615,70 +623,53 @@
   fill: currentColor;
 }
 
-/* ---- Tag ----
-   The chip patterns/tag draws (the shared home of patterns/pricing's
-   "Popular" chip and patterns/hero's eyebrow): a Full-radius pill sized to
-   its label-small text, S2 either side and the S1 stop spent once across
-   the two vertical edges rather than once on each — so the pill is the
-   label's line box plus S1, and the type inside it is untouched. Filled by
-   default — the accent pin under its on-colour; .tonal is the eyebrow — the
-   primary 200 tinted fill under the accent pin. All call sites request
-   SemiBold, which the pinned shaper resolves to the Medium face (the
-   nearest registered weight), so the sheet says the label role's own weight
-   rather than asking the browser to synthesize a 600.
+/* ---- Badge ----
+   The inline annotation components/badge draws: the system's own word about
+   a thing, sized to its type and coloured by the role it speaks in. It is
+   off the control ladder — no fill, no corner, no boundary and no padding
+   on any side, so its whole height is the label role's line box and its
+   whole width is the words in it. A badge beside a control is a fraction of
+   that control's height and is meant to be.
 
-   Every modifier but the default rings itself, and the ring is not
-   decoration: a tint and the surface it rests on are the same lightness by
-   construction, so a tinted pill measures around 1:1 against the pane it
-   sits on and its edge would be invisible. The accent pin's fill separates
-   on its own and takes no ring. The padding gives the ring's 1px back so
-   every chip measures the same box. */
-.tag {
+   The label role is the comfortable density's, one rung quieter than a
+   chip's. The sheet re-maps no type role under .compact, so the class
+   states the comfortable role and a compact page sets its badges in the
+   same one.
+
+   Five variants differing in hue alone: the default is the plain category
+   label, .success/.warning/.error/.info the four statuses. There is no
+   emphasis axis — emphasis belongs where interaction does, and a badge is
+   read rather than used. Each ink is a token because it is derived against
+   the ground rather than named on a ramp: the role's pinned base while that
+   base clears the text floor, and the nearest rung to the mid-value that
+   does otherwise. Compose these for status; never inline-style a status
+   colour.
+
+   The close mark is a Gio interaction and has no class in this sheet, so a
+   badge here carries no gap and no affordance — only the utterance. */
+.badge {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
-  padding: calc(var(--space-1) / 2) var(--space-2);
-  border-radius: var(--radius-full);
   white-space: nowrap;
   font-family: var(--font-family);
-  font-size: var(--font-label-small-size);
-  line-height: var(--font-label-small-line-height);
-  font-weight: var(--font-label-small-weight);
-  letter-spacing: var(--font-label-small-tracking);
-  background: var(--color-accent);
-  color: var(--color-on-accent);
+  font-size: var(--font-label-medium-size);
+  line-height: var(--font-label-medium-line-height);
+  font-weight: var(--font-label-medium-weight);
+  letter-spacing: var(--font-label-medium-tracking);
+  color: var(--color-badge-neutral);
 }
-.tag.tonal {
-  padding: calc(var(--space-1) / 2 - 1px) calc(var(--space-2) - 1px);
-  border: 1px solid var(--color-accent);
-  background: var(--color-primary-200);
-  color: var(--color-accent);
+.badge.success {
+  color: var(--color-badge-success);
 }
-
-/* Status tags (tag.go colors): the level modifiers carry the level's tonal
-   container — the role's own hue realized at one measured chroma and depth
-   by the theme, which is why the background names a token rather than
-   mixing one — ringed by the 1 dp level pin, under the Text pin. A mixed
-   ground was what these used to wear, and compositing a pinned base over
-   the neutral Surface in non-linear sRGB holds neither the hue nor the
-   chroma: the four came out near enough to grey that no two of them could
-   be told apart. Status is vocabulary: compose these, never inline-style a
-   status colour. */
-.tag.success, .tag.warning, .tag.error {
-  padding: calc(var(--space-1) / 2 - 1px) calc(var(--space-2) - 1px);
-  color: var(--color-text);
+.badge.warning {
+  color: var(--color-badge-warning);
 }
-.tag.success {
-  border: 1px solid var(--color-success);
-  background: var(--color-success-container);
+.badge.error {
+  color: var(--color-badge-error);
 }
-.tag.warning {
-  border: 1px solid var(--color-warning);
-  background: var(--color-warning-container);
-}
-.tag.error {
-  border: 1px solid var(--color-error);
-  background: var(--color-error-container);
+.badge.info {
+  color: var(--color-badge-info);
 }
 
 /* ---- Form controls ----
@@ -694,7 +685,7 @@
    rung nearer the viewer than its host. It used to be --color-surface, the
    neutral ramp's step 200, which lands on the raised storey in the dark
    scheme by coincidence and on no storey at all in the light one — a light
-   field filled a whole band step BELOW the page it lies on. Since ADR-022 a
+   field filled a whole band step BELOW the page it lies on. A
    surface nearer the viewer is lighter in both schemes, and on a desktop a
    text field is the lightest thing in the window, not the darkest. In the
    light scheme the step above the page is a whisper, so the 1 px border and
@@ -878,7 +869,7 @@
    that can leave (menus, dialogs, toasts). The default outlined card fills
    at level 1 (--elevation-1, the raised storey) under a 1 dp neutral
    500 strong stroke; .elevated trades the stroke for one storey nearer the
-   viewer (--elevation-2). Since ADR-022 a storey is lighter than the one
+   viewer (--elevation-2). A storey is lighter than the one
    below it in both schemes, so in the light scheme the card is a whisper
    above the page and the stroke says most of where it is. Radius Lg, an S4 inset, S3 gaps between the
    slots — exactly drawCard's rad.Lg / sp.S4 / sp.S3. The Gio stroke is
@@ -912,7 +903,7 @@
    fills Props.Ground, which defaults to level 1) and the header band on
    the storey above it (drawHeaderRow walks Ground.Raised(), never an
    absolute step), under neutral 700 label-large text (drawHeaderCell).
-   Both name --elevation-N rather than a ramp step, because since ADR-022 a
+   Both name --elevation-N rather than a ramp step, because a
    storey is not a ramp step in both schemes and a table that named one
    would read as a mirror of itself between the two. Header and body rows are each exactly
    one control height tall — the row-height rule (list.RowHeight), so .compact

@@ -1,0 +1,16 @@
+<!doctype html>
+<!-- Badge mirror fixture (design/mirror) — NOT part of the published bundle.
+     A badge speaking the Success status, at the light goldens' configuration: the
+     published sheet's .badge.success pinned to the canvas origin over the level-0
+     ground. A badge has no fill, so the ground is the only thing its ink is
+     derived against and the fixture has to stand on the same one the Gio
+     capture does; body's background propagates to the canvas, so the ground
+     fills whatever viewport the harness captures at. -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  html, body { margin: 0; }
+  body { position: relative; background: var(--elevation-0); }
+  .badge { position: absolute; top: 0; left: 0; }
+</style>
+<span class="badge success">Passing</span>
