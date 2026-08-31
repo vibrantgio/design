@@ -56,7 +56,7 @@ both modes, labelled `L` and `D`.
 | `--color-success-<step>` | `--color-success-100` … `--color-success-900` | the success ramp; steps in hundreds |
 | `--color-warning-<step>` | `--color-warning-100` … `--color-warning-900` | the warning ramp; steps in hundreds |
 | `--color-info-<step>` | `--color-info-100` … `--color-info-900` | the info ramp; steps in hundreds |
-| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-inverse-surface`, `--color-on-inverse-surface`, `--color-accent`, `--color-on-accent`, `--color-accent-hover`, `--color-accent-pressed`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning`, `--color-info`, `--color-on-info`, `--color-error-container`, `--color-on-error-container`, `--color-success-container`, `--color-on-success-container`, `--color-warning-container`, `--color-on-warning-container`, `--color-info-container`, `--color-on-info-container`, `--color-error-on-inverse`, `--color-success-on-inverse`, `--color-warning-on-inverse`, `--color-info-on-inverse`, `--color-badge-neutral`, `--color-badge-success`, `--color-badge-warning`, `--color-badge-error`, `--color-badge-info`, `--color-control-border`, `--color-card-border`, `--color-dialog-border`, `--color-popover-border`, `--color-focus-ring`, `--color-dialog-focus-ring`, `--color-popover-focus-ring`, `--color-focus-ring-on-accent` | pinned bases, their on-colours, the ramp-resolved surface/divider, the inverse pair the counterpart scheme's ramp resolves, and the edges and rings each ramp measures for itself against the storey they are drawn on — a resting border for the page, the outlined card, the dialog and the popover, a focus ring for the page and for the two storeys whose ground the page's ring cannot carry to, and the accent fill a filled button's ring lies on, which belongs to no storey at all |
+| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-inverse-surface`, `--color-on-inverse-surface`, `--color-accent`, `--color-on-accent`, `--color-accent-hover`, `--color-accent-pressed`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning`, `--color-info`, `--color-on-info`, `--color-error-container`, `--color-on-error-container`, `--color-success-container`, `--color-on-success-container`, `--color-warning-container`, `--color-on-warning-container`, `--color-info-container`, `--color-on-info-container`, `--color-error-on-inverse`, `--color-success-on-inverse`, `--color-warning-on-inverse`, `--color-info-on-inverse`, `--color-badge-neutral-fill`, `--color-badge-neutral`, `--color-badge-success-fill`, `--color-badge-success`, `--color-badge-warning-fill`, `--color-badge-warning`, `--color-badge-error-fill`, `--color-badge-error`, `--color-badge-info-fill`, `--color-badge-info`, `--color-control-border`, `--color-card-border`, `--color-dialog-border`, `--color-popover-border`, `--color-focus-ring`, `--color-dialog-focus-ring`, `--color-popover-focus-ring`, `--color-focus-ring-on-accent` | pinned bases, their on-colours, the ramp-resolved surface/divider, the inverse pair the counterpart scheme's ramp resolves, and the edges and rings each ramp measures for itself against the storey they are drawn on — a resting border for the page, the outlined card, the dialog and the popover, a focus ring for the page and for the two storeys whose ground the page's ring cannot carry to, and the accent fill a filled button's ring lies on, which belongs to no storey at all |
 | `--font-family` | `--font-family` | the typeface every prose role uses |
 | `--font-family-code` | `--font-family-code` | the monospace typeface the code role uses |
 | `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small, code; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights; code is the mono style outside the MD3 grid, at body-medium's metrics |
@@ -119,14 +119,19 @@ treatment: it stays quiet. `.btn.icon` is the icon-only form: a square
 the density's control height on a side, the glyph (an inline SVG on
 `currentColor`) inset by the density's vertical padding.
 
-`.badge` is the inline annotation: `label-medium` text in one derived
-ink, with no fill, no corner, no boundary and no padding, so its height
-is the role's line box and its width is the words in it. The default is
-the plain category label; `.badge.success` / `.badge.warning` /
+`.badge` is the inline annotation: `label-medium` text over a tinted
+field of its own hue. One hue at two strengths — a pale fill for the
+field and the same hue at reading strength for the word — and never the
+inverted pairing, which is what `.btn` uses and what a badge must not
+claim to be. No boundary and no vertical padding, so its height is the
+role's line box; the side padding is `--space-2` and the corner is
+`--radius-base`, deliberately not the pill `.chip` wears. The default
+is the plain category label; `.badge.success` / `.badge.warning` /
 `.badge.error` / `.badge.info` are the four statuses, differing in hue
-alone. Each ink is a token because it is derived against the ground
-rather than named on a ramp. Compose them for status; never inline-style
-a status colour. A badge is read, not used: no interaction states.
+alone. Both halves are tokens because both are derived against a ground
+rather than named on a ramp — the fill against the page, the foreground
+against the fill. Compose them for status; never inline-style a status
+colour. A badge is read, not used: no interaction states.
 
 The form controls dress native elements — no script anywhere:
 `.input` (text `<input>`, and `<select class="input select">` inside a

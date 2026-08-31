@@ -126,10 +126,15 @@
   --color-success-on-inverse: #3ead54;
   --color-warning-on-inverse: #ed7819;
   --color-info-on-inverse: #3a9cfd;
+  --color-badge-neutral-fill: #d4d4d4;
   --color-badge-neutral: #5c5c5c;
+  --color-badge-success-fill: #bbddbe;
   --color-badge-success: #006b24;
+  --color-badge-warning-fill: #e7d2ac;
   --color-badge-warning: #944600;
+  --color-badge-error-fill: #f9c9c4;
   --color-badge-error: #b12226;
+  --color-badge-info-fill: #bad8f8;
   --color-badge-info: #005da8;
   --color-control-border: #797979;
   --color-card-border: #797979;
@@ -374,10 +379,15 @@
   --color-success-on-inverse: #00531a;
   --color-warning-on-inverse: #743500;
   --color-info-on-inverse: #004884;
+  --color-badge-neutral-fill: #2e2e2e;
   --color-badge-neutral: #9e9e9e;
+  --color-badge-success-fill: #18341c;
   --color-badge-success: #77e387;
+  --color-badge-warning-fill: #452713;
   --color-badge-warning: #ffc242;
+  --color-badge-error-fill: #482421;
   --color-badge-error: #ffbbb4;
+  --color-badge-info-fill: #183049;
   --color-badge-info: #a6d0ff;
   --color-control-border: #9e9e9e;
   --color-card-border: #9e9e9e;
@@ -626,24 +636,41 @@
 /* ---- Badge ----
    The inline annotation components/badge draws: the system's own word about
    a thing, sized to its type and coloured by the role it speaks in. It is
-   off the control ladder — no fill, no corner, no boundary and no padding
-   on any side, so its whole height is the label role's line box and its
-   whole width is the words in it. A badge beside a control is a fraction of
-   that control's height and is meant to be.
+   off the control ladder — no boundary, no minimum height, no vertical
+   padding — so its whole height is the label role's line box. A badge beside
+   a control is a fraction of that control's height and is meant to be.
+
+   It wears a tinted field, and the field is what says it is not a control.
+   One hue at two strengths: a pale fill, the role's hue tinted toward the
+   ground until it is a place rather than a mark, with the same hue at reading
+   strength on top of it. A saturated fill under knocked-out white text is the
+   register interaction speaks in — .btn's — and a badge borrowing it would be
+   claiming to do something. Never invert these; never put a status colour on
+   inline style.
+
+   Both halves are tokens because both are derived rather than named on a
+   ramp. The fill is realized at a tone at the container chroma, at the depth
+   that separates it from the ground the sheet's pages stand on, which no
+   var() arithmetic over ramp steps could reproduce; the foreground is then
+   the role's pinned base while that base clears the text floor OVER THAT
+   FILL, and the nearest rung to the mid-value that does otherwise. The pair
+   is measured together and only means anything together.
+
+   The side padding is the S2 stop and the vertical padding is none: the
+   label role's line box carries its own leading, so the field already stands
+   clear of the cap and the descender. The corner is the radius scale's Base
+   stop and deliberately not the pill — the pill is .chip's shape, and a chip
+   is the thing a badge must not be confused with.
 
    The label role is the comfortable density's, one rung quieter than a
    chip's. The sheet re-maps no type role under .compact, so the class
    states the comfortable role and a compact page sets its badges in the
    same one.
 
-   Five variants differing in hue alone: the default is the plain category
-   label, .success/.warning/.error/.info the four statuses. There is no
-   emphasis axis — emphasis belongs where interaction does, and a badge is
-   read rather than used. Each ink is a token because it is derived against
-   the ground rather than named on a ramp: the role's pinned base while that
-   base clears the text floor, and the nearest rung to the mid-value that
-   does otherwise. Compose these for status; never inline-style a status
-   colour.
+   Five variants: the default is the plain category label,
+   .success/.warning/.error/.info the four statuses. There is no emphasis
+   axis — emphasis belongs where interaction does, and a badge is read rather
+   than used.
 
    The close mark is a Gio interaction and has no class in this sheet, so a
    badge here carries no gap and no affordance — only the utterance. */
@@ -652,23 +679,30 @@
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-base);
   font-family: var(--font-family);
   font-size: var(--font-label-medium-size);
   line-height: var(--font-label-medium-line-height);
   font-weight: var(--font-label-medium-weight);
   letter-spacing: var(--font-label-medium-tracking);
+  background: var(--color-badge-neutral-fill);
   color: var(--color-badge-neutral);
 }
 .badge.success {
+  background: var(--color-badge-success-fill);
   color: var(--color-badge-success);
 }
 .badge.warning {
+  background: var(--color-badge-warning-fill);
   color: var(--color-badge-warning);
 }
 .badge.error {
+  background: var(--color-badge-error-fill);
   color: var(--color-badge-error);
 }
 .badge.info {
+  background: var(--color-badge-info-fill);
   color: var(--color-badge-info);
 }
 

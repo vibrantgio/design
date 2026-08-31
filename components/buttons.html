@@ -135,14 +135,14 @@ h3 {
 
 <section>
 <h2>Badges — <code>.badge</code></h2>
-<p class="intro">The system's own word about a thing, set inline at <code>label-medium</code> metrics: no fill, no corner, no boundary and no padding, so the height is the role's line box and the width is the words in it. A badge beside a button is a fraction of that button's height and is meant to be — it is off the control ladder entirely, because it is read rather than used. The default is the plain category label. A badge speaks as a word or as a count; the close mark a dismissible one carries is a Gio interaction and has no class in this sheet.</p>
+<p class="intro">The system's own word about a thing, set inline at <code>label-medium</code> metrics over a tinted field of its own hue. One hue at two strengths: a pale fill for the field, the same hue at reading strength for the word — never the inverted pairing a filled button wears, because that is the register interaction speaks in and a badge is read rather than used. No boundary and no vertical padding, so the height is the role's line box; the side padding is <code>--space-2</code> and the corner is <code>--radius-base</code>, deliberately not the pill a chip wears. A badge beside a button is a fraction of that button's height and is meant to be. The default is the plain category label. A badge speaks as a word or as a count; the close mark a dismissible one carries is a Gio interaction and has no class in this sheet.</p>
 <div class="row">
 <div class="cell"><span class="badge">Popular</span><span class="annot">word</span></div>
 <div class="cell"><span class="badge">128</span><span class="annot">count</span></div>
 </div>
 
 <h2>Status badges — <code>.badge.success</code> / <code>.badge.warning</code> / <code>.badge.error</code> / <code>.badge.info</code></h2>
-<p class="intro">The four statuses, differing from the default and from each other in hue alone: there is no emphasis axis, because emphasis belongs where interaction does. Each ink is derived against the ground rather than named on a ramp — the role's pinned base while that base clears the text floor, and the nearest rung to the mid-value that does otherwise. Status is vocabulary: compose these; never inline-style a status colour.</p>
+<p class="intro">The four statuses, differing from the default and from each other in hue alone: there is no emphasis axis, because emphasis belongs where interaction does. Both halves of each are derived against a ground rather than named on a ramp — the fill against the page the badge stands on, then the foreground against that fill: the role's pinned base while that base clears the text floor over it, and the nearest rung to the mid-value that does otherwise. The pair is measured together and only means anything together. Status is vocabulary: compose these; never inline-style a status colour.</p>
 <div class="row">
 <div class="cell"><span class="badge success">Passing</span><span class="annot">success</span></div>
 <div class="cell"><span class="badge warning">Degraded</span><span class="annot">warning</span></div>
