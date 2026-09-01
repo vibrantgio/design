@@ -60,7 +60,7 @@ both modes, labelled `L` and `D`.
 | `--font-family` | `--font-family` | the typeface every prose role uses |
 | `--font-family-code` | `--font-family-code` | the monospace typeface the code role uses |
 | `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small, code; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights; code is the mono style outside the MD3 grid, at body-medium's metrics |
-| `--density-<metric>` | `--density-control-height`, `--density-padding-x`, `--density-padding-y`, `--density-min-hit-target` | control metrics, px; `:root` is comfortable, `.compact` overrides all but the hit-target floor |
+| `--density-<metric>` | `--density-control-height`, `--density-chip-height`, `--density-padding-x`, `--density-padding-y`, `--density-min-hit-target` | control metrics, px; `:root` is comfortable, `.compact` overrides all but the hit-target floor |
 | `--space-<key>` | `--space-0`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24` | the 4-pt spacing grid, px |
 | `--radius-<key>` | `--radius-none`, `--radius-sm`, `--radius-base`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-3xl`, `--radius-full` | corner radii, Tailwind naming, px |
 | `--elevation-<storey>` | `--elevation-floor`, `--elevation-0`, `--elevation-1`, `--elevation-2`, `--elevation-3` | tonal surface fills — the DEFAULT elevation cue; ordered away from the desk and toward the reader, and resolved per scheme, so both blocks state their own five |
@@ -202,9 +202,11 @@ surfaces never cast one.
 ## Density
 
 Two published settings, one variable family: comfortable (36 dp controls,
-16/8 dp padding) is the `:root` default; compact (28 dp, 12/6 dp) is the
-`.compact` class override, scoping to any subtree the way `.dark` scopes
-colours. `--density-min-hit-target` (44 dp, WCAG 2.5.5) is deliberately not
+32 dp chips, 16/8 dp padding) is the `:root` default; compact (28 dp
+controls, 24 dp chips, 12/6 dp padding) is the `.compact` class override,
+scoping to any subtree the way `.dark` scopes colours. The chip height is
+the control height less 4 dp in both settings — one relation, not a second
+ladder. `--density-min-hit-target` (44 dp, WCAG 2.5.5) is deliberately not
 overridden: compact shrinks the drawn control, never the clickable area.
 `theme.json` records both settings' metrics plus which one the theme runs.
 

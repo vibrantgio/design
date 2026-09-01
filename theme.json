@@ -60,11 +60,13 @@
     "setting": "comfortable",
     "comfortable": {
       "controlHeight": 36,
+      "chipHeight": 32,
       "paddingX": 16,
       "paddingY": 8
     },
     "compact": {
       "controlHeight": 28,
+      "chipHeight": 24,
       "paddingX": 12,
       "paddingY": 6
     },

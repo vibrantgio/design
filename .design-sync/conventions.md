@@ -96,10 +96,10 @@ never invent a class, a token, or a size variant.
   `display-large`…`body-small` plus `code` (e.g.
   `--font-title-medium-size`). Set all four together; never a bare
   `font-size`.
-- Density: `--density-control-height`, `--density-padding-x`,
-  `--density-padding-y`, `--density-min-hit-target`. Controls are exactly
-  one control height tall; `.compact` re-pitches everything but the
-  hit-target floor.
+- Density: `--density-control-height`, `--density-chip-height`,
+  `--density-padding-x`, `--density-padding-y`, `--density-min-hit-target`.
+  Controls are exactly one control height tall and a chip is four px under
+  it; `.compact` re-pitches everything but the hit-target floor.
 - Space: `--space-0`…`--space-24` on the 4-pt grid (keys 0–6, 8, 10, 12,
   16, 20, 24). Radius: `--radius-none`, `-sm`, `-base`, `-md`, `-lg`,
   `-xl`, `-2xl`, `-3xl`, `-full`.

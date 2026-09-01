@@ -224,6 +224,7 @@
   --font-code-weight: 400;
   --font-code-tracking: 0.25px;
   --density-control-height: 36px;
+  --density-chip-height: 32px;
   --density-padding-x: 16px;
   --density-padding-y: 8px;
   --density-min-hit-target: 44px;
@@ -412,6 +413,7 @@
 
 .compact {
   --density-control-height: 28px;
+  --density-chip-height: 24px;
   --density-padding-x: 12px;
   --density-padding-y: 6px;
 }

@@ -138,6 +138,19 @@ h3 {
   font-size: var(--font-label-large-size);
   font-weight: var(--font-label-large-weight);
 }
+.chip-bar {
+  height: var(--density-chip-height);
+  padding: 0 var(--space-3);
+  margin-left: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: thin solid var(--color-control-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-label-large-size);
+  font-weight: var(--font-label-large-weight);
+}
 .pad-box {
   display: inline-block;
   padding: var(--density-padding-y) var(--density-padding-x);
@@ -230,14 +243,15 @@ h3 {
 </section>
 <section>
 <h2>Density</h2>
-<p class="intro">Two published settings share one variable family: <code>:root</code> carries comfortable, and a <code>.compact</code> class block overrides <code>--density-control-height</code> and <code>--density-padding-x/-y</code> the way <code>.dark</code> overrides the colours &mdash; the right column below is the same markup inside a <code>class="compact"</code> wrapper. The dashed outline is <code>--density-min-hit-target</code>, the WCAG 2.5.5 pointer-target floor: it is not overridden, so compact shrinks the drawn control but never the clickable area.</p>
+<p class="intro">Two published settings share one variable family: <code>:root</code> carries comfortable, and a <code>.compact</code> class block overrides every per-setting metric of the <code>--density-*</code> family the way <code>.dark</code> overrides the colours &mdash; the right column below is the same markup inside a <code>class="compact"</code> wrapper. The dashed outline is <code>--density-min-hit-target</code>, the WCAG 2.5.5 pointer-target floor: it is not overridden, so compact shrinks the drawn control but never the clickable area.</p>
 <div class="density-pair">
 <div class="density-col">
 <h3>comfortable (root)</h3>
 <div class="hit-target">
 <span class="control-bar">Control</span>
+<span class="chip-bar">Chip</span>
 </div>
-<p class="annot"><code>--density-control-height</code> &middot; 36px &middot; hit target &ge; 44px</p>
+<p class="annot"><code>--density-control-height</code> &middot; 36px &middot; <code>--density-chip-height</code> &middot; 32px &middot; hit target &ge; 44px</p>
 <div class="pad-box">padding</div>
 <p class="annot"><code>--density-padding-x</code> 16px &middot; <code>--density-padding-y</code> 8px</p>
 </div>
@@ -245,8 +259,9 @@ h3 {
 <h3>compact (.compact)</h3>
 <div class="hit-target">
 <span class="control-bar">Control</span>
+<span class="chip-bar">Chip</span>
 </div>
-<p class="annot"><code>--density-control-height</code> &middot; 28px &middot; hit target &ge; 44px</p>
+<p class="annot"><code>--density-control-height</code> &middot; 28px &middot; <code>--density-chip-height</code> &middot; 24px &middot; hit target &ge; 44px</p>
 <div class="pad-box">padding</div>
 <p class="annot"><code>--density-padding-x</code> 12px &middot; <code>--density-padding-y</code> 6px</p>
 </div>
