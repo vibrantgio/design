@@ -378,7 +378,7 @@
   --color-on-error-container: #fd6d65;
   --color-success-container: #18341c;
   --color-on-success-container: #41b057;
-  --color-warning-container: #452713;
+  --color-warning-container: #3c2c08;
   --color-on-warning-container: #f07b1e;
   --color-info-container: #183049;
   --color-on-info-container: #3e9eff;
@@ -390,7 +390,7 @@
   --color-badge-neutral: #9b9b9b;
   --color-badge-success-fill: #18341c;
   --color-badge-success: #77e387;
-  --color-badge-warning-fill: #452713;
+  --color-badge-warning-fill: #3c2c08;
   --color-badge-warning: #ffc242;
   --color-badge-error-fill: #482421;
   --color-badge-error: #ffbbb4;
