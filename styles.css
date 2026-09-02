@@ -98,6 +98,7 @@
   --color-divider: #d4d4d4;
   --color-inverse-surface: #222222;
   --color-on-inverse-surface: #eeeeee;
+  --color-highlight: #e6cbee;
   --color-accent: #723ad4;
   --color-on-accent: #ffffff;
   --color-accent-hover: #5a11b5;
@@ -350,6 +351,7 @@
   --color-divider: #2e2e2e;
   --color-inverse-surface: #e8e8e8;
   --color-on-inverse-surface: #131313;
+  --color-highlight: #3b2641;
   --color-accent: #d0c4ff;
   --color-on-accent: #22004e;
   --color-accent-hover: #dbd2ff;
