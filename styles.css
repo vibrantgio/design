@@ -137,6 +137,12 @@
   --color-badge-error: #b12226;
   --color-badge-info-fill: #bad8f8;
   --color-badge-info: #005da8;
+  --color-btn-tonal-fill: #d7cff7;
+  --color-btn-tonal: #6f36d1;
+  --color-btn-tonal-fill-hover: #b9b1d8;
+  --color-btn-tonal-hover: #570ab2;
+  --color-btn-tonal-fill-active: #9b93b9;
+  --color-btn-tonal-active: #1d0044;
   --color-control-border: #797979;
   --color-card-border: #797979;
   --color-dialog-border: #797979;
@@ -390,6 +396,12 @@
   --color-badge-error: #ffbbb4;
   --color-badge-info-fill: #183049;
   --color-badge-info: #a6d0ff;
+  --color-btn-tonal-fill: #312a48;
+  --color-btn-tonal: #d0c4ff;
+  --color-btn-tonal-fill-hover: #4a4363;
+  --color-btn-tonal-hover: #d0c4ff;
+  --color-btn-tonal-fill-active: #70698c;
+  --color-btn-tonal-active: #efecff;
   --color-control-border: #6d6d6d;
   --color-card-border: #6d6d6d;
   --color-dialog-border: #9b9b9b;
@@ -423,8 +435,8 @@
 /* ---- Component classes ----
    The class vocabulary, built only on the tokens above. .btn mirrors
    components/button: filled by default, .tonal and .ghost the emphasis
-   modifiers, states resolved as one-rung ramp walks from the same rungs the
-   Gio side draws. .input/.select/.checkbox/.radio mirror components/input,
+   modifiers, states resolved exactly as the Gio side resolves them.
+   .input/.select/.checkbox/.radio mirror components/input,
    .badge the inline annotation components/badge draws (the plain category
    label and the four status roles; the close mark is a Gio interaction and
    has no class here), .card the
@@ -539,18 +551,28 @@
   color: color-mix(in srgb, var(--color-on-accent) var(--state-disabled-opacity), transparent);
 }
 
-/* Tonal: a tinted fill off the role's own ramp — ground 200 under the
-   ramp's 900 text; hover walks one step, pressed and selected two. */
+/* Tonal: the accent's tint over the surface the button stands on, under the
+   accent's own colour at the text floor — the same recipe .badge wears, one
+   hue at two strengths, never an inverted on-colour. The foreground moves
+   with the fill under the pointer: a colour held over a fill that walked two
+   steps is measured against a surface no longer there. Selected resolves
+   where pressed does, the two-step walk. */
 .btn.tonal {
-  background: var(--color-primary-200);
-  color: var(--color-primary-900);
+  background: var(--color-btn-tonal-fill);
+  color: var(--color-btn-tonal);
 }
-.btn.tonal:hover, .btn.tonal.is-hover { background: var(--color-primary-300); }
-.btn.tonal.selected { background: var(--color-primary-400); }
-.btn.tonal:active, .btn.tonal.is-active { background: var(--color-primary-400); }
+.btn.tonal:hover, .btn.tonal.is-hover {
+  background: var(--color-btn-tonal-fill-hover);
+  color: var(--color-btn-tonal-hover);
+}
+.btn.tonal.selected,
+.btn.tonal:active, .btn.tonal.is-active {
+  background: var(--color-btn-tonal-fill-active);
+  color: var(--color-btn-tonal-active);
+}
 .btn.tonal:disabled {
-  background: color-mix(in srgb, var(--color-primary-200) var(--state-disabled-opacity), transparent);
-  color: color-mix(in srgb, var(--color-primary-900) var(--state-disabled-opacity), transparent);
+  background: color-mix(in srgb, var(--color-btn-tonal-fill) var(--state-disabled-opacity), transparent);
+  color: color-mix(in srgb, var(--color-btn-tonal) var(--state-disabled-opacity), transparent);
 }
 
 /* Ghost: no ground at rest — the neutral ramp's low-contrast text over

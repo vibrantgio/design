@@ -56,7 +56,7 @@ both modes, labelled `L` and `D`.
 | `--color-success-<step>` | `--color-success-100` … `--color-success-900` | the success ramp; steps in hundreds |
 | `--color-warning-<step>` | `--color-warning-100` … `--color-warning-900` | the warning ramp; steps in hundreds |
 | `--color-info-<step>` | `--color-info-100` … `--color-info-900` | the info ramp; steps in hundreds |
-| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-inverse-surface`, `--color-on-inverse-surface`, `--color-highlight`, `--color-accent`, `--color-on-accent`, `--color-accent-hover`, `--color-accent-pressed`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning`, `--color-info`, `--color-on-info`, `--color-error-container`, `--color-on-error-container`, `--color-success-container`, `--color-on-success-container`, `--color-warning-container`, `--color-on-warning-container`, `--color-info-container`, `--color-on-info-container`, `--color-error-on-inverse`, `--color-success-on-inverse`, `--color-warning-on-inverse`, `--color-info-on-inverse`, `--color-badge-neutral-fill`, `--color-badge-neutral`, `--color-badge-success-fill`, `--color-badge-success`, `--color-badge-warning-fill`, `--color-badge-warning`, `--color-badge-error-fill`, `--color-badge-error`, `--color-badge-info-fill`, `--color-badge-info`, `--color-control-border`, `--color-card-border`, `--color-dialog-border`, `--color-popover-border`, `--color-focus-ring`, `--color-focus-ring-on-accent` | pinned bases, their on-colours, the ramp-resolved surface/divider, the inverse pair the counterpart scheme's ramp resolves, the reserved highlighter no status hue may serve, and the edges and rings each ramp measures for itself — a resting border per level, for the page, the outlined card, the dialog and the popover, and one focus ring for the whole scheme, measured against every level at once, plus the accent fill a filled button's ring lies on, which belongs to no level at all |
+| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-inverse-surface`, `--color-on-inverse-surface`, `--color-highlight`, `--color-accent`, `--color-on-accent`, `--color-accent-hover`, `--color-accent-pressed`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning`, `--color-info`, `--color-on-info`, `--color-error-container`, `--color-on-error-container`, `--color-success-container`, `--color-on-success-container`, `--color-warning-container`, `--color-on-warning-container`, `--color-info-container`, `--color-on-info-container`, `--color-error-on-inverse`, `--color-success-on-inverse`, `--color-warning-on-inverse`, `--color-info-on-inverse`, `--color-badge-neutral-fill`, `--color-badge-neutral`, `--color-badge-success-fill`, `--color-badge-success`, `--color-badge-warning-fill`, `--color-badge-warning`, `--color-badge-error-fill`, `--color-badge-error`, `--color-badge-info-fill`, `--color-badge-info`, `--color-btn-tonal-fill`, `--color-btn-tonal`, `--color-btn-tonal-fill-hover`, `--color-btn-tonal-hover`, `--color-btn-tonal-fill-active`, `--color-btn-tonal-active`, `--color-control-border`, `--color-card-border`, `--color-dialog-border`, `--color-popover-border`, `--color-focus-ring`, `--color-focus-ring-on-accent` | pinned bases, their on-colours, the ramp-resolved surface/divider, the inverse pair the counterpart scheme's ramp resolves, the reserved highlighter no status hue may serve, and the edges and rings each ramp measures for itself — a resting border per level, for the page, the outlined card, the dialog and the popover, and one focus ring for the whole scheme, measured against every level at once, plus the accent fill a filled button's ring lies on, which belongs to no level at all |
 | `--font-family` | `--font-family` | the typeface every prose role uses |
 | `--font-family-code` | `--font-family-code` | the monospace typeface the code role uses |
 | `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small, code; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights; code is the mono style outside the MD3 grid, at body-medium's metrics |
@@ -99,13 +99,16 @@ the same rule, so a static page can show a state with exactly the live
 declarations; disabled is forced with the native attribute.
 
 `.btn` is the button, **filled** by default: the accent pin under its
-on-colour. Two modifier classes select the quieter emphasis registers —
-`.btn.tonal` (a tinted fill: primary 200 under primary 900 text) and
-`.btn.ghost` (no ground at rest; neutral 700 text). Interaction states
-resolve as the step walks above: hover walks one step (`:hover`), pressed
-and selected two (`:active`, `.selected`); a filled button's solid fill
-walks via the emitted `--color-accent-hover` / `--color-accent-pressed`
-stops. Keyboard focus (`:focus-visible`) keeps the resting fill and draws
+on-colour. Two modifier classes select the quieter emphasis variants —
+`.btn.tonal` (the accent's tint, `--color-btn-tonal-fill` under
+`--color-btn-tonal`: the same recipe `.badge` wears, one hue at two
+strengths) and `.btn.ghost` (no ground at rest; neutral 700 text).
+Interaction states resolve as the step walks above: hover walks one step
+(`:hover`), pressed and selected two (`:active`, `.selected`); a filled
+button's solid fill walks via the emitted `--color-accent-hover` /
+`--color-accent-pressed` stops, and a tonal button through its own
+`-hover` and `-active` pairs, whose foreground moves with the fill.
+Keyboard focus (`:focus-visible`) keeps the resting fill and draws
 the ring: `--focus-ring-width` of `--color-focus-ring`, the one ring the
 scheme carries — the rung of the primary ramp nearest its mid-value step
 that reaches 3:1 against every level at once, so a control wears the
