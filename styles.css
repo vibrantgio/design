@@ -149,13 +149,16 @@
   --color-popover-border: #797979;
   --color-focus-ring: #6f36d1;
   --color-focus-ring-on-accent: #bdaaff;
-  --elevation-backdrop: #e8e8e8;
+  --elevation-backdrop: #d4d4d4;
+  --elevation-chrome: #e8e8e8;
   --elevation-0: #f6f6f6;
   --elevation-1: #f8f8f8;
   --elevation-2: #fbfbfb;
   --elevation-3: #ffffff;
-  --elevation-backdrop-hover: #d0d0d0;
-  --elevation-backdrop-active: #b2b2b2;
+  --elevation-backdrop-hover: #b6b6b6;
+  --elevation-backdrop-active: #989898;
+  --elevation-chrome-hover: #d0d0d0;
+  --elevation-chrome-active: #b2b2b2;
   --elevation-0-hover: #dddddd;
   --elevation-0-active: #c4c4c4;
   --elevation-1-hover: #dfdfdf;
@@ -258,6 +261,7 @@
   --radius-3xl: 24px;
   --radius-full: 9999px;
   --shadow-backdrop: none;
+  --shadow-chrome: none;
   --shadow-0: none;
   --shadow-1: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   --shadow-2: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
@@ -408,13 +412,16 @@
   --color-popover-border: #9b9b9b;
   --color-focus-ring: #dad2ff;
   --color-focus-ring-on-accent: #804be5;
-  --elevation-backdrop: #151515;
+  --elevation-backdrop: #111111;
+  --elevation-chrome: #151515;
   --elevation-0: #181818;
   --elevation-1: #222222;
   --elevation-2: #2e2e2e;
   --elevation-3: #474747;
-  --elevation-backdrop-hover: #292929;
-  --elevation-backdrop-active: #3b3b3b;
+  --elevation-backdrop-hover: #272727;
+  --elevation-backdrop-active: #373737;
+  --elevation-chrome-hover: #292929;
+  --elevation-chrome-active: #3b3b3b;
   --elevation-0-hover: #2b2b2b;
   --elevation-0-active: #404040;
   --elevation-1-hover: #333333;
@@ -1045,7 +1052,7 @@
   align-items: center;
   min-height: calc(var(--density-control-height) + 2 * var(--density-padding-y));
   padding: var(--density-padding-y) var(--space-4);
-  background: var(--elevation-backdrop);
+  background: var(--elevation-chrome);
   color: var(--color-text);
 }
 .navbar-links {
@@ -1124,7 +1131,7 @@
   display: flex;
   flex-direction: column;
   width: 192px;  /* expandedDp */
-  background: var(--elevation-backdrop);
+  background: var(--elevation-chrome);
   color: var(--color-text);
   overflow: hidden;
 }

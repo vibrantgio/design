@@ -310,15 +310,19 @@ h3 {
 </section>
 <section>
 <h2>Elevation</h2>
-<p class="intro">Elevation is tonal, and it climbs toward the light: <strong>in both schemes, a surface nearer the viewer is lighter</strong> &mdash; one rule, no mirror. <code>--elevation-*</code> is the surface fill and the default cue, resolved per scheme, so both blocks state their own five. The storeys run away from the desk and toward the reader: the floor a window's chrome furniture wears, the paper the content ground fills with, then raised insets and floating transients. Read the cards below left to right and the fill gets lighter, in either mode. The ladder stops at 3 &mdash; desktop has no six-storey stack.</p>
+<p class="intro">Elevation is tonal, and it climbs toward the light: <strong>in both schemes, every level is lighter than the one beneath it</strong> &mdash; one rule, no mirror. <code>--elevation-*</code> is the surface fill and the default cue, resolved per scheme, so both blocks state their own six. The levels run from the backdrop up toward the reader: the bare window plane, the chrome a window's furniture wears, the content surface, then raised insets and floating transients. Read the cards below left to right and the fill gets lighter, in either scheme. The levels stop at 3 &mdash; desktop has no six-deep stack.</p>
 <div class="elevation-ground">
 <div>
 <div class="surface-card" style="background: var(--elevation-backdrop)">backdrop</div>
-<p class="annot"><code>--elevation-backdrop</code> &middot; chrome furniture</p>
+<p class="annot"><code>--elevation-backdrop</code> &middot; nothing: it shows where nothing stands</p>
+</div>
+<div>
+<div class="surface-card" style="background: var(--elevation-chrome)">chrome</div>
+<p class="annot"><code>--elevation-chrome</code> &middot; navbars, toolbars, sidebars, panes</p>
 </div>
 <div>
 <div class="surface-card" style="background: var(--elevation-0)">0</div>
-<p class="annot"><code>--elevation-0</code> &middot; the paper</p>
+<p class="annot"><code>--elevation-0</code> &middot; the content</p>
 </div>
 <div>
 <div class="surface-card" style="background: var(--elevation-1)">1</div>
@@ -339,6 +343,10 @@ h3 {
 <div>
 <div class="surface-card" style="background: var(--elevation-backdrop); box-shadow: var(--shadow-backdrop)">backdrop</div>
 <p class="annot"><code>--shadow-backdrop</code> &middot; depth 0dp</p>
+</div>
+<div>
+<div class="surface-card" style="background: var(--elevation-chrome); box-shadow: var(--shadow-chrome)">chrome</div>
+<p class="annot"><code>--shadow-chrome</code> &middot; depth 0dp</p>
 </div>
 <div>
 <div class="surface-card" style="background: var(--elevation-0); box-shadow: var(--shadow-0)">0</div>

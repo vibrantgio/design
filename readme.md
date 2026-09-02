@@ -63,9 +63,9 @@ both modes, labelled `L` and `D`.
 | `--density-<metric>` | `--density-control-height`, `--density-chip-height`, `--density-padding-x`, `--density-padding-y`, `--density-min-hit-target` | control metrics, px; `:root` is comfortable, `.compact` overrides all but the hit-target floor |
 | `--space-<key>` | `--space-0`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24` | the 4-pt spacing grid, px |
 | `--radius-<key>` | `--radius-none`, `--radius-sm`, `--radius-base`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-3xl`, `--radius-full` | corner radii, Tailwind naming, px |
-| `--elevation-<level>` | `--elevation-backdrop`, `--elevation-0`, `--elevation-1`, `--elevation-2`, `--elevation-3` | tonal surface fills — the DEFAULT elevation cue; ordered away from the desk and toward the reader, and resolved per scheme, so both blocks state their own five |
-| `--elevation-<level>-<state>` | `--elevation-backdrop-hover`, `--elevation-backdrop-active`, `--elevation-0-hover`, `--elevation-0-active`, `--elevation-1-hover`, `--elevation-1-active`, `--elevation-2-hover`, `--elevation-2-active`, `--elevation-3-hover`, `--elevation-3-active` | each level's own interaction walk — what a control with no ground of its own washes the surface under it to when hovered or pressed. Taken FROM the level's fill rather than named as a ramp step, because a level is not a ramp step in both schemes |
-| `--shadow-<level>` | `--shadow-backdrop`, `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the OPT-IN cue for floating transients (menus, dialogs, tooltips) layered over the tonal fill; resting surfaces use the fill alone |
+| `--elevation-<level>` | `--elevation-backdrop`, `--elevation-chrome`, `--elevation-0`, `--elevation-1`, `--elevation-2`, `--elevation-3` | tonal surface fills — the DEFAULT elevation cue; ordered from the backdrop up toward the reader, and resolved per scheme, so both blocks state their own six |
+| `--elevation-<level>-<state>` | `--elevation-backdrop-hover`, `--elevation-backdrop-active`, `--elevation-chrome-hover`, `--elevation-chrome-active`, `--elevation-0-hover`, `--elevation-0-active`, `--elevation-1-hover`, `--elevation-1-active`, `--elevation-2-hover`, `--elevation-2-active`, `--elevation-3-hover`, `--elevation-3-active` | each level's own interaction walk — what a control with no fill of its own takes the surface under it to when hovered or pressed. Taken FROM the level's fill rather than named as a ramp step, because a level is not a ramp step in both schemes |
+| `--shadow-<level>` | `--shadow-backdrop`, `--shadow-chrome`, `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the OPT-IN cue for floating transients (menus, dialogs, tooltips) layered over the tonal fill; resting surfaces use the fill alone |
 | `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | MD3 easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for MD3's two-segment path |
 | `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | MD3-pinned duration stops, ms; the reduce-motion variant zeroes them |
 | interaction states | `--focus-ring-width`, `--state-disabled-opacity` | the ring's 2 px stroke and the disabled fade fraction for `color-mix()` — both mode-invariant, unlike the ring's colour, which is measured against a ground that flips and so sits with the colours above |
@@ -171,34 +171,39 @@ gap.
 
 ## Elevation: default vs opt-in
 
-Elevation is tonal, and it climbs toward the light: **in both schemes, a
-surface nearer the viewer is lighter.** One perceptual rule, no second
-rule for dark mode and no mirror — a surface nearer the viewer catches
-more light, and reflectance does not invert when the room goes dark.
-Five levels, counted from the backdrop up, away from the desk and toward
-the reader:
+Elevation is tonal, and it climbs toward the light: **in both schemes,
+every level is lighter than the one beneath it.** One perceptual rule,
+no second rule for the dark scheme and no mirror — a surface nearer the
+viewer catches more light, and reflectance does not invert when the room
+goes dark. Six levels, counted from the backdrop up toward the reader:
 
 | Level | What wears it |
 | --- | --- |
-| `--elevation-backdrop` | chrome furniture — sidebars, rails, toolbars, inspectors; the window's darkest region |
-| `--elevation-0` | the paper: the content surface, the bg pin |
-| `--elevation-1` | raised insets on the paper — cards, code fences, text fields |
+| `--elevation-backdrop` | nothing: the bare window plane, showing wherever nothing stands; the window's darkest region |
+| `--elevation-chrome` | the window's furniture — navbar, toolbar, sidebar, inspector, status bar, pane |
+| `--elevation-0` | the content surface, the bg pin |
+| `--elevation-1` | raised on the content — cards, code fences, text fields |
 | `--elevation-2` | floating — dialogs, toasts |
-| `--elevation-3` | floating, nearest the scheme's light extreme — menus, popovers |
+| `--elevation-3` | floating, nearest the scheme's light extreme — menus, popovers, tooltips |
 
 Read that down and the fill gets lighter, in `:root` and in `.dark`
-alike. The backdrop is the one level the ramp does not place: its step
-under the paper is measured off the platform rather than derived, and
-the two schemes measure differently — about 4.9 L\* under a light
-paper, about 1.5 under a dark one, where a full ramp step would read as
-a hole rather than as furniture. That asymmetry is the platform's own,
-not a rule mirrored between the schemes. A chrome pane that floats is
-still chrome and still fills at the backdrop: what says it is a floating
-object is its own hairline edge and its shadow, never a lighter fill.
+alike. Chrome is window-scale only: the trim inside a component or a
+pattern — a card's header, a dialog's footer — is that thing's
+structure and takes no level of its own. The chrome level is the one
+the ramp does not place: its step under the content is measured off the
+platform rather than derived, and the two schemes measure
+differently — about 4.9 L\* under light content, about 1.5 under dark,
+where a full ramp step would read as a hole rather than as furniture.
+That asymmetry is the platform's own, not a rule mirrored between the
+schemes. The backdrop takes that step scaled by the ramp's own
+proportion, because no platform capture shows a window plane beneath
+its furniture to measure. A chrome region that floats is still chrome
+and still fills at the chrome level: what says it is a floating object
+is its own hairline edge and its shadow, never a lighter fill.
 The levels stop at 3: desktop has no six-deep stack. Note the
 sizes — a light scheme has spent almost all of the tonal axis on its
-paper, so its levels above the paper are separated by a fraction of an
-L\* and the derived hairline (`--card-border`, `--dialog-border`,
+content, so its levels above the content are separated by a fraction of
+an L\* and the derived hairline (`--card-border`, `--dialog-border`,
 `--popover-border`) is what says where a surface is. That is what the
 desktop applications this system is judged against measure too.
 
