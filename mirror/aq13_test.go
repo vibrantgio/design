@@ -34,7 +34,7 @@ func TestFocusRingMirrors(t *testing.T) {
 		shaper, "Placeholder",
 		tokens.DefaultLight, tokens.Spacing, tokens.Radius,
 		tokens.DefaultTypography.BodyLarge, tokens.Comfortable,
-		input.RenderState{Focused: true, Ground: tokens.Level2},
+		input.RenderState{Focused: true, Level: tokens.Level2},
 	)))
 	if !FixtureExists("fixtures/" + fixture) {
 		t.Fatalf("no embedded fixture %q — a typo here would screenshot a 404 page", fixture)

@@ -1,12 +1,12 @@
 package mirror
 
 // The contextual-ghost verdict: a ghost hosted on a raised surface
-// washes one rung above the host's own ground, not the window ground's rung
+// washes one step above the host's own fill, not the window's own step
 // that resolves to the very fill it sits on. The sheet carries this as the
 // contextual walk (.dialog .btn.ghost:hover — neutral 400 over the level-2
-// fill), and the Gio side as RenderState.Ground; this pair scores the two
+// fill), and the Gio side as RenderState.Level; this pair scores the two
 // against each other in the defect's exact configuration — the modal-close
-// icon ghost, hovered, on a level-2 ground. Like TestCalibration and the
+// icon ghost, hovered, on a level-2 surface. Like TestCalibration and the
 // earlier mirror verdicts, it only delivers a verdict on the authoritative
 // machine; elsewhere one half of the harness skips loudly.
 
@@ -64,7 +64,7 @@ func TestRaisedGhostMirrors(t *testing.T) {
 	const fixture = "icon-ghost-dialog-hover.html"
 	gio := golden.Capture(t, ghostIconSize, onColor(tokens.DefaultLight.SurfaceAt(tokens.Level2), button.RenderIcon(
 		modalCross, tokens.DefaultLight, tokens.Spacing, tokens.Radius, tokens.Comfortable,
-		button.RenderState{Emphasis: button.Ghost, Ground: tokens.Level2, Hovered: true},
+		button.RenderState{Emphasis: button.Ghost, Level: tokens.Level2, Hovered: true},
 	)))
 	if !FixtureExists("fixtures/" + fixture) {
 		t.Fatalf("no embedded fixture %q — a typo here would screenshot a 404 page", fixture)
