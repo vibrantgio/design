@@ -147,7 +147,7 @@
   --color-card-border: #797979;
   --color-dialog-border: #797979;
   --color-popover-border: #797979;
-  --color-focus-ring: #8c59f4;
+  --color-focus-ring: #6f36d1;
   --color-focus-ring-on-accent: #bdaaff;
   --elevation-backdrop: #e8e8e8;
   --elevation-0: #f6f6f6;
@@ -406,7 +406,7 @@
   --color-card-border: #6d6d6d;
   --color-dialog-border: #9b9b9b;
   --color-popover-border: #9b9b9b;
-  --color-focus-ring: #a787ff;
+  --color-focus-ring: #dad2ff;
   --color-focus-ring-on-accent: #804be5;
   --elevation-backdrop: #151515;
   --elevation-0: #181818;
@@ -483,13 +483,15 @@
 
 /* Keyboard focus keeps the resting fill and adds the ring — a stroke
    centred on the control's edge, as the Gio side draws it. One width, one
-   hue, one value: var(--color-focus-ring) is the rung of the primary ramp
-   nearest its mid-value step that reaches 3:1 against every level at once,
-   so a control wears the same ring wherever it was put and no rule here
-   asks where that is. The one ground that belongs to no level is the
-   accent fill a filled button's ring lies on — that ring is inset in the
-   button's own background rather than drawn at its boundary, and no rung
-   that reads against the page reads against that fill — so that one takes
+   hue, one value: var(--color-focus-ring) is the step of the primary ramp
+   nearest its mid-value step that reaches 3:1 against every level at once
+   and parts from every level's resting border in luminance, so a control
+   wears the same ring wherever it was put, no rule here asks where that is,
+   and focus survives a display that removes the colour. The one surface
+   that belongs to no level is the accent fill a filled button's ring lies
+   on — that ring is inset in the button's own background rather than drawn
+   at its boundary, and no step that reads against the page reads against
+   that fill — so that one takes
    var(--color-focus-ring-on-accent) wherever the button stands, and it is
    the same ring in the same place at the same width. */
 .btn:focus-visible, .btn.is-focus {

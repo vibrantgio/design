@@ -110,12 +110,16 @@ button's solid fill walks via the emitted `--color-accent-hover` /
 `-hover` and `-active` pairs, whose foreground moves with the fill.
 Keyboard focus (`:focus-visible`) keeps the resting fill and draws
 the ring: `--focus-ring-width` of `--color-focus-ring`, the one ring the
-scheme carries — the rung of the primary ramp nearest its mid-value step
+scheme carries — the step of the primary ramp nearest its mid-value step
 that reaches 3:1 against every level at once, so a control wears the
-same ring wherever it is put. `--color-focus-ring-on-accent` is the sole
-exception, for the ring a filled button insets in its own fill: that
-fill is a rung of the primary ramp too, and the scheme's ring cannot
-read on it. Same ring, same width, same 3:1 floor in every register.
+same ring wherever it is put. It also parts from every resting border
+in luminance rather than in hue alone, so focus stays findable where a
+display or a system setting takes the colour away, and it is never the
+accent fill itself, which is what a checked control already paints.
+`--color-focus-ring-on-accent` is the sole exception, for the ring a
+filled button insets in its own fill: that
+fill is a step of the primary ramp too, and the scheme's ring cannot
+read on it. Same ring, same width, same 3:1 floor in every variant.
 Disabled (`:disabled`) fades each colour to
 `--state-disabled-opacity` of its alpha. A ghost has no selected
 treatment: it stays quiet. `.btn.icon` is the icon-only form: a square
