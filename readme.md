@@ -17,8 +17,8 @@ it by hand — regenerate it.
 ## Files
 
 - `styles.css` — the token sheet: one `:root` block (light colours and
-  elevation storeys plus every mode-invariant scale, comfortable density),
-  one `.dark` class override block (the paired dark colours and storeys)
+  elevation levels plus every mode-invariant scale, comfortable density),
+  one `.dark` class override block (the paired dark colours and levels)
   and one `.compact` class override block (the
   compact density metrics only). Add `class="dark"` to the root element to
   switch modes, `class="compact"` to any subtree to densify it; the two
@@ -56,16 +56,16 @@ both modes, labelled `L` and `D`.
 | `--color-success-<step>` | `--color-success-100` … `--color-success-900` | the success ramp; steps in hundreds |
 | `--color-warning-<step>` | `--color-warning-100` … `--color-warning-900` | the warning ramp; steps in hundreds |
 | `--color-info-<step>` | `--color-info-100` … `--color-info-900` | the info ramp; steps in hundreds |
-| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-inverse-surface`, `--color-on-inverse-surface`, `--color-accent`, `--color-on-accent`, `--color-accent-hover`, `--color-accent-pressed`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning`, `--color-info`, `--color-on-info`, `--color-error-container`, `--color-on-error-container`, `--color-success-container`, `--color-on-success-container`, `--color-warning-container`, `--color-on-warning-container`, `--color-info-container`, `--color-on-info-container`, `--color-error-on-inverse`, `--color-success-on-inverse`, `--color-warning-on-inverse`, `--color-info-on-inverse`, `--color-badge-neutral-fill`, `--color-badge-neutral`, `--color-badge-success-fill`, `--color-badge-success`, `--color-badge-warning-fill`, `--color-badge-warning`, `--color-badge-error-fill`, `--color-badge-error`, `--color-badge-info-fill`, `--color-badge-info`, `--color-control-border`, `--color-card-border`, `--color-dialog-border`, `--color-popover-border`, `--color-focus-ring`, `--color-focus-ring-on-accent` | pinned bases, their on-colours, the ramp-resolved surface/divider, the inverse pair the counterpart scheme's ramp resolves, and the edges and rings each ramp measures for itself — a resting border per storey, for the page, the outlined card, the dialog and the popover, and one focus ring for the whole scheme, measured against every storey at once, plus the accent fill a filled button's ring lies on, which belongs to no storey at all |
+| pins & semantic layer | `--color-bg`, `--color-surface`, `--color-text`, `--color-divider`, `--color-inverse-surface`, `--color-on-inverse-surface`, `--color-accent`, `--color-on-accent`, `--color-accent-hover`, `--color-accent-pressed`, `--color-secondary`, `--color-on-secondary`, `--color-tertiary`, `--color-on-tertiary`, `--color-error`, `--color-on-error`, `--color-success`, `--color-on-success`, `--color-warning`, `--color-on-warning`, `--color-info`, `--color-on-info`, `--color-error-container`, `--color-on-error-container`, `--color-success-container`, `--color-on-success-container`, `--color-warning-container`, `--color-on-warning-container`, `--color-info-container`, `--color-on-info-container`, `--color-error-on-inverse`, `--color-success-on-inverse`, `--color-warning-on-inverse`, `--color-info-on-inverse`, `--color-badge-neutral-fill`, `--color-badge-neutral`, `--color-badge-success-fill`, `--color-badge-success`, `--color-badge-warning-fill`, `--color-badge-warning`, `--color-badge-error-fill`, `--color-badge-error`, `--color-badge-info-fill`, `--color-badge-info`, `--color-control-border`, `--color-card-border`, `--color-dialog-border`, `--color-popover-border`, `--color-focus-ring`, `--color-focus-ring-on-accent` | pinned bases, their on-colours, the ramp-resolved surface/divider, the inverse pair the counterpart scheme's ramp resolves, and the edges and rings each ramp measures for itself — a resting border per level, for the page, the outlined card, the dialog and the popover, and one focus ring for the whole scheme, measured against every level at once, plus the accent fill a filled button's ring lies on, which belongs to no level at all |
 | `--font-family` | `--font-family` | the typeface every prose role uses |
 | `--font-family-code` | `--font-family-code` | the monospace typeface the code role uses |
 | `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small, code; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights; code is the mono style outside the MD3 grid, at body-medium's metrics |
 | `--density-<metric>` | `--density-control-height`, `--density-chip-height`, `--density-padding-x`, `--density-padding-y`, `--density-min-hit-target` | control metrics, px; `:root` is comfortable, `.compact` overrides all but the hit-target floor |
 | `--space-<key>` | `--space-0`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24` | the 4-pt spacing grid, px |
 | `--radius-<key>` | `--radius-none`, `--radius-sm`, `--radius-base`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-3xl`, `--radius-full` | corner radii, Tailwind naming, px |
-| `--elevation-<storey>` | `--elevation-floor`, `--elevation-0`, `--elevation-1`, `--elevation-2`, `--elevation-3` | tonal surface fills — the DEFAULT elevation cue; ordered away from the desk and toward the reader, and resolved per scheme, so both blocks state their own five |
-| `--elevation-<storey>-<state>` | `--elevation-floor-hover`, `--elevation-floor-active`, `--elevation-0-hover`, `--elevation-0-active`, `--elevation-1-hover`, `--elevation-1-active`, `--elevation-2-hover`, `--elevation-2-active`, `--elevation-3-hover`, `--elevation-3-active` | each storey's own interaction walk — what a control with no ground of its own washes the surface under it to when hovered or pressed. Taken FROM the storey's fill rather than named as a ramp step, because a storey is not a ramp step in both schemes |
-| `--shadow-<storey>` | `--shadow-floor`, `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the OPT-IN cue for floating transients (menus, dialogs, tooltips) layered over the tonal fill; resting surfaces use the fill alone |
+| `--elevation-<level>` | `--elevation-backdrop`, `--elevation-0`, `--elevation-1`, `--elevation-2`, `--elevation-3` | tonal surface fills — the DEFAULT elevation cue; ordered away from the desk and toward the reader, and resolved per scheme, so both blocks state their own five |
+| `--elevation-<level>-<state>` | `--elevation-backdrop-hover`, `--elevation-backdrop-active`, `--elevation-0-hover`, `--elevation-0-active`, `--elevation-1-hover`, `--elevation-1-active`, `--elevation-2-hover`, `--elevation-2-active`, `--elevation-3-hover`, `--elevation-3-active` | each level's own interaction walk — what a control with no ground of its own washes the surface under it to when hovered or pressed. Taken FROM the level's fill rather than named as a ramp step, because a level is not a ramp step in both schemes |
+| `--shadow-<level>` | `--shadow-backdrop`, `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the OPT-IN cue for floating transients (menus, dialogs, tooltips) layered over the tonal fill; resting surfaces use the fill alone |
 | `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | MD3 easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for MD3's two-segment path |
 | `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | MD3-pinned duration stops, ms; the reduce-motion variant zeroes them |
 | interaction states | `--focus-ring-width`, `--state-disabled-opacity` | the ring's 2 px stroke and the disabled fade fraction for `color-mix()` — both mode-invariant, unlike the ring's colour, which is measured against a ground that flips and so sits with the colours above |
@@ -108,7 +108,7 @@ walks via the emitted `--color-accent-hover` / `--color-accent-pressed`
 stops. Keyboard focus (`:focus-visible`) keeps the resting fill and draws
 the ring: `--focus-ring-width` of `--color-focus-ring`, the one ring the
 scheme carries — the rung of the primary ramp nearest its mid-value step
-that reaches 3:1 against every storey at once, so a control wears the
+that reaches 3:1 against every level at once, so a control wears the
 same ring wherever it is put. `--color-focus-ring-on-accent` is the sole
 exception, for the ring a filled button insets in its own fill: that
 fill is a rung of the primary ramp too, and the scheme's ring cannot
@@ -146,15 +146,15 @@ neutral rung the ramp measures as reaching 3:1 against the window
 ground, which is 600 in the light scheme and 500 in the dark; the named
 rung it replaced read below the floor in one of them, at 2.67:1 in the
 scheme most people read in. The edge follows the control into a raised
-host: a surface that fills a deeper storey declares `--ground-border`
-beside its own fill, the rules name it with the ground floor's token as
+host: a surface that fills a deeper level declares `--ground-border`
+beside its own fill, the rules name it with the paper's own token as
 the fallback, and every control inside re-derives — the same walk
 against the same fill the host measures its own outline against, which
 is why a checkbox in a dialog wears the dialog's edge. In the dark
 scheme the page's own rung reads 2.62:1 over a level-2 fill and 1.80:1
 over a level-3 one, both under the floor; in the light scheme it clears
-every storey and the handed-down token repeats. The ring does not
-follow, because it never left: it is measured against every storey at
+every level and the handed-down token repeats. The ring does not
+follow, because it never left: it is measured against every level at
 once and is one colour for the scheme.
 Checked, the box is the accent fill under a check mark in the
 on-accent pin, drawn from the icon set's grid as two gradient bands — a
@@ -168,28 +168,29 @@ Elevation is tonal, and it climbs toward the light: **in both schemes, a
 surface nearer the viewer is lighter.** One perceptual rule, no second
 rule for dark mode and no mirror — a surface nearer the viewer catches
 more light, and reflectance does not invert when the room goes dark.
-Five storeys, ordered away from the desk and toward the reader:
+Five levels, counted from the backdrop up, away from the desk and toward
+the reader:
 
-| Storey | What wears it |
+| Level | What wears it |
 | --- | --- |
-| `--elevation-floor` | chrome furniture — sidebars, rails, toolbars, inspectors; the window's darkest region |
-| `--elevation-0` | the paper: the content ground, the bg pin |
+| `--elevation-backdrop` | chrome furniture — sidebars, rails, toolbars, inspectors; the window's darkest region |
+| `--elevation-0` | the paper: the content surface, the bg pin |
 | `--elevation-1` | raised insets on the paper — cards, code fences, text fields |
 | `--elevation-2` | floating — dialogs, toasts |
 | `--elevation-3` | floating, nearest the scheme's light extreme — menus, popovers |
 
 Read that down and the fill gets lighter, in `:root` and in `.dark`
-alike. The floor is the one storey the ramp does not place: its step
+alike. The backdrop is the one level the ramp does not place: its step
 under the paper is measured off the platform rather than derived, and
 the two schemes measure differently — about 4.9 L\* under a light
 paper, about 1.5 under a dark one, where a full ramp step would read as
 a hole rather than as furniture. That asymmetry is the platform's own,
 not a rule mirrored between the schemes. A chrome pane that floats is
-still chrome and still fills at the floor: what says it is a floating
+still chrome and still fills at the backdrop: what says it is a floating
 object is its own hairline edge and its shadow, never a lighter fill.
-The ladder stops at 3: desktop has no six-storey stack. Note the
+The levels stop at 3: desktop has no six-deep stack. Note the
 sizes — a light scheme has spent almost all of the tonal axis on its
-paper, so its storeys above the paper are separated by a fraction of an
+paper, so its levels above the paper are separated by a fraction of an
 L\* and the derived hairline (`--card-border`, `--dialog-border`,
 `--popover-border`) is what says where a surface is. That is what the
 desktop applications this system is judged against measure too.
@@ -206,7 +207,7 @@ Two published settings, one variable family: comfortable (36 dp controls,
 controls, 24 dp chips, 12/6 dp padding) is the `.compact` class override,
 scoping to any subtree the way `.dark` scopes colours. The chip height is
 the control height less 4 dp in both settings — one relation, not a second
-ladder. `--density-min-hit-target` (44 dp, WCAG 2.5.5) is deliberately not
+scale. `--density-min-hit-target` (44 dp, WCAG 2.5.5) is deliberately not
 overridden: compact shrinks the drawn control, never the clickable area.
 `theme.json` records both settings' metrics plus which one the theme runs.
 

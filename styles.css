@@ -142,13 +142,13 @@
   --color-popover-border: #797979;
   --color-focus-ring: #8c59f4;
   --color-focus-ring-on-accent: #bdaaff;
-  --elevation-floor: #e8e8e8;
+  --elevation-backdrop: #e8e8e8;
   --elevation-0: #f6f6f6;
   --elevation-1: #f8f8f8;
   --elevation-2: #fbfbfb;
   --elevation-3: #ffffff;
-  --elevation-floor-hover: #d4d4d4;
-  --elevation-floor-active: #b6b6b6;
+  --elevation-backdrop-hover: #d4d4d4;
+  --elevation-backdrop-active: #b6b6b6;
   --elevation-0-hover: #e8e8e8;
   --elevation-0-active: #d4d4d4;
   --elevation-1-hover: #e8e8e8;
@@ -250,7 +250,7 @@
   --radius-2xl: 16px;
   --radius-3xl: 24px;
   --radius-full: 9999px;
-  --shadow-floor: none;
+  --shadow-backdrop: none;
   --shadow-0: none;
   --shadow-1: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   --shadow-2: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
@@ -394,13 +394,13 @@
   --color-popover-border: #9b9b9b;
   --color-focus-ring: #a787ff;
   --color-focus-ring-on-accent: #804be5;
-  --elevation-floor: #151515;
+  --elevation-backdrop: #151515;
   --elevation-0: #181818;
   --elevation-1: #222222;
   --elevation-2: #2e2e2e;
   --elevation-3: #474747;
-  --elevation-floor-hover: #222222;
-  --elevation-floor-active: #2e2e2e;
+  --elevation-backdrop-hover: #222222;
+  --elevation-backdrop-active: #2e2e2e;
   --elevation-0-hover: #222222;
   --elevation-0-active: #2e2e2e;
   --elevation-1-hover: #2e2e2e;
@@ -470,9 +470,9 @@
 /* Keyboard focus keeps the resting fill and adds the ring — a stroke
    centred on the control's edge, as the Gio side draws it. One width, one
    hue, one value: var(--color-focus-ring) is the rung of the primary ramp
-   nearest its mid-value step that reaches 3:1 against every storey at once,
+   nearest its mid-value step that reaches 3:1 against every level at once,
    so a control wears the same ring wherever it was put and no rule here
-   asks where that is. The one ground that belongs to no storey is the
+   asks where that is. The one ground that belongs to no level is the
    accent fill a filled button's ring lies on — that ring is inset in the
    button's own background rather than drawn at its boundary, and no rung
    that reads against the page reads against that fill — so that one takes
@@ -490,42 +490,42 @@
   outline-offset: calc(var(--focus-ring-width) / -2);
 }
 
-/* --ground-border and --ground-raised are the storey-local pair, and the
+/* --ground-border and --ground-raised are the level-local pair, and the
    whole of how a raised host reaches the controls inside it. The first is
-   the neutral rung that reads on this storey; the second is the storey a
+   the neutral rung that reads on this level; the second is the level a
    control that fills a box of its own is raised TO from here — the rung
    above the host's own.
    Both inherit, so a surface declares them once — in its
    own rule, beside the --elevation-N it fills with — and every control below
    it re-derives, with no descendant selector anywhere in this sheet. It is
-   the sheet's spelling of RenderState.Ground on the Gio side, which is why
-   the two carry the same word.
+   the sheet's spelling of RenderState.Level on the Gio side: what a control
+   resolves against is handed down, never looked up.
 
    Nothing declares them at the root. A control that no raised host contains
-   stands on the ground floor, and the fallback inside each var() IS the
-   ground floor's answer — so the default is written once, at the point of
-   use, and cannot drift from the tokens the rules already name.
+   stands on the paper, and the fallback inside each var() IS the paper's
+   answer — so the default is written once, at the point of use, and cannot
+   drift from the tokens the rules already name.
 
    A focus ring is not among them, and that absence is the point: the ring
-   is one colour per scheme, measured against the whole ladder at once, so a
+   is one colour per scheme, measured against every level at once, so a
    raised host has nothing to hand down. A resting edge is the boundary of
-   one surface and may differ per storey — in the dark scheme the ground
-   floor's neutral rung reads 2.62:1 over a level-2 fill and 1.80:1 over a
+   one surface and may differ per level — in the dark scheme the level-0
+   neutral rung reads 2.62:1 over a level-2 fill and 1.80:1 over a
    level-3 one, under the 3:1 a graphic owes its ground, which is why a
    checkbox in a dialog wears the edge the dialog's own outline wears. The
-   light scheme's ladder climbs less far from its floor and its ground-floor
-   rung already clears every storey, so the handed-down token repeats there
+   light scheme's levels climb less far from its backdrop and its level-0
+   rung already clears every level, so the handed-down token repeats there
    and nothing moves — the derivation reporting that nothing needs to.
 
    The two join under different rules, and the difference is
    worth stating. --ground-border is a MEASUREMENT, so a host only declares it
-   where the ground floor's answer stops clearing — which is why an outlined
-   .card, at level 1, does not. --ground-raised is a STOREY, and a
-   storey differs by construction: a control filling at its host's own rung is
+   where the paper's answer stops clearing — which is why an outlined
+   .card, at level 1, does not. --ground-raised is a LEVEL, and a
+   level differs by construction: a control filling at its host's own rung is
    invisible against it whatever the contrast table says. So all four
    container surfaces a control can be put inside declare it — .card,
    .card.elevated, .dialog and .popover — the outlined card included. The
-   popover declares the ladder's ceiling: level 3 raises to level 3, the one
+   popover declares the ceiling: level 3 raises to level 3, the one
    place this walk stops instead of stepping (tokens.ElevationLevel.Raised),
    so a control in a popover fills flush with it and is read by its border. */
 
@@ -556,12 +556,12 @@
    surface's own hover and press walk, the text walking to 900 with the
    ground. No selected treatment: a ghost stays quiet.
 
-   The walk is named as a storey's own state rather than as a ramp step,
-   because a storey is not a ramp step: the fills above the
-   pin are off the ramp in the light scheme and the floor is off it in the
-   dark one, so there is no index left to walk from. Each storey's own
+   The walk is named as a level's own state rather than as a ramp step,
+   because a level is not a ramp step: the fills above the
+   pin are off the ramp in the light scheme and the backdrop is off it in the
+   dark one, so there is no index left to walk from. Each level's own
    -hover and -active pair is that walk taken
-   from each storey's own fill (components/button ghostWash, which is
+   from each level's own fill (components/button ghostWash, which is
    tokens.ColorTokens.StateAt). A ghost told nothing stands on the paper,
    so the base rule is level 0's. */
 .btn.ghost {
@@ -584,13 +584,13 @@
 /* A ghost's wash derives from the local ground it sits on, not the window
    ground: inside a host that is not the paper the hover and press washes
    re-derive as that host surface's own walk (components/button
-   buttonColors, walking from RenderState.Ground's storey). The card sits
+   buttonColors, walking from RenderState.Level). The card sits
    at level 1, the dialog and the elevated card at level 2, the popover at
    the deepest level 3; the text stays the ramp's 900 end, where the walk
    itself clamps.
 
    Level 1 carries its own rule and the plain card is why: level 0 walks
-   from the Background pin and level 1 from the storey above it, which are
+   from the Background pin and level 1 from the level above it, which are
    two different fills and, in the dark scheme, two different washes. */
 .card .btn.ghost:hover, .card .btn.ghost.is-hover {
   background: var(--elevation-1-hover);
@@ -634,7 +634,7 @@
 /* ---- Badge ----
    The inline annotation components/badge draws: the system's own word about
    a thing, sized to its type and coloured by the role it speaks in. It is
-   off the control ladder — no boundary, no minimum height, no vertical
+   off the control metrics — no boundary, no minimum height, no vertical
    padding — so its whole height is the label role's line box. A badge beside
    a control is a fraction of that control's height and is meant to be.
 
@@ -705,7 +705,7 @@
 }
 
 /* ---- Form controls ----
-   Native elements wearing components/input's resolution: the raised storey
+   Native elements wearing components/input's resolution: the raised level
    under body-large text, the neutral rung that reads on the ground the
    control stands on for the border, neutral 700 placeholder, focus promoting
    the border to that ground's ring, disabled fading every colour to the
@@ -715,13 +715,13 @@
    a ramp step, and that is components/input's controlFill: a control that
    paints a box of its own is raised on whatever hosts it, so it fills one
    rung nearer the viewer than its host. It used to be --color-surface, the
-   neutral ramp's step 200, which lands on the raised storey in the dark
-   scheme by coincidence and on no storey at all in the light one — a light
+   neutral ramp's step 200, which lands on the raised level in the dark
+   scheme by coincidence and on no level at all in the light one — a light
    field filled a whole band step BELOW the page it lies on. A
    surface nearer the viewer is lighter in both schemes, and on a desktop a
    text field is the lightest thing in the window, not the darkest. In the
    light scheme the step above the page is a whisper, so the 1 px border and
-   the corner radius carry the visible edge; that is the trade the ladder
+   the corner radius carry the visible edge; that is the trade elevation
    makes and states. */
 
 /* Text field (components/input textfield.go). Height = ControlHeight as a
@@ -756,9 +756,9 @@
    promoted border IS the ring, and the accent pin is the seed a caller chose,
    which measures as low as 1.00:1 against the surface it would be drawn on.
    So the field takes the scheme's measured rung like every other control —
-   and that rung is measured against the storeys rather than the field's own
-   fill because the band has the fill inside it and the storey outside, and
-   the storey is the side every control on it shares. */
+   and that rung is measured against the levels rather than the field's own
+   fill because the band has the fill inside it and the level outside, and
+   the level is the side every control on it shares. */
 .input:focus-visible, .input.is-focus {
   outline: none;
   border-color: var(--color-focus-ring);
@@ -801,7 +801,7 @@
 /* Checkbox (components/input checkbox.go): a 20 dp glyph (checkboxBoxSize
    — a component constant, not a token; it does not follow density) over its
    own raised fill. Unchecked, its 2 dp edge is the neutral rung the ramp answers
-   with for a 3:1 graphic on the storey the box stands on — the ground
+   with for a 3:1 graphic on the level the box stands on — the ground
    floor's --color-control-border (600 in the light scheme, 500 in the dark)
    unless a raised host has re-pointed --ground-border. The radio, the text
    field and the dropdown trigger wear that same edge, all four asking the
@@ -899,9 +899,9 @@
    — no cast shadow in either variant, because a
    card is raised, not floating; the dp shadows stay reserved for surfaces
    that can leave (menus, dialogs, toasts). The default outlined card fills
-   at level 1 (--elevation-1, the raised storey) under a 1 dp neutral
-   500 strong stroke; .elevated trades the stroke for one storey nearer the
-   viewer (--elevation-2). A storey is lighter than the one
+   at level 1 (--elevation-1, the raised level) under a 1 dp neutral
+   500 strong stroke; .elevated trades the stroke for one level nearer the
+   viewer (--elevation-2). A level is lighter than the one
    below it in both schemes, so in the light scheme the card is a whisper
    above the page and the stroke says most of where it is. Radius Lg, an S4 inset, S3 gaps between the
    slots — exactly drawCard's rad.Lg / sp.S4 / sp.S3. The Gio stroke is
@@ -930,12 +930,12 @@
 }
 
 /* ---- Table ----
-   patterns/table: the whole grid grounds on the raised storey (drawTable
+   patterns/table: the whole grid grounds on the raised level (drawTable
    fills Props.Ground, which defaults to level 1) and the header band on
-   the storey above it (drawHeaderRow walks Ground.Raised(), never an
+   the level above it (drawHeaderRow walks Ground.Raised(), never an
    absolute step), under neutral 700 label-large text (drawHeaderCell).
    Both name --elevation-N rather than a ramp step, because a
-   storey is not a ramp step in both schemes and a table that named one
+   level is not a ramp step in both schemes and a table that named one
    would read as a mirror of itself between the two. Header and body rows are each exactly
    one control height tall — the row-height rule (list.RowHeight), so .compact
    re-pitches the whole grid — and every row closes with a 1 dp Divider rule
@@ -997,7 +997,7 @@
    The four navigation patterns. All four rest their interactive cells on
    the Surface ground (neutral 200), so the pointer states are that ground's
    own one-rung ramp walk — hover one rung to neutral 300, exactly the wash the
-   ghost register performs on the same storey. The Gio side draws no hover
+   ghost register performs on the same level. The Gio side draws no hover
    (a native window has the pointer; a static page shows the resolution),
    but the rungs are the tokens' StateColor walk from ground 200, not a new
    mix. Selection is what the Gio side does draw: the 2 dp Primary underline
@@ -1019,7 +1019,7 @@
   align-items: center;
   min-height: calc(var(--density-control-height) + 2 * var(--density-padding-y));
   padding: var(--density-padding-y) var(--space-4);
-  background: var(--elevation-floor);
+  background: var(--elevation-backdrop);
   color: var(--color-text);
 }
 .navbar-links {
@@ -1098,7 +1098,7 @@
   display: flex;
   flex-direction: column;
   width: 192px;  /* expandedDp */
-  background: var(--elevation-floor);
+  background: var(--elevation-backdrop);
   color: var(--color-text);
   overflow: hidden;
 }
@@ -1218,7 +1218,7 @@
    (patterns/tooltip) and the floating toast (patterns/toast). The elevation
    grammar: a scrimmed modal sits at level 2 (the scrim, not the
    fill, isolates it); an unscrimmed, shadowless popover separates by fill
-   alone and takes the deepest level 3; a toast takes no storey at all — it
+   alone and takes the deepest level 3; a toast takes no level at all — it
    inverts, and keeps the level-3 cast shadow to say it can leave; the tooltip
    takes no rung at all — it inverts instead, because a bubble that small
    needs the stronger cue. */
@@ -1342,8 +1342,8 @@
 
 /* Tooltip (tooltip.go drawSurface): the inverse-video bubble — the Text
    pin as ground under a label in Surface, label-small, radius Sm, S2/S1
-   padding, clamped to the 24x16 dp minimum. No rung on the elevation
-   ladder and no shadow: inversion is the whole cue. */
+   padding, clamped to the 24x16 dp minimum. No elevation level and no
+   shadow: inversion is the whole cue. */
 .tooltip {
   box-sizing: border-box;
   display: inline-flex;
@@ -1368,7 +1368,7 @@
    cast shadow. It is the one surface built out of the counterpart scheme:
    dark on a light scheme, light on a dark one, so a message that can
    appear over any pane separates from all of them without claiming a
-   storey none of them can be under. The shadow stays for what it says
+   level none of them can be under. The shadow stays for what it says
    rather than for the separation — this layer is temporary — and there is
    no outline, which on the old tinted level-2 base was the only thing
    giving the chip an edge.
