@@ -26,7 +26,7 @@ never invent a class, a token, or a size variant.
 - **Buttons** — `.btn` on `<button>`: filled by default (accent under
   on-accent). Emphasis modifiers: `.btn.tonal` (tinted fill), `.btn.ghost`
   (no ground at rest). A ghost's wash is its host surface's own one-rung
-  walk — inside `.dialog`, `.card.elevated` or `.popover` the hover/press
+  walk — inside `.card`, `.dialog` or `.popover` the hover/press
   washes re-derive from that surface's ground automatically; never restyle
   them by hand. `.btn.icon` is the square icon-only form (inline SVG
   on `currentColor`). `.selected` marks a toggled-on button; ghosts have no
@@ -42,8 +42,8 @@ never invent a class, a token, or a size variant.
   a dropdown is `<select class="input select">` inside a `.select-wrap`
   (which draws the chevron); `.checkbox` and `.radio` on their native input
   types. Disabled is always the native `disabled` attribute.
-- **Cards** — `.card` (outlined, elevation-1 fill), `.card.elevated`
-  (borderless, elevation-2 fill).
+- **Cards** — `.card` (outlined) and `.card.filled` (borderless), both at
+  the elevation-1 fill; the border is the only difference.
 - **Table** — `.table` on a real `<table>`: header band, one-control-height
   rows, divider rules, no zebra. Tables are unframed: the Surface ground and
   the header band *are* the frame, so never wrap a table in a card, an

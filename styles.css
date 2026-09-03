@@ -544,10 +544,11 @@
    worth stating. --ground-border is a MEASUREMENT, so a host only declares it
    where the paper's answer stops clearing — which is why an outlined
    .card, at level 1, does not. --ground-raised is a LEVEL, and a
-   level differs by construction: a control filling at its host's own rung is
-   invisible against it whatever the contrast table says. So all four
-   container surfaces a control can be put inside declare it — .card,
-   .card.elevated, .dialog and .popover — the outlined card included. The
+   level differs by construction: a control filling at its host's own step is
+   invisible against it whatever the contrast table says. So every
+   container surface a control can be put inside declares it — .card,
+   .dialog and .popover — both card looks included, since they stand at
+   one level and .card.filled inherits the card's own declaration. The
    popover declares the ceiling: level 3 raises to level 3, the one
    place this walk stops instead of stepping (tokens.ElevationLevel.Raised),
    so a control in a popover fills flush with it and is read by its border. */
@@ -617,8 +618,8 @@
 /* A ghost's wash derives from the local ground it sits on, not the window
    ground: inside a host that is not the paper the hover and press washes
    re-derive as that host surface's own walk (components/button
-   buttonColors, walking from RenderState.Level). The card sits
-   at level 1, the dialog and the elevated card at level 2, the popover at
+   buttonColors, walking from RenderState.Level). Both card looks sit
+   at level 1, the dialog at level 2, the popover at
    the deepest level 3; the text stays the ramp's 900 end, where the walk
    itself clamps.
 
@@ -631,12 +632,10 @@
 .card .btn.ghost:active, .card .btn.ghost.is-active {
   background: var(--elevation-1-active);
 }
-.dialog .btn.ghost:hover, .dialog .btn.ghost.is-hover,
-.card.elevated .btn.ghost:hover, .card.elevated .btn.ghost.is-hover {
+.dialog .btn.ghost:hover, .dialog .btn.ghost.is-hover {
   background: var(--elevation-2-hover);
 }
-.dialog .btn.ghost:active, .dialog .btn.ghost.is-active,
-.card.elevated .btn.ghost:active, .card.elevated .btn.ghost.is-active {
+.dialog .btn.ghost:active, .dialog .btn.ghost.is-active {
   background: var(--elevation-2-active);
 }
 .popover .btn.ghost:hover, .popover .btn.ghost.is-hover {
@@ -928,15 +927,16 @@
 }
 
 /* ---- Card ----
-   patterns/card: a rounded surface raised in place by tonal step alone
-   — no cast shadow in either variant, because a
+   patterns/card: a rounded surface raised on the content by tonal step
+   alone — no cast shadow in either look, because a
    card is raised, not floating; the dp shadows stay reserved for surfaces
-   that can leave (menus, dialogs, toasts). The default outlined card fills
-   at level 1 (--elevation-1, the raised level) under a 1 dp neutral
-   500 strong stroke; .elevated trades the stroke for one level nearer the
-   viewer (--elevation-2). A level is lighter than the one
+   that can leave (menus, dialogs, toasts). Both looks fill
+   at level 1 (--elevation-1, the raised level) and differ only at the
+   edge: the default outlined card wears a 1 dp neutral
+   500 strong stroke, .filled wears none. A level is lighter than the one
    below it in both schemes, so in the light scheme the card is a whisper
-   above the page and the stroke says most of where it is. Radius Lg, an S4 inset, S3 gaps between the
+   above the page and the outlined card's stroke says most of where it is;
+   the filled card is read by that whisper alone. Radius Lg, an S4 inset, S3 gaps between the
    slots — exactly drawCard's rad.Lg / sp.S4 / sp.S3. The Gio stroke is
    centred on the card's edge while the CSS border lies inside it, so the
    outlined padding gives back the border's 1px and the slots land where the
@@ -954,12 +954,9 @@
   color: var(--color-text);
   --ground-raised: var(--elevation-2);
 }
-.card.elevated {
+.card.filled {
   padding: var(--space-4);
   border: none;
-  background: var(--elevation-2);
-  --ground-border: var(--color-dialog-border);
-  --ground-raised: var(--elevation-3);
 }
 
 /* ---- Table ----

@@ -84,7 +84,7 @@ h2 {
   letter-spacing: var(--font-label-medium-tracking);
   color: var(--color-accent);
 }
-.storey {
+.level {
   width: 8.75rem;
   height: 5rem;
   display: flex;
@@ -103,11 +103,11 @@ h2 {
 <body>
 <main>
 <h1>Cards &amp; elevation</h1>
-<p class="intro">The card is <code>.card</code> — a rounded surface container raised in place by <strong>tonal elevation</strong>: a raised surface separates from its ground by colour, one neutral-ramp step per storey, never by a cast shadow, because a card cannot float or leave. The default card fills at <code>--elevation-1</code> under a 1&nbsp;px <code>--color-card-border</code> stroke — the rung the neutral ramp measures against that fill; <code>.card.elevated</code> trades the stroke for one storey deeper, <code>--elevation-2</code>. Geometry is <code>--radius-lg</code> corners, a <code>--space-4</code> inset and <code>--space-3</code> gaps between the stacked slots. A card styles no text of its own — header, body and footer are ordinary content whose typography you choose.</p>
+<p class="intro">The card is <code>.card</code> — a rounded surface container raised on the content by <strong>tonal elevation</strong>: a raised surface separates from the surface it stands on by colour, one neutral-ramp step per level, never by a cast shadow, because a card cannot float or leave. Both looks fill at <code>--elevation-1</code>, one step above the content, and differ only at the edge: <code>.card</code> wears a 1&nbsp;px <code>--color-card-border</code> stroke — the step the neutral ramp measures against that fill; <code>.card.filled</code> wears none. Geometry is <code>--radius-lg</code> corners, a <code>--space-4</code> inset and <code>--space-3</code> gaps between the stacked slots. A card styles no text of its own — header, body and footer are ordinary content whose typography you choose.</p>
 
 <section>
 <h2>Outlined — <code>.card</code></h2>
-<p class="intro">The default variant: the level-1 fill with the strong border. It sits one storey above the app's <code>--color-bg</code> ground.</p>
+<p class="intro">The default look: the level-1 fill under the strong border. It stands one level above the app's <code>--color-bg</code> plane.</p>
 <div class="row" style="background: var(--color-bg)">
 <div class="cell">
 <div class="card">
@@ -127,28 +127,28 @@ h2 {
 </section>
 
 <section>
-<h2>Elevated — <code>.card.elevated</code></h2>
-<p class="intro">One storey deeper: the level-2 fill, no stroke — and no shadow. Shadows are reserved for surfaces that float and can leave; a card is raised, not floating.</p>
+<h2>Filled — <code>.card.filled</code></h2>
+<p class="intro">The same level-1 fill, no stroke — and no shadow. The fill alone says where the card is. Shadows are reserved for surfaces that float and can leave; a card is raised, not floating.</p>
 <div class="row" style="background: var(--color-bg)">
 <div class="cell">
-<div class="card elevated">
+<div class="card filled">
 <div class="card-title">Density</div>
 <p class="card-body">Comfortable and Compact set the control height and the padding around it.</p>
 <div class="card-footer">Read the token</div>
 </div>
-<span class="annot">elevated</span>
+<span class="annot">filled</span>
 </div>
 </div>
 </section>
 
 <section>
-<h2>The elevation ladder</h2>
-<p class="intro">Each step is a surface fill: <code>--elevation-0</code> is the bg pin, levels 1&ndash;3 are neutral steps 200/300/400, resolved as <code>var()</code> references into the ramp so they flip with dark mode. The ladder stops at 3 &mdash; desktop has no six-storey stack. The card lives at 1 and 2.</p>
+<h2>The elevation</h2>
+<p class="intro">Each step is a surface fill: <code>--elevation-0</code> is the bg pin, levels 1&ndash;3 are neutral steps 200/300/400, resolved as <code>var()</code> references into the ramp so they flip with dark mode. It stops at 3 &mdash; desktop has no six-level stack. Both card looks live at 1.</p>
 <div class="row" style="background: var(--color-neutral-100)">
-<div class="cell"><div class="storey" style="background: var(--elevation-0)">0</div><span class="annot"><code>--elevation-0</code> &middot; bg pin</span></div>
-<div class="cell"><div class="storey" style="background: var(--elevation-1)">1</div><span class="annot"><code>--elevation-1</code> &middot; <code>.card</code></span></div>
-<div class="cell"><div class="storey" style="background: var(--elevation-2)">2</div><span class="annot"><code>--elevation-2</code> &middot; <code>.card.elevated</code></span></div>
-<div class="cell"><div class="storey" style="background: var(--elevation-3)">3</div><span class="annot"><code>--elevation-3</code></span></div>
+<div class="cell"><div class="level" style="background: var(--elevation-0)">0</div><span class="annot"><code>--elevation-0</code> &middot; bg pin</span></div>
+<div class="cell"><div class="level" style="background: var(--elevation-1)">1</div><span class="annot"><code>--elevation-1</code> &middot; <code>.card</code>, <code>.card.filled</code></span></div>
+<div class="cell"><div class="level" style="background: var(--elevation-2)">2</div><span class="annot"><code>--elevation-2</code> &middot; <code>.dialog</code></span></div>
+<div class="cell"><div class="level" style="background: var(--elevation-3)">3</div><span class="annot"><code>--elevation-3</code></span></div>
 </div>
 </section>
 
@@ -156,15 +156,15 @@ h2 {
 <h2>The opt-in shadow</h2>
 <p class="intro">The dp shadows survive as <code>--shadow-N</code> for <strong>floating transients only</strong> &mdash; menus, dialogs, toasts, tooltips: a float adds <code>box-shadow: var(--shadow-N)</code> on top of its tonal fill. Resting surfaces &mdash; and every card &mdash; use the fill alone.</p>
 <div class="row" style="background: var(--color-neutral-100)">
-<div class="cell"><div class="storey" style="background: var(--elevation-1); box-shadow: var(--shadow-1)">1</div><span class="annot"><code>--shadow-1</code> &middot; depth 1dp</span></div>
-<div class="cell"><div class="storey" style="background: var(--elevation-2); box-shadow: var(--shadow-2)">2</div><span class="annot"><code>--shadow-2</code> &middot; depth 3dp</span></div>
-<div class="cell"><div class="storey" style="background: var(--elevation-3); box-shadow: var(--shadow-3)">3</div><span class="annot"><code>--shadow-3</code> &middot; depth 6dp</span></div>
+<div class="cell"><div class="level" style="background: var(--elevation-1); box-shadow: var(--shadow-1)">1</div><span class="annot"><code>--shadow-1</code> &middot; depth 1dp</span></div>
+<div class="cell"><div class="level" style="background: var(--elevation-2); box-shadow: var(--shadow-2)">2</div><span class="annot"><code>--shadow-2</code> &middot; depth 3dp</span></div>
+<div class="cell"><div class="level" style="background: var(--elevation-3); box-shadow: var(--shadow-3)">3</div><span class="annot"><code>--shadow-3</code> &middot; depth 6dp</span></div>
 </div>
 </section>
 
 <section>
 <h2>Dark mode</h2>
-<p class="intro">Nothing here is mode-specific: a <code>class="dark"</code> wrapper flips the colour variables, and because <code>--elevation-N</code> is a reference into the neutral ramp, every storey flips with them.</p>
+<p class="intro">Nothing here is mode-specific: a <code>class="dark"</code> wrapper flips the colour variables, and because <code>--elevation-N</code> is a reference into the neutral ramp, every level flips with them.</p>
 <div class="row dark">
 <div class="cell">
 <div class="card">
@@ -175,12 +175,12 @@ h2 {
 <span class="annot">outlined</span>
 </div>
 <div class="cell">
-<div class="card elevated">
+<div class="card filled">
 <div class="card-title">Density</div>
 <p class="card-body">Comfortable and Compact set the control height and the padding around it.</p>
 <div class="card-footer">Read the token</div>
 </div>
-<span class="annot">elevated</span>
+<span class="annot">filled</span>
 </div>
 </div>
 </section>

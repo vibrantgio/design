@@ -109,8 +109,8 @@ func TestPatternMirrors(t *testing.T) {
 			card.Props{Header: header, Body: body, Footer: footer},
 			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
 		)},
-		{"card-elevated.html", cardSize, card.Render(
-			card.Props{Header: header, Body: body, Footer: footer, Elevated: true},
+		{"card-filled.html", cardSize, card.Render(
+			card.Props{Header: header, Body: body, Footer: footer, Filled: true},
 			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
 		)},
 		{"table.html", tableSize, tableWidget(shaper)},

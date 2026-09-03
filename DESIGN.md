@@ -458,8 +458,8 @@ as raised by its surface step alone. The cost backs the rule: one
 `depth.Shadow` issues nine paint operations per frame (eight gradient fills
 plus an interior fill, measured), a surface step is one `FillShape`. The
 caller audit executed this: toast kept its shadow, mindchat's floating undo
-bar kept its, card's `Elevated` variant lost its shadow and became a level‑2
-fill.
+bar kept its, the card's second look lost its shadow — it is the filled card
+today, raised on the content by its fill alone.
 
 ### Motion: a subset, at desktop pace
 
