@@ -161,21 +161,21 @@ What comes out (ADR-007's model, in Claude Design's vocabulary):
   strong border; 700–900 text over tinted fills and pressed states.
 - **Paired dark ramps, not a second table.** The generator emits light and
   dark scales in which the same step keeps the same job — a component asks
-  for neutral‑200 and gets a light card on a light ground and a dark card on
-  a dark one, with no second assignment table to drift.
+  for neutral‑200 and gets a light card on a light surface and a dark card
+  on a dark one, with no second assignment table to drift.
 - **Pins.** A brand colour rarely sits on the shared lightness scale (the
   default seed `#6750A4` is L\* 40 — step‑700 depth), so each accent role's
   solid fill is **pinned separately** from its ramp and reproduced exactly,
   with an `On*` colour guaranteed readable over it. Background and Text are
   pins too.
 - **A thin semantic layer** — Background, Surface (neutral 200), Divider
-  (neutral 300), Text — sits over the ramps so call sites read intent; reach
+  (neutral 300), Text — sits over the ramps so call sites read purpose; reach
   into the ramps when you need a specific step.
 
 ### States are step walks
 
 Interaction states are resolved as walks up the ramp, not alpha overlays:
-hover is one step past the component's ground, pressed/selected two, clamped
+hover is one step past the component's own fill, pressed/selected two, clamped
 at 900; pinned solid fills walk toward the 900 depth. Disabled is an opacity
 (MD3's 38%); focus keeps the surface and strokes a neutral‑500 ring. Because
 the dark ramp is paired, every state resolves in both modes with one rule.
@@ -444,7 +444,7 @@ not merely look wrong; it fails the build.
 
 - **Contrast is guaranteed by construction, in APCA terms** (ADR-007): in
   both ramps, step 900 reaches Lc 90 and step 700 Lc 60 over the 100/200
-  grounds, and every pin's `On*` colour reaches Lc 60 over its pin. WCAG 2
+  surfaces, and every pin's `On*` colour reaches Lc 60 over its pin. WCAG 2
   ratios are computed and reported — conformance claims cite them — but they
   do not gate the palette, because WCAG 2 over-rates light-on-dark pairs.
 - **High contrast is derived, not hand-written:** when the OS reports
@@ -576,7 +576,7 @@ read as an Android port. ADR-005 ratified a choice the code had already made.
 ## Key architectural patterns
 
 *(Corrected to the shipped code; DESIGN-v1.md documents the original
-pre-migration wiring. The operational rules an app author needs — AutoConnect
+pre-migration wiring. The operational rules an app developer needs — AutoConnect
 counts, pitfalls, recipes — live in `llms.txt`; this section records why the
 architecture holds.)*
 
@@ -601,12 +601,12 @@ not a participant in it.
 ### 2. Interaction state lives in `rx.Defer` closures
 
 State allocated inside an `rx.Defer` factory is created once per subscription
-and captured by reference in the map functions and widget closures below it.
-It is only ever read or written from the events goroutine, so it needs no
-locks — and it must never be handed to another goroutine or stored in a
-subject. The scope hierarchy: Defer closure (once per subscription, owns the
-lifetime) → Map closure (per emission) → widget closure (per frame, events
-goroutine).
+and captured by reference in the map functions and `layout.Widget` closures
+below it. It is only ever read or written from the events goroutine, so it
+needs no locks — and it must never be handed to another goroutine or stored
+in a subject. The scope hierarchy: Defer closure (once per subscription, owns
+the lifetime) → Map closure (per emission) → `layout.Widget` closure (per
+frame, events goroutine).
 
 Component identity — v1's open "Experiment A" — landed as `components/keyed`:
 `keyed.Defer` hands back the same per-key state across reorder, insertion and
@@ -615,7 +615,7 @@ First-frame sentinels standardised as `components/initial`.
 
 ### 3. `MessageOp` bridges components to MVU
 
-Widgets emit messages by adding `mvu.MessageOp{Message: …}` to the ops
+Components emit messages by adding `mvu.MessageOp{Message: …}` to the ops
 buffer; the runtime collects them during the frame and delivers them to
 `Update`. The collection is a registered collector on the ops buffer — the
 `unsafe.Pointer` reinterpretation of Gio's internal ops layout that v1
@@ -626,15 +626,16 @@ them in subjects. The bridge is event-shaped, not state-shaped.
 
 ### 4. Animation self-schedules and idles
 
-Animated widgets tick their simulation inside the frame and request the next
-frame only while active (`gtx.Execute(op.InvalidateCmd{})`); when activity
-settles, nothing invalidates and Gio goes idle. Invalidation is
-window-global — every widget re-lays-out — so expensive widgets cache ops
-when inputs are unchanged (`components/cache`, v1's "Experiment B" landed).
-Effects are explicit *variants* of components widgets (`effects/springbutton`
-wraps `components/button`), opt-in per call site, never a global decorator — and
-every animated component takes its durations and springs from the theme's
-MotionScale, which is what makes reduced motion a zero-cost guarantee.
+Animated components tick their simulation inside the frame and request the
+next frame only while active (`gtx.Execute(op.InvalidateCmd{})`); when
+activity settles, nothing invalidates and Gio goes idle. Invalidation is
+window-global — every component re-lays-out — so expensive components cache
+ops when inputs are unchanged (`components/cache`, v1's "Experiment B"
+landed). Effects are explicit *variants* of the library's components
+(`effects/springbutton` wraps `components/button`), opt-in per call site,
+never a global decorator — and every animated component takes its durations
+and springs from the theme's MotionScale, which is what makes reduced motion
+a zero-cost guarantee.
 
 ---
 
@@ -670,9 +671,9 @@ fragilities. Its bets mostly paid off, and its debts were repaid:
   rework — the strongest evidence they were architecture rather than
   coincidence. The `unsafe.Pointer` MessageOp hack is gone.
 - **The validation experiments became packages.** Keyed identity is
-  `components/keyed`, op caching is `components/cache`, cross-widget coordination
+  `components/keyed`, op caching is `components/cache`, cross-component coordination
   became `components/coordination` — since deprecated: ADR-008 (recorded in
-  `llms.txt` §Coordination) retired the cross-widget bus in favour of
+  `llms.txt` §Coordination) retired the cross-component bus in favour of
   `mvu/stream.Value` and the arbiter pattern.
 - **The layering inverted.** v1 put the token contract in components with
   spectrum above it; ADR-001 records why that was wrong and the tier table
@@ -686,7 +687,7 @@ fragilities. Its bets mostly paid off, and its debts were repaid:
 
 What survives intact from v1 is the application model itself — the FRP/MVU
 duality, Defer-scoped state, the heartbeat, frame-driven physics — and the
-project's voice: measured over assumed, explicit over magic, accessibility
+project's character: measured over assumed, explicit over magic, accessibility
 non-optional.
 
 ---
@@ -771,7 +772,7 @@ viewing-condition model.
 **On `reactivego/luminance`.** That package already implemented the
 sRGB ↔ XYZ(D65) ↔ CIELAB chain correctly and dependency-free, and its
 `Lab()`/`RGB()` pair is precisely the tone axis this ADR needs. Its math was
-**lifted into `spectrum/color` (today `theme/color`), not imported** — same author, so reuse rather
+**lifted into `spectrum/color` (today `theme/color`), not imported** — same developer, so reuse rather
 than a dependency decision. Not imported because the package is MD2-era by
 design: its `Lighten`/`Darken` API and `Kn = 18` constant are a chroma.js
 port tuned to the retired material.io Color Tool, it declares `go 1.14`,
@@ -1057,16 +1058,16 @@ as the reference project's `theme.json` pins `accent`. **Dark mode is a
 paired ramp, not a second table**: the generator emits light and dark scales
 in which the same step keeps the same job — Radix's pairing mechanism under
 Claude Design's numbering — so a component asks for neutral‑200 and gets a
-light card on a light ground and a dark card on a dark one, with no second
+light card on a light surface and a dark card on a dark one, with no second
 assignment table to drift. **The contrast gate is APCA**: in both ramps, step
 900 must reach Lc 90 and step 700 Lc 60 over the step‑100 and step‑200
-grounds, and each pinned base's on-colour Lc 60 over the base. WCAG 2 ratios
+surfaces, and each pinned base's on-colour Lc 60 over the base. WCAG 2 ratios
 are still computed and reported — conformance claims cite them — but they do
 not gate the palette.
 
 MD3's role→tone tables are retired. A thin semantic layer — background,
 surface, text, divider, plus the pinned role bases — sits over the ramps so
-call sites read intent; the MD3-named fields survived as deprecated aliases
+call sites read purpose; the MD3-named fields survived as deprecated aliases
 resolved into ramp steps until the breaking release deleted them.
 
 **The surface mapping.** Identical in both modes, because the dark ramp is
@@ -1076,8 +1077,8 @@ paired rather than re-assigned:
 | --- | --- |
 | app background | neutral‑100 (or the pinned `bg`) |
 | card / raised surface | neutral‑200 |
-| hovered element background | one step past its ground (200 → 300) |
-| pressed / selected background | two steps past its ground |
+| hovered element background | one step past its own fill (200 → 300) |
+| pressed / selected background | two steps past its own fill |
 | subtle border, separator | neutral‑300 |
 | strong border, focusable edge | neutral‑500 |
 | solid fill | the pinned role base |
@@ -1131,7 +1132,7 @@ tints and text shades.
 WCAG 2's known failure mode is over-rating light-on-dark. Measured on this
 seed's own dark palettes: outline-strength text `#918f9d` on an MD3 card
 `#201f24` scores WCAG 5.17:1 — a clean AA pass — at APCA Lc −41, unreadable
-as body text. The seed's tone 60 `#9983dc` on the dark ground passes AA at
+as body text. The seed's tone 60 `#9983dc` on the dark surface passes AA at
 5.85:1 with Lc −42; tone 50 passes AA-large at 4.13:1 with Lc −30. Every one
 of those would sail through a ratio gate and fail readers. On pairs that are
 genuinely fine the two metrics agree (dark-mode body text lands Lc −87…−96
@@ -1141,7 +1142,7 @@ test.
 
 **Tunings the gate forced, landed with the generator.** The spike predicted
 one small tuning; implementation found it needed two larger ones. APCA's soft
-black clamp caps even pure black near Lc 92 over the L\* 92 step‑200 ground,
+black clamp caps even pure black near Lc 92 over the L\* 92 step‑200 surface,
 so the light 900 stop deepened from the measured L\* 18 to L\* 6 — the depth
 where all five ramps clear Lc 90 with margin. And the dark pins rose from the
 measured L\* 65 — a mid-tone no text of any colour reaches Lc 60 over (black
@@ -1199,8 +1200,8 @@ stands untouched; its role-vocabulary clause is superseded.
   closures, never in subjects
 - **Frame-driven motion:** animated components self-schedule and idle when
   settled; reduced motion snaps for free
-- **Progressive enhancement is explicit:** effects widgets are *variants* of
-  components widgets, not silent decorators
+- **Progressive enhancement is explicit:** effects components are *variants*
+  of the library's components, not silent decorators
 - **Desktop-native over touch-translated:** measured density, tonal
   elevation, a faster motion subset, shadows only for what floats
 - **Accessibility is non-optional:** keyboard, focus, contrast floors, hit

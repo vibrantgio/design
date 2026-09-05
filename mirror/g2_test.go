@@ -1,8 +1,8 @@
 package mirror
 
 // The component-page verdicts: the class vocabulary the components/*.html
-// pages compose with — .btn's quieter registers and the
-// form controls — captured from the real Gio widgets (components/button,
+// pages compose with — .btn's less pronounced variants and the
+// form controls — captured from the real Gio components (components/button,
 // components/input) and compared against browser captures of per-specimen
 // fixtures wearing exactly the published sheet's classes. Like
 // TestCalibration, these only deliver a verdict on the authoritative
@@ -22,7 +22,7 @@ import (
 	"github.com/vibrantgio/theme/tokens"
 )
 
-// onBackground wraps a widget in a fill of the light scheme's Background
+// onBackground wraps a layout.Widget in a fill of the light scheme's Background
 // pin, matching the fixtures' body { background: var(--color-bg) }.
 func onBackground(w layout.Widget) func(layout.Context) layout.Dimensions {
 	return func(gtx layout.Context) layout.Dimensions {
@@ -42,8 +42,8 @@ var glyphSize = image.Pt(36, 36)
 // the 8 dp vertical padding beats the 36 dp control-height floor.
 var fieldSize = image.Pt(220, 40)
 
-// TestComponentMirrors scores each component specimen pair: the Gio widget in a
-// given register/state against the browser render of the matching fixture,
+// TestComponentMirrors scores each component specimen pair: the Gio component
+// in a given variant/state against the browser render of the matching fixture,
 // both at the same viewport. Every distance is logged; each must land under
 // Tolerance for the page to count as a mirror of the component rather than
 // a drawing of one.
@@ -136,12 +136,12 @@ func TestComponentMirrors(t *testing.T) {
 //
 // The pair clears Tolerance only because Distance is a mean of absolute RGB
 // distances, so a fixed coverage disagreement costs in proportion to the gap
-// between ink and ground: with the trigger filled at the raised storey the
+// between foreground and fill: with the trigger filled at the raised level the
 // gap against the Text pin is 229 levels rather than 213, and 0.0165 × 229/213
 // is 0.0177 against a measured 0.0178. This is the one specimen in the set
 // where the metric's absence of contrast normalisation shows — the
-// highest-ink-contrast frame. The ceiling sits a hair above the measurement so
+// highest-contrast frame. The ceiling sits a hair above the measurement so
 // a real drift still fails, and it retires the day Distance normalises by the
-// frame's own ink-to-ground range, which would fold this back under one
+// frame's own foreground-to-fill range, which would fold this back under one
 // Tolerance for every pair.
 const dropdownInkFloor = 0.0185 // measured 0.0178 on the authoritative machine, 2026-08-27

@@ -31,7 +31,7 @@ never invent a class, a token, or a size variant.
   `.btn.icon` is the square icon-only form (inline SVG on `currentColor`).
   `.selected` marks a toggled-on button; ghosts have no selected treatment.
   There is **no size modifier** — density is the size axis.
-- **Badges** — `.badge`: label-medium text in one derived ink, no fill and no
+- **Badges** — `.badge`: label-medium text in one derived colour, no fill and no
   padding. Read, not used — no interaction states. Status badges are
   `.badge.success` / `.badge.warning` / `.badge.error` / `.badge.info`: the
   role's own hue derived against the surface the badge stands on, five
@@ -64,14 +64,14 @@ never invent a class, a token, or a size variant.
   `.selected` marks the active link, tab or sidebar item.
 - **Overlays** — a modal is `.dialog` inside a full-viewport `.scrim`, with
   `.dialog-header` (holding the `.dialog-title`) and, for decision dialogs,
-  a right-aligned `.dialog-footer`. Two intents: a **decision** dialog has a
+  a right-aligned `.dialog-footer`. Two purposes: a **decision** dialog has a
   footer ending in the Return-bound default and **no close X**; a
   dismissable **panel** has a ghost close (`.btn.ghost.icon`) top-right and
   no footer. A corner affordance like that close draws at control height,
   the same as every control — density is the only size knob, and the 44 dp
   accessibility floor is an invisible hit target, never a painted size. Anchored surfaces: `.popover` with a `.popover-tail` on side
   `.top`/`.bottom`/`.left`/`.right`; `.tooltip` (inverse video); `.toast`
-  (intents `.success`/`.warning`/`.error`) stacked in a `.toast-stack`.
+  (purposes `.success`/`.warning`/`.error`) stacked in a `.toast-stack`.
 - **State-forcing twins** — `.is-hover`, `.is-active`, `.is-focus`,
   `.is-checked` share the live `:hover`/`:active`/`:focus-visible`/`:checked`
   declarations, for showing a state statically. In real interactive markup

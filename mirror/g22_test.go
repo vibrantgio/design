@@ -2,7 +2,7 @@ package mirror
 
 // The pattern-page verdicts: .card, .group and .table — the classes the
 // cards.html and table.html component pages compose with — captured from
-// the real patterns widgets (patterns/card, patterns/group,
+// the real patterns components (patterns/card, patterns/group,
 // patterns/table) and compared
 // against browser captures of per-specimen fixtures wearing exactly the
 // published sheet's classes. Like TestCalibration and TestComponentMirrors,
@@ -30,7 +30,7 @@ import (
 	"github.com/vibrantgio/theme/typeset"
 )
 
-// cardSize is the card capture viewport — patterns/card's golden canvas
+// cardSize is the card capture viewport — patterns/card's golden size
 // (280x200); the card fills the constraints it is given, so the fixture
 // pins the same 280x200 on the .card box. The group's golden is the same
 // size and its fixture pins the same box.
@@ -38,12 +38,12 @@ var cardSize = image.Pt(280, 200)
 
 // tableSize is the table capture viewport — TestTableGolden's 360x200: a
 // 36 px header band, four 36 px rows, and 20 px of bare Surface below,
-// because drawTable grounds its whole constraints on the Surface pin
+// because drawTable fills its whole constraints with the Surface pin
 // before drawing the grid.
 var tableSize = image.Pt(360, 200)
 
 // textSlot mirrors card_test.go's slot helper: the card draws no text of
-// its own, so the slots are caller-built widgets drawn through
+// its own, so the slots are caller-built layout.Widgets drawn through
 // theme/typeset — a role's LineHeight is the CSS line box, which is
 // exactly what makes the browser's line boxes comparable.
 func textSlot(shaper *text.Shaper, style tokens.TextStyle, c color.NRGBA, s string) layout.Widget {
@@ -106,7 +106,7 @@ func tableWidget(shaper *text.Shaper) layout.Widget {
 		tokens.DefaultLight, tokens.Spacing, tokens.DefaultTypography.LabelLarge, tokens.Comfortable)
 }
 
-// TestPatternMirrors scores each pattern specimen pair: the patterns widget
+// TestPatternMirrors scores each pattern specimen pair: the patterns component
 // against the browser render of the matching fixture, both at the same
 // viewport. Every distance is logged; each must land under Tolerance for
 // the page to count as a mirror of the pattern rather than a drawing of

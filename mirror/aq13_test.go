@@ -1,11 +1,11 @@
 package mirror
 
 // The focus-ring verdict: a focused control wears one ring colour per
-// scheme, on every storey. The sheet carries that as a single token both
-// its ground-floor and its raised rules name, and the Gio side as a
+// scheme, on every level. The sheet carries that as a single token both
+// its backdrop and its raised rules name, and the Gio side as a
 // derivation that takes the scheme and nothing else; this pair scores the
-// two against each other on a raised storey, which is where a
-// ground-derived ring would part from a scheme-derived one: a text field
+// two against each other on a raised level, which is where a
+// surface-derived ring would part from a scheme-derived one: a text field
 // focused inside a level-2 dialog. Like TestCalibration and the other mirror
 // verdicts, it only delivers a verdict on the authoritative machine;
 // elsewhere one half of the harness skips loudly.
@@ -43,6 +43,6 @@ func TestFocusRingMirrors(t *testing.T) {
 	d := Distance(gio, web)
 	t.Logf("distance gio vs %s: %.4f (Tolerance %.4f)", fixture, d, Tolerance)
 	if d > Tolerance {
-		t.Errorf("pair %s scored %.4f > %.4f: the sheet's ring does not read as the component's own on a raised storey", fixture, d, Tolerance)
+		t.Errorf("pair %s scored %.4f > %.4f: the sheet's ring does not read as the component's own on a raised level", fixture, d, Tolerance)
 	}
 }

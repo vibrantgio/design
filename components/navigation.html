@@ -72,7 +72,7 @@ h2 {
 }
 /* Page-local specimen helpers only: a brand wordmark slot and a
    placeholder 16px icon square for the sidebar rows — the icon slot's
-   content is the caller's, like the Gio pattern's Icon widget. */
+   content is the caller's, like the Gio pattern's Icon field. */
 .brand {
   font-size: var(--font-title-medium-size);
   line-height: var(--font-title-medium-line-height);
@@ -89,7 +89,7 @@ h2 {
 <body>
 <main>
 <h1>Navigation</h1>
-<p class="intro">The four navigation patterns: <code>.navbar</code>, <code>.tabs</code>, <code>.sidebar</code> and <code>.crumbs</code>. All four rest their interactive cells on the surface fill, so hover is that surface's own one-step walk to <code>neutral-300</code> — the same wash the ghost button performs. Selection is the 2&nbsp;px <code>--color-accent</code> underline (navbar links, tabs) or the two-step walk to <code>primary-400</code> (sidebar rows). States shown statically wear the forcing twins (<code>.is-hover</code>, <code>.is-focus</code>) that the token sheet groups into the live pseudo-class rules.</p>
+<p class="intro">The four navigation patterns: <code>.navbar</code>, <code>.tabs</code>, <code>.sidebar</code> and <code>.crumbs</code>. All four rest their interactive cells on the surface fill, so hover is that surface's own one-step walk to <code>neutral-300</code> — the same walk the ghost button performs. Selection is the 2&nbsp;px <code>--color-accent</code> underline (navbar links, tabs) or the two-step walk to <code>primary-400</code> (sidebar rows). States shown statically wear the forcing twins (<code>.is-hover</code>, <code>.is-focus</code>) that the token sheet groups into the live pseudo-class rules.</p>
 
 <section>
 <h2>Navbar — <code>.navbar</code></h2>
@@ -183,7 +183,7 @@ h2 {
 
 <section>
 <h2>Breadcrumb — <code>.crumbs</code></h2>
-<p class="intro">A row of title-small segments with 12&nbsp;px chevron separators (<code>.crumb-sep</code>) and <code>--space-2</code> gaps. Colour follows position: the last <code>.crumb</code> is the current location at the text pin, ancestors rest on <code>neutral-700</code> and hover to <code>neutral-900</code> &mdash; the ghost register's text walk. <code>.current</code> forces the current-location colour on a specimen that is not last. Every segment renders on one line; a deep trail clips rather than collapsing to an ellipsis.</p>
+<p class="intro">A row of title-small segments with 12&nbsp;px chevron separators (<code>.crumb-sep</code>) and <code>--space-2</code> gaps. Colour follows position: the last <code>.crumb</code> is the current location at the text pin, ancestors rest on <code>neutral-700</code> and hover to <code>neutral-900</code> &mdash; the ghost variant's text walk. <code>.current</code> forces the current-location colour on a specimen that is not last. Every segment renders on one line; a deep trail clips rather than collapsing to an ellipsis.</p>
 <div class="row">
 <div class="cell">
 <nav class="crumbs">

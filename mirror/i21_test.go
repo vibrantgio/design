@@ -17,15 +17,15 @@ import (
 	"github.com/vibrantgio/theme/tokens"
 )
 
-// badgeSize is the badge capture viewport: the badge's own box with ground
-// around it on every side.
+// badgeSize is the badge capture viewport: the badge's own box with the
+// page's own fill around it on every side.
 //
 // The size is calibrated, not arbitrary. The two shapers disagree about a
 // label role most of all — the browser applies the role's 0.5px tracking,
 // Gio's typeset does not — so the whole right edge of the word lands shifted,
 // which the box filter reads as displaced cells. Too small a frame and that
 // shift is most of the picture; too large and the badge is diluted until the
-// verdict is about the ground.
+// verdict is about the surface it stands on.
 //
 // Measured on the authoritative machine (Chromium 153.0.8008.0), the worst
 // per-variant match against the five fixtures and the closest wrong-variant
@@ -40,7 +40,7 @@ import (
 //
 // The cross-pair column separates at every one of them, which it did not when
 // the badge stood bare: the specimen was then one word in one colour on the
-// page's own ground, and a block of colour is what the box filter needs to
+// page's own fill, and a block of colour is what the box filter needs to
 // tell one specimen from another. The container fill is that block. Both
 // columns are roughly twice what the bare badge measured, the match column
 // included — a filled specimen moves the metric whichever way it is wrong.
@@ -54,7 +54,7 @@ var badgeSize = image.Pt(120, 40)
 
 // TestBadgeMirrors scores every badge specimen pair: the Gio badge in a given
 // variant against the browser render of each of the five fixtures, all at the
-// same viewport over the level-0 ground — the storey the sheet's pages stand
+// same viewport over the level-0 surface — the level the sheet's pages stand
 // on, and therefore the one both halves derive the fill and the foreground
 // against.
 //

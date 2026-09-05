@@ -2,7 +2,7 @@ package mirror
 
 // The navigation-page verdicts: the .navbar, .tabs, .sidebar and
 // .crumbs classes — the vocabulary components/navigation.html composes
-// with — captured from the real patterns widgets (patterns/navbar,
+// with — captured from the real patterns components (patterns/navbar,
 // patterns/tabs, patterns/sidebar, patterns/breadcrumb) and compared
 // against browser captures of per-specimen fixtures wearing exactly the
 // published sheet's classes. Like TestCalibration and the other mirror
@@ -33,7 +33,7 @@ import (
 // layer publishes.
 var navbarSize = image.Pt(480, 52)
 
-// tabsSize is the tabs capture viewport — TestTabsGolden's 240x128 canvas:
+// tabsSize is the tabs capture viewport — TestTabsGolden's 240x128 frame:
 // the ControlHeight strip and, below it, the selected tab's content panel
 // in tabs_test.go's fixed specimen colour (contentRect's #ff4040), which
 // the fixture pins the same way the sidebar fixture pins its icon squares.
@@ -47,10 +47,10 @@ var (
 	sidebarCollapsedSize = image.Pt(48, 256)
 )
 
-// breadcrumbSize is the breadcrumb goldens' 320x32 canvas.
+// breadcrumbSize is the breadcrumb goldens' 320x32 viewport.
 var breadcrumbSize = image.Pt(320, 32)
 
-// fillRect mirrors tabs_test.go's contentRect: a widget filling its
+// fillRect mirrors tabs_test.go's contentRect: a layout.Widget filling its
 // constraints with a fixed specimen colour, so the selected tab's content
 // panel compares deterministically.
 func fillRect(c color.NRGBA) layout.Widget {
@@ -83,7 +83,7 @@ func navItems() []sidebar.Item {
 	return items
 }
 
-// TestNavigationMirrors scores each navigation specimen pair: the patterns widget
+// TestNavigationMirrors scores each navigation specimen pair: the patterns component
 // against the browser render of the matching fixture, both at the same
 // viewport. Every distance is logged; each must land under Tolerance for
 // the page to count as a mirror of the pattern rather than a drawing of

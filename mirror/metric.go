@@ -8,7 +8,7 @@ import (
 
 // cellPx is the box-filter cell size of [Distance], in source pixels. Four
 // pixels is roughly the scale of antialiasing and glyph-shaping disagreement
-// between two renderers: averaging over a 4×4 box washes those out while a
+// between two renderers: averaging over a 4×4 box smooths those away while a
 // wrong colour role, corner radius or control size — which move whole
 // regions, not edge pixels — still shifts the cell means.
 const cellPx = 4

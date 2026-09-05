@@ -2,7 +2,7 @@ package mirror
 
 // The overlay-page verdicts: the .scrim/.dialog, .popover, .tooltip
 // and .toast classes — the vocabulary components/dialog.html composes with —
-// captured from the real patterns widgets (patterns/modal, patterns/popover,
+// captured from the real patterns components (patterns/modal, patterns/popover,
 // patterns/tooltip, patterns/toast) and compared against browser captures of
 // per-specimen fixtures wearing exactly the published sheet's classes. Like
 // TestCalibration and the other mirror verdicts, these only deliver a verdict
@@ -32,7 +32,7 @@ import (
 )
 
 // overlaySize is the shared overlay capture viewport — the patterns overlay
-// goldens' 320x240 canvas (modal_test.go, popover_test.go, tooltip_test.go
+// goldens' 320x240 viewport (modal_test.go, popover_test.go, tooltip_test.go
 // and toast_test.go all pin the same one).
 var overlaySize = image.Pt(320, 240)
 
@@ -75,10 +75,10 @@ func bodyLine(shaper *text.Shaper, s string) layout.Widget {
 	}
 }
 
-// onColor wraps a widget in a fill of the given ground — the bg pin for the
-// scrimmed and anchored specimens, but the Surface pin for the toast stack,
+// onColor wraps a layout.Widget in a fill of the given colour — the bg pin for
+// the scrimmed and anchored specimens, but the Surface pin for the toast stack,
 // which its goldens composite over Surface so the tinted fill is read
-// against the ground app panes are painted with.
+// against the surface app panes are painted with.
 func onColor(bg color.NRGBA, w layout.Widget) layout.Widget {
 	return func(gtx layout.Context) layout.Dimensions {
 		paint.FillShape(gtx.Ops, bg, clip.Rect{Max: gtx.Constraints.Max}.Op())
@@ -96,7 +96,7 @@ var (
 	lightGround = tokens.DefaultLight.Surface
 )
 
-// TestOverlayMirrors scores each overlay specimen pair: the patterns widget
+// TestOverlayMirrors scores each overlay specimen pair: the patterns component
 // against the browser render of the matching fixture, both at the same
 // viewport. Every distance is logged; each must land under Tolerance for
 // the page to count as a mirror of the pattern rather than a drawing of

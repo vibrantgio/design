@@ -100,8 +100,8 @@ func TestCalibration(t *testing.T) {
 
 // TestChromiumLookupFailure exercises the branch a Chromium-less machine
 // takes: the version lookup must come back as an error (which assertChromium
-// turns into a loud skip), never as an empty version that would then fail
-// the pin assertion with a misleading message.
+// turns into a skip that says why), never as an empty version that would then
+// fail the pin assertion with a misleading message.
 func TestChromiumLookupFailure(t *testing.T) {
 	if _, err := chromiumVersion("/nonexistent/chromium/binary"); err == nil {
 		t.Fatal("chromiumVersion on a nonexistent path returned no error; a machine without Chromium would not skip")

@@ -27,12 +27,12 @@ The application model is **Functional Reactive Programming** using `reactivego/r
 
 | Module | Role |
 |---|---|
-| `mvu` | MVU runtime: generic `Loop`/`Run`, `Window.Render(layers...)`, `MessageOp` widget protocol |
+| `mvu` | MVU runtime: generic `Loop`/`Run`, `Window.Render(layers...)`, `MessageOp` component protocol |
 | `textdraw` | Low-level text: glyph-level control, alignment, label backgrounds |
 | `style` | Typography scale (H1–H6, Body, Button, Caption) wired to Roboto |
 | `font/roboto` | Roboto typeface, five weights |
 | `circle` | Mathematically precise circle via Bezier approximation |
-| `backdrop` | Solid colour fill widget |
+| `backdrop` | Solid colour fill component |
 | `gradient` | Linear gradient fill |
 | `svg` | SVG parse + render; `IconWidget(icon, w, h, opacity)` Gio integration |
 | `ivg` | IconVG encode/decode + rasteriser; Material icons bundled |
@@ -107,7 +107,7 @@ This is the answer to "how does FRP coexist with Gio's single-threaded immediate
 
 ### 4. The `rx.Defer` Subscription-State Pattern
 
-Used throughout coinviz; canonical example at `coinviz/content.go:27-31`. State allocated **inside** an `rx.Defer` closure is created once per subscription and captured by reference in all subsequent map functions and widget closures.
+Used throughout coinviz; canonical example at `coinviz/content.go:27-31`. State allocated **inside** an `rx.Defer` closure is created once per subscription and captured by reference in all subsequent map functions and layout closures.
 
 ```go
 rx.Defer(func() rx.Observable[layout.Widget] {
@@ -130,9 +130,9 @@ rx.Defer(func() rx.Observable[layout.Widget] {
 - `Map` closure → runs per emission → captures state by reference
 - `layout.Widget` closure → runs per Gio frame, on the events thread → reads and mutates state
 
-**Why this works without locks:** because of the `WithLatestFrom2` synchronisation model (Pattern 3). Both the `Map` closure (reached via the trailing observable) and the widget closure (executed inside the observer) ultimately serialise through the same observer. The state is only ever read or written from the events thread.
+**Why this works without locks:** because of the `WithLatestFrom2` synchronisation model (Pattern 3). Both the `Map` closure (reached via the trailing observable) and the layout closure (executed inside the observer) ultimately serialise through the same observer. The state is only ever read or written from the events thread.
 
-**Why `rx.Defer` and not `rx.Scan`:** Scan is the idiomatic FRP accumulator, but it can only update from upstream values — not from synchronous mutations inside a frame callback. Pointer events, scroll deltas, and physics ticks happen *during* `widget(gtx)`; they need to mutate state right there, then have the next emission see those mutations. Defer-scoped variables provide that escape hatch without leaking interaction state into the observable graph.
+**Why `rx.Defer` and not `rx.Scan`:** Scan is the idiomatic FRP accumulator, but it can only update from upstream values — not from synchronous mutations inside a frame callback. Pointer events, scroll deltas, and physics ticks happen *during* the frame; they need to mutate state right there, then have the next emission see those mutations. Defer-scoped variables provide that escape hatch without leaking interaction state into the observable graph.
 
 **Failure modes to be aware of:**
 
@@ -154,14 +154,14 @@ if activity > 0.01 {
 ```
 
 Properties:
-- **Self-scheduling:** the widget requests its next frame; no external ticker
+- **Self-scheduling:** the component requests its next frame; no external ticker
 - **Idle at rest:** when `activity` settles, no `InvalidateOp` is emitted, and Gio goes idle
-- **Composable:** multiple animated widgets each contribute `InvalidateOp` independently; one is enough to keep the window animating
+- **Composable:** multiple animated components each contribute `InvalidateOp` independently; one is enough to keep the window animating
 
-**Caveats for multi-widget Pulse use:**
+**Caveats for multi-component Pulse use:**
 
-- **`InvalidateOp` is window-global.** A single animated widget triggers a full layout pass — every other widget on the window re-runs its layout function. Components with expensive layouts must internally cache results when their inputs are unchanged. Document this on every Prism component.
-- **Independent simulations are not synchronised.** Two widgets ticking their own `ParticleSystem` will not produce a coordinated wave. For coordinated motion (e.g., staggered list reveal), introduce a shared clock / animation conductor at the Pulse layer.
+- **`InvalidateOp` is window-global.** A single animated component triggers a full layout pass — every other component on the window re-runs its layout function. Components with expensive layouts must internally cache results when their inputs are unchanged. Document this on every Prism component.
+- **Independent simulations are not synchronised.** Two components ticking their own `ParticleSystem` will not produce a coordinated wave. For coordinated motion (e.g., staggered list reveal), introduce a shared clock / animation conductor at the Pulse layer.
 - **Variable dt is hostile to Verlet stability.** `max(1, fps.Value/30)` floors the step size, sacrificing real-time accuracy for stability under load. This is a deliberate trade — document it explicitly. Pulse should optionally support a fixed-timestep mode with an accumulator for cases where real-time sync matters.
 - **Reduced motion must short-circuit physics entirely.** macOS exposes `NSWorkspace.shared.accessibilityDisplayShouldReduceMotion`; Windows exposes `SystemParametersInfo SPI_GETCLIENTAREAANIMATION`. Prism reads this preference once and exposes it as `rx.Observable[bool]`. Pulse components subscribe and skip the physics tick when reduced motion is on, snapping directly to the target state.
 - **Spring physics is overkill for everything.** Pulse needs a tier below `traer`: a simple `Tween[T]` for fades, slides, and colour interpolations. Reach for the particle system only when the motion needs to feel *physical*.
@@ -175,7 +175,7 @@ Properties:
 1. **The events observable is single-threaded and authoritative.** Anything that mutates UI state, allocates Gio ops, or reads from Gio's event queue runs on the events thread.
 2. **Upstream observables may be multi-threaded.** Use `SubscribeOn(rx.Goroutine)` to offload heavy work. The `WithLatestFrom2` join ensures values only cross into the events thread at frame time.
 3. **`Defer`-scoped state is implicitly serialised** by virtue of being read/written only from the events thread. Do not pass it to goroutines.
-4. **MessageOps (the `MessageOp` widget protocol) cross thread boundaries via a buffered channel** (`messageOps` in `mvu/window.go:23`). MVU updates run on the channel-reading goroutine, not the events thread.
+4. **MessageOps (the `MessageOp` component protocol) cross thread boundaries via a buffered channel** (`messageOps` in `mvu/window.go:23`). MVU updates run on the channel-reading goroutine, not the events thread.
 
 ### Subscription lifecycle
 
@@ -209,7 +209,7 @@ These are existing implementation hazards that the documented architecture rests
 
 ### MessageOp extraction via `unsafe.Pointer`
 
-`mvu/window.go:69-78` reaches into `op.Ops.Internal` via an `unsafe.Pointer` reinterpret cast in order to find `MessageOp` values that widgets have added to the ops buffer:
+`mvu/window.go:69-78` reaches into `op.Ops.Internal` via an `unsafe.Pointer` reinterpret cast in order to find `MessageOp` values that components have added to the ops buffer:
 
 ```go
 type unsafeOps struct {
@@ -247,7 +247,7 @@ The safety story relies on `WithLatestFrom2` having specific pairing semantics (
 The numbers below are **aspirational targets pending baseline measurement.** A Phase −1 / Phase 00 deliverable is to profile current coinviz on its target hardware and either confirm the budgets or revise them. Until that baseline lands, treat these as direction-setting, not contract.
 
 - **Frame budget:** 16.6 ms target (60 FPS), 8.3 ms ceiling for layout work alone (leaving headroom for paint and present).
-- **Allocation policy in the hot path:** zero allocations per frame inside widget closures, except where Gio's API requires them. Pre-allocate paths, slices, ops buffers in `Defer` scope.
+- **Allocation policy in the hot path:** zero allocations per frame inside layout closures, except where Gio's API requires them. Pre-allocate paths, slices, ops buffers in `Defer` scope.
 - **Layer recomputation cost:** a layer's `Map` closure runs on every emission of its inputs. Expensive transformations (e.g., re-laying-out 16 panes) should be memoised inside the `Defer` scope and re-run only when meaningful inputs change.
 - **Profiling:** every Prism component ships with a benchmark in `*_bench_test.go` that exercises `widget(gtx)` for 1000 frames; regression checks are run locally via `go test -bench` against the numbers stored in `BASELINE.md` (no CI gate — this is a solo-dev project).
 
@@ -283,7 +283,7 @@ Every interactive Prism component takes:
 
 The event handle has two flavours:
 - **Direct callback** — `OnClick func()` for simple cases.
-- **MVU `Message`** — for MVU consumers, the component emits via `MessageOp` (Gio op embedded via the widget protocol). The MVU runtime reads them out of the ops buffer (`mvu/window.go:74-78`) and delivers them to `Update`.
+- **MVU `Message`** — for MVU consumers, the component emits via `MessageOp` (Gio op embedded via the component protocol). The MVU runtime reads them out of the ops buffer (`mvu/window.go:74-78`) and delivers them to `Update`.
 
 FRP consumers who want messages-as-stream wrap the callback themselves with `rx.NewSubject[T]()`. MVU consumers use the `MessageOp` flavour. **One component, two integration paths, no duplication.**
 
@@ -294,7 +294,7 @@ FRP consumers who want messages-as-stream wrap the callback themselves with `rx.
 Document-grade markdown rendering (decision recorded 2026-07-20). The renderer is split across the layers the phase model already defines, rather than landing as one package:
 
 1. **`prism/richtext`** — the inline styled-text primitive: a span model (font, weight, style, size, colour, link URL metadata) with wrapped paragraph layout and interactive link spans. Zero third-party dependencies, themed via `tokens`, full a11y (keyboard focus traversal, visible focus ring, hover pointer cursor).
-2. **`github.com/vibrantgio/markdown`** — a standalone module that carries the goldmark dependency (chroma syntax highlighting lives in a `markdown/highlight` subpackage so the core package never imports chroma). It walks the goldmark AST into a block model and maps it onto prism block widgets: type-scale headings, richtext paragraphs, nested lists, blockquotes, rules, code blocks, GFM tables / strikethrough / task lists.
+2. **`github.com/vibrantgio/markdown`** — a standalone module that carries the goldmark dependency (chroma syntax highlighting lives in a `markdown/highlight` subpackage so the core package never imports chroma). It walks the goldmark AST into a block model and maps it onto prism block components: type-scale headings, richtext paragraphs, nested lists, blockquotes, rules, code blocks, GFM tables / strikethrough / task lists.
 3. **No cadence wrapper** — a deliberate non-goal for now. Cadence patterns are dependency-free compositions of prism primitives; a docs-page wrapper only earns its place once sitedocs proves the shape.
 
 **Rationale:**
@@ -349,10 +349,10 @@ Before any Phase 0 contract is written, three prototypes must succeed. They prob
 **Experiment B — Many-entity animation**
 - *Probes:* concern #2 (window-global invalidation cost)
 - *Build:* a force-directed graph with 200+ nodes using `traer`, animating continuously at 60 FPS. Measure layout-pass cost and allocation rate.
-- *Decide:* whether per-widget op caching (recording ops once, replaying when inputs unchanged) is sufficient, or whether Phase 3 needs a dedicated "scene" abstraction that bypasses the standard layout path. Output: a documented pattern for animation-heavy widgets.
+- *Decide:* whether per-component op caching (recording ops once, replaying when inputs unchanged) is sufficient, or whether Phase 3 needs a dedicated "scene" abstraction that bypasses the standard layout path. Output: a documented pattern for animation-heavy components.
 
 **Experiment C — Coordination context**
-- *Probes:* concern #3 (cross-widget coordination)
+- *Probes:* concern #3 (cross-component coordination)
 - *Build:* a kanban-style board with drag-and-drop between columns, plus modal stacking, plus tooltip arbitration. The drag must communicate hover state to drop targets in real time.
 - *Decide:* the general-purpose coordination primitive. Probably an `rx.Subject` injected via layer or context, but the exact shape needs to be discovered. Output: a Phase 1 `prism.Coordination` package.
 
@@ -378,7 +378,7 @@ Phase 0 begins only after these experiments produce documented decisions. Their 
 
 **Conditional deliverables (set by Phase 00 outcomes):**
 - If Experiment A succeeds: add `prism/keyed/` (`KeyedDefer[K, V]`) as a token-contract primitive, and extend the theme contract with optional keyed variants for per-instance theming.
-- If Experiment B yields an op-cache pattern: add `prism/cache/` describing the standard frame-cache contract that animation-heavy widgets implement.
+- If Experiment B yields an op-cache pattern: add `prism/cache/` describing the standard frame-cache contract that animation-heavy components implement.
 - If Experiment C produces a coordination primitive: its types live in `prism/coordination/` (Phase 1 module) but its observable shape is fixed here in the contract.
 
 These are explicit hooks rather than open-ended scope creep: each deliverable lands only if its experiment succeeds. If an experiment finds its premise is wrong, the corresponding deliverable is dropped and the limit is documented as architectural.
@@ -387,7 +387,7 @@ These are explicit hooks rather than open-ended scope creep: each deliverable la
 
 ### Phase 1 — Prism (component foundation)
 
-**Goal:** a useable widget catalogue against the Phase 0 contract. Apps stop reinventing buttons, theming, and layout spacing.
+**Goal:** a useable component catalogue against the Phase 0 contract. Apps stop reinventing buttons, theming, and layout spacing.
 
 **Module:** `vibrantgio/prism`
 
@@ -412,7 +412,7 @@ prism/
 **Migration path:** coinviz's `theme/theme.go` is the source for token values; its existing struct is sliced into the typed token modules. The four reference apps migrate one at a time and on different tracks because their patterns differ:
 - **coinviz** (pure FRP) — replace its bespoke `theme.Theme` with consumption of `rx.Observable[prism.Theme]`. Most of the work is mechanical renaming; the architecture is already shaped for it.
 - **appviz** (FRP) — same shape as coinviz.
-- **todos** and **mindchat** (MVU) — adopt Prism components via the `MessageOp` callback path. Each component swap replaces a bespoke widget and exercises the FRP/MVU bridge.
+- **todos** and **mindchat** (MVU) — adopt Prism components via the `MessageOp` callback path. Each component swap replaces a bespoke component and exercises the FRP/MVU bridge.
 
 The `gallery/` app is the canonical *forward-looking* reference: every primitive, every variant, every a11y mode demonstrated in one place. Migrated apps demonstrate that Prism survives contact with real codebases; the gallery demonstrates Prism's intended API.
 
@@ -437,10 +437,10 @@ pulse/
   glow/         — luminance halos via gradient composition
   depth/        — elevation-driven shadow layers
   motion/       — enter/exit/transition primitives
-  conductor/    — shared clock for coordinated animation across widgets
+  conductor/    — shared clock for coordinated animation across components
 ```
 
-**Composition mechanism (concrete):** Phase 3 widgets are *variants* exported alongside their Prism counterparts, not magic decorators.
+**Composition mechanism (concrete):** Phase 3 components are *variants* exported alongside their Prism counterparts, not magic decorators.
 
 ```go
 // Without Pulse:
@@ -513,7 +513,7 @@ This section catalogues the limits of the architecture as currently designed. It
 **Mitigation:** Experiment A (`KeyedDefer`). React's `key` prop and Flutter's element-tree diffing solve this elsewhere; we need an FRP-shaped equivalent.
 
 #### 2. Window-global invalidation
-`op.InvalidateOp` invalidates the whole window. One animated widget → every widget's layout closure re-runs. Linear cost in widget count per frame.
+`op.InvalidateOp` invalidates the whole window. One animated component → every component's layout closure re-runs. Linear cost in component count per frame.
 
 **App types impacted:**
 - Games / game-like UIs
@@ -521,10 +521,10 @@ This section catalogues the limits of the architecture as currently designed. It
 - Network / graph visualisation with continuous physics
 - Live audio waveform displays with many channels
 
-**Mitigation:** Experiment B. Likely an op-caching pattern at the widget level: record ops once, replay when inputs unchanged. Possibly a Phase 3 scene primitive that bypasses the standard layout path entirely.
+**Mitigation:** Experiment B. Likely an op-caching pattern at the component level: record ops once, replay when inputs unchanged. Possibly a Phase 3 scene primitive that bypasses the standard layout path entirely.
 
 #### 3. Coordination ceiling
-`Defer`-scoped state is great in isolation but offers no mechanism for widgets to coordinate. Every cross-widget concern (focus traversal, drop zones, modal stacking, shared scroll, tooltip arbitration, gesture disambiguation) is a one-off design problem.
+`Defer`-scoped state is great in isolation but offers no mechanism for components to coordinate. Every cross-component concern (focus traversal, drop zones, modal stacking, shared scroll, tooltip arbitration, gesture disambiguation) is a one-off design problem.
 
 **App types impacted:**
 - Design tools (Figma-style)
@@ -607,7 +607,7 @@ These app types should be the focus of demonstration projects in Phase 1. Apps f
 - **Single-threaded UI:** the events observable owns the UI thread; everything else beats to its rhythm
 - **Defer for interaction state:** mutable state lives in `rx.Defer` closures, never in subjects
 - **Frame-driven motion:** animated components self-schedule via `op.InvalidateOp`; idle when settled
-- **Progressive enhancement is explicit:** Phase 3 widgets are *variants* of Phase 1 widgets, not silent decorators
+- **Progressive enhancement is explicit:** Phase 3 components are *variants* of Phase 1 components, not silent decorators
 - **Accessibility is non-optional:** every interactive Prism component supports keyboard, focus, screen reader, reduced motion, contrast
 - **No string tokens:** all design values are typed Go values
 - **Module boundaries:** utilities never depend on applications; later phases never depend on later phases (only earlier)

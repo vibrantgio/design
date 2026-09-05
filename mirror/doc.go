@@ -36,7 +36,7 @@
 // Gio renders and useless across two renderers: Chromium and Gio shape text
 // and antialias edges differently by construction. [Distance] instead
 // box-downscales both images to coarse cells and averages the Euclidean RGB
-// distance per cell, so shaping and AA noise washes out while a wrong colour
+// distance per cell, so shaping and AA noise averages away while a wrong colour
 // role, radius or size still moves the number. [Tolerance] carries the
 // calibration; its comment carries the measured evidence.
 package mirror
