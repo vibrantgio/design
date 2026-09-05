@@ -25,17 +25,16 @@ never invent a class, a token, or a size variant.
 
 - **Buttons** — `.btn` on `<button>`: filled by default (accent under
   on-accent). Emphasis modifiers: `.btn.tonal` (tinted fill), `.btn.ghost`
-  (no ground at rest). A ghost's wash is its host surface's own one-rung
-  walk — inside `.card`, `.dialog` or `.popover` the hover/press
-  washes re-derive from that surface's ground automatically; never restyle
-  them by hand. `.btn.icon` is the square icon-only form (inline SVG
-  on `currentColor`). `.selected` marks a toggled-on button; ghosts have no
-  selected treatment. There is **no size modifier** — density is the size
-  axis.
+  (no fill at rest). A ghost's hover is its host surface's own one-step
+  walk — inside `.card`, `.dialog` or `.popover` the hover/press fills
+  re-derive from that surface automatically; never restyle them by hand.
+  `.btn.icon` is the square icon-only form (inline SVG on `currentColor`).
+  `.selected` marks a toggled-on button; ghosts have no selected treatment.
+  There is **no size modifier** — density is the size axis.
 - **Badges** — `.badge`: label-medium text in one derived ink, no fill and no
   padding. Read, not used — no interaction states. Status badges are
   `.badge.success` / `.badge.warning` / `.badge.error` / `.badge.info`: the
-  role's own hue derived against the ground the badge stands on, five
+  role's own hue derived against the surface the badge stands on, five
   variants differing in hue alone. Compose these for any status — a build
   state, a health verdict — and never inline-style a status colour.
 - **Forms** — native elements, no script: `.input` on a text `<input>`;
@@ -45,7 +44,7 @@ never invent a class, a token, or a size variant.
 - **Cards** — `.card` (outlined) and `.card.filled` (borderless), both at
   the elevation-1 fill; the border is the only difference.
 - **Table** — `.table` on a real `<table>`: header band, one-control-height
-  rows, divider rules, no zebra. Tables are unframed: the Surface ground and
+  rows, divider rules, no zebra. Tables are unframed: the Surface fill and
   the header band *are* the frame, so never wrap a table in a card, an
   outline or a border of your own. A framed table is not in the vocabulary;
   if one is ever wanted it enters the Gio library first, never these pages.
@@ -77,7 +76,7 @@ never invent a class, a token, or a size variant.
 - Ramps: `--color-neutral-100`…`900`, and likewise `--color-primary-*`,
   `--color-secondary-*`, `--color-tertiary-*`, `--color-error-*`,
   `--color-success-*`, `--color-warning-*` (steps in hundreds; 100/200
-  grounds, 300 hover/subtle border, 500 strong border, 700 low-contrast
+  fills, 300 hover/subtle border, 500 strong border, 700 low-contrast
   text, 900 body text).
 - Pins and semantics: `--color-bg`, `--color-surface`, `--color-text`,
   `--color-divider`, `--color-accent`/`--color-on-accent`,
@@ -88,9 +87,9 @@ never invent a class, a token, or a size variant.
   `--color-warning`/`--color-on-warning`. Solid fills use the pin; their
   hover/pressed stops are emitted as `--color-accent-hover` and
   `--color-accent-pressed` — use those, never a `color-mix()` of your own.
-  For grounds, prefer the semantic pins `--color-bg` and `--color-surface`
-  over `--color-neutral-*` ramp steps: they render the same today, but the
-  semantic survives a theme remap.
+  For surface fills, prefer the semantic pins `--color-bg` and
+  `--color-surface` over `--color-neutral-*` ramp steps: they render the
+  same today, but the semantic survives a theme remap.
 - Type: `--font-family`, `--font-family-code`, and per-role
   `--font-<role>-size`/`-line-height`/`-weight`/`-tracking` for roles
   `display-large`…`body-small` plus `code` (e.g.
@@ -103,13 +102,20 @@ never invent a class, a token, or a size variant.
 - Space: `--space-0`…`--space-24` on the 4-pt grid (keys 0–6, 8, 10, 12,
   16, 20, 24). Radius: `--radius-none`, `-sm`, `-base`, `-md`, `-lg`,
   `-xl`, `-2xl`, `-3xl`, `-full`.
-- Elevation: `--elevation-0`…`--elevation-3` are tonal surface **fills** —
-  the default cue; use them as `background`. `--shadow-0`…`--shadow-3` are
-  the opt-in cue for floating transients only (dialog, popover, tooltip,
-  toast); resting surfaces never cast one.
+- Elevation: six levels counted from the backdrop up —
+  `--elevation-backdrop` (the window's own plane, what shows wherever
+  nothing stands), `--elevation-chrome` (the window's furniture: navbar,
+  toolbar, sidebar, inspector, status bar, pane), then
+  `--elevation-0`…`--elevation-3` for the content, what is raised on it and
+  what floats. They are tonal surface **fills**, the default cue; use them
+  as `background`, and expect every level to be lighter than the one
+  beneath in both schemes. `--shadow-0`…`--shadow-3` are the opt-in cue for
+  floating transients only (dialog, popover, tooltip, toast); resting
+  surfaces never cast one.
 - Interaction: `--color-focus-ring` with `--focus-ring-width` (the one focus
   treatment everywhere), `--state-disabled-opacity` (the disabled fade),
-  `--color-scrim` (the modal backdrop; identical in both modes).
+  `--color-scrim` (the veil a modal draws over what it covers; identical in
+  both schemes).
 - Motion: `--ease-standard`, `--ease-standard-accelerate`,
   `--ease-standard-decelerate`, `--ease-emphasized`,
   `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate`;
@@ -146,7 +152,7 @@ port one-to-one:
   that depends on exact text measurement — a label fitting to the pixel, a
   wrap happening at a particular word.
 - **Blur is not live.** Gio has no `backdrop-filter`: blur there is a cached
-  offscreen pass — the backdrop is rendered once, blurred, and repainted
+  offscreen pass — what lies behind is rendered once, blurred, and repainted
   from cache until the content behind it changes. A design that assumes
   continuous blur under motion (frosted glass over scrolling or animating
   content) will not port. Prefer the system's own overlay grammar:
