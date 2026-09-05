@@ -36,7 +36,7 @@ it by hand — regenerate it.
   density settings, the radius scale and tonal elevation as rendered
   specimens.
 - `components/*.html` — hand-authored component pages (not generated):
-  every class-layer component in every register and state, at both
+  every class-layer component in every variant and state, at both
   densities, as copyable markup. `buttons.html` covers `.btn` and `.badge`,
   `forms.html` the native-element form controls.
 
