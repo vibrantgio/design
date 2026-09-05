@@ -106,7 +106,7 @@ h2 {
 
 <section>
 <h2>The card — <code>.card</code></h2>
-<p class="intro">One rounded surface at <code>--elevation-1</code>, one step above the app's <code>--color-bg</code> plane, and the raise is the whole of how it singles its content out: no line of its own, never outlined, never wearing a role. The only border it carries is the seam its raise owes — <code>var(--ground-seam, var(--elevation-0-seam))</code>, transparent in the scheme where the fill tells the raise on its own and a hairline where it does not. What you want to say <em>about</em> a card is a <code>.badge</code> in its header.</p>
+<p class="intro">One rounded surface at <code>--elevation-1</code>, one step above the app's <code>--color-bg</code> plane, and the raise is the whole of how it singles its content out: no line of its own, never outlined, never wearing a role. The only border it carries is the seam its raise owes — <code>var(--surface-seam, var(--elevation-0-seam))</code>, transparent in the scheme where the fill tells the raise on its own and a hairline where it does not. What you want to say <em>about</em> a card is a <code>.badge</code> in its header.</p>
 <div class="row" style="background: var(--color-bg)">
 <div class="cell">
 <div class="card">
@@ -127,7 +127,7 @@ h2 {
 
 <section>
 <h2>The group — <code>.group</code></h2>
-<p class="intro">A hairline and nothing else: the group declares no background, so it takes the fill of the surface it is in and what it holds stands on that surface. The line is <code>var(--ground-hairline, var(--elevation-0-hairline))</code>, the seam two regions sharing one fill are parted by — quieter than the 3:1 mark a graphic carrying meaning owes, and never transparent, because it is all that says where the group ends. The optional label is <code>.group-label</code>, top-leading inside the hairline. A group may hold a card; it never holds another group, and it wears no role.</p>
+<p class="intro">A hairline and nothing else: the group declares no background, so it takes the fill of the surface it is in and what it holds stands on that surface. The line is <code>var(--surface-hairline, var(--elevation-0-hairline))</code>, the seam two regions sharing one fill are parted by — quieter than the 3:1 mark a graphic carrying meaning owes, and never transparent, because it is all that says where the group ends. The optional label is <code>.group-label</code>, top-leading inside the hairline. A group may hold a card; it never holds another group, and it wears no role.</p>
 <div class="row" style="background: var(--color-bg)">
 <div class="cell">
 <div class="group">

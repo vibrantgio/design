@@ -7,7 +7,7 @@ applications. The entire colour system derives from one brand seed — currently
 role's **base pinned separately** so the brand colour is reproduced exactly, and
 **dark mode is the paired ramp** — the same step keeps the same job in both
 modes, so nothing is assigned twice. The contrast gate is APCA
-(step 900 reaches |Lc| 90 and step 700 |Lc| 60 over the 100/200 grounds, every
+(step 900 reaches |Lc| 90 and step 700 |Lc| 60 over the 100/200 surfaces, every
 pin's on-colour |Lc| 60 over its pin); WCAG 2 ratios are reported alongside but
 do not gate.
 
@@ -70,15 +70,15 @@ both modes, labelled `L` and `D`.
 | `--shadow-<level>` | `--shadow-backdrop`, `--shadow-chrome`, `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the OPT-IN cue for floating transients (menus, dialogs, tooltips) layered over the tonal fill; resting surfaces use the fill alone |
 | `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | MD3 easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for MD3's two-segment path |
 | `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | MD3-pinned duration stops, ms; the reduce-motion variant zeroes them |
-| interaction states | `--focus-ring-width`, `--state-disabled-opacity` | the ring's 2 px stroke and the disabled fade fraction for `color-mix()` — both mode-invariant, unlike the ring's colour, which is measured against a ground that flips and so sits with the colours above |
+| interaction states | `--focus-ring-width`, `--state-disabled-opacity` | the ring's 2 px stroke and the disabled fade fraction for `color-mix()` — both mode-invariant, unlike the ring's colour, which is measured against a surface that flips and so sits with the colours above |
 | scrim | `--color-scrim` | the modal backdrop dimmer: translucent black, identical in both modes — a scrim dims by reducing luminance, so it never flips with `.dark`. The alpha is the sRGB-compositing equivalent of the Gio pattern's 50% linear-space black |
 
 ## Step purposes
 
 | Step | Job |
 | --- | --- |
-| 100 | tinted fill · app ground |
-| 200 | tinted fill · one step off the app ground |
+| 100 | tinted fill · the window's backdrop |
+| 200 | tinted fill · one step off the backdrop |
 | 300 | hover · subtle border, separator |
 | 400 / 600 / 800 | intermediate steps; interaction states walk through them |
 | 500 | mid-value reference · strong border |
@@ -101,66 +101,66 @@ the same rule, so a static page can show a state with exactly the live
 declarations; disabled is forced with the native attribute.
 
 `.btn` is the button, **filled** by default: the accent pin under its
-on-colour. Two modifier classes select the quieter emphasis variants —
-`.btn.tonal` (the accent's tint, `--color-btn-tonal-fill` under
+on-colour. Two modifier classes select the less pronounced emphasis
+variants — `.btn.tonal` (the accent's tint, `--color-btn-tonal-fill` under
 `--color-btn-tonal`: the same recipe `.badge` wears, one hue at two
-strengths) and `.btn.ghost` (no ground at rest; neutral 700 text).
+strengths) and `.btn.ghost` (no fill at rest; neutral 700 text).
 Interaction states resolve as the step walks above: hover walks one step
 (`:hover`), pressed and selected two (`:active`, `.selected`); a filled
 button's solid fill walks via the emitted `--color-accent-hover` /
 `--color-accent-pressed` stops, and a tonal button through its own
 `-hover` and `-active` pairs, whose foreground moves with the fill.
-Keyboard focus (`:focus-visible`) keeps the resting fill and draws
-the ring: `--focus-ring-width` of `--color-focus-ring`, the one ring the
+Keyboard focus (`:focus-visible`) keeps the resting fill and draws the
+ring: `--focus-ring-width` of `--color-focus-ring`, the one ring the
 scheme carries — the step of the primary ramp nearest its mid-value step
-that reaches 3:1 against every level at once, so a control wears the
-same ring wherever it is put. It also parts from every resting border
-in luminance rather than in hue alone, so focus stays findable where a
+that reaches 3:1 against every level at once, so a control wears the same
+ring wherever it is put. It also parts from every resting border in
+luminance rather than in hue alone, so focus stays findable where a
 display or a system setting takes the colour away, and it is never the
 accent fill itself, which is what a checked control already paints.
 `--color-focus-ring-on-accent` is the sole exception, for the ring a
-filled button insets in its own fill: that
-fill is a step of the primary ramp too, and the scheme's ring cannot
-read on it. Same ring, same width, same 3:1 floor in every variant.
-Disabled (`:disabled`) fades each colour to
-`--state-disabled-opacity` of its alpha. A ghost has no selected
-treatment: it stays quiet. `.btn.icon` is the icon-only form: a square
-the density's control height on a side, the glyph (an inline SVG on
-`currentColor`) inset by the density's vertical padding.
+filled button insets in its own fill: that fill is a step of the primary
+ramp too, and the scheme's ring cannot read on it. Same ring, same width,
+same 3:1 floor in every variant. Disabled (`:disabled`) fades each colour
+to `--state-disabled-opacity` of its alpha. A ghost has no selected
+treatment: it stays the least pronounced. `.btn.icon` is the icon-only
+form: a square the density's control height on a side, the glyph (an
+inline SVG on `currentColor`) inset by the density's vertical
+padding.
 
-`.badge` is the inline annotation: `label-medium` text over a tinted
-field of its own hue. One hue at two strengths — a pale fill for the
-field and the same hue at reading strength for the word — and never the
-inverted pairing, which is what `.btn` uses and what a badge must not
-claim to be. No boundary and no vertical padding, so its height is the
-role's line box; the side padding is `--space-2` and the corner is
-`--radius-base`, deliberately not the pill `.chip` wears. The default
-is the plain category label; `.badge.success` / `.badge.warning` /
-`.badge.error` / `.badge.info` are the four statuses, differing in hue
-alone. Both halves are tokens because both are derived against a ground
-rather than named on a ramp — the fill against the page, the foreground
-against the fill. Compose them for status; never inline-style a status
-colour. A badge is read, not used: no interaction states.
+`.badge` is the inline annotation: `label-medium` text over a tinted field
+of its own hue. One hue at two strengths — a pale fill for the field and
+the same hue at reading strength for the word — and never the inverted
+pairing, which is what `.btn` uses and what a badge must not claim to be.
+No boundary and no vertical padding, so its height is the role's line box;
+the side padding is `--space-2` and the corner is `--radius-base`,
+deliberately not the pill `.chip` wears. The default is the plain category
+label; `.badge.success` / `.badge.warning` / `.badge.error` /
+`.badge.info` are the four statuses, differing in hue alone. Both halves
+are tokens because both are derived against a surface rather than named on
+a ramp — the fill against the page, the foreground against the fill.
+Compose them for status; never inline-style a status colour. A badge is
+read, not used: no interaction states.
 
 The form controls dress native elements — no script anywhere:
 `.input` (text `<input>`, and `<select class="input select">` inside a
 `.select-wrap` for the chevron), `.checkbox` and `.radio` on their native
 input types with `appearance: none`. They resolve exactly as
-`components/input` does: Surface ground under `body-large` text,
+`components/input` does: the Surface fill under `body-large` text,
 `--color-control-border` on the resting edge of all four controls,
 neutral 700 placeholder and chevron, focus promoting the border to the
 ring (2 dp on the text field, the shared outline on checkbox/radio),
 disabled fading every colour via `color-mix()`. That border is the
-neutral rung the ramp measures as reaching 3:1 against the window
-ground, which is 600 in the light scheme and 500 in the dark; the named
-rung it replaced read below the floor in one of them, at 2.67:1 in the
+neutral step the ramp measures as reaching 3:1 against the window
+backdrop, which is 600 in the light scheme and 500 in the dark; the named
+step it replaced read below the floor in one of them, at 2.67:1 in the
 scheme most people read in. The edge follows the control into a raised
-host: a surface that fills a deeper level declares `--ground-border`
+host: a surface that fills a deeper level declares `--surface-border`
 beside its own fill, the rules name it with the paper's own token as
 the fallback, and every control inside re-derives — the same walk
 against the same fill the host measures its own outline against, which
 is why a checkbox in a dialog wears the dialog's edge. In the dark
-scheme the page's own rung reads 2.62:1 over a level-2 fill and 1.80:1
+scheme the page's own step reads 2.62:1 over a level-2 fill and 1.80:1
 over a level-3 one, both under the floor; in the light scheme it clears
 every level and the handed-down token repeats. The ring does not
 follow, because it never left: it is measured against every level at
