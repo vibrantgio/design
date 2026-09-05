@@ -92,7 +92,7 @@
   --color-info-700: #005ea5;
   --color-info-800: #004379;
   --color-info-900: #00142b;
-  --color-bg: #f6f6f6;
+  --color-bg: #f1f1f1;
   --color-surface: #e8e8e8;
   --color-text: #131313;
   --color-divider: #d4d4d4;
@@ -149,22 +149,27 @@
   --color-popover-border: #797979;
   --color-focus-ring: #6f36d1;
   --color-focus-ring-on-accent: #bdaaff;
-  --elevation-backdrop: #d4d4d4;
-  --elevation-chrome: #e8e8e8;
-  --elevation-0: #f6f6f6;
-  --elevation-1: #f8f8f8;
-  --elevation-2: #fbfbfb;
+  --elevation-backdrop: #cfcfcf;
+  --elevation-chrome: #e3e3e3;
+  --elevation-0: #f1f1f1;
+  --elevation-1: #ffffff;
+  --elevation-2: #ffffff;
   --elevation-3: #ffffff;
-  --elevation-backdrop-hover: #b6b6b6;
-  --elevation-backdrop-active: #989898;
-  --elevation-chrome-hover: #d0d0d0;
-  --elevation-chrome-active: #b2b2b2;
-  --elevation-0-hover: #dddddd;
-  --elevation-0-active: #c4c4c4;
-  --elevation-1-hover: #dfdfdf;
-  --elevation-1-active: #c7c7c7;
-  --elevation-2-hover: #e2e2e2;
-  --elevation-2-active: #cccccc;
+  --elevation-chrome-seam: transparent;
+  --elevation-0-seam: transparent;
+  --elevation-1-seam: #d2d2d2;
+  --elevation-2-seam: #d2d2d2;
+  --elevation-3-seam: #d2d2d2;
+  --elevation-backdrop-hover: #b1b1b1;
+  --elevation-backdrop-active: #939393;
+  --elevation-chrome-hover: #cccccc;
+  --elevation-chrome-active: #aeaeae;
+  --elevation-0-hover: #d8d8d8;
+  --elevation-0-active: #bdbdbd;
+  --elevation-1-hover: #e5e5e5;
+  --elevation-1-active: #d0d0d0;
+  --elevation-2-hover: #e5e5e5;
+  --elevation-2-active: #d0d0d0;
   --elevation-3-hover: #e5e5e5;
   --elevation-3-active: #d0d0d0;
   --font-family: "Roboto";
@@ -418,6 +423,11 @@
   --elevation-1: #222222;
   --elevation-2: #2e2e2e;
   --elevation-3: #474747;
+  --elevation-chrome-seam: transparent;
+  --elevation-0-seam: transparent;
+  --elevation-1-seam: transparent;
+  --elevation-2-seam: transparent;
+  --elevation-3-seam: #636363;
   --elevation-backdrop-hover: #272727;
   --elevation-backdrop-active: #373737;
   --elevation-chrome-hover: #292929;
@@ -549,9 +559,9 @@
    container surface a control can be put inside declares it — .card,
    .dialog and .popover — both card looks included, since they stand at
    one level and .card.filled inherits the card's own declaration. The
-   popover declares the ceiling: level 3 raises to level 3, the one
-   place this walk stops instead of stepping (tokens.ElevationLevel.Raised),
-   so a control in a popover fills flush with it and is read by its border. */
+   popover declares the ceiling: at the top of the scheme's own range the
+   walk clamps rather than stepping, so a control in a popover fills flush
+   with it and is read by its border and by --elevation-3-seam. */
 
 /* Disabled is an opacity, not a ramp step: each colour keeps its hue and
    fades to the disabled fraction of its alpha. */
@@ -749,12 +759,11 @@
    rung nearer the viewer than its host. It used to be --color-surface, the
    neutral ramp's step 200, which lands on the raised level in the dark
    scheme by coincidence and on no level at all in the light one — a light
-   field filled a whole band step BELOW the page it lies on. A
-   surface nearer the viewer is lighter in both schemes, and on a desktop a
-   text field is the lightest thing in the window, not the darkest. In the
-   light scheme the step above the page is a whisper, so the 1 px border and
-   the corner radius carry the visible edge; that is the trade elevation
-   makes and states. */
+   field filled a whole band step BELOW the page it lies on. A surface nearer
+   the viewer is never darker in either scheme, and on a desktop a text field
+   is the lightest thing in the window, not the darkest. The 1 px border and
+   the corner radius still carry the field's edge: a raise says a control is
+   raised, not where it ends. */
 
 /* Text field (components/input textfield.go). Height = ControlHeight as a
    floor, vertical inset PaddingY, horizontal inset S3 (12 dp — static, it
@@ -930,13 +939,15 @@
    patterns/card: a rounded surface raised on the content by tonal step
    alone — no cast shadow in either look, because a
    card is raised, not floating; the dp shadows stay reserved for surfaces
-   that can leave (menus, dialogs, toasts). Both looks fill
-   at level 1 (--elevation-1, the raised level) and differ only at the
-   edge: the default outlined card wears a 1 dp neutral
-   500 strong stroke, .filled wears none. A level is lighter than the one
-   below it in both schemes, so in the light scheme the card is a whisper
-   above the page and the outlined card's stroke says most of where it is;
-   the filled card is read by that whisper alone. Radius Lg, an S4 inset, S3 gaps between the
+   that can leave (menus, dialogs, toasts). Both looks fill at the raise
+   walked from the content (--elevation-1) and differ only at the edge: the
+   default outlined card wears a 1 dp neutral 500 strong stroke, .filled
+   wears the seam its raise owes — var(--ground-seam,
+   var(--elevation-0-seam)), transparent in the scheme where the fill tells
+   the raise on its own and a hairline where it does not. A card on the
+   content is told by its fill in both schemes, so that border shows only on
+   a card placed inside a host already at the top of its scheme, which is
+   what --ground-seam is redeclared for on .dialog and .popover. Radius Lg, an S4 inset, S3 gaps between the
    slots — exactly drawCard's rad.Lg / sp.S4 / sp.S3. The Gio stroke is
    centred on the card's edge while the CSS border lies inside it, so the
    outlined padding gives back the border's 1px and the slots land where the
@@ -955,15 +966,14 @@
   --ground-raised: var(--elevation-2);
 }
 .card.filled {
-  padding: var(--space-4);
-  border: none;
+  border-color: var(--ground-seam, var(--elevation-0-seam));
 }
 
 /* ---- Table ----
    patterns/table: the whole grid grounds on the raised level (drawTable
    fills Props.Ground, which defaults to level 1) and the header band on
-   the level above it (drawHeaderRow walks Ground.Raised(), never an
-   absolute step), under neutral 700 label-large text (drawHeaderCell).
+   the raise walked from it (drawHeaderRow raises the grid's own fill, never
+   an absolute step), under neutral 700 label-large text (drawHeaderCell).
    Both name --elevation-N rather than a ramp step, because a
    level is not a ramp step in both schemes and a table that named one
    would read as a mirror of itself between the two. Header and body rows are each exactly
@@ -1296,6 +1306,7 @@
   color: var(--color-text);
   --ground-border: var(--color-dialog-border);
   --ground-raised: var(--elevation-3);
+  --ground-seam: var(--elevation-2-seam);
 }
 
 /* The header row (modal.go headerWidget): the title-medium title on the
@@ -1342,6 +1353,7 @@
   color: var(--color-text);
   --ground-border: var(--color-popover-border);
   --ground-raised: var(--elevation-3);
+  --ground-seam: var(--elevation-3-seam);
 }
 
 /* The tail (popover.go drawTail): a triangle 12 dp across the base and

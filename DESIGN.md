@@ -185,16 +185,21 @@ the dark ramp is paired, every state resolves in both modes with one rule.
 Elevation is to surfaces what states are to fills, but since ADR-022 it is a
 *depth against the Background pin*, not a walk up the neutral ramp. Six
 levels are counted from the backdrop up, anchored on the pin and measured in
-CIELAB L\*, and in both schemes every level is lighter than the one beneath:
+CIELAB L\*, and in both schemes a surface nearer the viewer is never darker
+than the one beneath:
 
 | Level | Holds | Light | Dark |
 | --- | --- | --- | --- |
-| backdrop | nothing: the bare window plane, showing wherever nothing stands | `#D4D4D4` | `#111111` |
-| chrome | the window's furniture — navbars, toolbars, sidebars, inspectors, status bars, panes | `#E8E8E8` | `#151515` |
-| 0 | the content itself — the document the window exists to show | the Background pin, `#F6F6F6` | the Background pin, `#181818` |
-| 1 | raised on the content — cards, filled insets, fields | `#F8F8F8` | `#222222` |
-| 2 | floating — dialogs and toasts | `#FBFBFB` | `#2E2E2E` |
+| backdrop | nothing: the bare window plane, showing wherever nothing stands | `#CFCFCF` | `#111111` |
+| chrome | the window's furniture — navbars, toolbars, sidebars, inspectors, status bars, panes | `#E3E3E3` | `#151515` |
+| 0 | the content itself — the document the window exists to show | the Background pin, `#F1F1F1` | the Background pin, `#181818` |
+| 1 | raised on the content — cards, filled insets, fields | `#FFFFFF` | `#222222` |
+| 2 | floating — dialogs and toasts | `#FFFFFF` | `#2E2E2E` |
 | 3 | floating, the top of the elevation — menus, popovers, tooltips | `#FFFFFF` | `#474747` |
+
+Only four of the six are placed by the table. Level 1 is not an entry at all:
+it is the raise walked from the content, and the name is kept because that is
+where most raises stand.
 
 Standing higher comes in two kinds. **Raised** is one step above the surface
 the thing stands on, attached to it: a card on the content, a field on that
@@ -213,19 +218,39 @@ stands at which level carries the captures). The backdrop step is
 **derived**: a macOS window paints its furniture edge to edge, so no stored
 capture shows a window plane beneath it, and the backdrop instead takes the
 chrome step scaled by the surface band's own proportion — 11.97 L\* under the
-content in the light scheme, where that product is the band's second interval
-exactly and the backdrop lands byte-for-byte on neutral 300, and 3.18 L\* in
-the dark one.
+content in the light scheme and 3.18 L\* in the dark one.
 
-Above the pin a level takes the surface band's own shape, scaled into
-whatever headroom the scheme has. In the dark scheme the band's own top is
-the ceiling, so levels 1–3 land back byte-for-byte on neutral 200, 300 and
-400 — the pairing still gives dark-scheme surface tint, the one thing MD3's
-tonal elevation existed to encode, for free. In the light scheme the pin has
-already spent nearly all the axis, so the same shape compresses into the
-3.1 L\* that remain: the levels above the content are whispers, and derived
-hairlines carry the visible edge no fill step can. State walks compose on
-top, from the level's own fill. MD3's levels 4 and 5 survived only as shims
+Above the pin a RAISE is walked rather than placed: one step from whatever a
+thing stands on, the step being the surface band's own first interval,
+4.88 L\* in the light band and 4.98 in the dark. The two floating levels stay
+absolute, taking the band's shape scaled into whatever headroom the scheme
+has, and are held no darker than the first raise off the content — which is
+the whole of "above everything raised beneath them".
+
+That gives the dark scheme four steps above its content: the first raise
+lands byte-for-byte on neutral 200 and the floating levels on 300 and 400, so
+the pairing still gives dark-scheme surface tint, the one thing MD3's tonal
+elevation existed to encode, for free.
+
+The light scheme has ONE, and it has it because the content pin was moved to
+keep it. Pinned at the band's own 100 stop the light content had 3.1 L\* of
+axis left and a card came out 0.7 L\* above its page — a step nobody could
+find. The pin now stands one band step under the axis, `#F1F1F1`, and white
+is the first raise on it at 1.13:1, which is the same order of separation the
+dark scheme's first raise takes (1.12:1). It is also what the platform ships:
+macOS light stands grouped content on an off-white plane and fills the cells
+raised on it white. Chrome and the backdrop keep their measured relation to
+the pin and move with it, so neither lands on a band step in the light scheme
+any more.
+
+Above that first raise the light scheme has nothing left, and there the raise
+is told by its SEAM — a hairline `SeamRatio` (1.51:1, the platform's own
+measured panel edge) from both fills, toward the scheme's foreground, drawn
+once by the raised surface at its own edge. A card on a modal and a field on
+a card are the cases that reach it. A caller already drawing an edge has
+discharged the seam with it: a text field's 3:1 resting border is a mark
+around exactly that pairing. State walks compose on top, from the level's own
+fill. MD3's levels 4 and 5 survived only as shims
 clamping to level 3 until the breaking release deleted them: a desktop window
 has no six-deep stack above its content. Shadows are opt-in vibrancy, not part of elevation
 (§Desktop divergences).
@@ -258,8 +283,9 @@ is the whole model. What it asks of a composition:
   magnitude is a *measurement of the platform taken per scheme* rather than a
   step of the neutral ramp, because the platform takes a different one in
   each. A light window separates its furniture by about 4.9 L\* — which is
-  also the ramp's own first surface interval, 4.89, so light chrome lands on
-  `#E8E8E8` under the `#F6F6F6` content — and a dark window by a whisper:
+  also the ramp's own first surface interval, 4.88, so the light chrome step
+  is written as that interval and lands `#E3E3E3` under the `#F1F1F1`
+  content — and a dark window by a whisper:
   Voice Memos measures 1.50 L\* (`#1B1B1B` under `#1E1E1E`), the reference
   chat application 1.71, the platform's settings window 3.81 with its
   wallpaper tint on. A full band step in the dark scheme is 4.93 L\* realized
@@ -372,9 +398,10 @@ The measured evidence is a desktop application in both schemes — sidebar
 and in the same direction — the current macOS Settings window in dark, whose
 sidebar `#1C2123` sits under its content `#23292C` under its setting cards
 `#2A2F32`, and our own stored light references, where panes `#E8E8E8` already
-sit below content `#F6F6F6`. Light-scheme steps up there are fractions of an
-L\* and the visible separation is carried by hairlines and insets rather than
-by the fill; dark-scheme steps run a few L\*. ADR-021 read the same platform
+sit below content `#F6F6F6`. The light reference reaches white for the region
+raised highest in it — the composer at 255,255,255 over a 252,252,251
+content — which is the arrangement the content pin was later moved to make
+room for; dark-scheme steps run a few L\*. ADR-021 read the same platform
 reference and concluded it imposed no direction, because the half it was
 looking at — the light scheme at rest — is the half where the mirror and the
 linchpin agree. Nothing here needs a token that does not already exist in

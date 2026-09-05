@@ -64,6 +64,7 @@ both modes, labelled `L` and `D`.
 | `--space-<key>` | `--space-0`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24` | the 4-pt spacing grid, px |
 | `--radius-<key>` | `--radius-none`, `--radius-sm`, `--radius-base`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-3xl`, `--radius-full` | corner radii, Tailwind naming, px |
 | `--elevation-<level>` | `--elevation-backdrop`, `--elevation-chrome`, `--elevation-0`, `--elevation-1`, `--elevation-2`, `--elevation-3` | tonal surface fills — the DEFAULT elevation cue; ordered from the backdrop up toward the reader, and resolved per scheme, so both blocks state their own six |
+| `--elevation-<level>-seam` | `--elevation-chrome-seam`, `--elevation-0-seam`, `--elevation-1-seam`, `--elevation-2-seam`, `--elevation-3-seam` | the hairline a raise draws at its own edge where the scheme has no step left to tell it by fill — `transparent` where the fill tells it. The backdrop has none: nothing stands on the backdrop |
 | `--elevation-<level>-<state>` | `--elevation-backdrop-hover`, `--elevation-backdrop-active`, `--elevation-chrome-hover`, `--elevation-chrome-active`, `--elevation-0-hover`, `--elevation-0-active`, `--elevation-1-hover`, `--elevation-1-active`, `--elevation-2-hover`, `--elevation-2-active`, `--elevation-3-hover`, `--elevation-3-active` | each level's own interaction walk — what a control with no fill of its own takes the surface under it to when hovered or pressed. Taken FROM the level's fill rather than named as a ramp step, because a level is not a ramp step in both schemes |
 | `--shadow-<level>` | `--shadow-backdrop`, `--shadow-chrome`, `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the OPT-IN cue for floating transients (menus, dialogs, tooltips) layered over the tonal fill; resting surfaces use the fill alone |
 | `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | MD3 easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for MD3's two-segment path |
@@ -182,7 +183,7 @@ goes dark. Six levels, counted from the backdrop up toward the reader:
 | `--elevation-backdrop` | nothing: the bare window plane, showing wherever nothing stands; the window's darkest region |
 | `--elevation-chrome` | the window's furniture — navbar, toolbar, sidebar, inspector, status bar, pane |
 | `--elevation-0` | the content surface, the bg pin |
-| `--elevation-1` | raised on the content — cards, code fences, text fields |
+| `--elevation-1` | raised on the content — cards, code fences, text fields; the raise walked from `--elevation-0`, not a table entry |
 | `--elevation-2` | floating — dialogs, toasts |
 | `--elevation-3` | floating, nearest the scheme's light extreme — menus, popovers, tooltips |
 
