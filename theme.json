@@ -9,10 +9,10 @@
       "accent": "#723ad4",
       "secondary": "#625886",
       "tertiary": "#914567",
-      "error": "#b12226",
-      "success": "#006b24",
-      "warning": "#944600",
-      "info": "#005da8"
+      "error": "#b12322",
+      "success": "#006b1f",
+      "warning": "#894d00",
+      "info": "#005ea5"
     },
     "dark": {
       "bg": "#181818",
@@ -20,10 +20,10 @@
       "accent": "#d0c4ff",
       "secondary": "#d0c5fa",
       "tertiary": "#ffb8d4",
-      "error": "#ffbbb4",
-      "success": "#77e387",
-      "warning": "#ffc242",
-      "info": "#a6d0ff"
+      "error": "#ffbcb3",
+      "success": "#7ae284",
+      "warning": "#ffbf86",
+      "info": "#a4d0ff"
     }
   },
   "fonts": {
