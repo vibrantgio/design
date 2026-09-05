@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cards &amp; elevation — Vibrant Gio components</title>
+<title>Cards, groups &amp; elevation — Vibrant Gio components</title>
 <link rel="stylesheet" href="../styles.css">
 <style>
 body {
@@ -62,11 +62,11 @@ h2 {
   align-items: flex-start;
   gap: var(--space-2);
 }
-.cell .card { width: 17.5rem; }
+.cell .card, .cell .group { width: 17.5rem; }
 /* Slot typography is the content's, not the card's — the Gio card draws no
-   text of its own. These are this page's example slots: a title-medium
-   header, a body-medium body in the low-contrast step, a label-medium
-   footer in the accent pin. */
+   text of its own, and the group draws only its own label. These are this
+   page's example slots: a title-medium header, a body-medium body in the
+   low-contrast step, a label-medium footer in the accent pin. */
 .card-title {
   font-size: var(--font-title-medium-size);
   line-height: var(--font-title-medium-line-height);
@@ -94,7 +94,6 @@ h2 {
   font-weight: var(--font-title-medium-weight);
 }
 .dark.row {
-  background: var(--color-surface);
   border-color: var(--color-divider);
   color: var(--color-text);
 }
@@ -102,12 +101,12 @@ h2 {
 </head>
 <body>
 <main>
-<h1>Cards &amp; elevation</h1>
-<p class="intro">The card is <code>.card</code> — a rounded surface container raised on the content by <strong>tonal elevation</strong>: a raised surface separates from the surface it stands on by colour, one neutral-ramp step per level, never by a cast shadow, because a card cannot float or leave. Both looks fill at <code>--elevation-1</code>, one step above the content, and differ only at the edge: <code>.card</code> wears a 1&nbsp;px <code>--color-card-border</code> stroke — the step the neutral ramp measures against that fill; <code>.card.filled</code> wears none. Geometry is <code>--radius-lg</code> corners, a <code>--space-4</code> inset and <code>--space-3</code> gaps between the stacked slots. A card styles no text of its own — header, body and footer are ordinary content whose typography you choose.</p>
+<h1>Cards, groups &amp; elevation</h1>
+<p class="intro">The two are one ruling with two answers, and choosing between them answers one question: <em>am I dividing the page, or singling something out?</em> A card singles something out — <code>.card</code>, a rounded surface raised on the content by <strong>tonal elevation</strong>: a raised surface separates from the surface it stands on by colour, one neutral-ramp step per level, never by a cast shadow, because a card cannot float or leave. A group divides the page — <code>.group</code>, a hairline around related components at the level of the surface the group is in, taking that surface's own fill. Both carry <code>--radius-lg</code> corners, a <code>--space-4</code> inset and <code>--space-3</code> gaps between the stacked slots. Neither styles its slot text: a card draws no text at all, and a group draws only its own label.</p>
 
 <section>
-<h2>Outlined — <code>.card</code></h2>
-<p class="intro">The default look: the level-1 fill under the strong border. It stands one level above the app's <code>--color-bg</code> plane.</p>
+<h2>The card — <code>.card</code></h2>
+<p class="intro">One rounded surface at <code>--elevation-1</code>, one step above the app's <code>--color-bg</code> plane, and the raise is the whole of how it singles its content out: no line of its own, never outlined, never wearing a role. The only border it carries is the seam its raise owes — <code>var(--ground-seam, var(--elevation-0-seam))</code>, transparent in the scheme where the fill tells the raise on its own and a hairline where it does not. What you want to say <em>about</em> a card is a <code>.badge</code> in its header.</p>
 <div class="row" style="background: var(--color-bg)">
 <div class="cell">
 <div class="card">
@@ -127,26 +126,31 @@ h2 {
 </section>
 
 <section>
-<h2>Filled — <code>.card.filled</code></h2>
-<p class="intro">The same level-1 fill, no stroke — and no shadow. The fill alone says where the card is. Shadows are reserved for surfaces that float and can leave; a card is raised, not floating.</p>
+<h2>The group — <code>.group</code></h2>
+<p class="intro">A hairline and nothing else: the group declares no background, so it takes the fill of the surface it is in and what it holds stands on that surface. The line is <code>var(--ground-hairline, var(--elevation-0-hairline))</code>, the seam two regions sharing one fill are parted by — quieter than the 3:1 mark a graphic carrying meaning owes, and never transparent, because it is all that says where the group ends. The optional label is <code>.group-label</code>, top-leading inside the hairline. A group may hold a card; it never holds another group, and it wears no role.</p>
 <div class="row" style="background: var(--color-bg)">
 <div class="cell">
-<div class="card filled">
-<div class="card-title">Density</div>
+<div class="group">
+<div class="group-label">Density</div>
 <p class="card-body">Comfortable and Compact set the control height and the padding around it.</p>
-<div class="card-footer">Read the token</div>
 </div>
-<span class="annot">filled</span>
+<span class="annot">labelled</span>
+</div>
+<div class="cell">
+<div class="group">
+<p class="card-body">A group with no label leaves its hairline unbroken.</p>
+</div>
+<span class="annot">unlabelled</span>
 </div>
 </div>
 </section>
 
 <section>
 <h2>The elevation</h2>
-<p class="intro">Each step is a surface fill: <code>--elevation-0</code> is the bg pin, levels 1&ndash;3 are neutral steps 200/300/400, resolved as <code>var()</code> references into the ramp so they flip with dark mode. It stops at 3 &mdash; desktop has no six-level stack. Both card looks live at 1.</p>
+<p class="intro">Each step is a surface fill: <code>--elevation-0</code> is the bg pin, levels 1&ndash;3 are neutral steps 200/300/400, resolved as <code>var()</code> references into the ramp so they flip with dark mode. It stops at 3 &mdash; desktop has no six-level stack. A card on the content lives at 1; a group lives at whatever level it is already in and moves nothing.</p>
 <div class="row" style="background: var(--color-neutral-100)">
 <div class="cell"><div class="level" style="background: var(--elevation-0)">0</div><span class="annot"><code>--elevation-0</code> &middot; bg pin</span></div>
-<div class="cell"><div class="level" style="background: var(--elevation-1)">1</div><span class="annot"><code>--elevation-1</code> &middot; <code>.card</code>, <code>.card.filled</code></span></div>
+<div class="cell"><div class="level" style="background: var(--elevation-1)">1</div><span class="annot"><code>--elevation-1</code> &middot; <code>.card</code></span></div>
 <div class="cell"><div class="level" style="background: var(--elevation-2)">2</div><span class="annot"><code>--elevation-2</code> &middot; <code>.dialog</code></span></div>
 <div class="cell"><div class="level" style="background: var(--elevation-3)">3</div><span class="annot"><code>--elevation-3</code></span></div>
 </div>
@@ -154,7 +158,7 @@ h2 {
 
 <section>
 <h2>The opt-in shadow</h2>
-<p class="intro">The dp shadows survive as <code>--shadow-N</code> for <strong>floating transients only</strong> &mdash; menus, dialogs, toasts, tooltips: a float adds <code>box-shadow: var(--shadow-N)</code> on top of its tonal fill. Resting surfaces &mdash; and every card &mdash; use the fill alone.</p>
+<p class="intro">The dp shadows survive as <code>--shadow-N</code> for <strong>floating transients only</strong> &mdash; menus, dialogs, toasts, tooltips: a float adds <code>box-shadow: var(--shadow-N)</code> on top of its tonal fill. Resting surfaces &mdash; every card among them &mdash; use the fill alone.</p>
 <div class="row" style="background: var(--color-neutral-100)">
 <div class="cell"><div class="level" style="background: var(--elevation-1); box-shadow: var(--shadow-1)">1</div><span class="annot"><code>--shadow-1</code> &middot; depth 1dp</span></div>
 <div class="cell"><div class="level" style="background: var(--elevation-2); box-shadow: var(--shadow-2)">2</div><span class="annot"><code>--shadow-2</code> &middot; depth 3dp</span></div>
@@ -164,23 +168,22 @@ h2 {
 
 <section>
 <h2>Dark mode</h2>
-<p class="intro">Nothing here is mode-specific: a <code>class="dark"</code> wrapper flips the colour variables, and because <code>--elevation-N</code> is a reference into the neutral ramp, every level flips with them.</p>
-<div class="row dark">
+<p class="intro">Nothing here is mode-specific: a <code>class="dark"</code> wrapper flips the colour variables, and because <code>--elevation-N</code> is a reference into the neutral ramp, every level flips with them &mdash; the card's raise and the group's hairline alike.</p>
+<div class="row dark" style="background: var(--color-bg)">
 <div class="cell">
 <div class="card">
 <div class="card-title">Density</div>
 <p class="card-body">Comfortable and Compact set the control height and the padding around it.</p>
 <div class="card-footer">Read the token</div>
 </div>
-<span class="annot">outlined</span>
+<span class="annot">card</span>
 </div>
 <div class="cell">
-<div class="card filled">
-<div class="card-title">Density</div>
+<div class="group">
+<div class="group-label">Density</div>
 <p class="card-body">Comfortable and Compact set the control height and the padding around it.</p>
-<div class="card-footer">Read the token</div>
 </div>
-<span class="annot">filled</span>
+<span class="annot">group</span>
 </div>
 </div>
 </section>

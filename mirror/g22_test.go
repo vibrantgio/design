@@ -1,8 +1,9 @@
 package mirror
 
-// The pattern-page verdicts: .card and .table — the classes the
+// The pattern-page verdicts: .card, .group and .table — the classes the
 // cards.html and table.html component pages compose with — captured from
-// the real patterns widgets (patterns/card, patterns/table) and compared
+// the real patterns widgets (patterns/card, patterns/group,
+// patterns/table) and compared
 // against browser captures of per-specimen fixtures wearing exactly the
 // published sheet's classes. Like TestCalibration and TestComponentMirrors,
 // these only deliver a verdict on the authoritative machine; elsewhere one
@@ -23,6 +24,7 @@ import (
 
 	"github.com/vibrantgio/components/golden"
 	"github.com/vibrantgio/patterns/card"
+	"github.com/vibrantgio/patterns/group"
 	"github.com/vibrantgio/patterns/table"
 	"github.com/vibrantgio/theme/tokens"
 	"github.com/vibrantgio/theme/typeset"
@@ -30,7 +32,8 @@ import (
 
 // cardSize is the card capture viewport — patterns/card's golden canvas
 // (280x200); the card fills the constraints it is given, so the fixture
-// pins the same 280x200 on the .card box.
+// pins the same 280x200 on the .card box. The group's golden is the same
+// size and its fixture pins the same box.
 var cardSize = image.Pt(280, 200)
 
 // tableSize is the table capture viewport — TestTableGolden's 360x200: a
@@ -68,6 +71,19 @@ func cardSlots(shaper *text.Shaper) (header, body, footer layout.Widget) {
 	return textSlot(shaper, typo.TitleMedium, c.Text, "Density"),
 		textSlot(shaper, typo.BodyMedium, c.Ramps.Neutral.Step(700), "Comfortable and Compact"),
 		textSlot(shaper, typo.LabelMedium, c.Primary, "Read the token")
+}
+
+// groupContent is what the group fixture holds: body-medium at the Text pin
+// over the same role at neutral 700, both single non-wrapping lines so
+// neither renderer has a line-break decision to disagree on. The group's own
+// label is not here — the pattern draws that itself, from Props.Label.
+func groupContent(shaper *text.Shaper) []layout.Widget {
+	c := tokens.DefaultLight
+	typo := tokens.DefaultTypography
+	return []layout.Widget{
+		textSlot(shaper, typo.BodyMedium, c.Text, "Comfortable"),
+		textSlot(shaper, typo.BodyMedium, c.Ramps.Neutral.Step(700), "Compact re-pitches"),
+	}
 }
 
 // tableWidget is TestTableGolden's light-comfortable configuration: ID
@@ -109,9 +125,10 @@ func TestPatternMirrors(t *testing.T) {
 			card.Props{Header: header, Body: body, Footer: footer},
 			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
 		)},
-		{"card-filled.html", cardSize, card.Render(
-			card.Props{Header: header, Body: body, Footer: footer, Filled: true},
+		{"group.html", cardSize, group.Render(shaper,
+			group.Props{Label: "Density", Content: groupContent(shaper)},
 			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
+			tokens.DefaultTypography.LabelLarge,
 		)},
 		{"table.html", tableSize, tableWidget(shaper)},
 	}

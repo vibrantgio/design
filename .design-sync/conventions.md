@@ -41,8 +41,14 @@ never invent a class, a token, or a size variant.
   a dropdown is `<select class="input select">` inside a `.select-wrap`
   (which draws the chevron); `.checkbox` and `.radio` on their native input
   types. Disabled is always the native `disabled` attribute.
-- **Cards** — `.card` (outlined) and `.card.filled` (borderless), both at
-  the elevation-1 fill; the border is the only difference.
+- **Cards and groups** — `.card` is one thing singled out: the elevation-1
+  fill, raised a step on the content, no line of its own. `.group` divides
+  the page: a hairline at the level of the surface it is in, no fill of its
+  own, with an optional `.group-label` top-leading inside it. Which one to
+  reach for answers one question — am I dividing the page, or singling
+  something out? A row of tiers, a form in sections, a list of articles are
+  groups; the one thing that must stand apart is the card. A group may hold
+  a card; it never holds another group, and neither wears a role.
 - **Table** — `.table` on a real `<table>`: header band, one-control-height
   rows, divider rules, no zebra. Tables are unframed: the Surface fill and
   the header band *are* the frame, so never wrap a table in a card, an
