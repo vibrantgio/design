@@ -466,8 +466,9 @@
    label and the four status roles; the close mark is a Gio interaction and
    has no class here), .card the patterns/card surface and .group the
    patterns/group hairline, .table the patterns/table grid, the navigation
-   family — .navbar, .tabs, .sidebar, .crumbs — the four patterns of the same
-   names, and the overlay family — .scrim/.dialog (patterns/modal), .popover,
+   family — .navbar, .tabs, .sidebar (patterns) and .crumbs
+   (components/breadcrumb), and the overlay family — .scrim/.dialog
+   (patterns/modal), .popover,
    .tooltip, .toast — the transient surfaces. The focus ring is the same
    ring in every variant — one width, one hue, one measured floor against
    whatever surface it circles: keyboard visibility is not an emphasis
@@ -1244,7 +1245,7 @@
   height: 100%;
 }
 
-/* Breadcrumb (patterns/breadcrumb breadcrumb.go): a row of title-small
+/* Breadcrumb (components/breadcrumb breadcrumb.go): a row of title-small
    segments with S2 gaps around 12 dp chevron separators (chevronDp). The
    last segment is the current location at the Text pin; ancestors rest on
    neutral 700 and, being links, hover to neutral 900 — the ghost variant's

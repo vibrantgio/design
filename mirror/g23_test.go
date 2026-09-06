@@ -2,8 +2,8 @@ package mirror
 
 // The navigation-page verdicts: the .navbar, .tabs, .sidebar and
 // .crumbs classes — the vocabulary components/navigation.html composes
-// with — captured from the real patterns components (patterns/navbar,
-// patterns/tabs, patterns/sidebar, patterns/breadcrumb) and compared
+// with — captured from the real Gio packages (patterns/navbar,
+// patterns/tabs, patterns/sidebar, components/breadcrumb) and compared
 // against browser captures of per-specimen fixtures wearing exactly the
 // published sheet's classes. Like TestCalibration and the other mirror
 // verdicts, these only deliver a verdict on the authoritative machine;
@@ -18,8 +18,8 @@ import (
 	"gioui.org/op/clip"
 	"gioui.org/op/paint"
 
+	"github.com/vibrantgio/components/breadcrumb"
 	"github.com/vibrantgio/components/golden"
-	"github.com/vibrantgio/patterns/breadcrumb"
 	"github.com/vibrantgio/patterns/navbar"
 	"github.com/vibrantgio/patterns/sidebar"
 	"github.com/vibrantgio/patterns/tabs"
