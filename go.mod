@@ -22,7 +22,6 @@ require (
 	github.com/gobwas/ws v1.4.0 // indirect
 	github.com/reactivego/rx v0.3.0 // indirect
 	github.com/reactivego/scheduler v0.2.0 // indirect
-	github.com/vibrantgio/effects v0.2.4 // indirect
 	github.com/vibrantgio/mvu v1.0.0 // indirect
 	github.com/vibrantgio/svg v0.0.9 // indirect
 	golang.org/x/exp/shiny v0.0.0-20260727155853-b88d891fe743 // indirect

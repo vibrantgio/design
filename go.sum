@@ -33,8 +33,6 @@ github.com/reactivego/scheduler v0.2.0 h1:XCg1M2L/ejSOI8v5Q0K5xJt+W204+F0AJsjpTP
 github.com/reactivego/scheduler v0.2.0/go.mod h1:Kw99rMXR1WJr/FgeqQfGAWClsWWlVKXZCUwJ+iCXUtQ=
 github.com/vibrantgio/components v1.3.3 h1:KGRNGNzCik7c39kH4YDfO6am7jZBnE2fqaOzFbduiec=
 github.com/vibrantgio/components v1.3.3/go.mod h1:Ju5XldqTkk4OhbzWeXOrz+fV/Wg+XGyT+nVhQHI5cf4=
-github.com/vibrantgio/effects v0.2.4 h1:PrZRblu9L84PTFbS+Ixf17MJedU0tRoh/SKQursHjJI=
-github.com/vibrantgio/effects v0.2.4/go.mod h1:dC8fqIV5Amr/CLih1AWLZz9Ssdh91Ude2h74Eusb2iE=
 github.com/vibrantgio/font v0.4.1 h1:MCn+Sf9jRxjjdgxVGAu+7DRpKFiFLIq5SW3kQOTYDNM=
 github.com/vibrantgio/font v0.4.1/go.mod h1:nU+TnuoartKhdAnHASqn/yNO+t1zLheH1CHgbJJf0FY=
 github.com/vibrantgio/mvu v1.0.0 h1:uzI83VLYJq1UgIIA2mF6JiKaJtRJLWi1ET7+Jv+7Okw=
