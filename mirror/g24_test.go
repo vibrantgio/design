@@ -89,11 +89,11 @@ func onColor(bg color.NRGBA, w layout.Widget) layout.Widget {
 // The specimen colours the patterns goldens pin: the grey body slot, the
 // blue anchor/trigger/cancel chip and the red discard chip.
 var (
-	slotGrey    = color.NRGBA{R: 200, G: 200, B: 200, A: 255}
-	chipBlue    = color.NRGBA{R: 80, G: 160, B: 220, A: 255}
-	chipRed     = color.NRGBA{R: 220, G: 100, B: 100, A: 255}
-	lightBg     = tokens.DefaultLight.Background
-	lightGround = tokens.DefaultLight.Surface
+	slotGrey     = color.NRGBA{R: 200, G: 200, B: 200, A: 255}
+	chipBlue     = color.NRGBA{R: 80, G: 160, B: 220, A: 255}
+	chipRed      = color.NRGBA{R: 220, G: 100, B: 100, A: 255}
+	lightBg      = tokens.DefaultLight.Background
+	lightSurface = tokens.DefaultLight.Surface
 )
 
 // TestOverlayMirrors scores each overlay specimen pair: the patterns component
@@ -146,7 +146,7 @@ func TestOverlayMirrors(t *testing.T) {
 			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.LabelSmall,
 		)},
-		{"toast-stack.html", lightGround, toast.Render(
+		{"toast-stack.html", lightSurface, toast.Render(
 			shaper,
 			toast.Props{Position: toast.TopRight, Shaper: shaper},
 			[]toast.Toast{

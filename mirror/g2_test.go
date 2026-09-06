@@ -53,8 +53,8 @@ func TestComponentMirrors(t *testing.T) {
 
 	// ceilings overrides Tolerance for a pair whose own cross-renderer floor
 	// sits above it; every other pair is scored against Tolerance itself.
-	// See dropdownInkFloor for the one entry and its measurement.
-	ceilings := map[string]float64{"dropdown.html": dropdownInkFloor}
+	// See dropdownForegroundFloor for the one entry and its measurement.
+	ceilings := map[string]float64{"dropdown.html": dropdownForegroundFloor}
 
 	cases := []struct {
 		fixture string
@@ -119,7 +119,7 @@ func TestComponentMirrors(t *testing.T) {
 	}
 }
 
-// dropdownInkFloor is the dropdown pair's own cross-renderer floor, which
+// dropdownForegroundFloor is the dropdown pair's own cross-renderer floor, which
 // sits just above Tolerance, and this comment is the measurement that says
 // why it is a floor rather than a disagreement.
 //
@@ -144,4 +144,4 @@ func TestComponentMirrors(t *testing.T) {
 // a real drift still fails, and it retires the day Distance normalises by the
 // frame's own foreground-to-fill range, which would fold this back under one
 // Tolerance for every pair.
-const dropdownInkFloor = 0.0185 // measured 0.0178 on the authoritative machine, 2026-08-27
+const dropdownForegroundFloor = 0.0185 // measured 0.0178 on the authoritative machine, 2026-08-27
