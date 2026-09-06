@@ -50,7 +50,7 @@ never invent a class, a token, or a size variant.
   groups; the one thing that must stand apart is the card. A group may hold
   a card; it never holds another group, and neither wears a role.
 - **Table** — `.table` on a real `<table>`: header band, one-control-height
-  rows, divider rules, no zebra. Tables are unframed: the Surface fill and
+  rows, seam rules, no zebra. Tables are unframed: the Surface fill and
   the header band *are* the frame, so never wrap a table in a card, an
   outline or a border of your own. A framed table is not in the vocabulary;
   if one is ever wanted it enters the Gio library first, never these pages.
@@ -85,7 +85,7 @@ never invent a class, a token, or a size variant.
   fills, 300 hover/subtle border, 500 strong border, 700 low-contrast
   text, 900 body text).
 - Pins and semantics: `--color-bg`, `--color-surface`, `--color-text`,
-  `--color-divider`, `--color-accent`/`--color-on-accent`,
+  `--color-seam`, `--color-accent`/`--color-on-accent`,
   `--color-secondary`/`--color-on-secondary`,
   `--color-tertiary`/`--color-on-tertiary`,
   `--color-error`/`--color-on-error`,

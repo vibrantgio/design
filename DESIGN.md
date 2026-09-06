@@ -168,7 +168,7 @@ What comes out (ADR-007's model, in Claude Design's vocabulary):
   solid fill is **pinned separately** from its ramp and reproduced exactly,
   with an `On*` colour guaranteed readable over it. Background and Text are
   pins too.
-- **A thin semantic layer** — Background, Surface (neutral 200), Divider
+- **A thin semantic layer** — Background, Surface (neutral 200), Seam
   (neutral 300), Text — sits over the ramps so call sites read purpose; reach
   into the ramps when you need a specific step.
 
@@ -316,7 +316,7 @@ is the whole model. What it asks of a composition:
   leading; an inset pane needs none, because the backdrop showing around it
   does that work.
 - **Nothing resting floats.** A dialog and a toast's base, a popover, a menu
-  and a tooltip are what appears and leaves; `Divider` and the state walks
+  and a tooltip are what appears and leaves; `Seam` and the state walks
   are edges. No resting expanse of a window takes level 2 or 3, however it is
   labelled: permanence is the test and size is its tell.
 - **A raise is walked from the surface beneath, not from the window, and a
@@ -449,7 +449,7 @@ not merely look wrong; it fails the build.
 - **High contrast is derived, not hand-written:** when the OS reports
   increased contrast, the Color observable emits a variant derived from the
   *same seed* with higher floors — step 700 at Lc ≥ 90, pinned on-colours at
-  Lc ≥ 75, Divider from the strong-border step.
+  Lc ≥ 75, Seam from the strong-border step.
 - **Reduced motion snaps:** while the OS preference is on, the Motion
   observable emits zero durations; duration-driven components complete in
   zero frames, spring-driven components read the zeros as the snap signal.
@@ -1065,7 +1065,7 @@ are still computed and reported — conformance claims cite them — but they do
 not gate the palette.
 
 MD3's role→tone tables are retired. A thin semantic layer — background,
-surface, text, divider, plus the pinned role bases — sits over the ramps so
+surface, text, seam, plus the pinned role bases — sits over the ramps so
 call sites read purpose; the MD3-named fields survived as deprecated aliases
 resolved into ramp steps until the breaking release deleted them.
 

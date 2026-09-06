@@ -95,7 +95,7 @@
   --color-bg: #f1f1f1;
   --color-surface: #e8e8e8;
   --color-text: #131313;
-  --color-divider: #d4d4d4;
+  --color-seam: #d4d4d4;
   --color-inverse-surface: #222222;
   --color-on-inverse-surface: #eeeeee;
   --color-highlight: #e7d700;
@@ -367,7 +367,7 @@
   --color-bg: #181818;
   --color-surface: #222222;
   --color-text: #eeeeee;
-  --color-divider: #2e2e2e;
+  --color-seam: #2e2e2e;
   --color-inverse-surface: #e8e8e8;
   --color-on-inverse-surface: #131313;
   --color-highlight: #4e4800;
@@ -1026,7 +1026,7 @@
    level is not a ramp step in both schemes and a table that named one
    would read as a mirror of itself between the two. Header and body rows are each exactly
    one control height tall — the row-height rule (list.RowHeight), so .compact
-   re-pitches the whole grid — and every row closes with a 1 dp Divider rule
+   re-pitches the whole grid — and every row closes with a 1 dp Seam rule
    drawn inside its height. Cells inset horizontally by S3 (cellPadDp,
    12 dp — static, the same inset rule the input uses); body text is body-medium at the
    Text pin (RenderTextCell). There is no zebra: rows separate by the rules
@@ -1051,7 +1051,7 @@
   box-sizing: border-box;
   height: var(--density-control-height);
   padding: 0 var(--space-3);
-  border-bottom: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-seam);
   text-align: left;
   vertical-align: middle;
   white-space: nowrap;
