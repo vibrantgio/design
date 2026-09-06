@@ -110,7 +110,7 @@ never invent a class, a token, or a size variant.
   `-xl`, `-2xl`, `-3xl`, `-full`.
 - Elevation: six levels counted from the backdrop up —
   `--elevation-backdrop` (the window's own plane, what shows wherever
-  nothing stands), `--elevation-chrome` (the window's furniture: navbar,
+  nothing stands), `--elevation-chrome` (the chrome regions: navbar,
   toolbar, sidebar, inspector, status bar, pane), then
   `--elevation-0`…`--elevation-3` for the content, what is raised on it and
   what floats. They are tonal surface **fills**, the default cue; use them

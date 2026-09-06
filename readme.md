@@ -156,7 +156,7 @@ backdrop, which is 600 in the light scheme and 500 in the dark; the named
 step it replaced read below the floor in one of them, at 2.67:1 in the
 scheme most people read in. The edge follows the control into a raised
 host: a surface that fills a deeper level declares `--surface-border`
-beside its own fill, the rules name it with the paper's own token as
+beside its own fill, the rules name it with the content's own token as
 the fallback, and every control inside re-derives — the same walk
 against the same fill the host measures its own outline against, which
 is why a checkbox in a dialog wears the dialog's edge. In the dark
@@ -182,7 +182,7 @@ goes dark. Six levels, counted from the backdrop up toward the reader:
 | Level | What wears it |
 | --- | --- |
 | `--elevation-backdrop` | nothing: the bare window plane, showing wherever nothing stands; the window's darkest region |
-| `--elevation-chrome` | the window's furniture — navbar, toolbar, sidebar, inspector, status bar, pane |
+| `--elevation-chrome` | the chrome regions — navbar, toolbar, sidebar, inspector, status bar, pane |
 | `--elevation-0` | the content surface, the bg pin |
 | `--elevation-1` | raised on the content — cards, code fences, text fields; the raise walked from `--elevation-0`, not a table entry |
 | `--elevation-2` | floating — dialogs, toasts |
@@ -195,11 +195,11 @@ structure and takes no level of its own. The chrome level is the one
 the ramp does not place: its step under the content is measured off the
 platform rather than derived, and the two schemes measure
 differently — about 4.9 L\* under light content, about 1.5 under dark,
-where a full ramp step would read as a hole rather than as furniture.
+where a full ramp step would read as a hole rather than as chrome.
 That asymmetry is the platform's own, not a rule mirrored between the
 schemes. The backdrop takes that step scaled by the ramp's own
 proportion, because no platform capture shows a window plane beneath
-its furniture to measure. A chrome region that floats is still chrome
+its chrome to measure. A chrome region that floats is still chrome
 and still fills at the chrome level: what says it is a floating object
 is its own hairline edge and its shadow, never a lighter fill.
 The levels stop at 3: desktop has no six-deep stack. Note the

@@ -191,7 +191,7 @@ than the one beneath:
 | Level | Holds | Light | Dark |
 | --- | --- | --- | --- |
 | backdrop | nothing: the bare window plane, showing wherever nothing stands | `#CFCFCF` | `#111111` |
-| chrome | the window's furniture — navbars, toolbars, sidebars, inspectors, status bars, panes | `#E3E3E3` | `#151515` |
+| chrome | the chrome regions — navbars, toolbars, sidebars, inspectors, status bars, panes | `#E3E3E3` | `#151515` |
 | 0 | the content itself — the document the window exists to show | the Background pin, `#F1F1F1` | the Background pin, `#181818` |
 | 1 | raised on the content — cards, filled insets, fields | `#FFFFFF` | `#222222` |
 | 2 | floating — dialogs and toasts | `#FFFFFF` | `#2E2E2E` |
@@ -215,7 +215,7 @@ Below the pin the two steps have different provenance, and the tokens say
 which is which. The chrome step is **measured** off the platform, one number
 per scheme because the platform takes a different one in each (§Which region
 stands at which level carries the captures). The backdrop step is
-**derived**: a macOS window paints its furniture edge to edge, so no stored
+**derived**: a macOS window paints its chrome edge to edge, so no stored
 capture shows a window plane beneath it, and the backdrop instead takes the
 chrome step scaled by the surface band's own proportion — 11.97 L\* under the
 content in the light scheme and 3.18 L\* in the dark one.
@@ -267,10 +267,9 @@ direction was written down there too, and got it wrong; ADR-022 re-founds it.
 lighter.** One perceptual rule. There is no second rule for the dark scheme
 and no mirror — elevation reads as elevation because a surface nearer the
 viewer catches more light, and reflectance does not invert when the room goes
-dark. The consequence that reorganises the rest: **chrome is the window's
-furniture, standing on the backdrop and under the content**, so a sidebar, a
-rail, a toolbar is darker than the document in the light scheme and in the
-dark one. ADR-021 had furniture one step *up*, because the levels only
+dark. The consequence that reorganises the rest: **chrome stands on the
+backdrop and under the content**, so a sidebar, a rail, a toolbar is darker
+than the document in the light scheme and in the dark one. ADR-021 had chrome one step *up*, because the levels only
 counted upward from the pin; the stack was short two levels at the bottom.
 
 Read the table above downward and lightness increases, in both schemes. That
@@ -279,17 +278,17 @@ is the whole model. What it asks of a composition:
 - **The resting content is level 0** — the Background pin, which is why the
   elevation scale's step‑0 is a sentinel rather than a ramp step.
 - **Chrome is one measured step under the content.** One small step is the
-  whole separation between furniture and content; two is a mistake. The
+  whole separation between chrome and content; two is a mistake. The
   magnitude is a *measurement of the platform taken per scheme* rather than a
   step of the neutral ramp, because the platform takes a different one in
-  each. A light window separates its furniture by about 4.9 L\* — which is
+  each. A light window separates its chrome by about 4.9 L\* — which is
   also the ramp's own first surface interval, 4.88, so the light chrome step
   is written as that interval and lands `#E3E3E3` under the `#F1F1F1`
   content — and a dark window by a whisper:
   Voice Memos measures 1.50 L\* (`#1B1B1B` under `#1E1E1E`), the reference
   chat application 1.71, the platform's settings window 3.81 with its
   wallpaper tint on. A full band step in the dark scheme is 4.93 L\* realized
-  and lands on `#0C0C0C`, which reads as a hole rather than as furniture, so
+  and lands on `#0C0C0C`, which reads as a hole rather than as chrome, so
   dark chrome is the measured `#151515`, 1.48 L\* under the `#181818`
   content. The asymmetry is the platform's own and is recorded as a
   measurement, not chosen; the tokens tell the two schemes apart off the
@@ -302,7 +301,7 @@ is the whole model. What it asks of a composition:
   is only ever what shows around.
 - **A floating chrome pane is still chrome** (amended 2026-08-28). Chrome's
   depth is *semantic*, not geometric: a sidebar a button slides out of the
-  window, an inspector that detaches, is still furniture and still fills at
+  window, an inspector that detaches, is still chrome and still fills at
   the chrome level, casting nothing, because chrome lies flat on the
   backdrop. It does not climb by leaving the wall: what says a pane is an
   object is its inset, its corner radius and its own hairline, never a
@@ -387,9 +386,9 @@ is the whole model. What it asks of a composition:
   is taken along the depth axis rather than across the window's plane — a
   dialog is nearer than the content *and* lighter than it, so a modal
   satisfies the check instead of breaking it. The composition corollary is
-  the same sentence in both schemes: **a window's furniture is its darkest
+  the same sentence in both schemes: **a window's chrome is its darkest
   painted region and the nearest surface its lightest**, with the backdrop
-  darker than the furniture and nothing standing at it. A window darker in
+  darker than the chrome and nothing standing at it. A window darker in
   its middle than at its edges has the grammar inverted somewhere.
 
 The measured evidence is a desktop application in both schemes — sidebar
