@@ -3,7 +3,7 @@ package mirror
 // The overlay-page verdicts: the .scrim/.dialog, .popover, .tooltip
 // and .toast classes — the vocabulary components/dialog.html composes with —
 // captured from the real patterns components (patterns/modal, patterns/popover,
-// patterns/tooltip, patterns/toast) and compared against browser captures of
+// patterns/tooltip, patterns/notifications) and compared against browser captures of
 // per-specimen fixtures wearing exactly the published sheet's classes. Like
 // TestCalibration and the other mirror verdicts, these only deliver a verdict
 // on the authoritative machine; elsewhere one half of the harness skips
@@ -23,9 +23,10 @@ import (
 	"gioui.org/unit"
 
 	"github.com/vibrantgio/components/golden"
+	"github.com/vibrantgio/components/toast"
 	"github.com/vibrantgio/patterns/modal"
+	"github.com/vibrantgio/patterns/notifications"
 	"github.com/vibrantgio/patterns/popover"
-	"github.com/vibrantgio/patterns/toast"
 	"github.com/vibrantgio/patterns/tooltip"
 	"github.com/vibrantgio/theme/tokens"
 	"github.com/vibrantgio/theme/typeset"
@@ -33,7 +34,7 @@ import (
 
 // overlaySize is the shared overlay capture viewport — the patterns overlay
 // goldens' 320x240 viewport (modal_test.go, popover_test.go, tooltip_test.go
-// and toast_test.go all pin the same one).
+// and notifications_test.go all pin the same one).
 var overlaySize = image.Pt(320, 240)
 
 // grow mirrors modal_test.go's fillRect: a sharp-edged solid stand-in
@@ -146,13 +147,13 @@ func TestOverlayMirrors(t *testing.T) {
 			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.LabelSmall,
 		)},
-		{"toast-stack.html", lightSurface, toast.Render(
+		{"toast-stack.html", lightSurface, notifications.Render(
 			shaper,
-			toast.Props{Position: toast.TopRight, Shaper: shaper},
-			[]toast.Toast{
-				{ID: 1, Level: toast.Info, Text: "Syncing tokens"},
-				{ID: 2, Level: toast.Success, Text: "Workspace saved"},
-				{ID: 3, Level: toast.Warning, Text: "Connection is slow"},
+			notifications.Props{Position: notifications.TopRight, Shaper: shaper},
+			[]notifications.Notification{
+				{ID: 1, Role: toast.Info, Text: "Syncing tokens"},
+				{ID: 2, Role: toast.Success, Text: "Workspace saved"},
+				{ID: 3, Role: toast.Warning, Text: "Connection is slow"},
 			},
 			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.LabelMedium,

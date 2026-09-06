@@ -1302,7 +1302,8 @@
 /* ---- Overlays ----
    The transient surfaces: the scrimmed dialog (patterns/modal), the
    unscrimmed popover (patterns/popover), the inverse-video tooltip
-   (patterns/tooltip) and the floating toast (patterns/toast). The elevation
+   (patterns/tooltip) and the floating toast (components/toast, stood in a
+   column by patterns/notifications). The elevation
    grammar: a scrimmed modal sits at level 2 (the scrim, not the
    fill, isolates it); an unscrimmed, shadowless popover separates by fill
    alone and takes the deepest level 3; a toast takes no level at all — it
@@ -1509,9 +1510,9 @@
   background: linear-gradient(to right, var(--color-error-on-inverse) 0 var(--space-2), var(--color-inverse-surface) var(--space-2));
 }
 
-/* The stack (toast.go paintStack): a corner-anchored column with S2 gaps,
-   inset S4 from the window plane's edges (the page anchors it); newest toast
-   nearest the anchored edge. */
+/* The column (notifications.go paintColumn): a corner-anchored column with
+   S2 gaps, inset S4 from the window plane's edges (the page anchors it);
+   newest toast nearest the anchored edge. */
 .toast-stack {
   display: flex;
   flex-direction: column;
