@@ -563,8 +563,8 @@ Three contracts follow from the numbers:
 
 ### The component inventory: shadcn's, not MD3's
 
-Patterns' inventory — shell, navbar, sidebar, table, pagination, tabs, modal,
-alert, popover, tooltip, toast, card, accordion, breadcrumb, plus the
+The system's inventory — shell, navbar, sidebar, table, pagination, tabs,
+modal, alert, popover, tooltip, toast, card, accordion, breadcrumb, plus the
 marketing sections — is shadcn/ui's inventory. MD3 has no breadcrumb, no data
 table and no pricing section; conversely there is no FAB, navigation rail,
 bottom sheet or snackbar here, because adopting them would make a Mac app
