@@ -2,9 +2,10 @@ package mirror
 
 // The overlay-page verdicts: the .scrim/.dialog, .popover, .tooltip
 // and .toast classes — the vocabulary components/dialog.html composes with —
-// captured from the real patterns components (patterns/modal, patterns/popover,
-// patterns/tooltip, patterns/notifications) and compared against browser captures of
-// per-specimen fixtures wearing exactly the published sheet's classes. Like
+// captured from the real Gio packages (patterns/modal, patterns/popover,
+// components/tooltip, patterns/notifications) and compared against browser
+// captures of per-specimen fixtures wearing exactly the published sheet's
+// classes. Like
 // TestCalibration and the other mirror verdicts, these only deliver a verdict
 // on the authoritative machine; elsewhere one half of the harness skips
 // loudly.
@@ -24,10 +25,10 @@ import (
 
 	"github.com/vibrantgio/components/golden"
 	"github.com/vibrantgio/components/toast"
+	"github.com/vibrantgio/components/tooltip"
 	"github.com/vibrantgio/patterns/modal"
 	"github.com/vibrantgio/patterns/notifications"
 	"github.com/vibrantgio/patterns/popover"
-	"github.com/vibrantgio/patterns/tooltip"
 	"github.com/vibrantgio/theme/tokens"
 	"github.com/vibrantgio/theme/typeset"
 )

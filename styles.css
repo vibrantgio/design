@@ -1301,15 +1301,15 @@
 
 /* ---- Overlays ----
    The transient surfaces: the scrimmed dialog (patterns/modal), the
-   unscrimmed popover (patterns/popover), the inverse-video tooltip
-   (patterns/tooltip) and the floating toast (components/toast, stood in a
+   unscrimmed popover (patterns/popover), the inverse-filled tooltip
+   (components/tooltip) and the floating toast (components/toast, stood in a
    column by patterns/notifications). The elevation
    grammar: a scrimmed modal sits at level 2 (the scrim, not the
    fill, isolates it); an unscrimmed, shadowless popover separates by fill
-   alone and takes the deepest level 3; a toast takes no level at all — it
-   inverts, and keeps the level-3 cast shadow to say it can leave; the tooltip
-   takes no step at all — it inverts instead, because a bubble that small
-   needs the stronger cue. */
+   alone and takes the deepest level 3; the tooltip and the toast are placed
+   on the elevation but filled from neither of its steps — nothing stands on
+   either, so both take the inverse pair, and the toast keeps the level-3
+   cast shadow to say it can leave. */
 
 /* Scrim (modal.go drawModal/scrimColor): the whole-plane dimmer under a
    dialog — --color-scrim, black at the fixed 50% alpha in both modes. The
@@ -1432,10 +1432,11 @@
   border-right: 6px solid var(--elevation-3);
 }
 
-/* Tooltip (tooltip.go drawSurface): the inverse-video bubble — the Text
-   pin as the surface under a label in Surface, label-small, radius Sm, S2/S1
-   padding, clamped to the 24x16 dp minimum. No elevation level and no
-   shadow: inversion is the whole cue. */
+/* Tooltip (components/tooltip tooltip.go drawSurface): the inverse-filled
+   bubble — InverseSurface under a label in OnInverseSurface, label-small,
+   radius Sm, S2/S1 padding, clamped to the 24x16 dp minimum. Level 3 is
+   where it is placed, not what it is filled with, and it casts no shadow:
+   the inverse fill is the whole cue. */
 .tooltip {
   box-sizing: border-box;
   display: inline-flex;
@@ -1444,8 +1445,8 @@
   min-height: 16px;
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-sm);
-  background: var(--color-text);
-  color: var(--color-surface);
+  background: var(--color-inverse-surface);
+  color: var(--color-on-inverse-surface);
   white-space: nowrap;
   font-family: var(--font-family);
   font-size: var(--font-label-small-size);
