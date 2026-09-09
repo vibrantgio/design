@@ -152,9 +152,9 @@ func TestOverlayMirrors(t *testing.T) {
 			shaper,
 			notifications.Props{Position: notifications.TopRight, Shaper: shaper},
 			[]notifications.Notification{
-				{ID: 1, Role: toast.Info, Text: "Syncing tokens"},
-				{ID: 2, Role: toast.Success, Text: "Workspace saved"},
-				{ID: 3, Role: toast.Warning, Text: "Connection is slow"},
+				{ID: 1, Status: toast.Info, Text: "Syncing tokens"},
+				{ID: 2, Status: toast.Success, Text: "Workspace saved"},
+				{ID: 3, Status: toast.Warning, Text: "Connection is slow"},
 			},
 			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.LabelMedium,

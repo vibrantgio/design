@@ -28,7 +28,7 @@ import (
 // verdict is about the surface it stands on.
 //
 // Measured on the authoritative machine (Chromium 153.0.8008.0), the worst
-// per-variant match against the five fixtures and the closest wrong-variant
+// per-status match against the five fixtures and the closest wrong-status
 // cross-pair, at candidate viewports:
 //
 //	80x24:   worst match 0.0297, closest cross-pair 0.0571
@@ -52,8 +52,8 @@ import (
 // is only as strong as its nearer margin.
 var badgeSize = image.Pt(120, 40)
 
-// TestBadgeMirrors scores every badge specimen pair: the Gio badge in a given
-// variant against the browser render of each of the five fixtures, all at the
+// TestBadgeMirrors scores every badge specimen pair: the Gio badge at a given
+// status against the browser render of each of the five fixtures, all at the
 // same viewport over the level-0 surface — the level the sheet's pages stand
 // on, and therefore the one both halves derive the fill and the foreground
 // against.
@@ -61,7 +61,7 @@ var badgeSize = image.Pt(120, 40)
 // Two criteria, and the second is what makes the first mean anything. Each
 // matching pair must land under Tolerance, or the page is not the badge; and
 // each MISMATCHED pair must land over it, or the metric cannot see which
-// variant it is looking at and a page that passed would have proved only that
+// status it is looking at and a page that passed would have proved only that
 // something badge-shaped is there. Every distance is logged either way.
 func TestBadgeMirrors(t *testing.T) {
 	srv := Serve(t)
@@ -79,7 +79,7 @@ func TestBadgeMirrors(t *testing.T) {
 	for _, c := range badgeCases {
 		t.Run(c.fixture, func(t *testing.T) {
 			gio := golden.Capture(t, badgeSize, onColor(tokens.DefaultLight.SurfaceAt(tokens.Level0),
-				badge.Render(shaper, c.label, nil, c.variant,
+				badge.Render(shaper, c.label, nil, c.status,
 					tokens.DefaultLight, tokens.Spacing, tokens.Radius, style, badge.RenderState{})))
 			for _, other := range badgeCases {
 				d := Distance(gio, webs[other.fixture])
@@ -88,7 +88,7 @@ func TestBadgeMirrors(t *testing.T) {
 				case other.fixture == c.fixture && d > Tolerance:
 					t.Errorf("pair %s scored %.4f > Tolerance %.4f: the page does not read as the badge", c.fixture, d, Tolerance)
 				case other.fixture != c.fixture && d <= Tolerance:
-					t.Errorf("the %s badge scored %.4f <= Tolerance %.4f against the %s page: the metric cannot tell the two variants apart",
+					t.Errorf("the %s badge scored %.4f <= Tolerance %.4f against the %s page: the metric cannot tell the two statuses apart",
 						c.fixture, d, Tolerance, other.fixture)
 				}
 			}
@@ -96,13 +96,13 @@ func TestBadgeMirrors(t *testing.T) {
 	}
 }
 
-// badgeCases pairs each fixture with the variant and the word it draws. The
-// words differ per variant on purpose: a mirror scored on one word in five
+// badgeCases pairs each fixture with the status and the word it draws. The
+// words differ per status on purpose: a mirror scored on one word in five
 // hues would pass on a sheet that shaped every badge identically.
 var badgeCases = []struct {
 	fixture string
 	label   string
-	variant badge.Variant
+	status  badge.Status
 }{
 	{"badge-neutral.html", "Beta", badge.Neutral},
 	{"badge-success.html", "Passing", badge.Success},
