@@ -123,31 +123,31 @@
   --color-on-warning-container: #894d00;
   --color-info-container: #bad7f8;
   --color-on-info-container: #005ea5;
-  --color-error-on-inverse: #fa6b60;
-  --color-success-on-inverse: #43ad52;
-  --color-warning-on-inverse: #e08100;
-  --color-info-on-inverse: #359cfc;
+  --color-error-on-inverse: #ffc7c0;
+  --color-success-on-inverse: #83eb8c;
+  --color-warning-on-inverse: #ffca9c;
+  --color-info-on-inverse: #b4d8ff;
   --color-badge-neutral-fill: #d4d4d4;
-  --color-badge-neutral: #5c5c5c;
+  --color-badge-neutral: #131313;
   --color-badge-success-fill: #bdddbd;
-  --color-badge-success: #006b1f;
+  --color-badge-success: #001803;
   --color-badge-warning-fill: #f0ceb1;
-  --color-badge-warning: #894d00;
+  --color-badge-warning: #220f00;
   --color-badge-error-fill: #f9c9c3;
-  --color-badge-error: #b12322;
+  --color-badge-error: #320001;
   --color-badge-info-fill: #bad7f8;
-  --color-badge-info: #005ea5;
+  --color-badge-info: #00142b;
   --color-btn-tonal-fill: #d7cff7;
-  --color-btn-tonal: #6f36d1;
+  --color-btn-tonal: #1d0044;
   --color-btn-tonal-fill-hover: #b9b1d8;
-  --color-btn-tonal-hover: #570ab2;
+  --color-btn-tonal-hover: #1d0044;
   --color-btn-tonal-fill-active: #9b93b9;
-  --color-btn-tonal-active: #1d0044;
-  --color-control-border: #797979;
-  --color-dialog-border: #797979;
-  --color-popover-border: #797979;
+  --color-btn-tonal-active: #f7f5ff;
+  --color-control-border: #989898;
+  --color-dialog-border: #989898;
+  --color-popover-border: #989898;
   --color-focus-ring: #6f36d1;
-  --color-focus-ring-on-accent: #bdaaff;
+  --color-focus-ring-on-accent: #d8ceff;
   --elevation-backdrop: #cfcfcf;
   --elevation-chrome: #e3e3e3;
   --elevation-0: #f1f1f1;
@@ -388,37 +388,37 @@
   --color-info: #a4d0ff;
   --color-on-info: #001832;
   --color-error-container: #482420;
-  --color-on-error-container: #fd6d62;
+  --color-on-error-container: #ffbcb3;
   --color-success-container: #19341c;
-  --color-on-success-container: #46af54;
+  --color-on-success-container: #7ae284;
   --color-warning-container: #43280f;
-  --color-on-warning-container: #e38400;
+  --color-on-warning-container: #ffbf86;
   --color-info-container: #173049;
-  --color-on-info-container: #389fff;
+  --color-on-info-container: #a4d0ff;
   --color-error-on-inverse: #93000c;
   --color-success-on-inverse: #005316;
   --color-warning-on-inverse: #6b3b00;
   --color-info-on-inverse: #004881;
   --color-badge-neutral-fill: #2e2e2e;
-  --color-badge-neutral: #9b9b9b;
+  --color-badge-neutral: #d7d7d7;
   --color-badge-success-fill: #19341c;
-  --color-badge-success: #7ae284;
+  --color-badge-success: #86ee8f;
   --color-badge-warning-fill: #43280f;
-  --color-badge-warning: #ffbf86;
+  --color-badge-warning: #ffcea3;
   --color-badge-error-fill: #482420;
-  --color-badge-error: #ffbcb3;
+  --color-badge-error: #ffcbc4;
   --color-badge-info-fill: #173049;
-  --color-badge-info: #a4d0ff;
+  --color-badge-info: #b9dbff;
   --color-btn-tonal-fill: #312a48;
-  --color-btn-tonal: #d0c4ff;
+  --color-btn-tonal: #dad2ff;
   --color-btn-tonal-fill-hover: #4a4363;
-  --color-btn-tonal-hover: #d0c4ff;
+  --color-btn-tonal-hover: #efecff;
   --color-btn-tonal-fill-active: #70698c;
   --color-btn-tonal-active: #efecff;
-  --color-control-border: #6d6d6d;
-  --color-dialog-border: #9b9b9b;
-  --color-popover-border: #9b9b9b;
-  --color-focus-ring: #dad2ff;
+  --color-control-border: #9b9b9b;
+  --color-dialog-border: #cccccc;
+  --color-popover-border: #cccccc;
+  --color-focus-ring: #efecff;
   --color-focus-ring-on-accent: #804be5;
   --elevation-backdrop: #111111;
   --elevation-chrome: #151515;
@@ -510,7 +510,7 @@
 /* Keyboard focus keeps the resting fill and adds the ring — a stroke
    centred on the control's edge, as the Gio side draws it. One width, one
    hue, one value: var(--color-focus-ring) is the step of the primary ramp
-   nearest its mid-value step that reaches 3:1 against every level at once
+   nearest its mid-value step that reaches the mark floor against every level at once
    and parts from every level's resting border in luminance, so a control
    wears the same ring wherever it was put, no rule here asks where that is,
    and focus survives a display that removes the colour. The one surface
@@ -552,8 +552,8 @@
    one colour per scheme, measured against every level at once, so a raised
    host has nothing to hand down. A resting edge is the boundary of one
    surface and may differ per level — in the dark scheme the level-0 neutral
-   step reads 2.62:1 over a level-2 fill and 1.80:1 over a level-3 one, under
-   the 3:1 a graphic owes the surface it stands on, which is why a checkbox in
+   step reads |Lc| 43.56 over a level-2 fill and 36.14 over a level-3 one,
+   under what a mark owes the surface it stands on, which is why a checkbox in
    a dialog wears the edge the dialog's own outline wears. The light scheme's
    levels climb less far from its backdrop and its level-0 step already clears
    every level, so the handed-down token repeats there and nothing moves — the
@@ -854,8 +854,8 @@
 /* Checkbox (components/input checkbox.go): a 20 dp glyph (checkboxBoxSize
    — a component constant, not a token; it does not follow density) over its
    own raised fill. Unchecked, its 2 dp edge is the neutral step the ramp answers
-   with for a 3:1 graphic on the level the box stands on — the surface
-   floor's --color-control-border (600 in the light scheme, 500 in the dark)
+   with for a mark at the graphic floor on the level the box stands on — the
+   surface floor's --color-control-border (500 in the light scheme, 600 in the dark)
    unless a raised host has re-pointed --surface-border. The radio, the text
    field and the dropdown trigger wear that same edge, all four asking the
    ramp the one question rather than naming a step between them.

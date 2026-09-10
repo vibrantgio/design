@@ -131,7 +131,7 @@ h3 {
 <h1>Colour</h1>
 <button type="button" class="mode-toggle">Light / dark</button>
 </div>
-<p class="intro">Each role carries a nine-step functional ramp (100&ndash;900) where the step is the meaning &mdash; 100&ndash;300 tinted fills, hovers and subtle borders, 500 the mid-value reference, 700&ndash;900 text and pressed states &mdash; plus a pinned base. Dark mode is the paired ramp: the same step keeps the same job. Swatches are painted through the token sheet, so the toggle restyles them; annotation values are printed for both modes, labelled L and D. APCA Lc is the gating metric (signed: negative means light-on-dark); WCAG 2 ratios are reported alongside.</p>
+<p class="intro">Each role carries a nine-step functional ramp (100&ndash;900) where the step is the meaning &mdash; 100&ndash;300 tinted fills, hovers and subtle borders, 500 the mid-value reference, 700&ndash;900 text and pressed states &mdash; plus a pinned base. Dark mode is the paired ramp: the same step keeps the same job. Swatches are painted through the token sheet, so the toggle restyles them; annotation values are printed for both modes, labelled L and D. APCA Lc is the one contrast measure (signed: negative means light-on-dark).</p>
 <section>
 <h2>neutral</h2>
 <div class="ramp">
@@ -194,14 +194,14 @@ h3 {
 <h3>Measured contrast</h3>
 <table class="contrast">
 <thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">light WCAG</th><th scope="col">dark Lc</th><th scope="col">dark WCAG</th></tr>
+<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
 </thead>
 <tbody>
-<tr><th scope="row">900 on 100</th><td>99.8</td><td>17.19:1</td><td>-95.6</td><td>15.30:1</td></tr>
-<tr><th scope="row">900 on 200</th><td>91.6</td><td>15.16:1</td><td>-94.3</td><td>13.71:1</td></tr>
-<tr><th scope="row">700 on 100</th><td>77.7</td><td>6.19:1</td><td>-74.6</td><td>11.06:1</td></tr>
-<tr><th scope="row">700 on 200</th><td>69.4</td><td>5.46:1</td><td>-73.2</td><td>9.91:1</td></tr>
-<tr><th scope="row">text on bg</th><td>96.8</td><td>16.45:1</td><td>-95.6</td><td>15.30:1</td></tr>
+<tr><th scope="row">900 on 100</th><td>99.8</td><td>-95.6</td></tr>
+<tr><th scope="row">900 on 200</th><td>91.6</td><td>-94.3</td></tr>
+<tr><th scope="row">700 on 100</th><td>77.7</td><td>-74.6</td></tr>
+<tr><th scope="row">700 on 200</th><td>69.4</td><td>-73.2</td></tr>
+<tr><th scope="row">text on bg</th><td>96.8</td><td>-95.6</td></tr>
 </tbody>
 </table>
 </section>
@@ -255,14 +255,14 @@ h3 {
 <h3>Measured contrast</h3>
 <table class="contrast">
 <thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">light WCAG</th><th scope="col">dark Lc</th><th scope="col">dark WCAG</th></tr>
+<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
 </thead>
 <tbody>
-<tr><th scope="row">900 on 100</th><td>99.0</td><td>17.13:1</td><td>-95.0</td><td>15.38:1</td></tr>
-<tr><th scope="row">900 on 200</th><td>90.7</td><td>15.10:1</td><td>-93.4</td><td>13.80:1</td></tr>
-<tr><th scope="row">700 on 100</th><td>77.0</td><td>6.23:1</td><td>-73.6</td><td>11.05:1</td></tr>
-<tr><th scope="row">700 on 200</th><td>68.7</td><td>5.49:1</td><td>-72.0</td><td>9.92:1</td></tr>
-<tr><th scope="row">on-accent on accent</th><td>-86.2</td><td>6.42:1</td><td>73.9</td><td>11.05:1</td></tr>
+<tr><th scope="row">900 on 100</th><td>99.0</td><td>-95.0</td></tr>
+<tr><th scope="row">900 on 200</th><td>90.7</td><td>-93.4</td></tr>
+<tr><th scope="row">700 on 100</th><td>77.0</td><td>-73.6</td></tr>
+<tr><th scope="row">700 on 200</th><td>68.7</td><td>-72.0</td></tr>
+<tr><th scope="row">on-accent on accent</th><td>-86.2</td><td>73.9</td></tr>
 </tbody>
 </table>
 </section>
@@ -316,14 +316,14 @@ h3 {
 <h3>Measured contrast</h3>
 <table class="contrast">
 <thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">light WCAG</th><th scope="col">dark Lc</th><th scope="col">dark WCAG</th></tr>
+<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
 </thead>
 <tbody>
-<tr><th scope="row">900 on 100</th><td>99.6</td><td>17.18:1</td><td>-95.6</td><td>15.37:1</td></tr>
-<tr><th scope="row">900 on 200</th><td>91.4</td><td>15.14:1</td><td>-94.3</td><td>13.81:1</td></tr>
-<tr><th scope="row">700 on 100</th><td>77.8</td><td>6.23:1</td><td>-74.3</td><td>11.07:1</td></tr>
-<tr><th scope="row">700 on 200</th><td>69.6</td><td>5.49:1</td><td>-73.1</td><td>9.95:1</td></tr>
-<tr><th scope="row">on-secondary on secondary</th><td>-87.0</td><td>6.44:1</td><td>74.8</td><td>11.07:1</td></tr>
+<tr><th scope="row">900 on 100</th><td>99.6</td><td>-95.6</td></tr>
+<tr><th scope="row">900 on 200</th><td>91.4</td><td>-94.3</td></tr>
+<tr><th scope="row">700 on 100</th><td>77.8</td><td>-74.3</td></tr>
+<tr><th scope="row">700 on 200</th><td>69.6</td><td>-73.1</td></tr>
+<tr><th scope="row">on-secondary on secondary</th><td>-87.0</td><td>74.8</td></tr>
 </tbody>
 </table>
 </section>
@@ -377,14 +377,14 @@ h3 {
 <h3>Measured contrast</h3>
 <table class="contrast">
 <thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">light WCAG</th><th scope="col">dark Lc</th><th scope="col">dark WCAG</th></tr>
+<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
 </thead>
 <tbody>
-<tr><th scope="row">900 on 100</th><td>99.4</td><td>17.22:1</td><td>-94.8</td><td>15.30:1</td></tr>
-<tr><th scope="row">900 on 200</th><td>90.7</td><td>15.08:1</td><td>-93.2</td><td>13.73:1</td></tr>
-<tr><th scope="row">700 on 100</th><td>77.8</td><td>6.27:1</td><td>-73.9</td><td>11.07:1</td></tr>
-<tr><th scope="row">700 on 200</th><td>69.1</td><td>5.49:1</td><td>-72.3</td><td>9.93:1</td></tr>
-<tr><th scope="row">on-tertiary on tertiary</th><td>-86.8</td><td>6.46:1</td><td>74.2</td><td>11.07:1</td></tr>
+<tr><th scope="row">900 on 100</th><td>99.4</td><td>-94.8</td></tr>
+<tr><th scope="row">900 on 200</th><td>90.7</td><td>-93.2</td></tr>
+<tr><th scope="row">700 on 100</th><td>77.8</td><td>-73.9</td></tr>
+<tr><th scope="row">700 on 200</th><td>69.1</td><td>-72.3</td></tr>
+<tr><th scope="row">on-tertiary on tertiary</th><td>-86.8</td><td>74.2</td></tr>
 </tbody>
 </table>
 </section>
@@ -438,14 +438,14 @@ h3 {
 <h3>Measured contrast</h3>
 <table class="contrast">
 <thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">light WCAG</th><th scope="col">dark Lc</th><th scope="col">dark WCAG</th></tr>
+<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
 </thead>
 <tbody>
-<tr><th scope="row">900 on 100</th><td>99.1</td><td>17.15:1</td><td>-94.7</td><td>15.29:1</td></tr>
-<tr><th scope="row">900 on 200</th><td>90.8</td><td>15.13:1</td><td>-93.0</td><td>13.71:1</td></tr>
-<tr><th scope="row">700 on 100</th><td>76.3</td><td>6.22:1</td><td>-74.0</td><td>11.09:1</td></tr>
-<tr><th scope="row">700 on 200</th><td>68.1</td><td>5.49:1</td><td>-72.3</td><td>9.94:1</td></tr>
-<tr><th scope="row">on-error on error</th><td>-86.6</td><td>6.70:1</td><td>74.2</td><td>11.09:1</td></tr>
+<tr><th scope="row">900 on 100</th><td>99.1</td><td>-94.7</td></tr>
+<tr><th scope="row">900 on 200</th><td>90.8</td><td>-93.0</td></tr>
+<tr><th scope="row">700 on 100</th><td>76.3</td><td>-74.0</td></tr>
+<tr><th scope="row">700 on 200</th><td>68.1</td><td>-72.3</td></tr>
+<tr><th scope="row">on-error on error</th><td>-86.6</td><td>74.2</td></tr>
 </tbody>
 </table>
 </section>
@@ -499,14 +499,14 @@ h3 {
 <h3>Measured contrast</h3>
 <table class="contrast">
 <thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">light WCAG</th><th scope="col">dark Lc</th><th scope="col">dark WCAG</th></tr>
+<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
 </thead>
 <tbody>
-<tr><th scope="row">900 on 100</th><td>99.8</td><td>17.20:1</td><td>-95.5</td><td>15.35:1</td></tr>
-<tr><th scope="row">900 on 200</th><td>91.6</td><td>15.15:1</td><td>-94.2</td><td>13.83:1</td></tr>
-<tr><th scope="row">700 on 100</th><td>77.3</td><td>6.24:1</td><td>-74.5</td><td>11.08:1</td></tr>
-<tr><th scope="row">700 on 200</th><td>69.1</td><td>5.49:1</td><td>-73.2</td><td>9.98:1</td></tr>
-<tr><th scope="row">on-success on success</th><td>-87.6</td><td>6.72:1</td><td>74.9</td><td>11.08:1</td></tr>
+<tr><th scope="row">900 on 100</th><td>99.8</td><td>-95.5</td></tr>
+<tr><th scope="row">900 on 200</th><td>91.6</td><td>-94.2</td></tr>
+<tr><th scope="row">700 on 100</th><td>77.3</td><td>-74.5</td></tr>
+<tr><th scope="row">700 on 200</th><td>69.1</td><td>-73.2</td></tr>
+<tr><th scope="row">on-success on success</th><td>-87.6</td><td>74.9</td></tr>
 </tbody>
 </table>
 </section>
@@ -560,14 +560,14 @@ h3 {
 <h3>Measured contrast</h3>
 <table class="contrast">
 <thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">light WCAG</th><th scope="col">dark Lc</th><th scope="col">dark WCAG</th></tr>
+<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
 </thead>
 <tbody>
-<tr><th scope="row">900 on 100</th><td>99.9</td><td>17.18:1</td><td>-95.3</td><td>15.32:1</td></tr>
-<tr><th scope="row">900 on 200</th><td>91.3</td><td>15.06:1</td><td>-93.9</td><td>13.72:1</td></tr>
-<tr><th scope="row">700 on 100</th><td>77.7</td><td>6.25:1</td><td>-74.5</td><td>11.09:1</td></tr>
-<tr><th scope="row">700 on 200</th><td>69.0</td><td>5.48:1</td><td>-73.1</td><td>9.93:1</td></tr>
-<tr><th scope="row">on-warning on warning</th><td>-87.8</td><td>6.72:1</td><td>74.9</td><td>11.09:1</td></tr>
+<tr><th scope="row">900 on 100</th><td>99.9</td><td>-95.3</td></tr>
+<tr><th scope="row">900 on 200</th><td>91.3</td><td>-93.9</td></tr>
+<tr><th scope="row">700 on 100</th><td>77.7</td><td>-74.5</td></tr>
+<tr><th scope="row">700 on 200</th><td>69.0</td><td>-73.1</td></tr>
+<tr><th scope="row">on-warning on warning</th><td>-87.8</td><td>74.9</td></tr>
 </tbody>
 </table>
 </section>
@@ -621,14 +621,14 @@ h3 {
 <h3>Measured contrast</h3>
 <table class="contrast">
 <thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">light WCAG</th><th scope="col">dark Lc</th><th scope="col">dark WCAG</th></tr>
+<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
 </thead>
 <tbody>
-<tr><th scope="row">900 on 100</th><td>99.6</td><td>17.14:1</td><td>-95.1</td><td>15.29:1</td></tr>
-<tr><th scope="row">900 on 200</th><td>91.2</td><td>15.07:1</td><td>-93.7</td><td>13.74:1</td></tr>
-<tr><th scope="row">700 on 100</th><td>77.0</td><td>6.19:1</td><td>-74.3</td><td>11.09:1</td></tr>
-<tr><th scope="row">700 on 200</th><td>68.6</td><td>5.44:1</td><td>-73.0</td><td>9.96:1</td></tr>
-<tr><th scope="row">on-info on info</th><td>-87.4</td><td>6.68:1</td><td>74.8</td><td>11.09:1</td></tr>
+<tr><th scope="row">900 on 100</th><td>99.6</td><td>-95.1</td></tr>
+<tr><th scope="row">900 on 200</th><td>91.2</td><td>-93.7</td></tr>
+<tr><th scope="row">700 on 100</th><td>77.0</td><td>-74.3</td></tr>
+<tr><th scope="row">700 on 200</th><td>68.6</td><td>-73.0</td></tr>
+<tr><th scope="row">on-info on info</th><td>-87.4</td><td>74.8</td></tr>
 </tbody>
 </table>
 </section>
