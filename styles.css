@@ -1141,9 +1141,10 @@
    pattern's two contractual widths — 192 dp expanded, 48 dp collapsed
    (expandedDp/collapsedDp: component constants, deliberately not tokens and
    not density-responsive; a different rail copies the pattern) — closed by
-   the separator along its trailing edge. The toggle row is ControlHeight and
-   every item row is Density.RowHeight, the platform's stacked row, so
-   .compact re-pitches the rail. The whole rail is one keyboard stop — the
+   the separator along its trailing edge. The toggle row is ControlHeight;
+   every item row is the sidebar's OWN row height, the pattern's RowHeight
+   rather than the density scale's, because a chrome rail draws a taller row
+   than a content list. The whole rail is one keyboard stop — the
    focus ring belongs to the rail, and the Arrow keys move .selected — so the
    ring rule below targets .sidebar itself, not the rows. */
 .sidebar {
@@ -1180,15 +1181,23 @@
 /* An item row (drawItem): a 48 dp leading icon column (iconColDp) with the
    glyph centred in it, the label-large label starting at exactly the column
    edge, vertically centred, one line, clipped rather than wrapped — which is
-   also what hides the labels at the collapsed width. Selected takes the
-   platform's selection colour under a white label; nothing else moves, and
-   nothing tints under the pointer. */
+   also what hides the labels at the collapsed width. Selected wears the
+   platform's sidebar pill; nothing else moves, and nothing tints under the
+   pointer.
+
+   The row height, the pill's inset and its corner are MEASURED off the
+   organization's macOS reference (patterns/sidebar RowHeight,
+   SelectionInset, SelectionRadius): Finder's and Voice Memos' selected
+   sidebar rows span 32 px at 1x, the pill is inset 10 from each edge of the
+   rail, and a circular fit to its corner reads 8. */
 .sidebar-item {
   box-sizing: border-box;
+  position: relative;
+  z-index: 0;
   flex: none;
   display: flex;
   align-items: center;
-  height: var(--density-row-height);
+  height: 32px;  /* RowHeight */
   overflow: hidden;
   white-space: nowrap;
   cursor: pointer;
@@ -1201,9 +1210,19 @@
   text-decoration: none;
   user-select: none;
 }
+/* The pill is a layer behind the row's own content rather than the row's
+   fill, because it is inset from the rail while the icon column and the
+   label are not. */
 .sidebar-item.selected {
-  background: var(--platform-selected-content-background);
   color: var(--platform-alternate-selected-control-text);
+}
+.sidebar-item.selected::before {
+  content: "";
+  position: absolute;
+  inset: 0 10px;  /* SelectionInset */
+  z-index: -1;
+  border-radius: 8px;  /* SelectionRadius */
+  background: var(--platform-control-accent);
 }
 .sidebar-item-icon {
   flex: none;
