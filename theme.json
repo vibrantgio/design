@@ -59,16 +59,16 @@
   "density": {
     "setting": "comfortable",
     "comfortable": {
-      "controlHeight": 36,
-      "chipHeight": 32,
-      "paddingX": 16,
-      "paddingY": 8
+      "controlHeight": 24,
+      "chipHeight": 20,
+      "paddingX": 8,
+      "paddingY": 2
     },
     "compact": {
-      "controlHeight": 28,
-      "chipHeight": 24,
-      "paddingX": 12,
-      "paddingY": 6
+      "controlHeight": 19,
+      "chipHeight": 15,
+      "paddingX": 7,
+      "paddingY": 0
     },
     "minHitTarget": 44
   },

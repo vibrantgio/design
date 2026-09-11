@@ -217,9 +217,9 @@ surfaces never cast one.
 
 ## Density
 
-Two published settings, one variable family: comfortable (36 dp controls,
-32 dp chips, 16/8 dp padding) is the `:root` default; compact (28 dp
-controls, 24 dp chips, 12/6 dp padding) is the `.compact` class override,
+Two published settings, one variable family: comfortable (24 dp controls,
+20 dp chips, 8/2 dp padding) is the `:root` default; compact (19 dp
+controls, 15 dp chips, 7/0 dp padding) is the `.compact` class override,
 scoping to any subtree the way `.dark` scopes colours. The chip height is
 the control height less 4 dp in both settings — one relation, not a second
 scale. `--density-min-hit-target` (44 dp, WCAG 2.5.5) is deliberately not

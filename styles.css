@@ -242,10 +242,10 @@
   --font-code-line-height: 20px;
   --font-code-weight: 400;
   --font-code-tracking: 0.25px;
-  --density-control-height: 36px;
-  --density-chip-height: 32px;
-  --density-padding-x: 16px;
-  --density-padding-y: 8px;
+  --density-control-height: 24px;
+  --density-chip-height: 20px;
+  --density-padding-x: 8px;
+  --density-padding-y: 2px;
   --density-min-hit-target: 44px;
   --space-0: 0px;
   --space-1: 4px;
@@ -451,10 +451,10 @@
 }
 
 .compact {
-  --density-control-height: 28px;
-  --density-chip-height: 24px;
-  --density-padding-x: 12px;
-  --density-padding-y: 6px;
+  --density-control-height: 19px;
+  --density-chip-height: 15px;
+  --density-padding-x: 7px;
+  --density-padding-y: 0px;
 }
 
 /* ---- Component classes ----
@@ -1094,8 +1094,8 @@
 
 /* Navbar (patterns/navbar navbar.go): a horizontal Surface bar —
    drawNavbar fills Surface, insets PaddingY vertically and S4 horizontally,
-   and patterns/shell pins the bar to ControlHeight + 2*PaddingY (52 dp
-   comfortable, 40 compact). Slots run brand, centred links, actions; the
+   and patterns/shell pins the bar to ControlHeight + 2*PaddingY (28 dp
+   comfortable, 19 compact). Slots run brand, centred links, actions; the
    links row centres in the space brand and actions leave over (that space
    halved), which margin-inline auto reproduces exactly, including the
    documented off-centre approximation when the end slots differ. Each slot
