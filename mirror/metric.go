@@ -14,27 +14,14 @@ import (
 const cellPx = 4
 
 // Tolerance is the perceptual distance below which two renders read as the
-// same component, calibrated in TestCalibration from real pairs on the
-// authoritative machine (see the package comment) rather than in the
-// abstract (Chromium 153.0.8008.0, darwin/arm64, 2026-08-14):
-//
-//	Gio filled button vs its bundle-token HTML mirror:  0.0106
-//	stability: same page captured twice in Chromium:    0.0000
-//	vs HTML with the wrong colour role (error):         0.3403
-//	vs HTML with the wrong radius (pill):               0.0271
-//	vs HTML with the wrong size (compact 28dp):         0.1425
-//
-// The threshold sits at 0.017, the geometric midpoint of the two clusters'
-// nearest members: 1.6× the measured matching distance and 1.6× below the
-// nearest wrong variant (the pill radius), so both clear it with equal
-// margin. The floor must be measured, not derived from byte-count divergence
-// between two Gio backends: that divergence is antialiasing and gradient
-// dithering, exactly the noise the box filter averages away. The measured
-// Chrome-vs-Gio matching distance (0.0106 — different text shaper, different
-// rasteriser, different gamma handling) IS the cross-renderer floor under
-// this metric, and Tolerance stands above it; a tolerance below that number
-// would fail a correct mirror.
-const Tolerance = 0.017
+// same component. It is calibrated in TestCalibration from real pairs on the
+// authoritative machine, never in the abstract; the package comment carries
+// the measured clusters and the arithmetic that places the threshold between
+// them. The floor it sits above is the cross-renderer one — a different text
+// shaper, a different rasteriser, a different gamma — and not byte-count
+// divergence between two Gio backends, which is antialiasing and gradient
+// dithering, exactly the noise the box filter averages away.
+const Tolerance = 0.0223
 
 // Distance reports the perceptual distance between two equally-sized images
 // in [0,1]: both are box-downscaled to cells of [cellPx]×[cellPx] source

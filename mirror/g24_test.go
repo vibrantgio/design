@@ -29,6 +29,7 @@ import (
 	"github.com/vibrantgio/patterns/modal"
 	"github.com/vibrantgio/patterns/notifications"
 	"github.com/vibrantgio/patterns/popover"
+	vgcolor "github.com/vibrantgio/theme/color"
 	"github.com/vibrantgio/theme/tokens"
 	"github.com/vibrantgio/theme/typeset"
 )
@@ -61,14 +62,15 @@ func chip(c color.NRGBA, widthDp, heightDp float32) layout.Widget {
 }
 
 // bodyLine mirrors popover_test.go's textContent: one non-wrapping
-// body-medium line at the Text pin, drawn through theme/typeset so the line
-// box is the role's LineHeight — which is exactly what makes the browser's
-// line box comparable.
+// body-medium line in the platform's label, flattened onto the window
+// background the popover is filled with, drawn through theme/typeset so the
+// line box is the role's LineHeight — which is exactly what makes the
+// browser's line box comparable.
 func bodyLine(shaper *text.Shaper, s string) layout.Widget {
 	style := tokens.DefaultTypography.BodyMedium
 	return func(gtx layout.Context) layout.Dimensions {
 		m := op.Record(gtx.Ops)
-		paint.ColorOp{Color: tokens.DefaultLight.Text}.Add(gtx.Ops)
+		paint.ColorOp{Color: vgcolor.Flatten(tokens.PlatformLight.Label, tokens.PlatformLight.WindowBackground)}.Add(gtx.Ops)
 		material := m.Stop()
 		f := typeset.Font(style, font.Normal)
 		lbl := typeset.Label(style, 1)
@@ -77,10 +79,11 @@ func bodyLine(shaper *text.Shaper, s string) layout.Widget {
 	}
 }
 
-// onColor wraps a layout.Widget in a fill of the given colour — the bg pin for
-// the scrimmed and anchored specimens, but the Surface pin for the toast stack,
-// which its goldens composite over Surface so the tinted fill is read
-// against the surface app panes are painted with.
+// onColor wraps a layout.Widget in a fill of the given colour — the plane the
+// specimen stands on, which every overlay in this set takes from the platform:
+// the window background for the scrimmed and anchored specimens, and the
+// content fill for the toast stack, which its goldens composite over the fill
+// an app pane is painted with.
 func onColor(bg color.NRGBA, w layout.Widget) layout.Widget {
 	return func(gtx layout.Context) layout.Dimensions {
 		paint.FillShape(gtx.Ops, bg, clip.Rect{Max: gtx.Constraints.Max}.Op())
@@ -94,8 +97,8 @@ var (
 	slotGrey     = color.NRGBA{R: 200, G: 200, B: 200, A: 255}
 	chipBlue     = color.NRGBA{R: 80, G: 160, B: 220, A: 255}
 	chipRed      = color.NRGBA{R: 220, G: 100, B: 100, A: 255}
-	lightBg      = tokens.DefaultLight.Background
-	lightSurface = tokens.DefaultLight.Surface
+	lightBg      = tokens.PlatformLight.WindowBackground
+	lightSurface = tokens.PlatformLight.ControlBackground
 )
 
 // TestOverlayMirrors scores each overlay specimen pair: the patterns component
@@ -116,7 +119,7 @@ func TestOverlayMirrors(t *testing.T) {
 			shaper,
 			modal.Props{Title: "Preferences", Body: grow(slotGrey, 40), Shaper: shaper},
 			true,
-			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
+			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.TitleMedium, tokens.Comfortable,
 		)},
 		{"dialog-decision.html", lightBg, modal.Render(
@@ -129,7 +132,7 @@ func TestOverlayMirrors(t *testing.T) {
 				Shaper:   shaper,
 			},
 			true,
-			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
+			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.TitleMedium, tokens.Comfortable,
 		)},
 		{"popover-bottom.html", lightBg, popover.Render(
@@ -139,13 +142,13 @@ func TestOverlayMirrors(t *testing.T) {
 				Placement: popover.Bottom,
 			},
 			true,
-			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
+			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 		)},
 		{"tooltip-top.html", lightBg, tooltip.Render(
 			shaper,
 			tooltip.Props{Text: "Save", Trigger: chip(chipBlue, 60, 28), Placement: tooltip.Top, Shaper: shaper},
 			true,
-			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
+			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.LabelSmall,
 		)},
 		{"toast-stack.html", lightSurface, notifications.Render(
@@ -156,7 +159,7 @@ func TestOverlayMirrors(t *testing.T) {
 				{ID: 2, Status: toast.Success, Text: "Workspace saved"},
 				{ID: 3, Status: toast.Warning, Text: "Connection is slow"},
 			},
-			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
+			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.LabelMedium,
 		)},
 	}

@@ -3,14 +3,14 @@
      patterns/navbar at the navbar goldens' light-comfortable configuration:
      the published sheet's own .navbar classes, no brand, no actions, the two
      link labels navbar_test.go shapes (Docs, Components) with the second
-     Active. The Gio bar fills its whole viewport with the Surface pin, so
-     the .navbar spans the full 480x52. -->
+     Active. The Gio bar fills its whole viewport with the platform's content fill, so
+     the .navbar spans the full 480x28 — ControlHeight + 2*PaddingY. -->
 <meta charset="utf-8">
 <link rel="stylesheet" href="/styles.css">
 <style>
   html, body { margin: 0; }
-  body { background: var(--color-surface); }
-  .navbar { width: 480px; height: 52px; }
+  body { background: var(--platform-control-background); }
+  .navbar { width: 480px; height: 28px; }
 </style>
 <nav class="navbar">
   <div class="navbar-links">

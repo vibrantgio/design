@@ -26,6 +26,7 @@ import (
 	"github.com/vibrantgio/patterns/card"
 	"github.com/vibrantgio/patterns/group"
 	"github.com/vibrantgio/patterns/table"
+	vgcolor "github.com/vibrantgio/theme/color"
 	"github.com/vibrantgio/theme/tokens"
 	"github.com/vibrantgio/theme/typeset"
 )
@@ -36,11 +37,12 @@ import (
 // size and its fixture pins the same box.
 var cardSize = image.Pt(280, 200)
 
-// tableSize is the table capture viewport — TestTableGolden's 360x200: a
-// 36 px header band, four 36 px rows, and 20 px of bare Surface below,
-// because drawTable fills its whole constraints with the Surface pin
-// before drawing the grid.
-var tableSize = image.Pt(360, 200)
+// tableSize is the table capture viewport, pinned off the platform's row
+// pitch rather than hand-tuned: a header row and four body rows at
+// Density.RowHeight, plus one more row's worth of the bare content fill
+// below them, because drawTable fills its whole constraints with the
+// platform's content fill before drawing the grid.
+var tableSize = image.Pt(360, 6*rowHeight)
 
 // textSlot mirrors card_test.go's slot helper: the card draws no text of
 // its own, so the slots are caller-built layout.Widgets drawn through
@@ -62,27 +64,31 @@ func textSlot(shaper *text.Shaper, style tokens.TextStyle, c color.NRGBA, s stri
 }
 
 // cardSlots is the header / body / footer trio both card fixtures carry:
-// title-medium at the Text pin, a single non-wrapping body-medium line at
-// neutral 700, label-medium at the accent pin — card_test.go's slots(),
-// shortened so neither renderer has a line-break decision to disagree on.
+// title-medium in the platform's label, a single non-wrapping body-medium
+// line in its secondary label, label-medium in its link colour —
+// card_test.go's slots(), shortened so neither renderer has a line-break
+// decision to disagree on. Each coverage is flattened onto the card's own
+// fill, which is what the slot is drawn over.
 func cardSlots(shaper *text.Shaper) (header, body, footer layout.Widget) {
-	c := tokens.DefaultLight
+	c := tokens.PlatformLight
 	typo := tokens.DefaultTypography
-	return textSlot(shaper, typo.TitleMedium, c.Text, "Density"),
-		textSlot(shaper, typo.BodyMedium, c.Ramps.Neutral.Step(700), "Comfortable and Compact"),
-		textSlot(shaper, typo.LabelMedium, c.Primary, "Read the token")
+	return textSlot(shaper, typo.TitleMedium, vgcolor.Flatten(c.Label, c.CardFill), "Density"),
+		textSlot(shaper, typo.BodyMedium, vgcolor.Flatten(c.SecondaryLabel, c.CardFill), "Comfortable and Compact"),
+		textSlot(shaper, typo.LabelMedium, c.Link, "Read the token")
 }
 
-// groupContent is what the group fixture holds: body-medium at the Text pin
-// over the same role at neutral 700, both single non-wrapping lines so
-// neither renderer has a line-break decision to disagree on. The group's own
-// label is not here — the pattern draws that itself, from Props.Label.
+// groupContent is what the group fixture holds: body-medium in the platform's
+// label over the same role in its secondary label, both single non-wrapping
+// lines so neither renderer has a line-break decision to disagree on. A group
+// declares no fill, so both coverages are flattened onto the surface it
+// stands on. The group's own label is not here — the pattern draws that
+// itself, from Props.Label.
 func groupContent(shaper *text.Shaper) []layout.Widget {
-	c := tokens.DefaultLight
+	c := tokens.PlatformLight
 	typo := tokens.DefaultTypography
 	return []layout.Widget{
-		textSlot(shaper, typo.BodyMedium, c.Text, "Comfortable"),
-		textSlot(shaper, typo.BodyMedium, c.Ramps.Neutral.Step(700), "Compact re-pitches"),
+		textSlot(shaper, typo.BodyMedium, vgcolor.Flatten(c.Label, c.WindowBackground), "Comfortable"),
+		textSlot(shaper, typo.BodyMedium, vgcolor.Flatten(c.SecondaryLabel, c.WindowBackground), "Compact re-pitches"),
 	}
 }
 
@@ -93,7 +99,7 @@ func groupContent(shaper *text.Shaper) []layout.Widget {
 func tableWidget(shaper *text.Shaper) layout.Widget {
 	cell := func(f func(int) string) func(int) layout.Widget {
 		return func(i int) layout.Widget {
-			return table.RenderTextCell(shaper, tokens.DefaultLight, tokens.DefaultTypography.BodyMedium, f(i))
+			return table.RenderTextCell(shaper, tokens.PlatformLight, tokens.DefaultTypography.BodyMedium, f(i))
 		}
 	}
 	names := []string{"Tokens", "Density", "Elevation", "Motion"}
@@ -103,7 +109,7 @@ func tableWidget(shaper *text.Shaper) layout.Widget {
 		{Header: "Steps", Width: unit.Dp(96), Cell: cell(func(i int) string { return strconv.Itoa(4 * (i + 1)) })},
 	}
 	return table.Render(shaper, cols, []int{0, 1, 2, 3}, table.Sort{Column: 0, Asc: true},
-		tokens.DefaultLight, tokens.Spacing, tokens.DefaultTypography.LabelLarge, tokens.Comfortable)
+		tokens.PlatformLight, tokens.Spacing, tokens.DefaultTypography.LabelLarge, tokens.Comfortable)
 }
 
 // TestPatternMirrors scores each pattern specimen pair: the patterns component
@@ -123,11 +129,11 @@ func TestPatternMirrors(t *testing.T) {
 	}{
 		{"card.html", cardSize, card.Render(
 			card.Props{Header: header, Body: body, Footer: footer},
-			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
+			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 		)},
 		{"group.html", cardSize, group.Render(shaper,
 			group.Props{Label: "Density", Content: groupContent(shaper)},
-			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
+			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.LabelLarge,
 		)},
 		{"table.html", tableSize, tableWidget(shaper)},

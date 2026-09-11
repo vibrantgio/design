@@ -3,7 +3,7 @@
      published bundle. The faithful mirror of components/button's filled
      button in its normal state. Since G1.2 it is the published sheet's own
      .btn class, straight from /styles.css, with a single local override:
-     the fixed 220px width, because the Gio reference fills its 220×36
+     the fixed 220px width, because the Gio reference fills its 220×24
      window's width. Everything else — fill, on-colour, radius, control
      height, label metrics — is the class itself, so this calibration
      scores the vocabulary the design surface actually composes with. -->
@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="/styles.css">
 <style>
   html, body { margin: 0; }
-  body { background: var(--color-bg); }
+  body { background: var(--platform-window-background); }
   .btn { width: 220px; }
 </style>
 <button class="btn">Save Changes</button>

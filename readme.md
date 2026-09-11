@@ -93,84 +93,100 @@ solid walk one and two steps from the pin toward 900.
 
 `styles.css` ends with the component class layer, defined over the tokens
 above — no literal colours anywhere, the only literal lengths being the
-component constants the Gio side also hardcodes (the 20 dp checkbox/radio
-glyph, its 10 dp dot, the 16 dp dropdown chevron, the 1/2 dp input
-borders) — so it re-brands, flips to `.dark` and densifies to `.compact`
-with the sheet. Every pointer/keyboard state rule carries a forcing twin
-class (`.is-hover`, `.is-active`, `.is-focus`, `.is-checked`) grouped into
-the same rule, so a static page can show a state with exactly the live
-declarations; disabled is forced with the native attribute.
+component constants the Gio side also hardcodes (the 16 dp
+checkbox/radio glyph, its 8 dp dot, the 16 dp dropdown chevron, the
+1/2 dp input borders) — so it flips to `.dark` and densifies to
+`.compact` with the sheet. Every colour in it is the platform's own
+name for what that element is on the platform, the same mapping the Gio
+components take: no role, no ramp step, no level, no derivation. Every
+pointer/keyboard state rule carries a forcing twin class (`.is-hover`,
+`.is-active`, `.is-focus`, `.is-checked`) grouped into the same rule, so
+a static page can show a state with exactly the live declarations;
+disabled is forced with the native attribute.
 
-`.btn` is the button, **filled** by default: the accent pin under its
-on-colour. Two modifier classes select the less pronounced emphasis
-variants — `.btn.tonal` (the accent's tint, `--color-btn-tonal-fill` under
-`--color-btn-tonal`: the same recipe `.badge` wears, one hue at two
-strengths) and `.btn.ghost` (no fill at rest; neutral 700 text).
-Interaction states resolve as the step walks above: hover walks one step
-(`:hover`), pressed and selected two (`:active`, `.selected`); a filled
-button's solid fill walks via the emitted `--color-accent-hover` /
-`--color-accent-pressed` stops, and a tonal button through its own
-`-hover` and `-active` pairs, whose foreground moves with the fill.
-Keyboard focus (`:focus-visible`) keeps the resting fill and draws the
-ring: `--focus-ring-width` of `--color-focus-ring`, the one ring the
-scheme carries — the step of the primary ramp nearest its mid-value step
-that reaches 3:1 against every level at once, so a control wears the same
-ring wherever it is put. It also parts from every resting border in
-luminance rather than in hue alone, so focus stays findable where a
-display or a system setting takes the colour away, and it is never the
-accent fill itself, which is what a checked control already paints.
-`--color-focus-ring-on-accent` is the sole exception, for the ring a
-filled button insets in its own fill: that fill is a step of the primary
-ramp too, and the scheme's ring cannot read on it. Same ring, same width,
-same 3:1 floor in every variant. Disabled (`:disabled`) fades each colour
-to `--state-disabled-opacity` of its alpha. A ghost has no selected
-treatment: it stays the least pronounced. `.btn.icon` is the icon-only
-form: a square the density's control height on a side, the glyph (an
-inline SVG on `currentColor`) inset by the density's vertical
-padding.
+A coverage composites the same on both sides, and that is what lets a
+rule name a platform colour and stop: the platform's labels, seams,
+overlays and focus ring are a colour at a coverage over whatever lies
+beneath, a browser composites `#rrggbbaa` in encoded sRGB, and so does
+`theme/color.Flatten` on the Gio side. Where the Gio component flattens
+a name onto its own fill, the CSS lets the element's background paint
+under the border, as it does by default; where it flattens onto the
+surface the control stands on instead — a text field's focus ring, a
+checkbox's edge — the rule sets `background-clip: padding-box` so the
+edge composites over the page. That pair of clips is the whole of what
+a control needs to know about its host; nothing is handed down.
 
-`.badge` is the inline annotation: `label-medium` text over a tinted field
-of its own hue. One hue at two strengths — a pale fill for the field and
-the same hue at reading strength for the word — and never the inverted
-pairing, which is what `.btn` uses and what a badge must not claim to be.
-No boundary and no vertical padding, so its height is the role's line box;
-the side padding is `--space-2` and the corner is `--radius-base`,
-deliberately not the pill `.chip` wears. The default is the plain category
-label; `.badge.success` / `.badge.warning` / `.badge.error` /
-`.badge.info` are the four statuses, differing in hue alone. Both halves
-are tokens because both are derived against a surface rather than named on
-a ramp — the fill against the page, the foreground against the fill.
-Compose them for status; never inline-style a status colour. A badge is
+`.btn` is the button, **filled** by default: `--platform-control-accent`
+under `--platform-alternate-selected-control-text`, which is the
+platform's default action. Two modifier classes select the less
+pronounced variants — `.btn.tonal`, the platform's ordinary push button
+(`--platform-push-button-fill` under `--platform-control-text`, inside a
+`--platform-separator` hairline), and `.btn.ghost`, its borderless kind
+(no fill, `--platform-control-text`). Nothing tints on hover: a Finder
+toolbar button does and a Save dialog's push button does not, and this
+sheet's classes are push buttons. Held (`:active`),
+`--platform-press-overlay` goes over whatever fill the variant carries
+and over the page where it carries none. Keyboard focus
+(`:focus-visible`) keeps the resting fill and insets
+`--platform-keyboard-focus-indicator` at `--focus-ring-width` — the same
+ring at the same width in every variant, because keyboard visibility is
+not a prominence property. Disabled (`:disabled`) is the platform's own
+answer rather than a fade: the fill falls back to the push button's
+inside the separator hairline and every foreground becomes
+`--platform-disabled-control-text`. `.btn.icon` is the icon-only form: a
+square the density's control height on a side, the glyph (an inline SVG
+on `currentColor`) inset by the density's vertical padding.
+
+`.badge` is the inline annotation: `label-medium` text on the platform's
+system colour for the status it carries, under
+`--platform-alternate-selected-control-text` — white in both
+appearances, which is how the platform draws a count badge. The default
+is `--platform-system-gray`, the platform naming no colour for "no
+status"; `.badge.success` / `.badge.warning` / `.badge.error` /
+`.badge.info` are systemGreen, systemOrange, systemRed and systemBlue.
+Never invert the pair and never tint the system colour toward the
+surface. No boundary and no vertical padding, so its height is the
+role's line box; the side padding is `--space-2` and the corner is
+`--radius-base`, deliberately not the pill a chip wears. A badge is
 read, not used: no interaction states.
 
 The form controls dress native elements — no script anywhere:
 `.input` (text `<input>`, and `<select class="input select">` inside a
-`.select-wrap` for the chevron), `.checkbox` and `.radio` on their native
-input types with `appearance: none`. They resolve exactly as
-`components/input` does: the Surface fill under `body-large` text,
-`--color-control-border` on the resting edge of all four controls,
-neutral 700 placeholder and chevron, focus promoting the border to the
-ring (2 dp on the text field, the shared outline on checkbox/radio),
-disabled fading every colour via `color-mix()`. That border is the
-neutral step the ramp measures as reaching 3:1 against the window
-backdrop, which is 600 in the light scheme and 500 in the dark; the named
-step it replaced read below the floor in one of them, at 2.67:1 in the
-scheme most people read in. The edge follows the control into a raised
-host: a surface that fills a deeper level declares `--surface-border`
-beside its own fill, the rules name it with the content's own token as
-the fallback, and every control inside re-derives — the same walk
-against the same fill the host measures its own outline against, which
-is why a checkbox in a dialog wears the dialog's edge. In the dark
-scheme the page's own step reads 2.62:1 over a level-2 fill and 1.80:1
-over a level-3 one, both under the floor; in the light scheme it clears
-every level and the handed-down token repeats. The ring does not
-follow, because it never left: it is measured against every level at
-once and is one colour for the scheme.
-Checked, the box is the accent fill under a check mark in the
-on-accent pin, drawn from the icon set's grid as two gradient bands — a
-fill says a colour was applied and only the mark says what it means. The
-radio's selected state is the accent ring and 10 dp dot around a Surface
-gap.
+`.select-wrap` for the chevron), `.checkbox` and `.radio` on their
+native input types with `appearance: none`. They resolve exactly as
+`components/input` does: `--platform-text-background` under
+`--platform-text`, `--platform-placeholder-text` for a prompt,
+`--platform-field-edge` on the resting edge, focus replacing that edge
+with `--platform-keyboard-focus-indicator` at `--focus-ring-width`, and
+`--platform-disabled-control-text` where the control cannot be used —
+the fill staying exactly where it was, because the platform fades the
+wording and leaves the control. A text field's height floor is
+`--density-field-height`, not the control height: the platform draws a
+field shorter than the button beside it. The dropdown trigger is the
+exception in this family and is a BUTTON rather than a field, so
+`.select` takes the push button's fill, the separator hairline and the
+control height. Checked, the box is `--platform-control-accent` under a
+check mark drawn from the icon set's grid as two gradient bands — a fill
+says a colour was applied and only the mark says what it means. The
+radio's selected state is the same accent filling the circle with an
+8 dp white dot at its centre.
+
+`.card` is the platform's grouped box: `--platform-card-fill`, a small
+step of fill from the surface it stands on, with no hairline and no
+shadow. `.group` is the other half of that ruling — a
+`--platform-separator` hairline around related components, taking the
+fill of the surface it is in and declaring none. `.table` prints on
+`--platform-control-background` with rows a `--density-row-height`
+tall, `--platform-grid` closing each and `--platform-separator` closing
+the header band. The navigation family — `.navbar`, `.tabs`, `.sidebar`
+and `.crumbs` — stands on `--platform-sidebar-material`, the chrome, and
+draws the separator where two flush regions meet; selection is
+`--platform-selected-content-background`, as an underline on a link or a
+tab and as the row's own fill on a rail. The overlay family —
+`.scrim`/`.dialog`, `.popover`, `.tooltip`, `.toast` — is filled with
+`--platform-window-background`, which is what every floating surface on
+this platform is filled with, and floats on
+`--platform-floating-shadow`.
 
 ## Elevation: default vs opt-in
 

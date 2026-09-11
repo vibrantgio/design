@@ -2,15 +2,15 @@
 <!-- Badge mirror fixture (design/mirror) — NOT part of the published bundle.
      A badge speaking the Warning status, at the light goldens' configuration: the
      published sheet's .badge.warning pinned to the viewport origin over the
-     level-0 surface. A badge derives its fill against the level it stands on
-     and its foreground against that fill, so the fixture stands on the same
-     surface the Gio capture does; body's background paints the whole
-     viewport, so that fill covers whatever size the harness captures at. -->
+     platform's window background, the plane the Gio capture stands on. A
+     badge wears the platform's system colour for its status under white,
+     whatever it stands on; body's background paints the whole viewport, so
+     that fill covers whatever size the harness captures at. -->
 <meta charset="utf-8">
 <link rel="stylesheet" href="/styles.css">
 <style>
   html, body { margin: 0; }
-  body { position: relative; background: var(--elevation-0); }
+  body { position: relative; background: var(--platform-window-background); }
   .badge { position: absolute; top: 0; left: 0; }
 </style>
 <span class="badge warning">Degraded</span>

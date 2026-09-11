@@ -1,15 +1,14 @@
 <!doctype html>
 <!-- G2.1 mirror fixture (design/mirror) — NOT part of the published bundle.
      components/input's unchecked checkbox: the published sheet's .checkbox
-     class, the 20px glyph centred in the 36px comfortable control row the
-     Gio reference draws (offset 8,8 in a 36x36 viewport). Its edge is the
-     step the neutral ramp measures against the window's own fill — 600 in
-     this light scheme — not the named neutral 500 the sheet once drew. -->
+     class, the 16px measured glyph centred in the 24px comfortable control
+     row the Gio reference draws (offset 4,4 in a 24x24 viewport). Its edge
+     is the platform's own measured field edge. -->
 <meta charset="utf-8">
 <link rel="stylesheet" href="/styles.css">
 <style>
   html, body { margin: 0; }
-  body { background: var(--color-bg); }
-  .checkbox { margin: 8px; }
+  body { background: var(--platform-window-background); }
+  .checkbox { margin: 4px; }
 </style>
 <input class="checkbox" type="checkbox">

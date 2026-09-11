@@ -4,14 +4,14 @@
      published sheet's .toast-stack anchored TopRight — inset S4 (16px) from
      the viewport edges, exactly paintColumn's edgePad — carrying the three
      status-role messages notifications_test.go shapes, newest (Warning) nearest the
-     anchored top edge. The scene composites over the Surface pin, as the
+     anchored top edge. The scene composites over the platform's content fill, as the
      toast goldens do, so the inverse fills are read against the surface app
      panes are painted with. -->
 <meta charset="utf-8">
 <link rel="stylesheet" href="/styles.css">
 <style>
   html, body { margin: 0; }
-  body { position: relative; background: var(--color-surface); width: 320px; height: 240px; }
+  body { position: relative; background: var(--platform-control-background); width: 320px; height: 240px; }
   .toast-stack { position: absolute; top: 16px; right: 16px; }
 </style>
 <div class="toast-stack">

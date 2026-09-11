@@ -568,23 +568,21 @@
 }
 
 /* ---- Component classes ----
-   The class vocabulary, built only on the tokens above. .btn mirrors
-   components/button: filled by default, .tonal and .ghost the emphasis
-   modifiers, states resolved exactly as the Gio side resolves them.
-   .input/.select/.checkbox/.radio mirror components/input,
+   The class vocabulary, built only on the tokens above, and every colour in
+   it the platform's own name. .btn mirrors components/button: filled by
+   default, .tonal and .ghost the less pronounced variants, states resolved
+   exactly as buttonColors resolves them. .input/.select/.checkbox/.radio
+   mirror components/input and the trigger components/picker draws for it,
    .badge the inline annotation components/badge draws (the plain category
-   label and the four status roles; the close mark is a Gio interaction and
-   has no class here), .card the patterns/card surface and .group the
-   patterns/group hairline, .table the patterns/table grid, the navigation
-   family — .navbar, .tabs, .sidebar (patterns) and .crumbs
-   (components/breadcrumb), and the overlay family — .scrim/.dialog
-   (patterns/modal), .popover,
-   .tooltip, .toast — the transient surfaces. The focus ring is the same
-   ring in every variant — one width, one hue, one measured floor against
-   whatever surface it circles: keyboard visibility is not an emphasis
-   property. Each state rule carries a forcing twin class (.is-hover,
-   .is-active, .is-focus, .is-checked) so a static page can show the state
-   with the very declarations the live pseudo-class applies. */
+   label and the four statuses; the close mark is a Gio interaction and has
+   no class here), .card the patterns/card box and .group the patterns/group
+   hairline, .table the patterns/table grid, the navigation family —
+   .navbar, .tabs, .sidebar (patterns) and .crumbs (components/breadcrumb) —
+   and the overlay family — .scrim/.dialog (patterns/modal), .popover,
+   .tooltip, .toast — the transient surfaces. Each state rule carries a
+   forcing twin class (.is-hover, .is-active, .is-focus, .is-checked) so a
+   static page can show the state with the very declarations the live
+   pseudo-class applies. */
 
 .btn {
   box-sizing: border-box;
@@ -606,187 +604,44 @@
   line-height: var(--font-label-large-line-height);
   font-weight: var(--font-label-large-weight);
   letter-spacing: var(--font-label-large-tracking);
-  background: var(--color-accent);
-  color: var(--color-on-accent);
+  background: var(--platform-control-accent);
+  color: var(--platform-alternate-selected-control-text);
 }
 
-/* Filled states: the solid fill walks from the pin toward the ramp's 900
-   end (hover one step, pressed and selected two) — the walked stops are
-   tokens, not mixes. */
-.btn:hover, .btn.is-hover { background: var(--color-accent-hover); }
-.btn.selected { background: var(--color-accent-pressed); }
-.btn:active, .btn.is-active { background: var(--color-accent-pressed); }
-
-/* Keyboard focus keeps the resting fill and adds the ring — a stroke
-   centred on the control's edge, as the Gio side draws it. One width, one
-   hue, one value: var(--color-focus-ring) is the step of the primary ramp
-   nearest its mid-value step that reaches the mark floor against every level at once
-   and parts from every level's resting border in luminance, so a control
-   wears the same ring wherever it was put, no rule here asks where that is,
-   and focus survives a display that removes the colour. The one surface
-   that belongs to no level is the accent fill a filled button's ring lies
-   on — that ring is inset in the button's own background rather than drawn
-   at its boundary, and no step that reads against the page reads against
-   that fill — so that one takes
-   var(--color-focus-ring-on-accent) wherever the button stands, and it is
-   the same ring in the same place at the same width. */
-.btn:focus-visible, .btn.is-focus {
-  outline: var(--focus-ring-width) solid var(--color-focus-ring-on-accent);
-  outline-offset: calc(var(--focus-ring-width) / -2);
-}
-.btn.tonal:focus-visible, .btn.tonal.is-focus,
-.btn.ghost:focus-visible, .btn.ghost.is-focus,
-.checkbox:focus-visible, .checkbox.is-focus,
-.radio:focus-visible, .radio.is-focus {
-  outline: var(--focus-ring-width) solid var(--color-focus-ring);
-  outline-offset: calc(var(--focus-ring-width) / -2);
-}
-
-/* --surface-border and --surface-raised are the level-local pair, and the
-   whole of how a raised host hands its level down to the controls inside
-   it. The first is the neutral step that reads on this level; the second is
-   the level a control that fills a box of its own is raised TO from here —
-   the step above the host's own.
-   Both inherit, so a surface declares them once — in its
-   own rule, beside the --elevation-N it fills with — and every control below
-   it re-derives, with no descendant selector anywhere in this sheet. It is
-   the sheet's spelling of RenderState.Level on the Gio side: what a control
-   resolves against is handed down, never looked up.
-
-   Nothing declares them at the root. A control that no raised host contains
-   stands on the content, and the fallback inside each var() IS the content's
-   answer — so the default is written once, at the point of use, and cannot
-   drift from the tokens the rules already name.
-
-   A focus ring is not among them, and that absence is the point: the ring is
-   one colour per scheme, measured against every level at once, so a raised
-   host has nothing to hand down. A resting edge is the boundary of one
-   surface and may differ per level — in the dark scheme the level-0 neutral
-   step reads |Lc| 43.56 over a level-2 fill and 36.14 over a level-3 one,
-   under what a mark owes the surface it stands on, which is why a checkbox in
-   a dialog wears the edge the dialog's own outline wears. The light scheme's
-   levels climb less far from its backdrop and its level-0 step already clears
-   every level, so the handed-down token repeats there and nothing moves — the
-   derivation reporting that nothing needs to.
-
-   The two join under different rules, and the difference is
-   worth stating. --surface-border is a MEASUREMENT, so a host only declares it
-   where the content's answer stops clearing — which is why .card, at level 1,
-   does not. --surface-raised is a LEVEL, and a
-   level differs by construction: a control filling at its host's own step is
-   invisible against it whatever the contrast table says. So every
-   raised surface a control can be put inside declares it — .card,
-   .dialog and .popover. A .group declares neither: it takes the fill of the
-   surface it is in and raises nothing, so a control inside a group asks the
-   same questions it would ask standing on that surface bare. The
-   popover declares the ceiling: at the top of the scheme's own range the
-   walk clamps rather than stepping, so a control in a popover fills flush
-   with it and is read by its border and by --elevation-3-seam. */
-
-/* Disabled is an opacity, not a ramp step: each colour keeps its hue and
-   fades to the disabled fraction of its alpha. */
-.btn:disabled {
-  cursor: default;
-  background: color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent);
-  color: color-mix(in srgb, var(--color-on-accent) var(--state-disabled-opacity), transparent);
-}
-
-/* Tonal: the accent's tint over the surface the button stands on, under the
-   accent's own colour at the text floor — the same recipe .badge wears, one
-   hue at two strengths, never an inverted on-colour. The foreground moves
-   with the fill under the pointer: a colour held over a fill that walked two
-   steps is measured against a surface no longer there. Selected resolves
-   where pressed does, the two-step walk. */
+/* Tonal is the platform's ordinary push button: its own measured fill under
+   the control text, inside a separator hairline. Both the label and the
+   hairline are coverages the platform states over that fill, so the element's
+   background paints under the border and the browser flattens them there. */
 .btn.tonal {
-  background: var(--color-btn-tonal-fill);
-  color: var(--color-btn-tonal);
-}
-.btn.tonal:hover, .btn.tonal.is-hover {
-  background: var(--color-btn-tonal-fill-hover);
-  color: var(--color-btn-tonal-hover);
-}
-.btn.tonal.selected,
-.btn.tonal:active, .btn.tonal.is-active {
-  background: var(--color-btn-tonal-fill-active);
-  color: var(--color-btn-tonal-active);
-}
-.btn.tonal:disabled {
-  background: color-mix(in srgb, var(--color-btn-tonal-fill) var(--state-disabled-opacity), transparent);
-  color: color-mix(in srgb, var(--color-btn-tonal) var(--state-disabled-opacity), transparent);
+  background: var(--platform-push-button-fill);
+  border: 1px solid var(--platform-separator);
+  padding: calc(var(--density-padding-y) - 1px) calc(var(--density-padding-x) - 1px);
+  color: var(--platform-control-text);
 }
 
-/* Ghost: no fill at rest — the neutral ramp's low-contrast text over
-   whatever surface it sits on; under the pointer it performs that
-   surface's own hover and press walk, the text walking to 900 with the
-   fill. No selected treatment: a ghost stays the least pronounced.
-
-   The walk is named as a level's own state rather than as a ramp step,
-   because a level is not a ramp step: the fills above the
-   pin are off the ramp in the light scheme and the backdrop is off it in the
-   dark one, so there is no index left to walk from. Each level's own
-   -hover and -active pair is that walk taken
-   from each level's own fill (components/button ghostWash, which is
-   tokens.ColorTokens.StateAt). A ghost told nothing stands on the content,
-   so the base rule is level 0's. */
+/* Ghost is the borderless kind: no fill at rest, the control text over
+   whatever it stands on. Held, the press overlay composites straight onto
+   that surface, which is the only fill a ghost ever has. */
 .btn.ghost {
   background: transparent;
-  color: var(--color-neutral-700);
-}
-.btn.ghost:hover, .btn.ghost.is-hover {
-  background: var(--elevation-0-hover);
-  color: var(--color-neutral-900);
-}
-.btn.ghost:active, .btn.ghost.is-active {
-  background: var(--elevation-0-active);
-  color: var(--color-neutral-900);
-}
-.btn.ghost:disabled {
-  background: transparent;
-  color: color-mix(in srgb, var(--color-neutral-700) var(--state-disabled-opacity), transparent);
+  color: var(--platform-control-text);
 }
 
-/* A ghost's state fill derives from the local surface it sits on, not the
-   window's own: inside a host that is not the content, the hover and press
-   fills re-derive as that host surface's own walk (components/button
-   buttonColors, walking from RenderState.Level). The card sits at level 1,
-   the dialog at level 2, the popover at
-   the deepest level 3; the text stays the ramp's 900 end, where the walk
-   itself clamps. A group has no rule of its own: it raises nothing, so a
-   ghost inside one takes the surface the group is in to that surface's
-   own hover and press steps.
-
-   Level 1 carries its own rule and the card is why: level 0 walks
-   from the Background pin and level 1 from the level above it, which are
-   two different fills and, in the dark scheme, two different state fills. */
-.card .btn.ghost:hover, .card .btn.ghost.is-hover {
-  background: var(--elevation-1-hover);
-}
-.card .btn.ghost:active, .card .btn.ghost.is-active {
-  background: var(--elevation-1-active);
-}
-.dialog .btn.ghost:hover, .dialog .btn.ghost.is-hover {
-  background: var(--elevation-2-hover);
-}
-.dialog .btn.ghost:active, .dialog .btn.ghost.is-active {
-  background: var(--elevation-2-active);
-}
-.popover .btn.ghost:hover, .popover .btn.ghost.is-hover {
-  background: var(--elevation-3-hover);
-}
-.popover .btn.ghost:active, .popover .btn.ghost.is-active {
-  background: var(--elevation-3-active);
-}
-
-/* Icon-only form (components/button drawIconButton): a square the
-   density's control height on a side, the glyph inset by the density's
-   vertical padding — content box ControlHeight − 2·PaddingY, icon.Size's
-   rule (20 dp comfortable, 16 dp compact). Emphasis reaches the colours
-   and stops there: the square never shrinks. The glyph inherits the
-   variant's text colour via currentColor. */
+/* Icon-only form (components/button drawIconButton): a square the density's
+   control height on a side, the glyph inset by the density's vertical
+   padding - content box ControlHeight - 2*PaddingY, icon.Size's rule. The
+   variant reaches the colours and stops there: the square never shrinks. The
+   glyph inherits the variant's text colour via currentColor. */
 .btn.icon {
   width: var(--density-control-height);
   height: var(--density-control-height);
   min-height: var(--density-control-height);
+  padding: var(--density-padding-y);
+}
+.btn.tonal.icon, .btn.icon:disabled {
+  padding: calc(var(--density-padding-y) - 1px);
+}
+.btn.ghost.icon:disabled {
   padding: var(--density-padding-y);
 }
 .btn.icon svg {
@@ -795,44 +650,67 @@
   fill: currentColor;
 }
 
+/* No hover rule, in any variant, and the absence is measured: a Finder
+   toolbar button tints under the pointer and a Save dialog's push button
+   does not, so a push button on this platform answers the pointer only when
+   it is held. Held, the platform lays its press overlay over the fill the
+   variant carries - written as a one-colour gradient layer over the
+   background colour, which is how CSS composites a coverage onto a fill in
+   the same space Flatten does, and straight onto the page where the variant
+   carries no fill, which is how a held ghost gets one at all. */
+.btn:active, .btn.is-active {
+  background-image: linear-gradient(var(--platform-press-overlay), var(--platform-press-overlay));
+}
+
+/* Keyboard focus: the platform's own indicator, inset in the control's
+   outermost 2 dp so the button's box does not grow, and the same ring at the
+   same width in every variant - keyboard visibility is not a prominence
+   property. The coverage composites over whatever the ring lies on, which is
+   the fill where the variant has one and the page where it has none: exactly
+   what focus.Ring is handed on the Gio side. */
+.btn:focus-visible, .btn.is-focus {
+  outline: var(--focus-ring-width) solid var(--platform-keyboard-focus-indicator);
+  outline-offset: calc(var(--focus-ring-width) / -2);
+}
+
+/* Disabled is the platform's own answer rather than a fade of the resting
+   colours: a variant that carries a fill falls back to the push button's
+   fill inside the separator hairline, and every foreground becomes the
+   platform's disabled control text. The padding gives back the hairline's
+   1px, as everywhere else in this sheet, so the drawn box does not grow. A
+   ghost keeps its absence of fill: there is nothing to fall back to. */
+.btn:disabled {
+  cursor: default;
+  background: var(--platform-push-button-fill);
+  border: 1px solid var(--platform-separator);
+  padding: calc(var(--density-padding-y) - 1px) calc(var(--density-padding-x) - 1px);
+  color: var(--platform-disabled-control-text);
+}
+.btn.ghost:disabled {
+  background: transparent;
+  border: none;
+  padding: var(--density-padding-y) var(--density-padding-x);
+  color: var(--platform-disabled-control-text);
+}
+
 /* ---- Badge ----
    The inline annotation components/badge draws: the system's own word about
-   a thing, sized to its type and coloured by the role it speaks in. It is
-   off the control metrics — no boundary, no minimum height, no vertical
-   padding — so its whole height is the label role's line box. A badge beside
-   a control is a fraction of that control's height and is meant to be.
+   a thing. A status is the platform's system colour for it, and the badge is
+   that colour filled with its content in white — alternateSelectedControlText,
+   which is white in both appearances — which is how the platform draws a
+   count badge. The fill does not vary with the status beyond the hue and the
+   white does not vary at all; never invert the pair, and never tint the
+   system colour toward the surface. Neutral is systemGray, the platform
+   giving no status colour for "no status".
 
-   It wears a tinted field, and the field is what says it is not a control.
-   One hue at two strengths: a pale fill, the role's hue tinted toward the
-   surface until it is a place rather than a mark, with the same hue at
-   reading strength on top of it. A saturated fill under knocked-out white
-   text is the variant interaction speaks in — .btn's — and a badge
-   borrowing it would be claiming to do something. Never invert these; never
-   put a status colour on inline style.
+   It is off the control metrics — no boundary, no minimum height, no vertical
+   padding — so its whole height is the label role's line box. The side
+   padding is the S2 stop and the corner the radius scale's Base stop,
+   deliberately not the pill, which is a chip's shape.
 
-   Both halves are tokens because both are derived rather than named on a
-   ramp. The fill is realized at a tone at the container chroma, at the depth
-   that separates it from the surface the sheet's pages stand on, which no
-   var() arithmetic over ramp steps could reproduce; the foreground is then
-   the role's pinned base while that base clears the text floor OVER THAT
-   FILL, and the nearest step to the mid-value that does otherwise. The pair
-   is measured together and only means anything together.
-
-   The side padding is the S2 stop and the vertical padding is none: the
-   label role's line box carries its own leading, so the field already stands
-   clear of the cap and the descender. The corner is the radius scale's Base
-   stop and deliberately not the pill — the pill is .chip's shape, and a chip
-   is the thing a badge must not be confused with.
-
-   The label role is the comfortable density's, one step less pronounced
-   than a chip's. The sheet re-maps no type role under .compact, so the class
-   states the comfortable role and a compact page sets its badges in the
-   same one.
-
-   Five variants: the default is the plain category label,
-   .success/.warning/.error/.info the four statuses. There is no emphasis
-   axis — emphasis belongs where interaction does, and a badge is read rather
-   than used.
+   The label role is the comfortable density's. The sheet re-maps no type role
+   under .compact, so the class states the comfortable role and a compact page
+   sets its badges in the same one.
 
    The close mark is a Gio interaction and has no class in this sheet, so a
    badge here carries no gap and no affordance — only the utterance. */
@@ -848,101 +726,96 @@
   line-height: var(--font-label-medium-line-height);
   font-weight: var(--font-label-medium-weight);
   letter-spacing: var(--font-label-medium-tracking);
-  background: var(--color-badge-neutral-fill);
-  color: var(--color-badge-neutral);
+  background: var(--platform-system-gray);
+  color: var(--platform-alternate-selected-control-text);
 }
-.badge.success {
-  background: var(--color-badge-success-fill);
-  color: var(--color-badge-success);
-}
-.badge.warning {
-  background: var(--color-badge-warning-fill);
-  color: var(--color-badge-warning);
-}
-.badge.error {
-  background: var(--color-badge-error-fill);
-  color: var(--color-badge-error);
-}
-.badge.info {
-  background: var(--color-badge-info-fill);
-  color: var(--color-badge-info);
-}
+.badge.success { background: var(--platform-system-green); }
+.badge.warning { background: var(--platform-system-orange); }
+.badge.error { background: var(--platform-system-red); }
+.badge.info { background: var(--platform-system-blue); }
 
 /* ---- Form controls ----
-   Native elements wearing components/input's resolution: the raised level
-   under body-large text, the neutral step that reads on the surface the
-   control stands on for the border, neutral 700 placeholder, focus promoting
-   the border to that surface's ring, disabled fading every colour to the
-   disabled fraction of its alpha.
+   Native elements wearing components/input's resolution: the platform's text
+   background under its text colour, the measured field edge as the resting
+   hairline, the placeholder text for a prompt, the keyboard focus indicator
+   focused, and the platform's disabled control text where a control cannot be
+   used — the fill staying exactly where it was, because the platform fades
+   the wording and leaves the control.
 
-   Every fill below names var(--surface-raised, var(--elevation-1)) rather than
-   a ramp step, and that is components/input's controlFill: a control that
-   paints a box of its own is raised on whatever hosts it, so it fills one
-   step nearer the viewer than its host. It used to be --color-surface, the
-   neutral ramp's step 200, which lands on the raised level in the dark
-   scheme by coincidence and on no level at all in the light one — a light
-   field filled a whole band step BELOW the page it lies on. A surface nearer
-   the viewer is never darker in either scheme, and on a desktop a text field
-   is the lightest thing in the window, not the darkest. The 1 px border and
-   the corner radius still carry the field's edge: a raise says a control is
-   raised, not where it ends. */
+   background-clip is the padding box throughout this family, and that is the
+   geometry rather than a style: components/input draws the edge as an outer
+   shape with the fill inset inside it, so a focus ring is the platform's
+   indicator over the SURFACE the control stands on, not over the control's
+   own fill. Clipping the background to the padding box is how CSS composites
+   the same pixel. */
 
-/* Text field (components/input textfield.go). Height = ControlHeight as a
-   floor, vertical inset PaddingY, horizontal inset S3 (12 dp — static, it
-   does not follow density). The Gio border is drawn inside the field
-   (nested fills), so the CSS padding gives back the 1px the border
-   occupies and the outer geometry matches exactly. */
+/* Text field (components/input textfield.go). The height floor is
+   Density.FieldHeight, not ControlHeight — the platform draws a field shorter
+   than the button beside it — and the drawn height is max(that, line box +
+   2*PaddingY). The horizontal inset is S3 (12 dp, static: it does not follow
+   density) measured from the OUTER edge, so the padding gives back whatever
+   the border occupies and the text lands where the Gio side puts it. */
 .input {
   box-sizing: border-box;
   display: block;
   width: 100%;
   margin: 0;
   appearance: none;
-  min-height: var(--density-control-height);
+  min-height: var(--density-field-height);
   padding: calc(var(--density-padding-y) - 1px) calc(var(--space-3) - 1px);
-  border: 1px solid var(--surface-border, var(--color-control-border));
+  border: 1px solid var(--platform-field-edge);
   border-radius: var(--radius-md);
-  background: var(--surface-raised, var(--elevation-1));
-  color: var(--color-text);
+  background: var(--platform-text-background);
+  background-clip: padding-box;
+  color: var(--platform-text);
   font-family: var(--font-family);
   font-size: var(--font-body-large-size);
   line-height: var(--font-body-large-line-height);
   font-weight: var(--font-body-large-weight);
   letter-spacing: var(--font-body-large-tracking);
 }
-.input::placeholder { color: var(--color-neutral-700); opacity: 1; }
+.input::placeholder { color: var(--platform-placeholder-text); opacity: 1; }
 
-/* Focus promotes the border to the ring and doubles it to the 2 dp the Gio
-   side draws — the second pixel as an inset shadow, so the field's outer
-   geometry and text position do not move (Gio thickens the border inward the
-   same way). The colour is the ring rule above, not the accent pin: a
-   promoted border IS the ring, and the accent pin is the seed a caller chose,
-   which measures as low as 1.00:1 against the surface it would be drawn on.
-   So the field takes the scheme's measured step like every other control —
-   and that step is measured against the levels rather than the field's own
-   fill because the band has the fill inside it and the level outside, and
-   the level is the side every control on it shares. */
+/* Focus replaces the edge with the ring and draws it at focus.Width, the
+   2 dp the Gio side draws, with the padding giving the two pixels back so the
+   field's outer geometry and its text position do not move. */
 .input:focus-visible, .input.is-focus {
   outline: none;
-  border-color: var(--color-focus-ring);
-  box-shadow: inset 0 0 0 1px var(--color-focus-ring);
+  border-width: var(--focus-ring-width);
+  border-color: var(--platform-keyboard-focus-indicator);
+  padding: calc(var(--density-padding-y) - var(--focus-ring-width)) calc(var(--space-3) - var(--focus-ring-width));
 }
 .input:disabled {
-  background: color-mix(in srgb, var(--surface-raised, var(--elevation-1)) var(--state-disabled-opacity), transparent);
-  color: color-mix(in srgb, var(--color-text) var(--state-disabled-opacity), transparent);
-  border-color: color-mix(in srgb, var(--surface-border, var(--color-control-border)) var(--state-disabled-opacity), transparent);
+  color: var(--platform-disabled-control-text);
 }
 .input:disabled::placeholder {
-  color: color-mix(in srgb, var(--color-neutral-700) var(--state-disabled-opacity), transparent);
+  color: var(--platform-disabled-control-text);
 }
 
-/* Dropdown (components/input dropdown.go): the trigger is a text field
-   whose right side reserves S3 + 16 dp chevron + S3, the same inset
-   drawTrigger keeps clear of the label. The chevron itself is drawn by the
-   .select-wrap wrapper — a native select cannot carry a generated child —
-   as a border-built triangle 16 dp wide and 8 dp tall (drawChevron's
-   half/quarter geometry) in neutral 700, the low-contrast glyph step. */
-.select { padding-right: calc(var(--space-3) * 2 + 16px - 1px); }
+/* Dropdown (components/input dropdown.go, drawn by components/picker's field
+   trigger): a trigger is a BUTTON and not a field, so it takes the push
+   button's own fill inside the separator hairline, the control height as its
+   floor, and the control text — a prompt standing in for an unmade choice
+   takes the placeholder instead. Its right side reserves S3 + the 16 dp
+   chevron + S3, the same inset drawTrigger keeps clear of the label. The
+   chevron is drawn by the .select-wrap wrapper — a native select cannot carry
+   a generated child — as a border-built triangle 16 dp across and 8 dp tall
+   (drawChevron's half/quarter geometry) in the platform's secondary label.
+   The whole family's padding-box clip is overridden here: this edge is the
+   separator over the trigger's own fill, so the fill paints under it. */
+.select {
+  min-height: var(--density-control-height);
+  padding-right: calc(var(--space-3) * 2 + 16px - 1px);
+  border-color: var(--platform-separator);
+  background-color: var(--platform-push-button-fill);
+  background-clip: border-box;
+  color: var(--platform-control-text);
+}
+.select:focus-visible, .select.is-focus {
+  border-color: var(--platform-keyboard-focus-indicator);
+  padding-right: calc(var(--space-3) * 2 + 16px - var(--focus-ring-width));
+}
+.select:disabled { color: var(--platform-disabled-control-text); }
 .select-wrap { position: relative; display: block; }
 .select-wrap::after {
   content: "";
@@ -954,153 +827,126 @@
   height: 0;
   border-left: 8px solid transparent;  /* 16 dp chevron width */
   border-right: 8px solid transparent;
-  border-top: 8px solid var(--color-neutral-700);
+  border-top: 8px solid var(--platform-secondary-label);
   pointer-events: none;
 }
 .select-wrap:has(.select:disabled)::after {
-  border-top-color: color-mix(in srgb, var(--color-neutral-700) var(--state-disabled-opacity), transparent);
+  border-top-color: var(--platform-disabled-control-text);
 }
 
-/* Checkbox (components/input checkbox.go): a 20 dp glyph (checkboxBoxSize
-   — a component constant, not a token; it does not follow density) over its
-   own raised fill. Unchecked, its 2 dp edge is the neutral step the ramp answers
-   with for a mark at the graphic floor on the level the box stands on — the
-   surface floor's --color-control-border (500 in the light scheme, 600 in the dark)
-   unless a raised host has re-pointed --surface-border. The radio, the text
-   field and the dropdown trigger wear that same edge, all four asking the
-   ramp the one question rather than naming a step between them.
-   Checked, the box is the
-   accent fill under a check mark in the on-accent pin, because a fill says
-   a colour was applied and only the mark says what that means: a column of
-   fills carries completion in hue alone, which is the one channel a reader
-   may not have.
+/* Checkbox (components/input checkbox.go): a 16 dp glyph (checkboxBoxSize,
+   measured off save-dialog-{light,dark}.png — a component constant, not a
+   token; it does not follow density) over the platform's text background,
+   inside the 2 dp field edge every control in this row wears. Checked, the
+   box is the platform's accent under a check mark in
+   alternateSelectedControlText, because a fill says a colour was applied and
+   only the mark says what that means: a column of fills carries completion in
+   hue alone, which is the one channel a reader may not have.
 
    The mark is drawn, not encoded. Gio strokes the icon set's centre line —
-   (4.5,12) → (9,16.5) → (19.5,6) on the set's 24-unit grid, a 2-unit
-   DIAGONAL band, round caps and joins — and at the 20 px glyph one grid
-   unit is 5/6 px, so the band is 1.667 px wide (±0.833 either side of the
-   centre) and the arms run from (3.75,10) to (7.5,13.75) to (16.25,5).
-   Each arm is one background layer: a linear-gradient banding its own box
-   perpendicular to the arm, 45deg for the short "\" arm and 135deg for the
-   long "/" one. Every stop is written from 50% because each box is sized
-   to its arm — the segment grown by half a band along its own axis, which
-   makes the arm the box's diagonal and the box's corners the round caps'
-   own tips:
-     short arm: 4.929 px square at 3.161,9.411   (3.75,10)→(7.5,13.75)
-     long arm:  9.929 px square at 6.911,4.411   (7.5,13.75)→(16.25,5)
+   (4.5,12) -> (9,16.5) -> (19.5,6) on the set's 24-unit grid, a 2-unit
+   DIAGONAL band, round caps and joins — and at the 16 px glyph one grid unit
+   is 2/3 px, so the band is 1.333 px wide (+/-0.667 either side of the centre)
+   and the arms run from (3,8) to (6,11) to (13,4). Each arm is one background
+   layer: a linear-gradient banding its own box perpendicular to the arm,
+   45deg for the short "\" arm and 135deg for the long "/" one. Every stop is
+   written from 50% because each box is sized to its arm — the segment grown
+   by half a band along its own axis, which makes the arm the box's diagonal
+   and the box's corners the round caps' own tips:
+     short arm: 3.943 px square at 2.529,7.529   (3,8)->(6,11)
+     long arm:  7.943 px square at 5.529,3.529   (6,11)->(13,4)
    CSS has no line cap, so the caps come out cut square inside those tips
-   rather than rounded — the same trade the icon set's own SVG files make
-   when they draw their caps as an explicit contour, and a sub-pixel one at
-   this size. background-origin is the border box so the grid is the 20 px
-   glyph the Gio side scales on, not the 16 px inside the edge. The focus
-   ring is the shared rule above. */
+   rather than rounded — the same trade the icon set's own SVG files make when
+   they draw their caps as an explicit contour, and a sub-pixel one at this
+   size. background-origin is the border box so the grid is the 16 px glyph
+   the Gio side scales on, not the 12 px inside the edge. */
 .checkbox, .radio {
   box-sizing: border-box;
   appearance: none;
   flex: none;
-  width: 20px;  /* checkboxBoxSize / radioCircleSize: 20 dp */
-  height: 20px;
+  width: 16px;  /* checkboxBoxSize / radioCircleSize: 16 dp, measured */
+  height: 16px;
   margin: 0;
-  border: 2px solid var(--surface-border, var(--color-control-border));
-  background: var(--surface-raised, var(--elevation-1));
+  border: 2px solid var(--platform-field-edge);
+  background: var(--platform-text-background);
+  background-clip: padding-box;
   cursor: pointer;
+}
+.checkbox:focus-visible, .checkbox.is-focus,
+.radio:focus-visible, .radio.is-focus {
+  outline: var(--focus-ring-width) solid var(--platform-keyboard-focus-indicator);
+  outline-offset: 1px;
 }
 .checkbox {
   border-radius: var(--radius-sm);
 }
 .checkbox:checked, .checkbox.is-checked {
-  border-color: var(--color-accent);
-  background-color: var(--color-accent);
+  border-color: var(--platform-control-accent);
+  background-color: var(--platform-control-accent);
+  background-clip: border-box;
   background-image:
-    linear-gradient(45deg, transparent calc(50% - 0.833px), var(--color-on-accent) calc(50% - 0.833px), var(--color-on-accent) calc(50% + 0.833px), transparent calc(50% + 0.833px)),
-    linear-gradient(135deg, transparent calc(50% - 0.833px), var(--color-on-accent) calc(50% - 0.833px), var(--color-on-accent) calc(50% + 0.833px), transparent calc(50% + 0.833px));
+    linear-gradient(45deg, transparent calc(50% - 0.667px), var(--platform-alternate-selected-control-text) calc(50% - 0.667px), var(--platform-alternate-selected-control-text) calc(50% + 0.667px), transparent calc(50% + 0.667px)),
+    linear-gradient(135deg, transparent calc(50% - 0.667px), var(--platform-alternate-selected-control-text) calc(50% - 0.667px), var(--platform-alternate-selected-control-text) calc(50% + 0.667px), transparent calc(50% + 0.667px));
   background-origin: border-box;
   background-repeat: no-repeat;
-  background-position: 3.161px 9.411px, 6.911px 4.411px;
-  background-size: 4.929px 4.929px, 9.929px 9.929px;
+  background-position: 2.529px 7.529px, 5.529px 3.529px;
+  background-size: 3.943px 3.943px, 7.943px 7.943px;
 }
-/* Disabled fades the box and its mark together, so the check stays the
-   on-colour of the fill it is drawn on. background-color rather than the
-   background shorthand: the shorthand would reset the checked rule's
-   layer geometry and the disabled-checked box would lose its mark. */
-.checkbox:disabled {
+/* Disabled: unchecked, the platform's disabled control text takes the edge
+   and the fill stays; checked, the accent fill is the accent at the disabled
+   fraction of its own coverage over the surface, with the mark following it. */
+.checkbox:disabled, .radio:disabled {
   cursor: default;
-  border-color: color-mix(in srgb, var(--surface-border, var(--color-control-border)) var(--state-disabled-opacity), transparent);
-  background-color: color-mix(in srgb, var(--surface-raised, var(--elevation-1)) var(--state-disabled-opacity), transparent);
+  border-color: var(--platform-disabled-control-text);
 }
 .checkbox:checked:disabled, .checkbox.is-checked:disabled {
-  border-color: color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent);
-  background-color: color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent);
+  border-color: color-mix(in srgb, var(--platform-control-accent) var(--state-disabled-opacity), transparent);
+  background-color: color-mix(in srgb, var(--platform-control-accent) var(--state-disabled-opacity), transparent);
   background-image:
-    linear-gradient(45deg, transparent calc(50% - 0.833px), color-mix(in srgb, var(--color-on-accent) var(--state-disabled-opacity), transparent) calc(50% - 0.833px), color-mix(in srgb, var(--color-on-accent) var(--state-disabled-opacity), transparent) calc(50% + 0.833px), transparent calc(50% + 0.833px)),
-    linear-gradient(135deg, transparent calc(50% - 0.833px), color-mix(in srgb, var(--color-on-accent) var(--state-disabled-opacity), transparent) calc(50% - 0.833px), color-mix(in srgb, var(--color-on-accent) var(--state-disabled-opacity), transparent) calc(50% + 0.833px), transparent calc(50% + 0.833px));
+    linear-gradient(45deg, transparent calc(50% - 0.667px), var(--platform-disabled-control-text) calc(50% - 0.667px), var(--platform-disabled-control-text) calc(50% + 0.667px), transparent calc(50% + 0.667px)),
+    linear-gradient(135deg, transparent calc(50% - 0.667px), var(--platform-disabled-control-text) calc(50% - 0.667px), var(--platform-disabled-control-text) calc(50% + 0.667px), transparent calc(50% + 0.667px));
 }
 
-/* Radio (components/input radio.go): the same 20 dp glyph as a circle;
-   selected keeps the gap ring and fills a 10 dp accent dot (radioDotSize) —
-   outer accent ring, the glyph's own raised fill, dot, exactly the Gio nested
-   fills. The gap is the glyph's interior, so it takes --surface-raised in the
-   chosen state as much as the resting one: the dot is drawn on the radio's
-   own surface, not on the host's. */
+/* Radio (components/input radio.go): the same 16 dp glyph as a circle.
+   Selected is the platform's accent filling the whole circle with an 8 dp dot
+   (radioDotSize) in alternateSelectedControlText at its centre — one fill and
+   one mark, exactly the Gio nested ellipses, and no gap ring. */
 .radio { border-radius: var(--radius-full); }
 .radio:checked, .radio.is-checked {
-  border-color: var(--color-accent);
-  background: radial-gradient(circle, var(--color-accent) 5px, var(--surface-raised, var(--elevation-1)) 5px); /* 10 dp dot */
-}
-.radio:disabled {
-  cursor: default;
-  border-color: color-mix(in srgb, var(--surface-border, var(--color-control-border)) var(--state-disabled-opacity), transparent);
-  background: color-mix(in srgb, var(--surface-raised, var(--elevation-1)) var(--state-disabled-opacity), transparent);
+  border-color: var(--platform-control-accent);
+  background: radial-gradient(circle, var(--platform-alternate-selected-control-text) 4px, var(--platform-control-accent) 4px); /* 8 dp dot */
+  background-clip: border-box;
 }
 .radio:checked:disabled, .radio.is-checked:disabled {
-  border-color: color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent);
-  background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) var(--state-disabled-opacity), transparent) 5px, color-mix(in srgb, var(--surface-raised, var(--elevation-1)) var(--state-disabled-opacity), transparent) 5px);
+  border-color: color-mix(in srgb, var(--platform-control-accent) var(--state-disabled-opacity), transparent);
+  background: radial-gradient(circle, var(--platform-disabled-control-text) 4px, color-mix(in srgb, var(--platform-control-accent) var(--state-disabled-opacity), transparent) 4px);
 }
 
 /* ---- Card and group ----
-   The two are one ruling with two answers. patterns/card singles something
-   out: one rounded surface raised on the content by tonal step alone — no
-   cast shadow, because a card is raised, not floating, and the dp shadows
-   stay reserved for surfaces that can leave (menus, dialogs, toasts); no
-   line of its own, because the raise is what does the singling out; and no
-   role, because what a developer wants to say about a card is a .badge in
-   its header. patterns/group divides the page: a hairline around related
-   components at the level of the surface the group is in, taking that
-   surface's own fill, so it declares no background at all and nothing is
-   derived against it.
+   The two are one ruling with two answers, and both are the platform's.
+   patterns/card singles something out: the grouped box System Settings draws
+   — a small step of fill from the surface it stands on, darker in the light
+   appearance and lighter in the dark one, with NO hairline and no shadow. The
+   step is the whole of what does the singling out. patterns/group divides the
+   page: a separator hairline around related components, taking the fill of
+   the surface the group is in, so it declares no background at all.
 
-   A card fills at the raise walked from the content (--elevation-1) and
-   carries the seam that raise owes — var(--surface-seam,
-   var(--elevation-0-seam)), transparent in the scheme where the fill tells
-   the raise on its own and a hairline where it does not. A card on the
-   content is told by its fill in both schemes, so that border shows only on
-   a card placed inside a host already at the top of its scheme, which is
-   what --surface-seam is redeclared for on .dialog and .popover.
-
-   A group's hairline is var(--surface-hairline,
-   var(--elevation-0-hairline)): the seam of two regions sharing one fill,
-   less pronounced than the 3:1 mark a graphic carrying meaning owes, and
-   never transparent — it is the whole of what says where the group ends. A
-   host at another level redeclares --surface-hairline, as .dialog and
-   .popover do, so a group inside one is derived against that host's fill.
-
-   Both carry radius Lg, an S4 inset and S3 gaps between the slots —
-   exactly drawCard's rad.Lg / sp.S4 / sp.S3. The Gio line lies inside the
-   bounds where the CSS border does, so the padding gives back the border's
-   1px and the slots land where the Gio inset puts them. Neither styles
-   slot text of its own: the Gio card draws no text at all, and the group
-   draws only its own label, so slot typography belongs to the content. */
+   Both carry radius Lg, an S4 inset and S3 gaps between the slots — exactly
+   drawCard's rad.Lg / sp.S4 / sp.S3. The group's line lies inside its bounds
+   where the CSS border does, so its padding gives the border's 1px back and
+   the slots land where the Gio inset puts them; the card has no line to give
+   back. Neither styles slot text of its own: the Gio card draws no text at
+   all, and the group draws only its own label. */
 .card {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding: calc(var(--space-4) - 1px);
-  border: 1px solid var(--surface-seam, var(--elevation-0-seam));
+  padding: var(--space-4);
+  border: none;
   border-radius: var(--radius-lg);
-  background: var(--elevation-1);
-  color: var(--color-text);
-  --surface-raised: var(--elevation-2);
+  background: var(--platform-card-fill);
+  color: var(--platform-label);
 }
 .group {
   box-sizing: border-box;
@@ -1108,49 +954,49 @@
   flex-direction: column;
   gap: var(--space-3);
   padding: calc(var(--space-4) - 1px);
-  border: 1px solid var(--surface-hairline, var(--elevation-0-hairline));
+  border: 1px solid var(--platform-separator);
   border-radius: var(--radius-lg);
-  color: var(--color-text);
+  color: var(--platform-label);
 }
 /* The group's own label: top-leading, inside the hairline, as the first row
    of the group's stack — the platform's idiom for a section header over a
    bordered container, and not the fieldset legend cut into the top line,
    which has no native counterpart and does not survive a Lg corner. The
-   label-large role in the ramp's low-contrast step: a group wears no role,
-   so it is never the accent, and never the Text pin, which would give a
-   section header the weight of the content it names. */
+   label-large role in the platform's secondary label: a group's own name is
+   set under the content it names. */
 .group-label {
   font-size: var(--font-label-large-size);
   line-height: var(--font-label-large-line-height);
   font-weight: var(--font-label-large-weight);
   letter-spacing: var(--font-label-large-tracking);
-  color: var(--color-neutral-700);
+  color: var(--platform-secondary-label);
 }
 
 /* ---- Table ----
-   patterns/table: the whole grid stands on the raised level (drawTable
-   fills the surface prop, which defaults to level 1) and the header band on
-   the raise walked from it (drawHeaderRow raises the grid's own fill, never
-   an absolute step), under neutral 700 label-large text (drawHeaderCell).
-   Both name --elevation-N rather than a ramp step, because a
-   level is not a ramp step in both schemes and a table that named one
-   would read as a mirror of itself between the two. Header and body rows are each exactly
-   one control height tall — the row-height rule (list.RowHeight), so .compact
-   re-pitches the whole grid — and every row closes with a 1 dp Seam rule
-   drawn inside its height. Cells inset horizontally by S3 (cellPadDp,
-   12 dp — static, the same inset rule the input uses); body text is body-medium at the
-   Text pin (RenderTextCell). There is no zebra: rows separate by the rules
-   alone. Sort is a 10x5 dp chevron in neutral 700 at the header's right
-   inset (drawSortChevron), drawn on the active column only — .sort-asc /
-   .sort-desc on a .sortable header. */
+   patterns/table: the grid is printed on the platform's content fill, which
+   is what a list, a table and a text view all stand on there, and the header
+   band takes no fill of its own — on this platform a table's header is the
+   content's fill under the header text, closed by a separator along its foot.
+   Header and body rows are each exactly Density.RowHeight tall — the
+   platform's stacked row, 20 dp comfortable, which is shorter than a control
+   — so .compact re-pitches the whole grid. Every body row closes with the
+   platform's grid colour drawn inside its own height; the header's foot is
+   the separator over the content fill. Cells inset horizontally by S3
+   (cellPadDp, 12 dp — static, the same inset rule the input uses); body text
+   is body-medium in the platform's label (RenderTextCell), header text the
+   platform's header text. Every second body row is laid on the platform's
+   alternating content background, which is what Finder's list view draws.
+   Sort is a 10 dp chevron in the header's own foreground at
+   the header's right inset (drawSortChevron), drawn on the active column only
+   — .sort-asc / .sort-desc on a .sortable header. */
 .table {
   box-sizing: border-box;
   border-collapse: separate;
   border-spacing: 0;
   table-layout: fixed;
   width: 100%;
-  background: var(--elevation-1);
-  color: var(--color-text);
+  background: var(--platform-control-background);
+  color: var(--platform-label);
   font-family: var(--font-family);
   font-size: var(--font-body-medium-size);
   line-height: var(--font-body-medium-line-height);
@@ -1159,18 +1005,26 @@
 }
 .table th, .table td {
   box-sizing: border-box;
-  height: var(--density-control-height);
+  height: var(--density-row-height);
   padding: 0 var(--space-3);
-  border-bottom: 1px solid var(--color-seam);
+  box-shadow: inset 0 -1px 0 var(--platform-grid);
   text-align: left;
   vertical-align: middle;
   white-space: nowrap;
   overflow: hidden;
 }
+/* The rule that closes a row is an inset shadow rather than a border,
+   because a table cell's height is its content's floor: a 1 dp border would
+   add a pixel to every row and walk the whole grid off the platform's pitch.
+   Drawn inside the row's own height, which is where drawRow draws it. */
+.table tbody tr:nth-child(even) td {
+  background: var(--platform-alternating-content-background);
+}
 .table th {
   position: relative;
-  background: var(--elevation-2);
-  color: var(--color-neutral-700);
+  background: var(--platform-control-background);
+  box-shadow: inset 0 -1px 0 var(--platform-separator);
+  color: var(--platform-header-text);
   font-size: var(--font-label-large-size);
   line-height: var(--font-label-large-line-height);
   font-weight: var(--font-label-large-weight);
@@ -1188,37 +1042,40 @@
   border-left: 5px solid transparent;  /* 10 dp chevron width */
   border-right: 5px solid transparent;
 }
-.table th.sort-asc::after { border-bottom: 5px solid var(--color-neutral-700); }  /* 5 dp tall, apex up */
-.table th.sort-desc::after { border-top: 5px solid var(--color-neutral-700); }
+.table th.sort-asc::after { border-bottom: 5px solid var(--platform-header-text); }  /* 5 dp tall, apex up */
+.table th.sort-desc::after { border-top: 5px solid var(--platform-header-text); }
 
 /* ---- Navigation ----
-   The four navigation patterns. All four rest their interactive cells on
-   the Surface fill (neutral 200), so the pointer states are that fill's
-   own one-step ramp walk — hover one step to neutral 300, exactly the state
-   fill the ghost variant paints on the same level. The Gio side draws no hover
-   (a native window has the pointer; a static page shows the resolution),
-   but the steps are the tokens' StateColor walk from step 200, not a new
-   mix. Selection is what the Gio side does draw: the 2 dp Primary underline
-   (navbar.go / tabs.go underlineDp) or the sidebar's StateColor(RolePrimary,
-   200, StateSelected) two-step walk to primary 400. */
+   The four navigation patterns. All four stand on the chrome: the platform's
+   sidebar material, which is a shade off the content in both appearances and
+   is what a navbar, a tab strip and a rail are filled with. Two flush regions
+   cannot be told apart by fill in the light appearance — the chrome material
+   IS the content's white there — so the region above or leading draws the
+   separator that says where it ends, inside its own bounds: the navbar's
+   foot, the tab strip's foot, the rail's trailing edge. None of the four
+   tints under the pointer: the platform tints neither a list row nor a
+   sidebar row, and this is the measured absence rather than an omission. What
+   they do draw is selection — the 2 dp underline on a link or a tab, the
+   selected row's own fill on a rail — in the platform's selection colour,
+   which follows the user's accent. */
 
-/* Navbar (patterns/navbar navbar.go): a horizontal Surface bar —
-   drawNavbar fills Surface, insets PaddingY vertically and S4 horizontally,
-   and patterns/shell pins the bar to ControlHeight + 2*PaddingY (28 dp
+/* Navbar (patterns/navbar navbar.go): a horizontal chrome bar — drawNavbar
+   fills the material, insets PaddingY vertically and S4 horizontally, and
+   patterns/shell pins the bar to ControlHeight + 2*PaddingY (28 dp
    comfortable, 19 compact). Slots run brand, centred links, actions; the
    links row centres in the space brand and actions leave over (that space
-   halved), which margin-inline auto reproduces exactly, including the
-   documented off-centre approximation when the end slots differ. Each slot
-   is drawn on the bar's own centre line, whatever height it comes back —
-   align-items centre over a definite content box is that same line. */
+   halved), which margin-inline auto reproduces exactly. The foot hairline is
+   an inset shadow rather than a border, because the Gio side paints it over
+   the bar's own bottom pixel without insetting the slots above it. */
 .navbar {
   box-sizing: border-box;
   display: flex;
   align-items: center;
   min-height: calc(var(--density-control-height) + 2 * var(--density-padding-y));
   padding: var(--density-padding-y) var(--space-4);
-  background: var(--elevation-chrome);
-  color: var(--color-text);
+  background: var(--platform-sidebar-material);
+  box-shadow: inset 0 -1px 0 var(--platform-separator);
+  color: var(--platform-label);
 }
 .navbar-links {
   display: flex;
@@ -1227,11 +1084,11 @@
   margin-inline: auto;  /* the leftover space, halved on either side */
 }
 
-/* A link cell (navbar.go linkWidget): label-large at the Text pin inside
-   (S3, PaddingY) padding, with a 2 dp underline slot along the bottom edge
-   that the Active link fills with the Primary pin — the underline runs the
-   full cell width, padding included, exactly the image.Rect the Gio side
-   fills. Hover is the Surface fill's one-step walk. */
+/* A link cell (navbar.go linkWidget): label-large in the platform's label
+   inside (S3, PaddingY) padding, with a 2 dp underline slot along the bottom
+   edge that the Active link fills with the platform's selection colour — the
+   underline runs the full cell width, padding included, exactly the
+   image.Rect the Gio side fills. */
 .navbar-link, .tab {
   box-sizing: border-box;
   display: inline-flex;
@@ -1249,32 +1106,30 @@
   line-height: var(--font-label-large-line-height);
   font-weight: var(--font-label-large-weight);
   letter-spacing: var(--font-label-large-tracking);
-  color: var(--color-text);
+  color: var(--platform-label);
   border-bottom: 2px solid transparent;  /* underlineDp: the underline slot */
 }
 .navbar-link {
   padding: var(--density-padding-y) var(--space-3);
 }
-.navbar-link:hover, .navbar-link.is-hover,
-.tab:hover, .tab.is-hover {
-  background: var(--color-neutral-300);
-}
 .navbar-link.selected, .tab.selected {
-  border-bottom-color: var(--color-accent);
+  border-bottom-color: var(--platform-selected-content-background);
 }
 
-/* Tabs (patterns/tabs tabs.go): the strip is a raised row of tab cells
-   exactly ControlHeight tall (drawTabs pins stripH to the density), each
-   cell its label plus 2*S3 horizontal padding with the label centred in the
-   height that remains above the 2 dp underline slot — which border-box
-   centring reproduces. The selected cell fills the slot with the Primary
-   pin; content panels below the strip are the caller's. */
+/* Tabs (patterns/tabs tabs.go): the strip is a chrome row exactly
+   ControlHeight tall (drawTabs pins stripH to the density), closed by the
+   separator along its foot, each cell its label plus 2*S3 horizontal padding
+   with the label centred in the height that remains above the 2 dp underline
+   slot — which border-box centring reproduces. The selected cell fills the
+   slot with the platform's selection colour; content panels below the strip
+   are the caller's, and stand on the content fill. */
 .tabs {
   box-sizing: border-box;
   display: flex;
   align-items: stretch;
   height: var(--density-control-height);
-  background: var(--elevation-1);
+  background: var(--platform-sidebar-material);
+  box-shadow: inset 0 -1px 0 var(--platform-separator);
 }
 .tab {
   height: 100%;
@@ -1282,29 +1137,31 @@
   justify-content: center;
 }
 
-/* Sidebar (patterns/sidebar sidebar.go): a vertical Surface rail at the
+/* Sidebar (patterns/sidebar sidebar.go): a vertical chrome rail at the
    pattern's two contractual widths — 192 dp expanded, 48 dp collapsed
-   (expandedDp/collapsedDp: component constants, deliberately not tokens
-   and not density-responsive; a different rail copies the pattern). The
-   toggle row and every item row are exactly ControlHeight tall (the
-   row-height rule, list.RowHeight), so .compact re-pitches the rail. The whole
-   rail is one keyboard stop — the focus ring belongs to the rail, and the
-   Arrow keys move .selected — so the ring rule below targets .sidebar
-   itself, not the rows. */
+   (expandedDp/collapsedDp: component constants, deliberately not tokens and
+   not density-responsive; a different rail copies the pattern) — closed by
+   the separator along its trailing edge. The toggle row is ControlHeight and
+   every item row is Density.RowHeight, the platform's stacked row, so
+   .compact re-pitches the rail. The whole rail is one keyboard stop — the
+   focus ring belongs to the rail, and the Arrow keys move .selected — so the
+   ring rule below targets .sidebar itself, not the rows. */
 .sidebar {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   width: 192px;  /* expandedDp */
-  background: var(--elevation-chrome);
-  color: var(--color-text);
+  background: var(--platform-sidebar-material);
+  box-shadow: inset -1px 0 0 var(--platform-separator);
+  color: var(--platform-label);
   overflow: hidden;
 }
 .sidebar.collapsed { width: 48px; }  /* collapsedDp */
 
 /* The collapse affordance (drawToggle): a full-width ControlHeight row with
-   a 16 dp neutral-700 placeholder glyph centred in it — pointer-only, never
-   a Tab stop. */
+   the icon set's sidebar mark centred in it at icon.Size — the control's
+   inner content box, ControlHeight - 2*PaddingY — in the platform's secondary
+   label. Pointer-only, never a Tab stop. */
 .sidebar-toggle {
   flex: none;
   display: flex;
@@ -1315,23 +1172,23 @@
 }
 .sidebar-toggle::after {
   content: "";
-  width: 16px;   /* drawToggle's 16 dp glyph */
-  height: 16px;
-  background: var(--color-neutral-700);
+  width: calc(var(--density-control-height) - 2 * var(--density-padding-y));
+  height: calc(var(--density-control-height) - 2 * var(--density-padding-y));
+  background: var(--platform-secondary-label);
 }
 
 /* An item row (drawItem): a 48 dp leading icon column (iconColDp) with the
    glyph centred in it, the label-large label starting at exactly the column
-   edge, vertically centred, one line, clipped rather than wrapped — which
-   is also what hides the labels at the collapsed width. Selected is
-   StateColor(RolePrimary, 200, StateSelected): the two-step walk past the
-   Surface fill to primary 400. */
+   edge, vertically centred, one line, clipped rather than wrapped — which is
+   also what hides the labels at the collapsed width. Selected takes the
+   platform's selection colour under a white label; nothing else moves, and
+   nothing tints under the pointer. */
 .sidebar-item {
   box-sizing: border-box;
   flex: none;
   display: flex;
   align-items: center;
-  height: var(--density-control-height);
+  height: var(--density-row-height);
   overflow: hidden;
   white-space: nowrap;
   cursor: pointer;
@@ -1340,12 +1197,14 @@
   line-height: var(--font-label-large-line-height);
   font-weight: var(--font-label-large-weight);
   letter-spacing: var(--font-label-large-tracking);
-  color: var(--color-text);
+  color: var(--platform-label);
   text-decoration: none;
   user-select: none;
 }
-.sidebar-item:hover, .sidebar-item.is-hover { background: var(--color-neutral-300); }
-.sidebar-item.selected { background: var(--color-primary-400); }
+.sidebar-item.selected {
+  background: var(--platform-selected-content-background);
+  color: var(--platform-alternate-selected-control-text);
+}
 .sidebar-item-icon {
   flex: none;
   display: flex;
@@ -1356,11 +1215,10 @@
 }
 
 /* Breadcrumb (components/breadcrumb breadcrumb.go): a row of title-small
-   segments with S2 gaps around 12 dp chevron separators (chevronDp). The
-   last segment is the current location at the Text pin; ancestors rest on
-   neutral 700 and, being links, hover to neutral 900 — the ghost variant's
-   text walk on the same surface. Colour follows position (labelColor), so
-   :last-child carries it; .current forces it for a specimen. */
+   segments with S2 gaps around 12 dp chevron separators (chevronDp). The last
+   segment is the current location in the platform's label; every ancestor is
+   a link and takes the platform's link colour. Colour follows position
+   (labelColor), so :last-child carries it; .current forces it for a specimen. */
 .crumbs {
   display: flex;
   align-items: center;
@@ -1372,16 +1230,15 @@
   letter-spacing: var(--font-title-small-tracking);
 }
 .crumb {
-  color: var(--color-neutral-700);
+  color: var(--platform-link);
   text-decoration: none;
   white-space: nowrap;
 }
-.crumb:hover, .crumb.is-hover { color: var(--color-neutral-900); }
-.crumbs .crumb:last-child, .crumb.current { color: var(--color-text); }
+.crumbs .crumb:last-child, .crumb.current { color: var(--platform-label); }
 
 /* The chevron separator (chevronWidget/drawChevron): a right-pointing
-   triangle half the 12 dp box wide and the full box tall, centred in it,
-   in neutral 700 — the low-contrast glyph step. */
+   triangle half the 12 dp box wide and the full box tall, centred in it, in
+   the platform's secondary label. */
 .crumb-sep {
   flex: none;
   display: flex;
@@ -1396,57 +1253,75 @@
   height: 0;
   border-top: 6px solid transparent;    /* 12 dp tall */
   border-bottom: 6px solid transparent;
-  border-left: 6px solid var(--color-neutral-700);  /* 6 dp deep, apex along +X */
+  border-left: 6px solid var(--platform-secondary-label);  /* 6 dp deep, apex along +X */
 }
 
 /* The keyboard ring, identical to every other control's: per-cell for the
-   navbar, tabs and breadcrumb (each cell is its own Clickable focus tag);
-   on the rail itself for the sidebar, whose single stop is the item list. */
+   navbar, tabs and breadcrumb (each cell is its own Clickable focus tag); on
+   the rail itself for the sidebar, whose single stop is the item list. */
 .navbar-link:focus-visible, .navbar-link.is-focus,
 .tab:focus-visible, .tab.is-focus,
 .crumb:focus-visible, .crumb.is-focus,
 .sidebar:focus-visible, .sidebar.is-focus {
-  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline: var(--focus-ring-width) solid var(--platform-keyboard-focus-indicator);
   outline-offset: calc(var(--focus-ring-width) / -2);
 }
 
 /* ---- Overlays ----
    The transient surfaces: the scrimmed dialog (patterns/modal), the
-   unscrimmed popover (patterns/popover), the inverse-filled tooltip
-   (components/tooltip) and the floating toast (components/toast, stood in a
-   column by patterns/notifications). The elevation
-   grammar: a scrimmed modal sits at level 2 (the scrim, not the
-   fill, isolates it); an unscrimmed, shadowless popover separates by fill
-   alone and takes the deepest level 3; the tooltip and the toast are placed
-   on the elevation but filled from neither of its steps — nothing stands on
-   either, so both take the inverse pair, and the toast keeps the level-3
-   cast shadow to say it can leave. */
+   unscrimmed popover (patterns/popover), the tooltip (components/tooltip) and
+   the floating toast (components/toast, stood in a column by
+   patterns/notifications). On this platform a floating surface is filled with
+   the window's own background, and what says it floats is the measured
+   shadow — not a lighter fill, and not a level. The popover and the tooltip
+   carry the separator around theirs as well, because a still surface flush
+   against the plane behind it needs the line; the dialog does not, the scrim
+   being what parts it.
 
-/* Scrim (modal.go drawModal/scrimColor): the whole-plane dimmer under a
-   dialog — --color-scrim, black at the fixed 50% alpha in both modes. The
-   scrim centres the dialog, exactly as drawModal centres the surface in the
-   window plane. Behaviour is part of the pattern: on a PANEL a scrim press
-   invokes OnClose; on a DECISION the scrim is INERT — it absorbs presses and
-   answers none of them, because dismissal is one of the decision's answers
-   and a stray click must not give it. */
+   The shadow is a measurement rather than a blur radius: it stands at the
+   platform's floating shadow at the surface's edge and falls LINEARLY to
+   nothing 24 px out (effects/depth, fitted to the stored sidebar-shadow
+   captures). CSS has no linear falloff, so it is approximated by eight
+   stacked spreads, each carrying an eighth of the coverage, which reproduces
+   the ramp to within one level of the measured one. */
+.dialog, .popover, .toast {
+  --floating-shadow-step: color-mix(in srgb, var(--platform-floating-shadow) 12.5%, transparent);
+  box-shadow:
+    0 0 0 3px var(--floating-shadow-step),
+    0 0 0 6px var(--floating-shadow-step),
+    0 0 0 9px var(--floating-shadow-step),
+    0 0 0 12px var(--floating-shadow-step),
+    0 0 0 15px var(--floating-shadow-step),
+    0 0 0 18px var(--floating-shadow-step),
+    0 0 0 21px var(--floating-shadow-step),
+    0 0 0 24px var(--floating-shadow-step);
+}
+
+/* Scrim (modal.go drawModal): the whole-plane dimmer under a dialog — the
+   platform's own scrim coverage, identical in both appearances, because a
+   scrim dims by reducing luminance and never flips with the scheme. The scrim
+   centres the dialog, exactly as drawModal centres the surface in the window
+   plane. Behaviour is part of the pattern: on a PANEL a scrim press invokes
+   OnClose; on a DECISION the scrim is INERT — it absorbs presses and answers
+   none of them, because dismissal is one of the decision's answers and a
+   stray click must not give it. */
 .scrim {
   position: absolute;
   inset: 0;
   display: grid;
   place-items: center;
-  background: var(--color-scrim);
+  background: var(--platform-scrim);
 }
 
-/* Dialog (modal.go drawModal): the centred surface — width 75% of the
-   window plane clamped to 180–560 dp, height hugging its content between the
-   120 dp floor and the 560 dp cap (overflow clips), a level-2 fill under
-   the 1 dp neutral 500 stroke, radius Lg, an S5 inset and S3 gaps between
-   header, body and footer. The padding gives back the border's 1px, the
-   card's trick, so content lands where the Gio inset puts it. G0A.2's two
-   purposes share this one surface: a PANEL carries a ghost icon close
-   (.btn.ghost.icon) in its header and no footer of its own; a DECISION
-   carries no X anywhere and a .dialog-footer whose right-aligned actions
-   end in the Return-bound default. */
+/* Dialog (modal.go drawModal): the centred surface — width 75% of the window
+   plane clamped to 180-560 dp, height hugging its content between the 120 dp
+   floor and the 560 dp cap (overflow clips), the window background under the
+   platform's shadow and no hairline at all, radius Lg, an S5 inset and S3
+   gaps between header, body and footer. G0A.2's two purposes share this one
+   surface: a PANEL carries a ghost icon close (.btn.ghost.icon) in its header
+   and no footer of its own; a DECISION carries no X anywhere and a
+   .dialog-footer whose right-aligned actions end in the Return-bound
+   default. */
 .dialog {
   box-sizing: border-box;
   display: flex;
@@ -1458,15 +1333,11 @@
   min-height: 120px;
   max-height: min(75%, 560px);
   overflow: hidden;
-  padding: calc(var(--space-5) - 1px);
-  border: 1px solid var(--color-dialog-border);
+  padding: var(--space-5);
+  border: none;
   border-radius: var(--radius-lg);
-  background: var(--elevation-2);
-  color: var(--color-text);
-  --surface-border: var(--color-dialog-border);
-  --surface-raised: var(--elevation-3);
-  --surface-seam: var(--elevation-2-seam);
-  --surface-hairline: var(--elevation-2-hairline);
+  background: var(--platform-window-background);
+  color: var(--platform-label);
 }
 
 /* The header row (modal.go headerWidget): the title-medium title on the
@@ -1496,68 +1367,66 @@
 }
 
 /* Popover (popover.go drawPopover): the unscrimmed anchored surface —
-   content plus an S3 inset (the padding gives back the border's 1px),
-   clamped to the 48x24 dp minimum, the deepest level-3 fill under the 1 dp
-   neutral 500 stroke, radius Md. Positioning against the anchor is the
-   page's: the pattern centres the surface on the anchor's midline, one S2
-   gap away on the Placement side. */
+   content plus an S3 inset (the padding gives back the hairline's 1px),
+   clamped to the 48x24 dp minimum, the window background under the platform's
+   shadow inside the platform's separator, radius Md. Positioning against the
+   anchor is the page's: the pattern centres the surface on the anchor's
+   midline, one S2 gap away on the Placement side. */
 .popover {
   box-sizing: border-box;
   display: inline-block;
   min-width: 48px;
   min-height: 24px;
   padding: calc(var(--space-3) - 1px);
-  border: 1px solid var(--color-popover-border);
+  border: 1px solid var(--platform-separator);
   border-radius: var(--radius-md);
-  background: var(--elevation-3);
-  color: var(--color-text);
-  --surface-border: var(--color-popover-border);
-  --surface-raised: var(--elevation-3);
-  --surface-seam: var(--elevation-3-seam);
-  --surface-hairline: var(--elevation-3-hairline);
+  background: var(--platform-window-background);
+  color: var(--platform-label);
 }
 
-/* The tail (popover.go drawTail): a triangle 12 dp across the base and
-   6 dp deep in the surface's own fill, bridging the gap with its tip at
-   the anchor. The modifier names the popover's Placement — a .top popover
-   sits above its anchor, so its tail points down. */
+/* The tail (popover.go drawTail): a triangle 12 dp across the base and 6 dp
+   deep in the surface's own fill, bridging the gap with its tip at the
+   anchor. The modifier names the popover's Placement — a .top popover sits
+   above its anchor, so its tail points down. */
 .popover-tail { width: 0; height: 0; }
 .popover-tail.top {
   border-left: 6px solid transparent;   /* 12 dp base */
   border-right: 6px solid transparent;
-  border-top: 6px solid var(--elevation-3);  /* 6 dp deep, tip down */
+  border-top: 6px solid var(--platform-window-background);
 }
 .popover-tail.bottom {
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-bottom: 6px solid var(--elevation-3);
+  border-bottom: 6px solid var(--platform-window-background);
 }
 .popover-tail.left {
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-left: 6px solid var(--elevation-3);
+  border-left: 6px solid var(--platform-window-background);
 }
 .popover-tail.right {
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-right: 6px solid var(--elevation-3);
+  border-right: 6px solid var(--platform-window-background);
 }
 
-/* Tooltip (components/tooltip tooltip.go drawSurface): the inverse-filled
-   bubble — InverseSurface under a label in OnInverseSurface, label-small,
-   radius Sm, S2/S1 padding, clamped to the 24x16 dp minimum. Level 3 is
-   where it is placed, not what it is filled with, and it casts no shadow:
-   the inverse fill is the whole cue. */
+/* Tooltip (components/tooltip tooltip.go drawSurface): the window background
+   inside the platform's separator under a label in the platform's label
+   colour, label-small, radius Sm, S2/S1 padding measured from the outer edge,
+   clamped to the 24x16 dp minimum. It casts no shadow: the hairline is the
+   whole of a still tooltip's edge, and what places it draws whatever shadow
+   the placement owes. The same in both appearances. */
 .tooltip {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   min-width: 24px;
   min-height: 16px;
-  padding: var(--space-1) var(--space-2);
+  padding: calc(var(--space-1) - 1px) calc(var(--space-2) - 1px);
+  border: 1px solid var(--platform-separator);
   border-radius: var(--radius-sm);
-  background: var(--color-inverse-surface);
-  color: var(--color-on-inverse-surface);
+  background: var(--platform-window-background);
+  color: var(--platform-label);
   white-space: nowrap;
   font-family: var(--font-family);
   font-size: var(--font-label-small-size);
@@ -1566,34 +1435,15 @@
   letter-spacing: var(--font-label-small-tracking);
 }
 
-/* Toast: one queued notification — 240 dp wide, a 36 dp legibility floor
-   that deliberately does not follow density (a toast is not a control),
-   radius Md, label-medium on the inverse pair, and floating on the level-3
-   cast shadow. It is the one surface built out of the counterpart scheme:
-   dark on a light scheme, light on a dark one, so a message that can
-   appear over any pane separates from all of them without claiming a
-   level none of them can be under. The shadow stays for what it says
-   rather than for the separation — this layer is temporary — and there is
-   no outline, which on the old tinted level-2 base was the only thing
-   giving the chip an edge.
-   The level shows as a leading edge one S2 wide, painted as a two-stop
-   gradient so the chip's own radius rounds it: the level's own mark on the
-   inverse surface, the step of that level's ramp nearest its mid-value step
-   that still reads over the chip. It was one S1, which is the width this
-   desktop keeps for separators, pane strokes and insets — hairlines it does
-   not want looked at — and a mark identified by its colour cannot be drawn
-   at hairline width. Two stops is as wide as the air above the message and
-   two thirds of the air beside it, which is where the widening stops: an
-   edge as wide as the gap it holds the text off by reads as a panel the
-   message sits next to rather than as the chip's own edge.
-   The mark arrives as a token rather than as a ramp reference because the
-   two schemes do not land on one step — a light scheme's marks come off
-   step 500 and a dark scheme's off step 400 — and because one step for both
-   cost the light scheme its reds, the error edge coming out the pale salmon
-   a red turns into when it is asked to sit as light as an orange wants to.
-   Each level takes its own status ramp — info included, which reads off the
-   info ramp rather than off the accent, so a themed brand cannot make an
-   informational chip wear the colour of an alarming one. */
+/* Toast: one queued notification — 240 dp wide, a 36 dp legibility floor that
+   deliberately does not follow density (a toast is not a control), radius Md,
+   label-medium in the platform's label over the window background, and
+   floating on the platform's measured shadow. The status is carried on the
+   leading edge alone, one S2 wide, in the platform's system colour for it —
+   painted as a two-stop gradient so the chip's own radius rounds it. A toast
+   says one thing about one event, and the colour of that edge is the whole of
+   what it says; the message stays in the reading colour every other surface
+   uses. */
 .toast {
   box-sizing: border-box;
   display: flex;
@@ -1603,9 +1453,8 @@
   padding: var(--space-2) var(--space-3);
   padding-left: calc(var(--space-2) + var(--space-3));
   border-radius: var(--radius-md);
-  background: linear-gradient(to right, var(--color-info-on-inverse) 0 var(--space-2), var(--color-inverse-surface) var(--space-2));
-  color: var(--color-on-inverse-surface);
-  box-shadow: var(--shadow-3);
+  background: linear-gradient(to right, var(--platform-system-blue) 0 var(--space-2), var(--platform-window-background) var(--space-2));
+  color: var(--platform-label);
   font-family: var(--font-family);
   font-size: var(--font-label-medium-size);
   line-height: var(--font-label-medium-line-height);
@@ -1613,13 +1462,13 @@
   letter-spacing: var(--font-label-medium-tracking);
 }
 .toast.success {
-  background: linear-gradient(to right, var(--color-success-on-inverse) 0 var(--space-2), var(--color-inverse-surface) var(--space-2));
+  background: linear-gradient(to right, var(--platform-system-green) 0 var(--space-2), var(--platform-window-background) var(--space-2));
 }
 .toast.warning {
-  background: linear-gradient(to right, var(--color-warning-on-inverse) 0 var(--space-2), var(--color-inverse-surface) var(--space-2));
+  background: linear-gradient(to right, var(--platform-system-orange) 0 var(--space-2), var(--platform-window-background) var(--space-2));
 }
 .toast.error {
-  background: linear-gradient(to right, var(--color-error-on-inverse) 0 var(--space-2), var(--color-inverse-surface) var(--space-2));
+  background: linear-gradient(to right, var(--platform-system-red) 0 var(--space-2), var(--platform-window-background) var(--space-2));
 }
 
 /* The column (notifications.go paintColumn): a corner-anchored column with

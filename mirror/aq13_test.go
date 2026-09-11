@@ -1,13 +1,13 @@
 package mirror
 
-// The focus-ring verdict: a focused control wears one ring colour per
-// scheme, on every level. The sheet carries that as a single token both
-// its backdrop and its raised rules name, and the Gio side as a
-// derivation that takes the scheme and nothing else; this pair scores the
-// two against each other on a raised level, which is where a
-// surface-derived ring would part from a scheme-derived one: a text field
-// focused inside a level-2 dialog. Like TestCalibration and the other mirror
-// verdicts, it only delivers a verdict on the authoritative machine;
+// The focus-ring verdict: a focused control wears the platform's keyboard
+// focus indicator, which is a colour at a coverage over whatever the ring
+// lies on. The sheet names that coverage and lets the browser composite it;
+// the Gio side flattens it against the surface the control was told it
+// stands on. This pair scores the two against each other where they could
+// part — a text field focused inside a dialog, so the ring lands on the
+// dialog's fill rather than on the page. Like TestCalibration and the other
+// mirror verdicts, it only delivers a verdict on the authoritative machine;
 // elsewhere one half of the harness skips loudly.
 //
 // The text field is the specimen because its ring is its own promoted border,
@@ -30,11 +30,11 @@ func TestFocusRingMirrors(t *testing.T) {
 	shaper := tokens.DefaultTypography.DeterministicShaper()
 
 	const fixture = "textfield-dialog-focus.html"
-	gio := golden.Capture(t, fieldSize, onColor(tokens.DefaultLight.SurfaceAt(tokens.Level2), input.Render(
+	gio := golden.Capture(t, fieldSize, onColor(tokens.PlatformLight.WindowBackground, input.Render(
 		shaper, "Placeholder",
-		tokens.DefaultLight, tokens.Spacing, tokens.Radius,
+		tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 		tokens.DefaultTypography.BodyLarge, tokens.Comfortable,
-		input.RenderState{Focused: true, Level: tokens.Level2},
+		input.RenderState{Focused: true, Surface: tokens.PlatformLight.WindowBackground},
 	)))
 	if !FixtureExists("fixtures/" + fixture) {
 		t.Fatalf("no embedded fixture %q — a typo here would screenshot a 404 page", fixture)
@@ -43,6 +43,6 @@ func TestFocusRingMirrors(t *testing.T) {
 	d := Distance(gio, web)
 	t.Logf("distance gio vs %s: %.4f (Tolerance %.4f)", fixture, d, Tolerance)
 	if d > Tolerance {
-		t.Errorf("pair %s scored %.4f > %.4f: the sheet's ring does not read as the component's own on a raised level", fixture, d, Tolerance)
+		t.Errorf("pair %s scored %.4f > %.4f: the sheet's ring does not read as the component's own on a hosted surface", fixture, d, Tolerance)
 	}
 }

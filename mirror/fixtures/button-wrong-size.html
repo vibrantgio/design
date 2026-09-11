@@ -1,8 +1,8 @@
 <!doctype html>
 <!-- Harness calibration fixture (design/mirror, G1.1) — deliberately WRONG:
      the sheet's own .btn class (as button.html wears it) forced to the
-     compact control height (28px) where the Gio reference renders
-     Comfortable (36px). Both height and min-height are overridden because
+     compact control height (19px) where the Gio reference renders
+     Comfortable (24px). Both height and min-height are overridden because
      the class floors its height at --density-control-height, which would
      otherwise silently correct this fixture. The harness must score it
      ABOVE Tolerance against the correct Gio render. -->
@@ -10,11 +10,11 @@
 <link rel="stylesheet" href="/styles.css">
 <style>
   html, body { margin: 0; }
-  body { background: var(--color-bg); }
+  body { background: var(--platform-window-background); }
   .btn {
     width: 220px;
-    height: 28px; /* wrong: .compact metrics under a Comfortable reference */
-    min-height: 28px;
+    height: 19px; /* wrong: .compact metrics under a Comfortable reference */
+    min-height: 19px;
   }
 </style>
 <button class="btn">Save Changes</button>

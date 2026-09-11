@@ -3,14 +3,15 @@
      patterns/table at TestTableGolden's light-comfortable configuration: the
      published sheet's own .table class, three columns (ID pinned 80px
      sortable and sorted ascending, Name flexed sortable, Steps pinned 96px),
-     four rows. The Gio reference fills its whole 360x200 viewport with the
+     four rows at the platform's 20 dp row pitch. The Gio reference fills its
+     whole 360x120 viewport with the
      Surface pin before drawing the grid, so the body fill below the last
      row is Surface here too. -->
 <meta charset="utf-8">
 <link rel="stylesheet" href="/styles.css">
 <style>
   html, body { margin: 0; }
-  body { background: var(--color-surface); }
+  body { background: var(--platform-control-background); }
   .table { width: 360px; }
 </style>
 <table class="table">

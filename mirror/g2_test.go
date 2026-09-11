@@ -22,25 +22,31 @@ import (
 	"github.com/vibrantgio/theme/tokens"
 )
 
-// onBackground wraps a layout.Widget in a fill of the light scheme's Background
-// pin, matching the fixtures' body { background: var(--color-bg) }.
+// onBackground wraps a layout.Widget in a fill of the platform's window
+// background, matching the fixtures' body { background:
+// var(--platform-window-background) }.
 func onBackground(w layout.Widget) func(layout.Context) layout.Dimensions {
 	return func(gtx layout.Context) layout.Dimensions {
-		paint.FillShape(gtx.Ops, tokens.DefaultLight.Background,
+		paint.FillShape(gtx.Ops, tokens.PlatformLight.WindowBackground,
 			clip.Rect{Max: gtx.Constraints.Max}.Op())
 		return w(gtx)
 	}
 }
 
-// glyphSize is the checkbox/radio capture viewport: the comfortable 36 dp
-// control row the 20 dp glyph is centred in — exactly what drawCheckbox and
-// drawRadio return.
-var glyphSize = image.Pt(36, 36)
+// glyphSize is the checkbox/radio capture viewport: the comfortable control
+// row the 16 dp glyph is centred in — exactly what drawCheckbox and drawRadio
+// return, which is max(ControlHeight, the glyph) square.
+var glyphSize = image.Pt(buttonHeight, buttonHeight)
 
-// fieldSize is the text-field/dropdown capture viewport: 220 wide like the
-// button captures, 40 tall because BodyLarge's 24 dp line box plus twice
-// the 8 dp vertical padding beats the 36 dp control-height floor.
-var fieldSize = image.Pt(220, 40)
+// fieldSize is the text-field capture viewport: 220 wide like the button
+// captures, and fieldHeight tall — BodyLarge's 24 dp line box plus twice the
+// density's 2 dp vertical padding, which beats the 27 dp field-height floor.
+var fieldSize = image.Pt(220, fieldHeight)
+
+// triggerSize is the dropdown capture viewport: the same width, at the
+// BUTTON's height, because components/picker's field trigger is a push
+// button and takes the control height where a text field takes its own.
+var triggerSize = image.Pt(220, buttonHeight)
 
 // TestComponentMirrors scores each component specimen pair: the Gio component
 // in a given variant/state against the browser render of the matching fixture,
@@ -53,8 +59,11 @@ func TestComponentMirrors(t *testing.T) {
 
 	// ceilings overrides Tolerance for a pair whose own cross-renderer floor
 	// sits above it; every other pair is scored against Tolerance itself.
-	// See dropdownForegroundFloor for the one entry and its measurement.
-	ceilings := map[string]float64{"dropdown.html": dropdownForegroundFloor}
+	// See pushButtonLabelFloor for the two entries and their measurement.
+	ceilings := map[string]float64{
+		"button-tonal.html": pushButtonLabelFloor,
+		"dropdown.html":     pushButtonLabelFloor,
+	}
 
 	cases := []struct {
 		fixture string
@@ -63,39 +72,39 @@ func TestComponentMirrors(t *testing.T) {
 	}{
 		{"button-tonal.html", mirrorSize, button.Render(
 			shaper, "Save Changes",
-			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
+			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.LabelLarge, tokens.Comfortable,
-			button.RenderState{Emphasis: button.Tonal},
+			button.RenderState{Emphasis: button.Tonal, Surface: tokens.PlatformLight.WindowBackground},
 		)},
 		{"button-ghost.html", mirrorSize, button.Render(
 			shaper, "Save Changes",
-			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
+			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.LabelLarge, tokens.Comfortable,
-			button.RenderState{Emphasis: button.Ghost},
+			button.RenderState{Emphasis: button.Ghost, Surface: tokens.PlatformLight.WindowBackground},
 		)},
 		{"textfield.html", fieldSize, input.Render(
 			shaper, "Placeholder",
-			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
+			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.BodyLarge, tokens.Comfortable,
-			input.RenderState{},
+			input.RenderState{Surface: tokens.PlatformLight.WindowBackground},
 		)},
-		{"dropdown.html", fieldSize, input.RenderDropdown(
+		{"dropdown.html", triggerSize, input.RenderDropdown(
 			shaper,
-			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
+			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.BodyLarge, tokens.Comfortable,
 			input.DropdownRenderState{Options: []string{"Comfortable", "Compact"}},
 		)},
 		{"checkbox.html", glyphSize, input.RenderCheckbox(
-			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
-			input.CheckboxRenderState{},
+			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
+			input.CheckboxRenderState{Surface: tokens.PlatformLight.WindowBackground},
 		)},
 		{"checkbox-checked.html", glyphSize, input.RenderCheckbox(
-			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
-			input.CheckboxRenderState{Checked: true},
+			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
+			input.CheckboxRenderState{Checked: true, Surface: tokens.PlatformLight.WindowBackground},
 		)},
 		{"radio-selected.html", glyphSize, input.RenderRadio(
-			tokens.DefaultLight, tokens.Spacing, tokens.Radius,
-			input.RadioRenderState{Selected: true},
+			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
+			input.RadioRenderState{Selected: true, Surface: tokens.PlatformLight.WindowBackground},
 		)},
 	}
 
@@ -119,29 +128,34 @@ func TestComponentMirrors(t *testing.T) {
 	}
 }
 
-// dropdownForegroundFloor is the dropdown pair's own cross-renderer floor, which
-// sits just above Tolerance, and this comment is the measurement that says
-// why it is a floor rather than a disagreement.
+// pushButtonLabelFloor is the cross-renderer floor shared by the two
+// specimens that are the push button's own fill under the platform's control
+// text at the control height — the tonal button and the dropdown trigger.
+// This comment is the measurement that says why it is a floor rather than a
+// disagreement.
 //
 // The two halves agree on colour exactly. Scored column by column across the
-// 220-wide frame, every cell right of the label — the trigger's fill, its
-// edge, the chevron — measures 0.0000; the whole distance is the label band,
-// and inside it both renderers place the same glyphs at the same positions
-// with the same number of antialiased pixels (295 against 293 over the band).
-// What differs is stem weight: Chromium's macOS rasteriser gamma-darkens
-// stems, so 266 pixels come out under 0x60 where Gio's produces 134. That is
-// the cross-renderer floor the Tolerance comment names — a different shaper,
-// a different rasteriser, a different gamma — and it is the noise the box
-// filter exists to average down rather than a colour the sheet got wrong.
+// 220-wide dropdown frame, every cell right of the label — the trigger's
+// fill, its edge, the chevron — measures 0.0000; the whole distance is the
+// label band, and inside it the two renderers place the same glyphs one pixel
+// apart and weigh their stems differently, Chromium's macOS rasteriser
+// gamma-darkening stems where Gio's does not. That is the cross-renderer
+// floor the package comment names.
 //
-// The pair clears Tolerance only because Distance is a mean of absolute RGB
-// distances, so a fixed coverage disagreement costs in proportion to the gap
-// between foreground and fill: with the trigger filled at the raised level the
-// gap against the Text pin is 229 levels rather than 213, and 0.0165 × 229/213
-// is 0.0177 against a measured 0.0178. This is the one specimen in the set
-// where the metric's absence of contrast normalisation shows — the
-// highest-contrast frame. The ceiling sits a hair above the measurement so
-// a real drift still fails, and it retires the day Distance normalises by the
-// frame's own foreground-to-fill range, which would fold this back under one
-// Tolerance for every pair.
-const dropdownForegroundFloor = 0.0185 // measured 0.0178 on the authoritative machine, 2026-08-27
+// It clears Tolerance only because Distance is a mean of absolute RGB
+// distances with no contrast normalisation, so a fixed coverage disagreement
+// costs in proportion to the gap between foreground and fill — and these are
+// the highest-contrast frames in the set: labelColor flattened in sRGB over
+// the push button's own #ececec fill is a 200-level gap on every channel,
+// inside a frame that is the control height and therefore almost entirely
+// label. The share is what moved, not the drawing: at the platform's 24 dp
+// control the label is 20 of 24 rows where it was 20 of 40.
+//
+// The ceiling sits above both measurements and below the nearest wrong
+// variant the calibration scores, so a real drift still fails. It retires the
+// day Distance normalises by the frame's own foreground-to-fill range, which
+// would fold both back under one Tolerance.
+//
+// Measured on the authoritative machine, 2026-09-11: button-tonal 0.0218,
+// dropdown 0.0251, against the wrong-radius variant's 0.0279.
+const pushButtonLabelFloor = 0.0265

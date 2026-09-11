@@ -1,0 +1,20 @@
+<!doctype html>
+<!-- I3.1 mirror fixture (design/mirror) — NOT part of the published bundle.
+     The ghost icon close held inside a dialog host: a ghost carries no fill
+     of its own, so the platform's press overlay lands on the surface the
+     button was put on and the sheet must composite it against exactly the
+     pixels the Gio side was told to flatten it against. The capture frames
+     only the button, so the dialog ancestor is reduced to its fill: display
+     contents strips its box, and the body paints the host's own fill. The
+     SVG carries the modal crossIcon geometry (a 20x20 glyph box, strokes 2,
+     stroked from 6 to 14, scaled into the button's own glyph square). -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  html, body { margin: 0; }
+  body { background: var(--platform-window-background); }
+  .dialog { display: contents; }
+</style>
+<div class="dialog">
+  <button class="btn ghost icon is-active" aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="14" y2="14"/><line x1="14" y1="6" x2="6" y2="14"/></svg></button>
+</div>

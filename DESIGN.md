@@ -274,10 +274,18 @@ parameters — the theme is reproducible from the file alone) and a CSS token
 sheet: the platform's colour set as `--platform-<name>` in both schemes, with
 a coverage written out as `#rrggbbaa` where a name carries one, alongside
 `--font-*`, `--space-*`, `--radius-*`, the density metrics — control, chip,
-field and row heights and the inner padding — and motion. The derived colour
-family (`--color-<role>-100…900`, the pins and the elevation surfaces) is
-still emitted beside it: the sheet's component class layer is written against
-it, and both leave together when that layer takes the platform's names. There
+field and row heights and the inner padding — and motion. Below the token
+blocks sits the component class layer, and every colour in it is now a
+`--platform-` name: the same mapping the Gio components take, class for
+class. A coverage needs no arithmetic there — the browser composites
+`#rrggbbaa` in encoded sRGB, which is what the platform does and what
+`theme/color.Flatten` reproduces — so a rule names the platform's colour and
+lets the browser flatten it, clipping the background to the padding box where
+the Gio side flattens onto the surface the control stands on rather than onto
+the control's own fill. The derived colour family
+(`--color-<role>-100…900`, the pins and the elevation surfaces) is still
+emitted above it for the pages that have not converted, and leaves when they
+do. There
 are also foundation pages that render the scales at real sizes, the colour
 page listing the platform's set name by name in both schemes. A round-trip test parses the CSS
 back and asserts every value against the Go token it came from, so the two

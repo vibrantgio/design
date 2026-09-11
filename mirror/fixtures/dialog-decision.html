@@ -12,7 +12,17 @@
 <link rel="stylesheet" href="/styles.css">
 <style>
   html, body { margin: 0; }
-  body { background: var(--color-bg); width: 320px; height: 240px; }
+  /* The scrim is pinned to the pixel the Gio reference lands on rather than
+     read from the class, and this is the one place in the set where the two
+     sides genuinely disagree. patterns/modal hands Gio the platform's scrim
+     as a coverage and never flattens it, and Gio composites a coverage in
+     LINEAR light where the platform, the browser and theme/color.Flatten
+     composite in encoded sRGB: the same #00000033 lands on #e7e7e7 here and
+     on #cccccc in Chromium. The pin keeps this pair scoring the dialog
+     instead of re-measuring that divergence, which is recorded for its own
+     task; fixtures may pin specimen values, the class layer may not. */
+  .scrim { background: #e7e7e7; }
+  body { background: var(--platform-window-background); width: 320px; height: 240px; }
   .body-slot { width: 100%; height: 40px; background: #c8c8c8; }
   .act-cancel { width: 60px; height: 28px; background: #50a0dc; }
   .act-discard { width: 60px; height: 28px; background: #dc6464; }

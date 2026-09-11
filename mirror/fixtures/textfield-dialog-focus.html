@@ -1,18 +1,18 @@
 <!doctype html>
 <!-- Focus-ring mirror fixture (design/mirror) — NOT part of the published
      bundle. A focused text field standing inside a dialog: the published
-     sheet must promote the field's border to the scheme's one ring, the same
-     colour it draws on the page, because the ring is measured against every
-     level at once and a raised host hands nothing down. A raised level is
-     where a surface-derived ring would part from a scheme-derived one. The
-     capture frames only the field, so the dialog ancestor is reduced to its
-     fill: display contents strips its box while keeping the inherited
-     custom properties live, and the body paints the host's own fill token. -->
+     sheet must promote the field's edge to the platform's keyboard focus
+     indicator, a coverage that composites over the surface the field stands
+     on rather than over the field's own fill — which is why .input clips its
+     background to the padding box. A hosted surface is where the two sides
+     could part. The capture frames only the field, so the dialog ancestor is
+     reduced to its fill: display contents strips its box, and the body
+     paints the host's own fill. -->
 <meta charset="utf-8">
 <link rel="stylesheet" href="/styles.css">
 <style>
   html, body { margin: 0; }
-  body { background: var(--elevation-2); }
+  body { background: var(--platform-window-background); }
   .dialog { display: contents; }
   .input { width: 220px; }
 </style>

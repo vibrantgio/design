@@ -36,7 +36,38 @@
 // Gio renders and useless across two renderers: Chromium and Gio shape text
 // and antialias edges differently by construction. [Distance] instead
 // box-downscales both images to coarse cells and averages the Euclidean RGB
-// distance per cell, so shaping and AA noise averages away while a wrong colour
-// role, radius or size still moves the number. [Tolerance] carries the
-// calibration; its comment carries the measured evidence.
+// distance per cell, so shaping and AA noise averages away while a wrong
+// colour, radius or size still moves the number.
+//
+// # The calibration
+//
+// Read on the authoritative machine (Chromium 153.0.8008.0, darwin/arm64)
+// on 2026-09-11, against the platform's own control scale — a 24 dp push
+// button, a 27 dp text field floor, a 20 dp stacked row:
+//
+//	Gio filled button vs its bundle mirror:             0.0178
+//	stability: same page captured twice in Chromium:    0.0000
+//	vs the mirror with the wrong colour (systemRed):    0.6765
+//	vs the mirror with the wrong radius (a pill):       0.0279
+//	vs the mirror with the wrong size (compact 19 dp):  0.1502
+//
+// [Tolerance] is 0.0223, the geometric midpoint of the two clusters' nearest
+// members: 1.25× the measured matching distance and 1.25× below the nearest
+// wrong variant, the pill radius, so both clear it by the same margin.
+//
+// Both margins narrowed at this re-baseline, and the cause is the platform's
+// scale rather than anything either side draws. The matching distance is the
+// label band and almost nothing else, and a 20 dp line box fills 20 of a
+// 24 dp button's rows where it filled 20 of 36; the wrong radius, meanwhile,
+// is a pill on a 24 dp button, which is a 12 px corner against the correct 6
+// where it used to be 18 against 6. The floor rose and the signal shrank,
+// both by the height. Widening the deliberate radius error instead of moving
+// the threshold was measured and rejected: an elliptical cap scores 0.1530
+// and stops being the NEAREST wrong variant, which is the whole reason that
+// fixture pins the threshold rather than the wrong-size one.
+//
+// The two specimens that are the push button's own fill under the platform's
+// control text — the tonal button and the dropdown trigger — carry their own
+// measured ceiling above Tolerance; see pushButtonLabelFloor for why that is
+// a floor and not a disagreement.
 package mirror

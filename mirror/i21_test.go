@@ -41,9 +41,9 @@ import (
 // The cross-pair column separates at every one of them, which it did not when
 // the badge stood bare: the specimen was then one word in one colour on the
 // page's own fill, and a block of colour is what the box filter needs to
-// tell one specimen from another. The container fill is that block. Both
-// columns are roughly twice what the bare badge measured, the match column
-// included — a filled specimen moves the metric whichever way it is wrong.
+// tell one specimen from another. The status fill is that block, and since
+// Phase CE it is the platform's own system colour, which parts the statuses
+// further than the tinted fields it replaced.
 //
 // The verdict wants Tolerance (0.017) BETWEEN the two columns: every right
 // pair under it and every wrong pair over it. Two viewports do that. 120x40
@@ -54,9 +54,8 @@ var badgeSize = image.Pt(120, 40)
 
 // TestBadgeMirrors scores every badge specimen pair: the Gio badge at a given
 // status against the browser render of each of the five fixtures, all at the
-// same viewport over the level-0 surface — the level the sheet's pages stand
-// on, and therefore the one both halves derive the fill and the foreground
-// against.
+// same viewport over the platform's window background — the plane the sheet's
+// pages stand on.
 //
 // Two criteria, and the second is what makes the first mean anything. Each
 // matching pair must land under Tolerance, or the page is not the badge; and
@@ -78,9 +77,10 @@ func TestBadgeMirrors(t *testing.T) {
 
 	for _, c := range badgeCases {
 		t.Run(c.fixture, func(t *testing.T) {
-			gio := golden.Capture(t, badgeSize, onColor(tokens.DefaultLight.SurfaceAt(tokens.Level0),
+			gio := golden.Capture(t, badgeSize, onColor(tokens.PlatformLight.WindowBackground,
 				badge.Render(shaper, c.label, nil, c.status,
-					tokens.DefaultLight, tokens.Spacing, tokens.Radius, style, badge.RenderState{})))
+					tokens.PlatformLight, tokens.Spacing, tokens.Radius, style,
+					badge.RenderState{Surface: tokens.PlatformLight.WindowBackground})))
 			for _, other := range badgeCases {
 				d := Distance(gio, webs[other.fixture])
 				t.Logf("distance gio %s vs %s: %.4f (Tolerance %.4f)", c.fixture, other.fixture, d, Tolerance)

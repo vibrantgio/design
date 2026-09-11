@@ -20,10 +20,23 @@ import (
 )
 
 // mirrorSize is the shared capture size: the Gio button fills its window's
-// width and renders Comfortable's 36 dp control height, so a 220×36 window
-// is exactly the button — and the fixtures draw a 220×36 .btn at the same
-// viewport.
-var mirrorSize = image.Pt(220, 36)
+// width and draws max(Comfortable's 24 dp control height, LabelLarge's 20 dp
+// line box + 2×PaddingY) = 24, so a 220×24 window is exactly the button —
+// and the fixtures draw a 220-wide .btn at the same viewport.
+var mirrorSize = image.Pt(220, buttonHeight)
+
+// The drawn heights every viewport in this package is pinned from, each
+// resolved by the density's own rule (tokens/density.go) rather than
+// hand-tuned, so a density change moves the frames with the components.
+//
+//	buttonHeight  max(ControlHeight 24, LabelLarge's 20 dp line box + 2×PaddingY 2)
+//	fieldHeight   max(FieldHeight 27, BodyLarge's 24 dp line box + 2×PaddingY 2)
+//	rowHeight     RowHeight, the platform's stacked row
+const (
+	buttonHeight = 24
+	fieldHeight  = 28
+	rowHeight    = 20
+)
 
 // gioFilledButton captures the reference render: components/button's filled
 // button, normal state, DefaultLight, Comfortable density, drawn with the
@@ -35,12 +48,12 @@ func gioFilledButton(t *testing.T) *image.RGBA {
 	shaper := tokens.DefaultTypography.DeterministicShaper()
 	w := button.Render(
 		shaper, "Save Changes",
-		tokens.DefaultLight, tokens.Spacing, tokens.Radius,
+		tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 		tokens.DefaultTypography.LabelLarge, tokens.Comfortable,
-		button.RenderState{},
+		button.RenderState{Surface: tokens.PlatformLight.WindowBackground},
 	)
 	return golden.Capture(t, mirrorSize, func(gtx layout.Context) layout.Dimensions {
-		paint.FillShape(gtx.Ops, tokens.DefaultLight.Background,
+		paint.FillShape(gtx.Ops, tokens.PlatformLight.WindowBackground,
 			clip.Rect{Max: gtx.Constraints.Max}.Op())
 		return w(gtx)
 	})

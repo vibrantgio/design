@@ -28,10 +28,13 @@ import (
 
 // navbarSize is the navbar capture viewport: the navbar goldens' 480 width
 // at the density-pinned bar height patterns/shell allocates — ControlHeight
-// + 2·PaddingY = 52 comfortable — rather than the goldens' 64, because the
-// bar fills whatever it is handed and the shell pin is the height the class
-// layer publishes.
-var navbarSize = image.Pt(480, 52)
+// + 2·PaddingY = 28 comfortable — because the bar fills whatever it is
+// handed and the shell pin is the height the class layer publishes.
+var navbarSize = image.Pt(480, buttonHeight+2*paddingY)
+
+// paddingY is the comfortable density's vertical padding, which the navbar's
+// own height is stated in.
+const paddingY = 2
 
 // tabsSize is the tabs capture viewport — TestTabsGolden's 240x128 frame:
 // the ControlHeight strip and, below it, the selected tab's content panel
@@ -73,7 +76,7 @@ func navIcon() layout.Widget {
 
 // navItems is the sidebar fixture's item set: the first three of
 // sidebar_test.go's labels, the second Active, so the selected row's
-// primary-400 fill is in frame in both widths.
+// selection fill is in frame in both widths.
 func navItems() []sidebar.Item {
 	labels := []string{"Overview", "Tokens", "Colour"}
 	items := make([]sidebar.Item, len(labels))
@@ -103,7 +106,7 @@ func TestNavigationMirrors(t *testing.T) {
 				{Label: "Docs"},
 				{Label: "Components", Active: true},
 			}},
-			tokens.DefaultLight, tokens.Spacing,
+			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.LabelLarge, tokens.Comfortable,
 		)},
 		{"tabs.html", tabsSize, tabs.Render(
@@ -113,21 +116,21 @@ func TestNavigationMirrors(t *testing.T) {
 				{Label: "Code"}, {Label: "Notes"},
 			}},
 			0,
-			tokens.DefaultLight, tokens.Spacing,
+			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.LabelLarge, tokens.Comfortable,
 		)},
 		{"sidebar.html", sidebarSize, sidebar.Render(
 			shaper,
 			sidebar.Props{Items: navItems()},
 			false,
-			tokens.DefaultLight, tokens.Spacing,
+			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.LabelLarge, tokens.Comfortable,
 		)},
 		{"sidebar-collapsed.html", sidebarCollapsedSize, sidebar.Render(
 			shaper,
 			sidebar.Props{Items: navItems()},
 			true,
-			tokens.DefaultLight, tokens.Spacing,
+			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.LabelLarge, tokens.Comfortable,
 		)},
 		{"breadcrumb.html", breadcrumbSize, breadcrumb.Render(
@@ -135,7 +138,7 @@ func TestNavigationMirrors(t *testing.T) {
 			breadcrumb.Props{Items: []breadcrumb.Item{
 				{Label: "Home"}, {Label: "Design"}, {Label: "Tokens"},
 			}},
-			tokens.DefaultLight, tokens.Spacing,
+			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.TitleSmall,
 		)},
 	}

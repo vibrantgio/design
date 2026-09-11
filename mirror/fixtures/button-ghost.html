@@ -1,13 +1,13 @@
 <!doctype html>
 <!-- G2.1 mirror fixture (design/mirror) — NOT part of the published bundle.
-     components/button's ghost variant at rest: no fill, neutral 700
-     label over the bg pin — the published sheet's .btn.ghost class at the
-     Gio reference's fixed width. -->
+     components/button's ghost variant at rest: no fill, the platform's
+     control text over the window background — the published sheet's
+     .btn.ghost class at the Gio reference's fixed width. -->
 <meta charset="utf-8">
 <link rel="stylesheet" href="/styles.css">
 <style>
   html, body { margin: 0; }
-  body { background: var(--color-bg); }
+  body { background: var(--platform-window-background); }
   .btn { width: 220px; }
 </style>
 <button class="btn ghost">Save Changes</button>
