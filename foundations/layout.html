@@ -151,6 +151,26 @@ h3 {
   font-size: var(--font-label-large-size);
   font-weight: var(--font-label-large-weight);
 }
+.field-bar {
+  height: var(--density-field-height);
+  padding: 0 var(--density-padding-x);
+  display: inline-flex;
+  align-items: center;
+  background: var(--platform-text-background);
+  color: var(--platform-placeholder-text);
+  border: thin solid var(--platform-field-edge);
+  border-radius: var(--radius-md);
+  font-size: var(--font-body-large-size);
+}
+.row-bar {
+  height: var(--density-row-height);
+  padding: 0 var(--space-2);
+  display: flex;
+  align-items: center;
+  background: var(--platform-alternating-content-background);
+  color: var(--platform-label);
+  font-size: var(--font-body-large-size);
+}
 .pad-box {
   display: inline-block;
   padding: var(--density-padding-y) var(--density-padding-x);
@@ -252,6 +272,10 @@ h3 {
 <span class="chip-bar">Chip</span>
 </div>
 <p class="annot"><code>--density-control-height</code> &middot; 24px &middot; <code>--density-chip-height</code> &middot; 20px &middot; hit target &ge; 44px</p>
+<div><span class="field-bar">Text field</span></div>
+<p class="annot"><code>--density-field-height</code> &middot; 27px &mdash; the platform draws a field taller than a button</p>
+<div class="row-bar">Stacked row</div>
+<p class="annot"><code>--density-row-height</code> &middot; 20px &mdash; a pin, not a floor: rows tile</p>
 <div class="pad-box">padding</div>
 <p class="annot"><code>--density-padding-x</code> 8px &middot; <code>--density-padding-y</code> 2px</p>
 </div>
@@ -262,6 +286,10 @@ h3 {
 <span class="chip-bar">Chip</span>
 </div>
 <p class="annot"><code>--density-control-height</code> &middot; 19px &middot; <code>--density-chip-height</code> &middot; 15px &middot; hit target &ge; 44px</p>
+<div><span class="field-bar">Text field</span></div>
+<p class="annot"><code>--density-field-height</code> &middot; 21px &mdash; the platform draws a field taller than a button</p>
+<div class="row-bar">Stacked row</div>
+<p class="annot"><code>--density-row-height</code> &middot; 19px &mdash; a pin, not a floor: rows tile</p>
 <div class="pad-box">padding</div>
 <p class="annot"><code>--density-padding-x</code> 7px &middot; <code>--density-padding-y</code> 0px</p>
 </div>

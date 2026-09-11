@@ -76,6 +76,20 @@ h3 {
 .mode-toggle:hover {
   background: var(--color-neutral-300);
 }
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-4) 0;
+}
+.platform-swatch {
+  height: var(--space-12);
+  border: thin solid var(--platform-separator);
+  border-radius: var(--radius-sm);
+}
+.platform-name .annot {
+  margin: var(--space-1) 0 0;
+}
 .ramp {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
@@ -631,6 +645,224 @@ h3 {
 <tr><th scope="row">on-info on info</th><td>-87.4</td><td>74.8</td></tr>
 </tbody>
 </table>
+</section>
+<section>
+<h2>The platform's colour set</h2>
+<p class="intro">AppKit's semantic colours under their own names, plus the ten fills the platform draws without naming one, measured. Each swatch is painted through <code>var(--platform-&lt;name&gt;)</code>, so the toggle restyles it; the hexes beside it are printed for both schemes, labelled L and D. A name that carries a coverage is printed and painted as <code>#rrggbbaa</code> &mdash; the platform's answer for a label, a seam, an overlay or the focus ring is a colour AT a coverage over whatever lies beneath, and the swatch shows it over the page it is on.</p>
+<div class="platform-grid">
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-window-background)"></div>
+<p class="annot"><code>--platform-window-background</code><br>L #ffffff &middot; D #1e1e1e</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-under-page-background)"></div>
+<p class="annot"><code>--platform-under-page-background</code><br>L #969696e6 &middot; D #282828</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-control-background)"></div>
+<p class="annot"><code>--platform-control-background</code><br>L #ffffff &middot; D #1e1e1e</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-text-background)"></div>
+<p class="annot"><code>--platform-text-background</code><br>L #ffffff &middot; D #1e1e1e</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-selected-content-background)"></div>
+<p class="annot"><code>--platform-selected-content-background</code><br>L #0064e1 &middot; D #0059d1</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-unemphasized-selected-content-background)"></div>
+<p class="annot"><code>--platform-unemphasized-selected-content-background</code><br>L #dcdcdc &middot; D #464646</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-selected-text-background)"></div>
+<p class="annot"><code>--platform-selected-text-background</code><br>L #b3d7ff &middot; D #3f638b</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-unemphasized-selected-text-background)"></div>
+<p class="annot"><code>--platform-unemphasized-selected-text-background</code><br>L #dcdcdc &middot; D #464646</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-find-highlight)"></div>
+<p class="annot"><code>--platform-find-highlight</code><br>L #faefbd &middot; D #6e6e4d</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-separator)"></div>
+<p class="annot"><code>--platform-separator</code><br>L #0000001a &middot; D #ffffff1a</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-grid)"></div>
+<p class="annot"><code>--platform-grid</code><br>L #e6e6e6 &middot; D #1a1a1a</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-label)"></div>
+<p class="annot"><code>--platform-label</code><br>L #000000d9 &middot; D #ffffffd9</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-secondary-label)"></div>
+<p class="annot"><code>--platform-secondary-label</code><br>L #00000080 &middot; D #ffffff8c</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-tertiary-label)"></div>
+<p class="annot"><code>--platform-tertiary-label</code><br>L #00000042 &middot; D #ffffff40</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-quaternary-label)"></div>
+<p class="annot"><code>--platform-quaternary-label</code><br>L #0000001a &middot; D #ffffff1a</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-text)"></div>
+<p class="annot"><code>--platform-text</code><br>L #000000 &middot; D #ffffff</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-placeholder-text)"></div>
+<p class="annot"><code>--platform-placeholder-text</code><br>L #00000080 &middot; D #ffffff8c</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-selected-text)"></div>
+<p class="annot"><code>--platform-selected-text</code><br>L #000000 &middot; D #ffffff</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-link)"></div>
+<p class="annot"><code>--platform-link</code><br>L #0068da &middot; D #419cff</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-header-text)"></div>
+<p class="annot"><code>--platform-header-text</code><br>L #000000d9 &middot; D #ffffff</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-control)"></div>
+<p class="annot"><code>--platform-control</code><br>L #ffffff &middot; D #ffffff40</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-control-text)"></div>
+<p class="annot"><code>--platform-control-text</code><br>L #000000d9 &middot; D #ffffffd9</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-disabled-control-text)"></div>
+<p class="annot"><code>--platform-disabled-control-text</code><br>L #00000040 &middot; D #ffffff40</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-selected-control)"></div>
+<p class="annot"><code>--platform-selected-control</code><br>L #b3d7ff &middot; D #3f638b</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-selected-control-text)"></div>
+<p class="annot"><code>--platform-selected-control-text</code><br>L #000000d9 &middot; D #ffffffd9</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-alternate-selected-control-text)"></div>
+<p class="annot"><code>--platform-alternate-selected-control-text</code><br>L #ffffff &middot; D #ffffff</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-control-accent)"></div>
+<p class="annot"><code>--platform-control-accent</code><br>L #007aff &middot; D #007aff</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-keyboard-focus-indicator)"></div>
+<p class="annot"><code>--platform-keyboard-focus-indicator</code><br>L #0067f480 &middot; D #1aa9ff80</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-system-red)"></div>
+<p class="annot"><code>--platform-system-red</code><br>L #ff383c &middot; D #ff4245</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-system-orange)"></div>
+<p class="annot"><code>--platform-system-orange</code><br>L #ff8d28 &middot; D #ff9230</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-system-yellow)"></div>
+<p class="annot"><code>--platform-system-yellow</code><br>L #ffcc00 &middot; D #ffd600</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-system-green)"></div>
+<p class="annot"><code>--platform-system-green</code><br>L #34c759 &middot; D #30d158</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-system-mint)"></div>
+<p class="annot"><code>--platform-system-mint</code><br>L #00c8b3 &middot; D #00dac3</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-system-teal)"></div>
+<p class="annot"><code>--platform-system-teal</code><br>L #00c3d0 &middot; D #00d2e0</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-system-cyan)"></div>
+<p class="annot"><code>--platform-system-cyan</code><br>L #00c0e8 &middot; D #3cd3fe</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-system-blue)"></div>
+<p class="annot"><code>--platform-system-blue</code><br>L #0088ff &middot; D #0091ff</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-system-indigo)"></div>
+<p class="annot"><code>--platform-system-indigo</code><br>L #6155f5 &middot; D #6d7cff</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-system-purple)"></div>
+<p class="annot"><code>--platform-system-purple</code><br>L #cb30e0 &middot; D #db34f2</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-system-pink)"></div>
+<p class="annot"><code>--platform-system-pink</code><br>L #ff2d55 &middot; D #ff375f</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-system-brown)"></div>
+<p class="annot"><code>--platform-system-brown</code><br>L #ac7f5e &middot; D #b78a66</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-system-gray)"></div>
+<p class="annot"><code>--platform-system-gray</code><br>L #8e8e93 &middot; D #98989d</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-shadow)"></div>
+<p class="annot"><code>--platform-shadow</code><br>L #000000 &middot; D #000000</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-highlight)"></div>
+<p class="annot"><code>--platform-highlight</code><br>L #ffffff &middot; D #b4b4b4</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-sidebar-material)"></div>
+<p class="annot"><code>--platform-sidebar-material</code><br>L #ffffff &middot; D #232a2e</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-card-fill)"></div>
+<p class="annot"><code>--platform-card-fill</code><br>L #f7f7f7 &middot; D #2a3034</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-push-button-fill)"></div>
+<p class="annot"><code>--platform-push-button-fill</code><br>L #ececec &middot; D #333a3f</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-hover-overlay)"></div>
+<p class="annot"><code>--platform-hover-overlay</code><br>L #0000000d &middot; D #ffffff18</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-press-overlay)"></div>
+<p class="annot"><code>--platform-press-overlay</code><br>L #00000019 &middot; D #ffffff19</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-floating-shadow)"></div>
+<p class="annot"><code>--platform-floating-shadow</code><br>L #00000013 &middot; D #00000013</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-field-edge)"></div>
+<p class="annot"><code>--platform-field-edge</code><br>L #f3f3f3 &middot; D #2c3338</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-scrollbar-thumb)"></div>
+<p class="annot"><code>--platform-scrollbar-thumb</code><br>L #00000056 &middot; D #ffffff56</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-alternating-content-background)"></div>
+<p class="annot"><code>--platform-alternating-content-background</code><br>L #f4f5f5 &middot; D #ffffff0d</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-scrim)"></div>
+<p class="annot"><code>--platform-scrim</code><br>L #00000033 &middot; D #00000042</p>
+</div>
+</div>
 </section>
 </main>
 <script>

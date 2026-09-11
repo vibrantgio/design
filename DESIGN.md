@@ -61,9 +61,9 @@ API (§Key architectural patterns).
   around constrained devices.
 - **No CSS-like dynamic styling.** Tokens are typed Go values, not
   stringly-typed maps.
-- **No hand-picked palettes.** Colour is derived from a seed by the
-  generative engine (ADR-002/007); a lint fails the build on colour literals
-  in the component repos.
+- **No hand-picked palettes, and no derived ones.** Colour is the
+  platform's, read off the platform per scheme; a lint fails the build on
+  colour literals in the component repos.
 - **Not MD3's look.** MD3's *system* is adopted where it earns its place;
   its touch-first look is deliberately rejected (ADR-005).
 
@@ -135,277 +135,87 @@ The only import paths today are the real ones: `theme/…` and
 
 ---
 
-## The generative model
+## The colour model
 
-Colour, and increasingly everything else, is **derived, not picked**. One
-seed colour generates the entire palette — both modes — and the theme
-observable carries the result to every component.
-
-### Seed → ramps → pins → semantic layer
-
-The engine (`theme/color`, ADR-002) derives tonal palettes on two axes:
-**tone is CIELAB L\***, exactly as MD3 defines it, and **hue and chroma come
-from OKLCh** — HCT's architecture with OKLab substituted for CAM16, plus
-chroma-reduction gamut mapping. From a seed:
+Colour is **read off the platform, not derived**. `tokens.PlatformColors`
+carries AppKit's semantic colours under their own names — one field per name,
+in Go casing, with the value that name reports for one appearance — and the
+theme observable carries the set to every component.
 
 ```go
-light, dark := tokens.FromSeed(seed) // paired ColorTokens; the light
-                                     // Primary pin is the seed exactly
+light, dark := tokens.PlatformLight, tokens.PlatformDark
+p := light.WithAccent(accent) // the five rows the platform derives from the accent
 ```
 
-What comes out (ADR-007's model, in Claude Design's vocabulary):
+### The names are the platform's
 
-- **Ramps.** Five roles — Neutral, Primary, Secondary, Tertiary, Error —
-  each a **nine-step ramp, 100–900**, where *the step is the meaning*:
-  100–300 tinted fills, hovers and subtle borders; 500 the mid reference and
-  strong border; 700–900 text over tinted fills and pressed states.
-- **Paired dark ramps, not a second table.** The generator emits light and
-  dark scales in which the same step keeps the same job — a component asks
-  for neutral‑200 and gets a light card on a light surface and a dark card
-  on a dark one, with no second assignment table to drift.
-- **Pins.** A brand colour rarely sits on the shared lightness scale (the
-  default seed `#6750A4` is L\* 40 — step‑700 depth), so each accent role's
-  solid fill is **pinned separately** from its ramp and reproduced exactly,
-  with an `On*` colour guaranteed readable over it. Background and Text are
-  pins too.
-- **A thin semantic layer** — Background, Surface (neutral 200), Seam
-  (neutral 300), Text — sits over the ramps so call sites read purpose; reach
-  into the ramps when you need a specific step.
+The catalogue was read off AppKit with a command-line program under both
+appearances, converted to sRGB, alpha kept, and is stored with its reader in
+the org's macOS reference. Ten more fills the platform draws without giving
+them an NSColor name — the chrome material, the grouped box, the push
+button's fill, the hover and press overlays, the floating shadow, the field's
+hairline, the scrollbar's knob, the alternating row and the modal's
+scrim — were measured off stored captures of platform windows and carry their
+provenance in the token set beside them. Nothing is derived from anything
+else: no ramp, no tone axis, no seed, no on-colour solve. Where the platform's
+published guideline and what it actually draws differ, what it draws wins.
 
-### States are step walks
+### A coverage is part of the answer
 
-Interaction states are resolved as walks up the ramp, not alpha overlays:
-hover is one step past the component's own fill, pressed/selected two, clamped
-at 900; pinned solid fills walk toward the 900 depth. Disabled is an opacity
-(MD3's 38%); focus keeps the surface and strokes a neutral‑500 ring. Because
-the dark ramp is paired, every state resolves in both modes with one rule.
+A label, a seam, a disabled control's text, the focus ring, the overlays and
+the shadow are a colour AT a coverage, and they composite over whatever lies
+beneath — which is how one recorded value reads correctly on every fill. The
+platform takes that composite in **encoded sRGB**, where Gio's rasterizer
+takes it in linear light, so a consumer flattens the name onto the fill it
+actually lands on (`theme/color.Flatten`) and hands Gio an opaque colour.
+Which surface that is, is the one thing a component cannot work out for
+itself: a caller that put it on a card, a selected row or a coloured fill says
+so through the component's `Surface` property.
 
-### Elevation is a stack of levels
+### The accent is the one row a machine moves
 
-Elevation is to surfaces what states are to fills, but since ADR-022 it is a
-*depth against the Background pin*, not a walk up the neutral ramp. Six
-levels are counted from the backdrop up, anchored on the pin and measured in
-CIELAB L\*, and in both schemes a surface nearer the viewer is never darker
-than the one beneath:
+`ControlAccent` is the accent the user chose, and four more rows follow
+it — the emphasized selection, the text selection, the selected control and
+the focus ring. On macOS `theme/system` asks AppKit for each of those names
+directly, so the platform's own answer is what arrives.
+`PlatformColors.WithAccent` is the rule for Windows and Linux, whose desktops
+publish an accent colour but no colour set: it keeps the accent's hue and
+saturation and takes each recorded row's own lightness and alpha. The theme
+colour — the platform's accent unless the user chooses one in the themer —
+stands in wherever the platform uses its accent, and nothing else derives
+from it.
 
-| Level | Holds | Light | Dark |
-| --- | --- | --- | --- |
-| backdrop | nothing: the bare window plane, showing wherever nothing stands | `#CFCFCF` | `#111111` |
-| chrome | the chrome regions — navbars, toolbars, sidebars, inspectors, status bars, panes | `#E3E3E3` | `#151515` |
-| 0 | the content itself — the document the window exists to show | the Background pin, `#F1F1F1` | the Background pin, `#181818` |
-| 1 | raised on the content — cards, filled insets, fields | `#FFFFFF` | `#222222` |
-| 2 | floating — dialogs and toasts | `#FFFFFF` | `#2E2E2E` |
-| 3 | floating, the top of the elevation — menus, popovers, tooltips | `#FFFFFF` | `#474747` |
+### States are the platform's answers
 
-Only four of the six are placed by the table. Level 1 is not an entry at all:
-it is the raise walked from the content, and the name is kept because that is
-where most raises stand.
+Hover and press are the measured overlays, laid over a control's own fill and
+only where the platform tints at all: a toolbar button does, a push button
+and a list row do not. Selected is the selection colours, emphasized in the
+active window and the inactive grey otherwise. The default action is the
+accent under `AlternateSelectedControlText`. Disabled is
+`DisabledControlText`. None of these is a walk up a scale.
 
-Standing higher comes in two kinds. **Raised** is one step above the surface
-the thing stands on, attached to it: a card on the content, a field on that
-card. **Floating** is detached — placed by an attachment or drawn over a
-scrim, above everything raised beneath it. Raised is relative, so the table
-names the usual stack rather than a ceiling: a raise is walked one step from
-the surface beneath, never read off the table. Where the scheme has no
-lighter step left — the light scheme under white, the top of the dark band —
-the raise is told by a seam at its edge instead of by its fill. A raise never
-vanishes.
+### Level is told the way the platform tells it
 
-Below the pin the two steps have different provenance, and the tokens say
-which is which. The chrome step is **measured** off the platform, one number
-per scheme because the platform takes a different one in each (§Which region
-stands at which level carries the captures). The backdrop step is
-**derived**: a macOS window paints its chrome edge to edge, so no stored
-capture shows a window plane beneath it, and the backdrop instead takes the
-chrome step scaled by the surface band's own proportion — 11.97 L\* under the
-content in the light scheme and 3.18 L\* in the dark one.
+A window has five levels — backdrop, chrome, content, raised, floating — and
+each one's fill is the platform's, read off the platform per scheme and never
+derived from another level's. The backdrop is `UnderPageBackground`, the
+chrome the measured chrome material, the content `TextBackground` or
+`ControlBackground`, a raised thing the platform's grouped box, and a
+floating thing the window background under the platform's shadow. No level is
+lighter or darker than another by rule: a raised thing is told by the box's
+small step of fill, with no hairline and no shadow, and a floating thing by
+its shadow — black at the measured 0.075 at its own edge, falling linearly to
+nothing 24 px out.
 
-Above the pin a RAISE is walked rather than placed: one step from whatever a
-thing stands on, the step being the surface band's own first interval,
-4.88 L\* in the light band and 4.98 in the dark. The two floating levels stay
-absolute, taking the band's shape scaled into whatever headroom the scheme
-has, and are held no darker than the first raise off the content — which is
-the whole of "above everything raised beneath them".
+### Contrast measures, it does not derive
 
-That gives the dark scheme four steps above its content: the first raise
-lands byte-for-byte on neutral 200 and the floating levels on 300 and 400, so
-the pairing still gives dark-scheme surface tint, the one thing MD3's tonal
-elevation existed to encode, for free.
+APCA lightness contrast is the one measure, and what it is for now is
+judging: a floor chooses a colour only where the platform did not already
+choose one. A pair measured off the platform — white on `SystemGreen`,
+say — stands as the platform paints it, floor or no floor. A fill the user
+chose takes as its foreground whichever of black or white reads better on it,
+and that is the answer even when neither clears a floor.
 
-The light scheme has ONE, and it has it because the content pin was moved to
-keep it. Pinned at the band's own 100 stop the light content had 3.1 L\* of
-axis left and a card came out 0.7 L\* above its page — a step nobody could
-find. The pin now stands one band step under the axis, `#F1F1F1`, and white
-is the first raise on it at 1.13:1, which is the same order of separation the
-dark scheme's first raise takes (1.12:1). It is also what the platform ships:
-macOS light stands grouped content on an off-white plane and fills the cells
-raised on it white. Chrome and the backdrop keep their measured relation to
-the pin and move with it, so neither lands on a band step in the light scheme
-any more.
-
-Above that first raise the light scheme has nothing left, and there the raise
-is told by its SEAM — a hairline `SeamRatio` (1.51:1, the platform's own
-measured panel edge) from both fills, toward the scheme's foreground, drawn
-once by the raised surface at its own edge. A card on a modal and a field on
-a card are the cases that reach it. A caller already drawing an edge has
-discharged the seam with it: a text field's 3:1 resting border is a mark
-around exactly that pairing. State walks compose on top, from the level's own
-fill. MD3's levels 4 and 5 survived only as shims
-clamping to level 3 until the breaking release deleted them: a desktop window
-has no six-deep stack above its content. Shadows are opt-in vibrancy, not part of elevation
-(§Desktop divergences).
-
-### Which region stands at which level
-
-The levels say how high a surface stands; this says which part of a window
-stands where, and which way its light comes from. The model was implicit in
-what shipped for a year and written down only in ADR-021, which is why
-applications derived it independently and some derived it backwards. The
-direction was written down there too, and got it wrong; ADR-022 re-founds it.
-
-**The linchpin (ADR-022): in both schemes, a surface nearer the viewer is
-lighter.** One perceptual rule. There is no second rule for the dark scheme
-and no mirror — elevation reads as elevation because a surface nearer the
-viewer catches more light, and reflectance does not invert when the room goes
-dark. The consequence that reorganises the rest: **chrome stands on the
-backdrop and under the content**, so a sidebar, a rail, a toolbar is darker
-than the document in the light scheme and in the dark one. ADR-021 had chrome one step *up*, because the levels only
-counted upward from the pin; the stack was short two levels at the bottom.
-
-Read the table above downward and lightness increases, in both schemes. That
-is the whole model. What it asks of a composition:
-
-- **The resting content is level 0** — the Background pin, which is why the
-  elevation scale's step‑0 is a sentinel rather than a ramp step.
-- **Chrome is one measured step under the content.** One small step is the
-  whole separation between chrome and content; two is a mistake. The
-  magnitude is a *measurement of the platform taken per scheme* rather than a
-  step of the neutral ramp, because the platform takes a different one in
-  each. A light window separates its chrome by about 4.9 L\* — which is
-  also the ramp's own first surface interval, 4.88, so the light chrome step
-  is written as that interval and lands `#E3E3E3` under the `#F1F1F1`
-  content — and a dark window by a whisper:
-  Voice Memos measures 1.50 L\* (`#1B1B1B` under `#1E1E1E`), the reference
-  chat application 1.71, the platform's settings window 3.81 with its
-  wallpaper tint on. A full band step in the dark scheme is 4.93 L\* realized
-  and lands on `#0C0C0C`, which reads as a hole rather than as chrome, so
-  dark chrome is the measured `#151515`, 1.48 L\* under the `#181818`
-  content. The asymmetry is the platform's own and is recorded as a
-  measurement, not chosen; the tokens tell the two schemes apart off the
-  direction of the surface band, so neither scheme is named in the code and
-  neither number is derived from the other.
-- **Nothing is drawn at the backdrop.** It is the window's own plane, the
-  darkest region in either scheme, and it shows wherever nothing stands —
-  around an inset pane, between regions. Nothing has the backdrop behind it,
-  so no foreground is ever derived against it: no text, no ring, no mark. It
-  is only ever what shows around.
-- **A floating chrome pane is still chrome** (amended 2026-08-28). Chrome's
-  depth is *semantic*, not geometric: a sidebar a button slides out of the
-  window, an inspector that detaches, is still chrome and still fills at
-  the chrome level, casting nothing, because chrome lies flat on the
-  backdrop. It does not climb by leaving the wall: what says a pane is an
-  object is its inset, its corner radius and its own hairline, never a
-  lighter fill — the platform paints even the floating panel darker than the
-  content beside it. Voice Memos draws both kinds in one
-  window: the floating panel sits 1.50 L\* under the content and is outlined
-  internally at `#3A3A3A` on `#1B1B1B`, a deliberate 1.51:1 whisper rather
-  than a 3:1 mark, while its flush side carries no outline and its boundary
-  is a plain seam. A seam is the hairline where two flush regions meet — the
-  sidebar against the content, the navbar's foot — derived to be findable
-  against both fills in either scheme and drawn once, by the region above or
-  leading; an inset pane needs none, because the backdrop showing around it
-  does that work.
-- **Nothing resting floats.** A dialog and a toast's base, a popover, a menu
-  and a tooltip are what appears and leaves; `Seam` and the state walks
-  are edges. No resting expanse of a window takes level 2 or 3, however it is
-  labelled: permanence is the test and size is its tell.
-- **A raise is walked from the surface beneath, not from the window, and a
-  step toward the viewer is a step toward the scheme's light extreme.** A
-  card on the content is one step above the content; a control inside a
-  dialog walks from the dialog's own fill. A *filled* inset inside a body — a
-  code fence — steps up from the surface it lies on and is drawn lighter than
-  it in both schemes; an inset that is *marked* rather than filled — a
-  blockquote's bar and muted foreground, a rule — stands off its page by
-  contrast and takes no level at all, because levels are for fills. The
-  content answers differently, because the Background pin is off the ramp and
-  has no step to walk from: a raised thing on the content is drawn at level 1
-  and its state walk starts there — which is what `SurfaceAt` already says
-  ("treat interactive regions on it as level‑1 surfaces instead"). A shared
-  surface takes the surface it stands on as a parameter, because it cannot
-  know it: a pattern that paints a plane and then a band over it — a table's
-  grid and its header, a tab panel and its strip — walks that band from the
-  plane's own level and never from an absolute step, which is right only for
-  as long as every caller happens to rest where it was written.
-- **Where the fill cannot say it, the edge must.** The light scheme's three
-  levels above the content are 0.7, 1.6 and 3.1 L\* of whisper, so a
-  construct that takes one there has almost no fill signal to spend and what
-  says where it is is its edge: a derived hairline, a corner radius, a tint
-  of its own, the mono face. A raise never vanishes; it changes what tells
-  it.
-- **A card singles out and a group divides.** A card is one raised surface,
-  one step above the surface it is in, singled out by the raise rather than
-  by an outline; a group raises nothing — it is a hairline at the level of
-  the surface it is in, taking that surface's own fill. Which one a
-  developer reaches for answers one question: am I dividing the page, or
-  singling something out?
-- **A filled inset is a raised chip, never a recessed well.** There is no
-  recessed class (ADR-022): the one test the system has for what owes a level
-  is filled versus marked, and it already assigns the fence to the fills. So
-  a fenced code block is lighter than the page it lies on, in both schemes,
-  with its hairline and its corner radius carrying the visible edge — which
-  is what the platform-adjacent reference measures in both schemes (page
-  `#151515` under fence `#1A1A1A` in dark, page `#FCFCFB` under fence
-  `#FDFDFD` in light; 2.5 L\* and 0.4 L\*). The precedents that look like
-  wells are mirrors rather than recessions — a light fence darker than its
-  page and a dark fence lighter than its page is a step taken in whichever
-  direction the scheme had room for, and a text well drawn at the scale's
-  extreme in each scheme is a convention about where content lives. If a
-  fence receded and a card rose, one page would show two directions from one
-  surface and the check below would stop being decidable by looking.
-- **What is chosen is Primary‑tinted; what is transient is a neutral walk.**
-  The item a window is currently showing takes `Ramps.Primary.Step(300)`;
-  hover, pressed and a keyboard cursor stay step walks (§States are step
-  walks), so a list can show a cursor and a current item at once without the
-  two colliding. Direction has nothing to say about hue, and this rule is
-  untouched by ADR-022.
-- **The titlebar wears the fill of the region it caps** — content behind the
-  strip where the platform allows it, an application-painted band where it
-  does not, never an unpainted native strip over a painted window. Taking
-  that treatment takes on what came with the strip: the platform's window
-  controls now stand inside the application's own layout, so the region that
-  reaches the top-leading corner owes them a measured run and reads their
-  geometry off the band it gave them; and the native drag leaves with the
-  native strip, so the capping regions say where the window may be picked up.
-  Where the strip crosses a seam, each side wears its own fill and both hold
-  one height — two depths across one strip read as a step in the window's top
-  edge. Untouched by ADR-022: this is about which region and how tall, never
-  about which way the light comes from.
-- **The check, in one sentence:** *walking toward the viewer never gets
-  darker, in either scheme.* It needs no mirror clause, because it does not
-  care which scheme is on, and no dismiss-the-overlays exception, because it
-  is taken along the depth axis rather than across the window's plane — a
-  dialog is nearer than the content *and* lighter than it, so a modal
-  satisfies the check instead of breaking it. The composition corollary is
-  the same sentence in both schemes: **a window's chrome is its darkest
-  painted region and the nearest surface its lightest**, with the backdrop
-  darker than the chrome and nothing standing at it. A window darker in
-  its middle than at its edges has the grammar inverted somewhere.
-
-The measured evidence is a desktop application in both schemes — sidebar
-251,251,249 → content 252,252,251 → composer 255,255,255 in light, sidebar
-17,17,17 → content 21,21,21 → composer 32,32,31 in dark, monotonic in both
-and in the same direction — the current macOS Settings window in dark, whose
-sidebar `#1C2123` sits under its content `#23292C` under its setting cards
-`#2A2F32`, and our own stored light references, where panes `#E8E8E8` already
-sit below content `#F6F6F6`. The light reference reaches white for the region
-raised highest in it — the composer at 255,255,255 over a 252,252,251
-content — which is the arrangement the content pin was later moved to make
-room for; dark-scheme steps run a few L\*. ADR-021 read the same platform
-reference and concluded it imposed no direction, because the half it was
-looking at — the light scheme at rest — is the half where the mirror and the
-linchpin agree. Nothing here needs a token that does not already exist in
-role: the grammar was read off `vaultview`'s frame, and its direction off the
-platform's own windows.
 
 ### Density is a theme token
 
@@ -441,15 +251,14 @@ not merely look wrong; it fails the build.
 
 ### Accessibility composes on top
 
-- **Contrast is guaranteed by construction, in APCA terms** (ADR-007): in
-  both ramps, step 900 reaches Lc 90 and step 700 Lc 60 over the 100/200
-  surfaces, and every pin's `On*` colour reaches Lc 60 over its pin. WCAG 2
-  ratios are computed and reported — conformance claims cite them — but they
-  do not gate the palette, because WCAG 2 over-rates light-on-dark pairs.
-- **High contrast is derived, not hand-written:** when the OS reports
-  increased contrast, the Color observable emits a variant derived from the
-  *same seed* with higher floors — step 700 at Lc ≥ 90, pinned on-colours at
-  Lc ≥ 75, Seam from the strong-border step.
+- **Contrast is measured in APCA terms**, and a floor chooses a colour only
+  where the platform did not already choose one: a pair the platform
+  paints — white on `SystemGreen`, a label on its own plane — stands as
+  measured. WCAG 2 ratios are computed and reported — conformance claims cite
+  them — but they gate nothing, because WCAG 2 over-rates light-on-dark pairs.
+- **High contrast follows the platform:** when the OS reports increased
+  contrast, the platform reports a colour set of its own and the theme
+  carries that, rather than deriving a variant.
 - **Reduced motion snaps:** while the OS preference is on, the Motion
   observable emits zero durations; duration-driven components complete in
   zero frames, spring-driven components read the zeros as the snap signal.
@@ -462,9 +271,15 @@ Apps do nothing to get any of this; it arrives through the theme.
 
 `theme/export` serialises a theme emission to `theme.json` (the generative
 parameters — the theme is reproducible from the file alone) and a CSS token
-sheet (`--color-<role>-100…900`, the pins, `--font-*`, `--space-*`,
-`--radius-*`, density, elevation surface roles, motion), plus foundation
-pages that render the scales at real sizes. A round-trip test parses the CSS
+sheet: the platform's colour set as `--platform-<name>` in both schemes, with
+a coverage written out as `#rrggbbaa` where a name carries one, alongside
+`--font-*`, `--space-*`, `--radius-*`, the density metrics — control, chip,
+field and row heights and the inner padding — and motion. The derived colour
+family (`--color-<role>-100…900`, the pins and the elevation surfaces) is
+still emitted beside it: the sheet's component class layer is written against
+it, and both leave together when that layer takes the platform's names. There
+are also foundation pages that render the scales at real sizes, the colour
+page listing the platform's set name by name in both schemes. A round-trip test parses the CSS
 back and asserts every value against the Go token it came from, so the two
 cannot drift. The emitted bundle is committed in the org's `design`
 repository — the repository this document lives in — and uploaded to
@@ -500,19 +315,19 @@ The pre-rework hardcoded 44 dp was rejected as a control height — 44 comes
 from touch guidelines; it survives as the pointer-target *floor*, independent
 of density.
 
-### Elevation: tonal first, shadows opt-in
+### Elevation: a step of fill for what is raised, a shadow for what floats
 
-On desktop a raised surface reads as raised by **tint first, shadow second**.
-Elevation is the stack of levels above; shadows survive only as explicit
-vibrancy via `effects/depth`, and the verdict on when is recorded in that
-package's doc: **a shadow marks what floats and can leave** — a toast, a
-popover, a menu, a drag preview — never what is raised in place, which reads
-as raised by its surface step alone. The cost backs the rule: one
-`depth.Shadow` issues nine paint operations per frame (eight gradient fills
-plus an interior fill, measured), a surface step is one `FillShape`. The
-caller audit executed this: toast kept its shadow, mindchat's floating undo
-bar kept its, the card lost its — a card is raised on the content by its fill
-alone, and the raise is what singles it out.
+A raised surface reads as raised by its **fill**, and only what **floats**
+casts a shadow — which is what the platform does: its grouped box is a small
+step of fill with no hairline and no shadow, and its dialogs, menus, popovers
+and toasts stand on the window plane under one. `effects/depth` draws that
+one, in the platform's colour at the measured coverage over the measured
+reach; the verdict on when is recorded in that package's doc. The cost backs
+the rule: one `depth.Shadow` issues nine paint operations per frame (eight
+gradient fills plus an interior fill, measured), a step of fill is one
+`FillShape`. The caller audit executed this: toast kept its shadow,
+mindchat's floating undo bar kept its, the card lost its — a card is raised on
+the content by its fill alone.
 
 ### Motion: a subset, at desktop pace
 
