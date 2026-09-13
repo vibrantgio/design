@@ -172,6 +172,14 @@ Which surface that is, is the one thing a component cannot work out for
 itself: a caller that put it on a card, a selected row or a coloured fill says
 so through the component's `Surface` property.
 
+An overlay with no one fill beneath it — a scrim over a page, which is mixed
+content — has no surface to name, so it is composited against the pixels
+instead: the frame so far is rendered offscreen and the overlay flattened over
+every one of them (`components/composite`). Where even that is not available,
+the coverage handed to the rasterizer is the one fitted to its own blend
+(`theme/color.LinearCoverage`), which is what the floating shadow's ramp
+takes.
+
 ### The accent is the one row a machine moves
 
 `ControlAccent` is the accent the user chose, and four more rows follow
