@@ -2,8 +2,8 @@
 
 > **Status:** Second edition (2026-08). This document describes the system as
 > shipped across the organization's repositories after the Phase B–F rework:
-> the inverted layering, the generative colour model, and the deliberate
-> desktop divergences from Material Design 3. The original design document is
+> the inverted layering, the platform colour model, and the deliberate
+> desktop divergences from the touch-first reference it started from. The original design document is
 > preserved as [DESIGN-v1.md](DESIGN-v1.md); the road from there to here is
 > summarised near the end. Since the rework the release has been cut and the
 > repositories renamed: the `spectrum`, `prism`, `pulse` and `cadence` this
@@ -29,8 +29,8 @@ repository's log.
 
 Vibrant Gio is a platform for building beautiful, native desktop applications
 on macOS, Windows, and Linux, built on [gioui.org](https://gioui.org). The
-goal is a first-class design system — analogous to Material Design for Google
-— but unique to Vibrant Gio. The "vibrancy" in the name is both literal (rich
+goal is a first-class design system — what a platform's own design system is
+for that platform — but unique to Vibrant Gio. The "vibrancy" in the name is both literal (rich
 colour, depth, motion) and philosophical (alive, reactive, responsive).
 
 It is **one coherent design system across twenty-two repositories**: nineteen
@@ -64,8 +64,8 @@ API (§Key architectural patterns).
 - **No hand-picked palettes, and no derived ones.** Colour is the
   platform's, read off the platform per scheme; a lint fails the build on
   colour literals in the component repos.
-- **Not MD3's look.** MD3's *system* is adopted where it earns its place;
-  its touch-first look is deliberately rejected (ADR-005).
+- **Not a touch-first look.** The reference system's *ideas* are adopted where
+  they earn their place; its touch-first look is deliberately rejected (ADR-005).
 
 ---
 
@@ -157,7 +157,7 @@ button's fill, the hover and press overlays, the floating shadow, the field's
 hairline, the scrollbar's knob, the alternating row and the modal's
 scrim — were measured off stored captures of platform windows and carry their
 provenance in the token set beside them. Nothing is derived from anything
-else: no ramp, no tone axis, no seed, no on-colour solve. Where the platform's
+else: nothing is generated, nothing is walked, no foreground is solved for. Where the platform's
 published guideline and what it actually draws differ, what it draws wins.
 
 ### A coverage is part of the answer
@@ -177,7 +177,7 @@ content — has no surface to name, so it is composited against the pixels
 instead: the frame so far is rendered offscreen and the overlay flattened over
 every one of them (`components/composite`). Where even that is not available,
 the coverage handed to the rasterizer is the one fitted to its own blend
-(`theme/color.LinearCoverage`), which is what the floating shadow's ramp
+(`theme/color.LinearCoverage`), which is what the floating shadow's gradient
 takes.
 
 ### The accent is the one row a machine moves
@@ -237,8 +237,8 @@ not invented (§Desktop divergences).
 
 ### Motion is a theme token
 
-`tokens.MotionScale` carries MD3's motion *semantics* at desktop pace: five
-duration stops (50/150/250/400/500 ms), the MD3 standard and emphasized
+`tokens.MotionScale` carries the motion *semantics* at desktop pace: five
+duration stops (50/150/250/400/500 ms), the standard and emphasized
 easing families as cubic-bezier control points, and spring presets
 (mass/stiffness/damping) for the effects physics path. Components take
 durations from the theme, never from local constants — which is what makes
@@ -247,9 +247,9 @@ reduced motion free (below).
 ### Typography is a theme token
 
 **The theme owns the typeface** (ADR-003). `tokens.Typography` carries one
-`TextStyle` per MD3 type role — fifteen roles — plus `Code`, a sixteenth
-style outside the MD3 grid (BodyMedium's metrics on the mono face; MD3 has no
-code role, so the org added one). Typography also carries the face collection
+`TextStyle` per type role — fifteen roles — plus `Code`, a sixteenth
+style outside that grid (BodyMedium's metrics on the mono face; the published
+scale has no code role, so the org added one). Typography also carries the face collection
 and builds **one** cached `text.Shaper` shared by every component. Roboto is
 the default because the default Typography names it; Roboto Mono is its
 companion for code. No library source file may import `gioui.org/font/gofont`
@@ -305,20 +305,20 @@ golden-image sweep.
 
 ---
 
-## Desktop divergences from MD3
+## Desktop divergences from the touch-first reference
 
-MD3 assumes touch and Android. Where that assumption shows, Vibrant Gio
-diverges deliberately and says why — this is what makes the system Vibrant
-Gio's rather than a port (ADR-005: MD3's *system*, not MD3's *look*).
+The reference system assumes touch and Android. Where that assumption shows,
+Vibrant Gio diverges deliberately and says why — this is what makes the system
+Vibrant Gio's rather than a port (ADR-005).
 
-### Density: shadcn/ui's metrics, not MD3's
+### Density: shadcn/ui's metrics, not the touch reference's
 
-MD3 is touch-first: 48 dp targets, 40 dp buttons, 56 dp text fields.
+The touch reference is touch-first: 48 dp targets, 40 dp buttons, 56 dp text fields.
 Desktop numbers were **measured, not invented** — the three-way table lives
 as the doc comment of `theme/tokens/density.go` (sources fetched/measured
 2026-08-05):
 
-| metric | shadcn/ui | MD3 | macOS (AppKit, measured) |
+| metric | shadcn/ui | touch reference | macOS (AppKit, measured) |
 | --- | --- | --- | --- |
 | button height, default | 36 px (h-9) | 40 dp | 24 pt regular, 28 pt large |
 | button height, small | 32 px (h-8) | — | 20 pt small, 16 pt mini |
@@ -326,7 +326,7 @@ as the doc comment of `theme/tokens/density.go` (sources fetched/measured
 | stacked spacing | 8 px label→control | 8 dp grid | 8 pt system spacing |
 
 The picks: **Comfortable = 36 dp** (the shadcn/ui default, between macOS
-large and MD3's 40) and **Compact = 28 dp** (macOS's large control height).
+large and the touch reference's 40) and **Compact = 28 dp** (macOS's large control height).
 The pre-rework hardcoded 44 dp was rejected as a control height — 44 comes
 from touch guidelines; it survives as the pointer-target *floor*, independent
 of density.
@@ -347,11 +347,11 @@ the content by its fill alone.
 
 ### Motion: a subset, at desktop pace
 
-MD3 defines sixteen duration stops; desktop wants fewer and faster. The scale
-maps the existing five stops onto MD3's duration roles — 50 ms hover
-feedback up to a 500 ms ceiling — keeping MD3's easing semantics (standard
+The published scale defines sixteen duration stops; desktop wants fewer and
+faster. The scale maps the existing five stops onto those published roles — 50 ms
+hover feedback up to a 500 ms ceiling — keeping the easing semantics (standard
 and emphasized families, accelerate/decelerate variants) and adding spring
-presets MD3 has no vocabulary for. The mapping and its reasoning live in the
+presets the published scale has no vocabulary for. The mapping and its reasoning live in the
 token doc comment, the same contract as density's table.
 
 ### Blur: owned, measured, and rationed
@@ -392,11 +392,11 @@ Three contracts follow from the numbers:
    ~0.5 µs for the eight-gradient halo — and no cache holds while the radius
    or intensity animates. A correct approximation beats a slow exact answer.
 
-### The component inventory: shadcn's, not MD3's
+### The component inventory: shadcn's
 
 The system's inventory — shell, navbar, sidebar, table, pagination, tabs,
 modal, alert, popover, tooltip, toast, card, accordion, breadcrumb, plus the
-marketing sections — is shadcn/ui's inventory. MD3 has no breadcrumb, no data
+marketing sections — is shadcn/ui's inventory. The touch reference has no breadcrumb, no data
 table and no pricing section; conversely there is no FAB, navigation rail,
 bottom sheet or snackbar here, because adopting them would make a Mac app
 read as an Android port. ADR-005 ratified a choice the code had already made.
@@ -509,11 +509,11 @@ fragilities. Its bets mostly paid off, and its debts were repaid:
   spectrum above it; ADR-001 records why that was wrong and the tier table
   that replaced it.
 - **The token scale outgrew its sources.** v1 aligned with Tailwind's values
-  wholesale; the shipped system derives colour from a seed (ADR-002/007) and
-  keeps only the 4-pt spacing scale idea. The "three design systems in a
+  wholesale; the shipped system reads colour off the platform and keeps only
+  the 4-pt spacing scale idea. The "three design systems in a
   trench coat" token package is gone.
-- **MD3 stopped being the reference for the look.** ADR-005 records the
-  split; Phase E implemented it.
+- **The touch-first system stopped being the reference for the look.** ADR-005
+  records the split; Phase E implemented it.
 
 What survives intact from v1 is the application model itself — the FRP/MVU
 duality, Defer-scoped state, the heartbeat, frame-driven physics — and the

@@ -850,8 +850,8 @@
 
 /* The collapse affordance (drawToggle): a full-width ControlHeight row with
    the icon set's sidebar mark centred in it at icon.Size — the control's
-   inner content box, ControlHeight - 2*PaddingY — in the platform's secondary
-   label. Pointer-only, never a Tab stop. */
+   inner content box, ControlHeight - 2*PaddingY — in the platform's
+   secondary label. Pointer-only, never a Tab stop. */
 .sidebar-toggle {
   flex: none;
   display: flex;

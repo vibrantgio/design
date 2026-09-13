@@ -102,11 +102,11 @@ h2 {
 <body>
 <main>
 <h1>Cards, groups &amp; elevation</h1>
-<p class="intro">The two are one ruling with two answers, and choosing between them answers one question: <em>am I dividing the page, or singling something out?</em> A card singles something out — <code>.card</code>, a rounded surface raised on the content by <strong>tonal elevation</strong>: a raised surface separates from the surface it stands on by colour, one neutral-ramp step per level, never by a cast shadow, because a card cannot float or leave. A group divides the page — <code>.group</code>, a hairline around related components at the level of the surface the group is in, taking that surface's own fill. Both carry <code>--radius-lg</code> corners, a <code>--space-4</code> inset and <code>--space-3</code> gaps between the stacked slots. Neither styles its slot text: a card draws no text at all, and a group draws only its own label.</p>
+<p class="intro">The two are one ruling with two answers, and choosing between them answers one question: <em>am I dividing the page, or singling something out?</em> A card singles something out — <code>.card</code>, a rounded surface raised on the content by its <strong>fill</strong>: the platform's grouped box, <code>--platform-card-fill</code>, a small step of fill away from the content and never a cast shadow, because a card cannot float or leave. A group divides the page — <code>.group</code>, a hairline around related components at the level of the surface the group is in, taking that surface's own fill. Both carry <code>--radius-lg</code> corners, a <code>--space-4</code> inset and <code>--space-3</code> gaps between the stacked slots. Neither styles its slot text: a card draws no text at all, and a group draws only its own label.</p>
 
 <section>
 <h2>The card — <code>.card</code></h2>
-<p class="intro">One rounded surface at <code>--elevation-1</code>, one step above the app's <code>--color-bg</code> plane, and the raise is the whole of how it singles its content out: no line of its own, never outlined, never wearing a role. The only border it carries is the seam its raise owes — <code>var(--surface-seam, var(--elevation-0-seam))</code>, transparent in the scheme where the fill tells the raise on its own and a hairline where it does not. What you want to say <em>about</em> a card is a <code>.badge</code> in its header.</p>
+<p class="intro">One rounded surface in <code>--platform-card-fill</code>, a small step of fill away from the content it stands on, and that fill is the whole of how it singles its content out: no line of its own, no shadow, never wearing a role. What you want to say <em>about</em> a card is a <code>.badge</code> in its header.</p>
 <div class="row" style="background: var(--color-bg)">
 <div class="cell">
 <div class="card">
@@ -127,7 +127,7 @@ h2 {
 
 <section>
 <h2>The group — <code>.group</code></h2>
-<p class="intro">A hairline and nothing else: the group declares no background, so it takes the fill of the surface it is in and what it holds stands on that surface. The line is <code>var(--surface-hairline, var(--elevation-0-hairline))</code>, the seam two regions sharing one fill are parted by — less pronounced than the 3:1 mark a graphic carrying meaning owes, and never transparent, because it is all that says where the group ends. The optional label is <code>.group-label</code>, top-leading inside the hairline. A group may hold a card; it never holds another group, and it wears no role.</p>
+<p class="intro">A hairline and nothing else: the group declares no background, so it takes the fill of the surface it is in and what it holds stands on that surface. The line is <code>--platform-separator</code>, the seam two regions sharing one fill are parted by — less pronounced than the 3:1 mark a graphic carrying meaning owes, and never transparent, because it is all that says where the group ends. The optional label is <code>.group-label</code>, top-leading inside the hairline. A group may hold a card; it never holds another group, and it wears no role.</p>
 <div class="row" style="background: var(--color-bg)">
 <div class="cell">
 <div class="group">
@@ -146,29 +146,29 @@ h2 {
 </section>
 
 <section>
-<h2>The elevation</h2>
-<p class="intro">Each step is a surface fill: <code>--elevation-0</code> is the bg pin, levels 1&ndash;3 are neutral steps 200/300/400, resolved as <code>var()</code> references into the ramp so they flip with dark mode. It stops at 3 &mdash; desktop has no six-level stack. A card on the content lives at 1; a group lives at whatever level it is already in and moves nothing.</p>
-<div class="row" style="background: var(--color-neutral-100)">
-<div class="cell"><div class="level" style="background: var(--elevation-0)">0</div><span class="annot"><code>--elevation-0</code> &middot; bg pin</span></div>
-<div class="cell"><div class="level" style="background: var(--elevation-1)">1</div><span class="annot"><code>--elevation-1</code> &middot; <code>.card</code></span></div>
-<div class="cell"><div class="level" style="background: var(--elevation-2)">2</div><span class="annot"><code>--elevation-2</code> &middot; <code>.dialog</code></span></div>
-<div class="cell"><div class="level" style="background: var(--elevation-3)">3</div><span class="annot"><code>--elevation-3</code></span></div>
+<h2>The levels</h2>
+<p class="intro">A level is not a fill source: each level is filled with the platform's own name for what stands there. The backdrop is the window's plane, the content is the text background, the chrome is the sidebar material, a raised surface is the grouped box's fill, and a floating one stands on the window's plane again. A card on the content is raised; a group lives at whatever level it is already in and moves nothing.</p>
+<div class="row" style="background: var(--platform-under-page-background)">
+<div class="cell"><div class="level" style="background: var(--platform-window-background)">backdrop</div><span class="annot"><code>--platform-window-background</code></span></div>
+<div class="cell"><div class="level" style="background: var(--platform-text-background)">content</div><span class="annot"><code>--platform-text-background</code></span></div>
+<div class="cell"><div class="level" style="background: var(--platform-sidebar-material)">chrome</div><span class="annot"><code>--platform-sidebar-material</code></span></div>
+<div class="cell"><div class="level" style="background: var(--platform-card-fill)">raised</div><span class="annot"><code>--platform-card-fill</code> &middot; <code>.card</code></span></div>
 </div>
 </section>
 
 <section>
 <h2>The opt-in shadow</h2>
-<p class="intro">The dp shadows survive as <code>--shadow-N</code> for <strong>floating transients only</strong> &mdash; menus, dialogs, toasts, tooltips: a float adds <code>box-shadow: var(--shadow-N)</code> on top of its tonal fill. Resting surfaces &mdash; every card among them &mdash; use the fill alone.</p>
-<div class="row" style="background: var(--color-neutral-100)">
-<div class="cell"><div class="level" style="background: var(--elevation-1); box-shadow: var(--shadow-1)">1</div><span class="annot"><code>--shadow-1</code> &middot; depth 1dp</span></div>
-<div class="cell"><div class="level" style="background: var(--elevation-2); box-shadow: var(--shadow-2)">2</div><span class="annot"><code>--shadow-2</code> &middot; depth 3dp</span></div>
-<div class="cell"><div class="level" style="background: var(--elevation-3); box-shadow: var(--shadow-3)">3</div><span class="annot"><code>--shadow-3</code> &middot; depth 6dp</span></div>
+<p class="intro">The dp shadows are <code>--shadow-N</code> for <strong>floating transients only</strong> &mdash; menus, dialogs, toasts, tooltips: a float adds <code>box-shadow: var(--shadow-N)</code> on top of the platform fill its level is given. Resting surfaces &mdash; every card among them &mdash; use the fill alone.</p>
+<div class="row" style="background: var(--platform-under-page-background)">
+<div class="cell"><div class="level" style="background: var(--platform-window-background); box-shadow: var(--shadow-1)">1</div><span class="annot"><code>--shadow-1</code> &middot; depth 1dp</span></div>
+<div class="cell"><div class="level" style="background: var(--platform-window-background); box-shadow: var(--shadow-2)">2</div><span class="annot"><code>--shadow-2</code> &middot; depth 3dp</span></div>
+<div class="cell"><div class="level" style="background: var(--platform-window-background); box-shadow: var(--shadow-3)">3</div><span class="annot"><code>--shadow-3</code> &middot; depth 6dp</span></div>
 </div>
 </section>
 
 <section>
 <h2>Dark mode</h2>
-<p class="intro">Nothing here is mode-specific: a <code>class="dark"</code> wrapper flips the colour variables, and because <code>--elevation-N</code> is a reference into the neutral ramp, every level flips with them &mdash; the card's raise and the group's hairline alike.</p>
+<p class="intro">Nothing here is mode-specific: a <code>class="dark"</code> wrapper flips the platform variables, and every level is filled from them &mdash; the card's fill and the group's hairline alike.</p>
 <div class="row dark" style="background: var(--color-bg)">
 <div class="cell">
 <div class="card">

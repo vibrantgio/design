@@ -11,8 +11,8 @@ never invent a class, a token, or a size variant.
   component class layer. Every styled value in every page is a `var(--…)`
   reference; write new markup the same way — no literal colours, sizes or
   radii.
-- `theme.json` holds the generative parameters (everything derives from one
-  brand seed). `readme.md` documents the token families. Both are generated,
+- `theme.json` holds the parameters that reproduce the theme (the theme
+  colour and the platform's whole set per appearance). `readme.md` documents the token families. Both are generated,
   like `styles.css`, by the Go theme exporter — treat all three as read-only.
 - `components/*.html` are the copyable markup reference; `foundations/*.html`
   show every token rendered. The pages are verified pixel-wise against the Gio
@@ -24,7 +24,7 @@ never invent a class, a token, or a size variant.
 ## Class families
 
 - **Buttons** — `.btn` on `<button>`: filled by default (accent under
-  on-accent). Emphasis modifiers: `.btn.tonal` (tinted fill), `.btn.ghost`
+  on-accent). Emphasis modifiers: `.btn.tonal` (the platform's push button), `.btn.ghost`
   (no fill at rest). A ghost's hover is its host surface's own one-step
   walk — inside `.card`, `.dialog` or `.popover` the hover/press fills
   re-derive from that surface automatically; never restyle them by hand.
@@ -41,8 +41,8 @@ never invent a class, a token, or a size variant.
   a dropdown is `<select class="input select">` inside a `.select-wrap`
   (which draws the chevron); `.checkbox` and `.radio` on their native input
   types. Disabled is always the native `disabled` attribute.
-- **Cards and groups** — `.card` is one thing singled out: the elevation-1
-  fill, raised a step on the content, no line of its own. `.group` divides
+- **Cards and groups** — `.card` is one thing singled out: the platform's
+  grouped-box fill, a small step of fill on the content, no line of its own. `.group` divides
   the page: a hairline at the level of the surface it is in, no fill of its
   own, with an optional `.group-label` top-leading inside it. Which one to
   reach for answers one question — am I dividing the page, or singling
@@ -79,23 +79,15 @@ never invent a class, a token, or a size variant.
 
 ## Token families
 
-- Ramps: `--color-neutral-100`…`900`, and likewise `--color-primary-*`,
-  `--color-secondary-*`, `--color-tertiary-*`, `--color-error-*`,
-  `--color-success-*`, `--color-warning-*` (steps in hundreds; 100/200
-  fills, 300 hover/subtle border, 500 strong border, 700 low-contrast
-  text, 900 body text).
-- Pins and semantics: `--color-bg`, `--color-surface`, `--color-text`,
-  `--color-seam`, `--color-accent`/`--color-on-accent`,
-  `--color-secondary`/`--color-on-secondary`,
-  `--color-tertiary`/`--color-on-tertiary`,
-  `--color-error`/`--color-on-error`,
-  `--color-success`/`--color-on-success`,
-  `--color-warning`/`--color-on-warning`. Solid fills use the pin; their
-  hover/pressed stops are emitted as `--color-accent-hover` and
-  `--color-accent-pressed` — use those, never a `color-mix()` of your own.
-  For surface fills, prefer the semantic pins `--color-bg` and
-  `--color-surface` over `--color-neutral-*` ramp steps: they render the
-  same today, but the semantic survives a theme remap.
+- Colour: `--platform-<name>`, one per semantic colour the platform names —
+  `--platform-window-background`, `--platform-text-background`,
+  `--platform-sidebar-material`, `--platform-card-fill`,
+  `--platform-control-accent`, `--platform-label`,
+  `--platform-secondary-label`, `--platform-separator`,
+  `--platform-selected-content-background`, and the rest. Nothing is derived
+  from anything else: reach for the name of what the thing IS. A value the
+  platform states at a coverage carries its alpha and composites over
+  whatever is beneath, which is how one value reads right on every fill.
 - Type: `--font-family`, `--font-family-code`, and per-role
   `--font-<role>-size`/`-line-height`/`-weight`/`-tracking` for roles
   `display-large`…`body-small` plus `code` (e.g.
@@ -108,20 +100,17 @@ never invent a class, a token, or a size variant.
 - Space: `--space-0`…`--space-24` on the 4-pt grid (keys 0–6, 8, 10, 12,
   16, 20, 24). Radius: `--radius-none`, `-sm`, `-base`, `-md`, `-lg`,
   `-xl`, `-2xl`, `-3xl`, `-full`.
-- Elevation: six levels counted from the backdrop up —
-  `--elevation-backdrop` (the window's own plane, what shows wherever
-  nothing stands), `--elevation-chrome` (the chrome regions: navbar,
-  toolbar, sidebar, inspector, status bar, pane), then
-  `--elevation-0`…`--elevation-3` for the content, what is raised on it and
-  what floats. They are tonal surface **fills**, the default cue; use them
-  as `background`, and expect every level to be lighter than the one
-  beneath in both schemes. `--shadow-0`…`--shadow-3` are the opt-in cue for
-  floating transients only (dialog, popover, tooltip, toast); resting
-  surfaces never cast one.
-- Interaction: `--color-focus-ring` with `--focus-ring-width` (the one focus
-  treatment everywhere), `--state-disabled-opacity` (the disabled fade),
-  `--color-scrim` (the veil a modal draws over what it covers; identical in
-  both schemes).
+- Levels: five, counted from the backdrop up — the backdrop (the window's
+  own plane, what shows wherever nothing stands), the chrome regions
+  (navbar, toolbar, sidebar, inspector, status bar, pane), the content, what
+  is raised on it, and what floats. A level is not a fill source: each one
+  is filled with the platform name for what stands there, so read the level
+  to know which `--platform-*` to use. `--shadow-0`…`--shadow-3` are the
+  cue a floating transient carries (dialog, popover, tooltip, toast);
+  resting surfaces never cast one.
+- Interaction: `--platform-keyboard-focus-indicator` with
+  `--focus-ring-width` (the one focus treatment everywhere), and
+  `--platform-scrim` (the veil a modal draws over what it covers).
 - Motion: `--ease-standard`, `--ease-standard-accelerate`,
   `--ease-standard-decelerate`, `--ease-emphasized`,
   `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate`;
@@ -162,4 +151,4 @@ port one-to-one:
   from cache until the content behind it changes. A design that assumes
   continuous blur under motion (frosted glass over scrolling or animating
   content) will not port. Prefer the system's own overlay grammar:
-  `--color-scrim` behind dialogs, tonal elevation fills for everything else.
+  `--platform-scrim` behind dialogs, the platform's own fills for everything else.

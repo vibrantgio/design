@@ -50,13 +50,13 @@ both modes, labelled `L` and `D`.
 | `--platform-<name>` | `--platform-window-background`, `--platform-under-page-background`, `--platform-control-background`, `--platform-text-background`, `--platform-selected-content-background`, `--platform-unemphasized-selected-content-background`, `--platform-selected-text-background`, `--platform-unemphasized-selected-text-background`, `--platform-find-highlight`, `--platform-separator`, `--platform-grid`, `--platform-label`, `--platform-secondary-label`, `--platform-tertiary-label`, `--platform-quaternary-label`, `--platform-text`, `--platform-placeholder-text`, `--platform-selected-text`, `--platform-link`, `--platform-header-text`, `--platform-control`, `--platform-control-text`, `--platform-disabled-control-text`, `--platform-selected-control`, `--platform-selected-control-text`, `--platform-alternate-selected-control-text`, `--platform-control-accent`, `--platform-keyboard-focus-indicator`, `--platform-system-red`, `--platform-system-orange`, `--platform-system-yellow`, `--platform-system-green`, `--platform-system-mint`, `--platform-system-teal`, `--platform-system-cyan`, `--platform-system-blue`, `--platform-system-indigo`, `--platform-system-purple`, `--platform-system-pink`, `--platform-system-brown`, `--platform-system-gray`, `--platform-shadow`, `--platform-highlight`, `--platform-sidebar-material`, `--platform-sidebar-selection`, `--platform-card-fill`, `--platform-push-button-fill`, `--platform-hover-overlay`, `--platform-press-overlay`, `--platform-floating-shadow`, `--platform-field-edge`, `--platform-scrollbar-thumb`, `--platform-alternating-content-background`, `--platform-scrim` | the platform's own colour set: AppKit's semantic colours under their own names, kebab-cased, plus the fills the platform draws without naming, measured. Both schemes state their own. A coverage is written out as `#rrggbbaa`, because the platform's answer for a label, a seam, an overlay or the focus ring IS a colour at a coverage over whatever lies beneath it |
 | `--font-family` | `--font-family` | the typeface every prose role uses |
 | `--font-family-code` | `--font-family-code` | the monospace typeface the code role uses |
-| `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small, code; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights; code is the mono style outside the MD3 grid, at body-medium's metrics |
+| `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small, code; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights; code is the mono style outside the type grid, at body-medium's metrics |
 | `--density-<metric>` | `--density-control-height`, `--density-chip-height`, `--density-field-height`, `--density-row-height`, `--density-padding-x`, `--density-padding-y`, `--density-min-hit-target` | control metrics, px; `:root` is comfortable, `.compact` overrides all but the hit-target floor |
 | `--space-<key>` | `--space-0`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24` | the 4-pt spacing grid, px |
 | `--radius-<key>` | `--radius-none`, `--radius-sm`, `--radius-base`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-3xl`, `--radius-full` | corner radii, Tailwind naming, px |
 | `--shadow-<level>` | `--shadow-backdrop`, `--shadow-chrome`, `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the cue a floating transient carries (menus, dialogs, tooltips) over the platform fill it stands in; resting surfaces cast none |
-| `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | MD3 easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for MD3's two-segment path |
-| `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | MD3-pinned duration stops, ms; the reduce-motion variant zeroes them |
+| `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for the published two-segment path |
+| `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | duration stops, ms; the reduce-motion variant zeroes them |
 | interaction states | `--focus-ring-width` | the ring's 2 px stroke, mode-invariant, unlike the ring's colour, which is `--platform-keyboard-focus-indicator` and flips with the appearance |
 
 ## Component classes
@@ -68,7 +68,7 @@ checkbox/radio glyph, its 8 dp dot, the 16 dp dropdown chevron, the
 1/2 dp input borders) — so it flips to `.dark` and densifies to
 `.compact` with the sheet. Every colour in it is the platform's own
 name for what that element is on the platform, the same mapping the Gio
-components take: no role, no ramp step, no level, no derivation. Every
+components take: nothing is derived, every value is a platform name. Every
 pointer/keyboard state rule carries a forcing twin class (`.is-hover`,
 `.is-active`, `.is-focus`, `.is-checked`) grouped into the same rule, so
 a static page can show a state with exactly the live declarations;
@@ -192,8 +192,8 @@ overridden: compact shrinks the drawn control, never the clickable area.
 
 ## Motion
 
-The MD3 easing presets are emitted as `cubic-bezier()` variables and the
-five duration stops in ms, each pinned to one MD3 duration role. The spring
+The easing presets are emitted as `cubic-bezier()` variables and the
+five duration stops in ms, each pinned to one duration role. The spring
 presets (default/snappy/gentle) are Go-side damped-oscillator physics with
 no CSS counterpart, so they live only in `theme.json`'s motion parameters.
 Under the OS reduce-motion preference the theme emits the same scale with
@@ -207,7 +207,7 @@ radius, both density settings' metrics, the shadow depth per level and the
 motion set (durations, easings, springs). A round-trip test in
 `theme/export` asserts the file and the sheet agree value for value, so the
 file, not this text, is the contract. To change the theme colour, rerun
-`vg-tokens -seed #rrggbb`; every page here reflows because nothing in them
+`vg-tokens -color #rrggbb`; every page here reflows because nothing in them
 is hard-coded.
 
 Fonts: the tokens name Roboto (and Roboto Mono for code); the pages fall
