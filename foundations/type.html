@@ -9,8 +9,8 @@
 <style>
 body {
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--platform-window-background);
+  color: var(--platform-label);
   font-family: var(--font-family), system-ui, sans-serif;
   font-size: var(--font-body-medium-size);
   line-height: var(--font-body-medium-line-height);
@@ -50,14 +50,14 @@ h3 {
 }
 .intro {
   max-width: 48rem;
-  color: var(--color-neutral-700);
+  color: var(--platform-secondary-label);
 }
 .annot {
   font-size: var(--font-label-small-size);
   line-height: var(--font-label-small-line-height);
   font-weight: var(--font-label-small-weight);
   letter-spacing: var(--font-label-small-tracking);
-  color: var(--color-neutral-700);
+  color: var(--platform-secondary-label);
   margin: var(--space-1) 0 0;
 }
 .mode-toggle {
@@ -67,18 +67,18 @@ h3 {
   font-weight: var(--font-label-large-weight);
   letter-spacing: var(--font-label-large-tracking);
   padding: var(--space-2) var(--space-4);
-  color: var(--color-text);
-  background: var(--color-surface);
-  border: thin solid var(--color-control-border);
+  color: var(--platform-label);
+  background: var(--platform-card-fill);
+  border: thin solid var(--platform-field-edge);
   border-radius: var(--radius-base);
   cursor: pointer;
 }
 .mode-toggle:hover {
-  background: var(--color-neutral-300);
+  background: var(--platform-separator);
 }
 .type-role {
   margin: var(--space-8) 0;
-  border-bottom: thin solid var(--color-seam);
+  border-bottom: thin solid var(--platform-separator);
   padding-bottom: var(--space-4);
 }
 .specimen {

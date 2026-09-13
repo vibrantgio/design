@@ -9,8 +9,8 @@
 <style>
 body {
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--platform-window-background);
+  color: var(--platform-label);
   font-family: var(--font-family), system-ui, sans-serif;
   font-size: var(--font-body-medium-size);
   line-height: var(--font-body-medium-line-height);
@@ -50,14 +50,14 @@ h3 {
 }
 .intro {
   max-width: 48rem;
-  color: var(--color-neutral-700);
+  color: var(--platform-secondary-label);
 }
 .annot {
   font-size: var(--font-label-small-size);
   line-height: var(--font-label-small-line-height);
   font-weight: var(--font-label-small-weight);
   letter-spacing: var(--font-label-small-tracking);
-  color: var(--color-neutral-700);
+  color: var(--platform-secondary-label);
   margin: var(--space-1) 0 0;
 }
 .mode-toggle {
@@ -67,14 +67,14 @@ h3 {
   font-weight: var(--font-label-large-weight);
   letter-spacing: var(--font-label-large-tracking);
   padding: var(--space-2) var(--space-4);
-  color: var(--color-text);
-  background: var(--color-surface);
-  border: thin solid var(--color-control-border);
+  color: var(--platform-label);
+  background: var(--platform-card-fill);
+  border: thin solid var(--platform-field-edge);
   border-radius: var(--radius-base);
   cursor: pointer;
 }
 .mode-toggle:hover {
-  background: var(--color-neutral-300);
+  background: var(--platform-separator);
 }
 .platform-grid {
   display: grid;
@@ -102,7 +102,7 @@ h3 {
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-sm);
-  border: thin solid var(--color-neutral-300);
+  border: thin solid var(--platform-separator);
   font-size: var(--font-label-medium-size);
   font-weight: var(--font-label-medium-weight);
 }
@@ -123,7 +123,7 @@ h3 {
   margin: var(--space-4) 0;
 }
 .contrast th, .contrast td {
-  border: thin solid var(--color-neutral-300);
+  border: thin solid var(--platform-separator);
   padding: var(--space-1) var(--space-3);
   font-size: var(--font-body-small-size);
   line-height: var(--font-body-small-line-height);
@@ -134,7 +134,7 @@ h3 {
   font-weight: var(--font-label-medium-weight);
 }
 .contrast thead th {
-  background: var(--color-surface);
+  background: var(--platform-card-fill);
   text-align: right;
 }
 </style>
@@ -145,510 +145,10 @@ h3 {
 <h1>Colour</h1>
 <button type="button" class="mode-toggle">Light / dark</button>
 </div>
-<p class="intro">Each role carries a nine-step functional ramp (100&ndash;900) where the step is the meaning &mdash; 100&ndash;300 tinted fills, hovers and subtle borders, 500 the mid-value reference, 700&ndash;900 text and pressed states &mdash; plus a pinned base. Dark mode is the paired ramp: the same step keeps the same job. Swatches are painted through the token sheet, so the toggle restyles them; annotation values are printed for both modes, labelled L and D. APCA Lc is the one contrast measure (signed: negative means light-on-dark).</p>
+<p class="intro">The platform’s own colour set, one field per AppKit semantic name, with the values that name reports under each appearance. Swatches are painted through the token sheet, so the toggle restyles them; annotation values are printed for both schemes, labelled L and D.</p>
 <section>
-<h2>neutral</h2>
-<div class="ramp">
-<div class="step">
-<div class="chip" style="background: var(--color-neutral-100); color: var(--color-neutral-900)">100</div>
-<p class="annot">tinted fill · backdrop<br>L #f6f6f6 · D #181818</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-neutral-200); color: var(--color-neutral-900)">200</div>
-<p class="annot">tinted fill · card<br>L #e8e8e8 · D #222222</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-neutral-300); color: var(--color-neutral-900)">300</div>
-<p class="annot">hover · subtle border<br>L #d4d4d4 · D #2e2e2e</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-neutral-400); color: var(--color-neutral-900)">400</div>
-<p class="annot">intermediate · state walk<br>L #b6b6b6 · D #474747</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-neutral-500); color: var(--color-neutral-900)">500</div>
-<p class="annot">mid reference · strong border<br>L #989898 · D #6d6d6d</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-neutral-600); color: var(--color-neutral-100)">600</div>
-<p class="annot">intermediate · state walk<br>L #797979 · D #9b9b9b</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-neutral-700); color: var(--color-neutral-100)">700</div>
-<p class="annot">low-contrast text · pressed<br>L #5c5c5c · D #cccccc</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-neutral-800); color: var(--color-neutral-100)">800</div>
-<p class="annot">intermediate · state walk<br>L #424242 · D #d7d7d7</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-neutral-900); color: var(--color-neutral-100)">900</div>
-<p class="annot">high-contrast text · pressed<br>L #131313 · D #eeeeee</p>
-</div>
-</div>
-<h3>Pins</h3>
-<div class="pins">
-<div class="pin">
-<div class="chip" style="background: var(--color-bg); color: var(--color-text)">Aa</div>
-<p class="annot">bg (pinned)<br><code>var(--color-bg)</code><br>L #f1f1f1 · D #181818</p>
-</div>
-<div class="pin">
-<div class="chip" style="background: var(--color-surface); color: var(--color-text)">Aa</div>
-<p class="annot">surface (neutral-200)<br><code>var(--color-surface)</code><br>L #e8e8e8 · D #222222</p>
-</div>
-<div class="pin">
-<div class="chip" style="background: var(--color-seam); color: var(--color-text)">Aa</div>
-<p class="annot">seam (neutral-300)<br><code>var(--color-seam)</code><br>L #d4d4d4 · D #2e2e2e</p>
-</div>
-<div class="pin">
-<div class="chip" style="background: var(--color-text); color: var(--color-bg)">Aa</div>
-<p class="annot">text (pinned)<br><code>var(--color-text)</code><br>L #131313 · D #eeeeee</p>
-</div>
-</div>
-<h3>Measured contrast</h3>
-<table class="contrast">
-<thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
-</thead>
-<tbody>
-<tr><th scope="row">900 on 100</th><td>99.8</td><td>-95.6</td></tr>
-<tr><th scope="row">900 on 200</th><td>91.6</td><td>-94.3</td></tr>
-<tr><th scope="row">700 on 100</th><td>77.7</td><td>-74.6</td></tr>
-<tr><th scope="row">700 on 200</th><td>69.4</td><td>-73.2</td></tr>
-<tr><th scope="row">text on bg</th><td>96.8</td><td>-95.6</td></tr>
-</tbody>
-</table>
-</section>
-<section>
-<h2>primary</h2>
-<div class="ramp">
-<div class="step">
-<div class="chip" style="background: var(--color-primary-100); color: var(--color-primary-900)">100</div>
-<p class="annot">tinted fill · backdrop<br>L #f7f5ff · D #22004e</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-primary-200); color: var(--color-primary-900)">200</div>
-<p class="annot">tinted fill · card<br>L #eae5ff · D #2f0066</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-primary-300); color: var(--color-primary-900)">300</div>
-<p class="annot">hover · subtle border<br>L #d8ceff · D #3f0085</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-primary-400); color: var(--color-primary-900)">400</div>
-<p class="annot">intermediate · state walk<br>L #bdaaff · D #5c15b7</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-primary-500); color: var(--color-primary-900)">500</div>
-<p class="annot">mid reference · strong border<br>L #a584ff · D #804be5</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-primary-600); color: var(--color-primary-100)">600</div>
-<p class="annot">intermediate · state walk<br>L #8c59f4 · D #a787ff</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-primary-700); color: var(--color-primary-100)">700</div>
-<p class="annot">low-contrast text · pressed<br>L #6f36d1 · D #d0c4ff</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-primary-800); color: var(--color-primary-100)">800</div>
-<p class="annot">intermediate · state walk<br>L #570ab2 · D #dad2ff</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-primary-900); color: var(--color-primary-100)">900</div>
-<p class="annot">high-contrast text · pressed<br>L #1d0044 · D #efecff</p>
-</div>
-</div>
-<h3>Pins</h3>
-<div class="pins">
-<div class="pin">
-<div class="chip" style="background: var(--color-accent); color: var(--color-on-accent)">Aa</div>
-<p class="annot">accent (pinned primary)<br><code>var(--color-accent)</code><br>L #723ad4 · D #d0c4ff</p>
-</div>
-</div>
-<h3>Measured contrast</h3>
-<table class="contrast">
-<thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
-</thead>
-<tbody>
-<tr><th scope="row">900 on 100</th><td>99.0</td><td>-95.0</td></tr>
-<tr><th scope="row">900 on 200</th><td>90.7</td><td>-93.4</td></tr>
-<tr><th scope="row">700 on 100</th><td>77.0</td><td>-73.6</td></tr>
-<tr><th scope="row">700 on 200</th><td>68.7</td><td>-72.0</td></tr>
-<tr><th scope="row">on-accent on accent</th><td>-86.2</td><td>73.9</td></tr>
-</tbody>
-</table>
-</section>
-<section>
-<h2>secondary</h2>
-<div class="ramp">
-<div class="step">
-<div class="chip" style="background: var(--color-secondary-100); color: var(--color-secondary-900)">100</div>
-<p class="annot">tinted fill · backdrop<br>L #f7f5ff · D #1c1037</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-secondary-200); color: var(--color-secondary-900)">200</div>
-<p class="annot">tinted fill · card<br>L #eae5ff · D #261a43</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-secondary-300); color: var(--color-secondary-900)">300</div>
-<p class="annot">hover · subtle border<br>L #d8ceff · D #322751</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-secondary-400); color: var(--color-secondary-900)">400</div>
-<p class="annot">intermediate · state walk<br>L #baafe3 · D #4a406c</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-secondary-500); color: var(--color-secondary-900)">500</div>
-<p class="annot">mid reference · strong border<br>L #9c92c4 · D #716696</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-secondary-600); color: var(--color-secondary-100)">600</div>
-<p class="annot">intermediate · state walk<br>L #7d73a3 · D #9f95c7</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-secondary-700); color: var(--color-secondary-100)">700</div>
-<p class="annot">low-contrast text · pressed<br>L #605583 · D #d0c5fa</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-secondary-800); color: var(--color-secondary-100)">800</div>
-<p class="annot">intermediate · state walk<br>L #463b67 · D #dad2ff</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-secondary-900); color: var(--color-secondary-100)">900</div>
-<p class="annot">high-contrast text · pressed<br>L #180b32 · D #efecff</p>
-</div>
-</div>
-<h3>Pins</h3>
-<div class="pins">
-<div class="pin">
-<div class="chip" style="background: var(--color-secondary); color: var(--color-on-secondary)">Aa</div>
-<p class="annot">secondary (pinned)<br><code>var(--color-secondary)</code><br>L #625886 · D #d0c5fa</p>
-</div>
-</div>
-<h3>Measured contrast</h3>
-<table class="contrast">
-<thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
-</thead>
-<tbody>
-<tr><th scope="row">900 on 100</th><td>99.6</td><td>-95.6</td></tr>
-<tr><th scope="row">900 on 200</th><td>91.4</td><td>-94.3</td></tr>
-<tr><th scope="row">700 on 100</th><td>77.8</td><td>-74.3</td></tr>
-<tr><th scope="row">700 on 200</th><td>69.6</td><td>-73.1</td></tr>
-<tr><th scope="row">on-secondary on secondary</th><td>-87.0</td><td>74.8</td></tr>
-</tbody>
-</table>
-</section>
-<section>
-<h2>tertiary</h2>
-<div class="ramp">
-<div class="step">
-<div class="chip" style="background: var(--color-tertiary-100); color: var(--color-tertiary-900)">100</div>
-<p class="annot">tinted fill · backdrop<br>L #fff4f8 · D #37001d</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-tertiary-200); color: var(--color-tertiary-900)">200</div>
-<p class="annot">tinted fill · card<br>L #ffe0eb · D #490029</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-tertiary-300); color: var(--color-tertiary-900)">300</div>
-<p class="annot">hover · subtle border<br>L #ffc4db · D #591036</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-tertiary-400); color: var(--color-tertiary-900)">400</div>
-<p class="annot">intermediate · state walk<br>L #f29dc0 · D #762c4f</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-tertiary-500); color: var(--color-tertiary-900)">500</div>
-<p class="annot">mid reference · strong border<br>L #d27fa2 · D #a25476</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-tertiary-600); color: var(--color-tertiary-100)">600</div>
-<p class="annot">intermediate · state walk<br>L #b06083 · D #d582a5</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-tertiary-700); color: var(--color-tertiary-100)">700</div>
-<p class="annot">low-contrast text · pressed<br>L #8e4265 · D #ffb8d4</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-tertiary-800); color: var(--color-tertiary-100)">800</div>
-<p class="annot">intermediate · state walk<br>L #70284a · D #ffc8dd</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-tertiary-900); color: var(--color-tertiary-100)">900</div>
-<p class="annot">high-contrast text · pressed<br>L #2f0019 · D #ffe8f0</p>
-</div>
-</div>
-<h3>Pins</h3>
-<div class="pins">
-<div class="pin">
-<div class="chip" style="background: var(--color-tertiary); color: var(--color-on-tertiary)">Aa</div>
-<p class="annot">tertiary (pinned)<br><code>var(--color-tertiary)</code><br>L #914567 · D #ffb8d4</p>
-</div>
-</div>
-<h3>Measured contrast</h3>
-<table class="contrast">
-<thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
-</thead>
-<tbody>
-<tr><th scope="row">900 on 100</th><td>99.4</td><td>-94.8</td></tr>
-<tr><th scope="row">900 on 200</th><td>90.7</td><td>-93.2</td></tr>
-<tr><th scope="row">700 on 100</th><td>77.8</td><td>-73.9</td></tr>
-<tr><th scope="row">700 on 200</th><td>69.1</td><td>-72.3</td></tr>
-<tr><th scope="row">on-tertiary on tertiary</th><td>-86.8</td><td>74.2</td></tr>
-</tbody>
-</table>
-</section>
-<section>
-<h2>error</h2>
-<div class="ramp">
-<div class="step">
-<div class="chip" style="background: var(--color-error-100); color: var(--color-error-900)">100</div>
-<p class="annot">tinted fill · backdrop<br>L #fff4f3 · D #3a0002</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-error-200); color: var(--color-error-900)">200</div>
-<p class="annot">tinted fill · card<br>L #ffe2de · D #4d0003</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-error-300); color: var(--color-error-900)">300</div>
-<p class="annot">hover · subtle border<br>L #ffc7c0 · D #650005</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-error-400); color: var(--color-error-900)">400</div>
-<p class="annot">intermediate · state walk<br>L #ff9b90 · D #93000c</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-error-500); color: var(--color-error-900)">500</div>
-<p class="annot">mid reference · strong border<br>L #fa6b60 · D #c63a34</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-error-600); color: var(--color-error-100)">600</div>
-<p class="annot">intermediate · state walk<br>L #d54941 · D #fd6d62</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-error-700); color: var(--color-error-100)">700</div>
-<p class="annot">low-contrast text · pressed<br>L #b12322 · D #ffbcb3</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-error-800); color: var(--color-error-100)">800</div>
-<p class="annot">intermediate · state walk<br>L #8a000b · D #ffcbc4</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-error-900); color: var(--color-error-100)">900</div>
-<p class="annot">high-contrast text · pressed<br>L #320001 · D #ffe9e6</p>
-</div>
-</div>
-<h3>Pins</h3>
-<div class="pins">
-<div class="pin">
-<div class="chip" style="background: var(--color-error); color: var(--color-on-error)">Aa</div>
-<p class="annot">error (pinned)<br><code>var(--color-error)</code><br>L #b12322 · D #ffbcb3</p>
-</div>
-</div>
-<h3>Measured contrast</h3>
-<table class="contrast">
-<thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
-</thead>
-<tbody>
-<tr><th scope="row">900 on 100</th><td>99.1</td><td>-94.7</td></tr>
-<tr><th scope="row">900 on 200</th><td>90.8</td><td>-93.0</td></tr>
-<tr><th scope="row">700 on 100</th><td>76.3</td><td>-74.0</td></tr>
-<tr><th scope="row">700 on 200</th><td>68.1</td><td>-72.3</td></tr>
-<tr><th scope="row">on-error on error</th><td>-86.6</td><td>74.2</td></tr>
-</tbody>
-</table>
-</section>
-<section>
-<h2>success</h2>
-<div class="ramp">
-<div class="step">
-<div class="chip" style="background: var(--color-success-100); color: var(--color-success-900)">100</div>
-<p class="annot">tinted fill · backdrop<br>L #deffdf · D #001d03</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-success-200); color: var(--color-success-900)">200</div>
-<p class="annot">tinted fill · card<br>L #98ffa0 · D #002806</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-success-300); color: var(--color-success-900)">300</div>
-<p class="annot">hover · subtle border<br>L #83eb8c · D #00370b</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-success-400); color: var(--color-success-900)">400</div>
-<p class="annot">intermediate · state walk<br>L #63cb6f · D #005316</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-success-500); color: var(--color-success-900)">500</div>
-<p class="annot">mid reference · strong border<br>L #43ad52 · D #007f26</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-success-600); color: var(--color-success-100)">600</div>
-<p class="annot">intermediate · state walk<br>L #188c32 · D #46af54</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-success-700); color: var(--color-success-100)">700</div>
-<p class="annot">low-contrast text · pressed<br>L #006b1f · D #7ae284</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-success-800); color: var(--color-success-100)">800</div>
-<p class="annot">intermediate · state walk<br>L #004e14 · D #86ee8f</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-success-900); color: var(--color-success-100)">900</div>
-<p class="annot">high-contrast text · pressed<br>L #001803 · D #b8ffbc</p>
-</div>
-</div>
-<h3>Pins</h3>
-<div class="pins">
-<div class="pin">
-<div class="chip" style="background: var(--color-success); color: var(--color-on-success)">Aa</div>
-<p class="annot">success (pinned)<br><code>var(--color-success)</code><br>L #006b1f · D #7ae284</p>
-</div>
-</div>
-<h3>Measured contrast</h3>
-<table class="contrast">
-<thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
-</thead>
-<tbody>
-<tr><th scope="row">900 on 100</th><td>99.8</td><td>-95.5</td></tr>
-<tr><th scope="row">900 on 200</th><td>91.6</td><td>-94.2</td></tr>
-<tr><th scope="row">700 on 100</th><td>77.3</td><td>-74.5</td></tr>
-<tr><th scope="row">700 on 200</th><td>69.1</td><td>-73.2</td></tr>
-<tr><th scope="row">on-success on success</th><td>-87.6</td><td>74.9</td></tr>
-</tbody>
-</table>
-</section>
-<section>
-<h2>warning</h2>
-<div class="ramp">
-<div class="step">
-<div class="chip" style="background: var(--color-warning-100); color: var(--color-warning-900)">100</div>
-<p class="annot">tinted fill · backdrop<br>L #fff5ec · D #281200</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-warning-200); color: var(--color-warning-900)">200</div>
-<p class="annot">tinted fill · card<br>L #ffe3cc · D #361b00</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-warning-300); color: var(--color-warning-900)">300</div>
-<p class="annot">hover · subtle border<br>L #ffca9c · D #482600</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-warning-400); color: var(--color-warning-900)">400</div>
-<p class="annot">intermediate · state walk<br>L #ffa03d · D #6b3b00</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-warning-500); color: var(--color-warning-900)">500</div>
-<p class="annot">mid reference · strong border<br>L #e08100 · D #a15c00</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-warning-600); color: var(--color-warning-100)">600</div>
-<p class="annot">intermediate · state walk<br>L #b36700 · D #e38400</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-warning-700); color: var(--color-warning-100)">700</div>
-<p class="annot">low-contrast text · pressed<br>L #894d00 · D #ffbf86</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-warning-800); color: var(--color-warning-100)">800</div>
-<p class="annot">intermediate · state walk<br>L #643700 · D #ffcea3</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-warning-900); color: var(--color-warning-100)">900</div>
-<p class="annot">high-contrast text · pressed<br>L #220f00 · D #ffead9</p>
-</div>
-</div>
-<h3>Pins</h3>
-<div class="pins">
-<div class="pin">
-<div class="chip" style="background: var(--color-warning); color: var(--color-on-warning)">Aa</div>
-<p class="annot">warning (pinned)<br><code>var(--color-warning)</code><br>L #894d00 · D #ffbf86</p>
-</div>
-</div>
-<h3>Measured contrast</h3>
-<table class="contrast">
-<thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
-</thead>
-<tbody>
-<tr><th scope="row">900 on 100</th><td>99.9</td><td>-95.3</td></tr>
-<tr><th scope="row">900 on 200</th><td>91.3</td><td>-93.9</td></tr>
-<tr><th scope="row">700 on 100</th><td>77.7</td><td>-74.5</td></tr>
-<tr><th scope="row">700 on 200</th><td>69.0</td><td>-73.1</td></tr>
-<tr><th scope="row">on-warning on warning</th><td>-87.8</td><td>74.9</td></tr>
-</tbody>
-</table>
-</section>
-<section>
-<h2>info</h2>
-<div class="ramp">
-<div class="step">
-<div class="chip" style="background: var(--color-info-100); color: var(--color-info-900)">100</div>
-<p class="annot">tinted fill · backdrop<br>L #f0f7ff · D #001832</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-info-200); color: var(--color-info-900)">200</div>
-<p class="annot">tinted fill · card<br>L #d7eaff · D #002243</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-info-300); color: var(--color-info-900)">300</div>
-<p class="annot">hover · subtle border<br>L #b4d8ff · D #002f58</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-info-400); color: var(--color-info-900)">400</div>
-<p class="annot">intermediate · state walk<br>L #79bbff · D #004881</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-info-500); color: var(--color-info-900)">500</div>
-<p class="annot">mid reference · strong border<br>L #359cfc · D #006fc2</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-info-600); color: var(--color-info-100)">600</div>
-<p class="annot">intermediate · state walk<br>L #007cd7 · D #389fff</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-info-700); color: var(--color-info-100)">700</div>
-<p class="annot">low-contrast text · pressed<br>L #005ea5 · D #a4d0ff</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-info-800); color: var(--color-info-100)">800</div>
-<p class="annot">intermediate · state walk<br>L #004379 · D #b9dbff</p>
-</div>
-<div class="step">
-<div class="chip" style="background: var(--color-info-900); color: var(--color-info-100)">900</div>
-<p class="annot">high-contrast text · pressed<br>L #00142b · D #e1efff</p>
-</div>
-</div>
-<h3>Pins</h3>
-<div class="pins">
-<div class="pin">
-<div class="chip" style="background: var(--color-info); color: var(--color-on-info)">Aa</div>
-<p class="annot">info (pinned)<br><code>var(--color-info)</code><br>L #005ea5 · D #a4d0ff</p>
-</div>
-</div>
-<h3>Measured contrast</h3>
-<table class="contrast">
-<thead>
-<tr><th scope="col">text pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
-</thead>
-<tbody>
-<tr><th scope="row">900 on 100</th><td>99.6</td><td>-95.1</td></tr>
-<tr><th scope="row">900 on 200</th><td>91.2</td><td>-93.7</td></tr>
-<tr><th scope="row">700 on 100</th><td>77.0</td><td>-74.3</td></tr>
-<tr><th scope="row">700 on 200</th><td>68.6</td><td>-73.0</td></tr>
-<tr><th scope="row">on-info on info</th><td>-87.4</td><td>74.8</td></tr>
-</tbody>
-</table>
-</section>
-<section>
-<h2>The platform's colour set</h2>
-<p class="intro">AppKit's semantic colours under their own names, plus the ten fills the platform draws without naming one, measured. Each swatch is painted through <code>var(--platform-&lt;name&gt;)</code>, so the toggle restyles it; the hexes beside it are printed for both schemes, labelled L and D. A name that carries a coverage is printed and painted as <code>#rrggbbaa</code> &mdash; the platform's answer for a label, a seam, an overlay or the focus ring is a colour AT a coverage over whatever lies beneath, and the swatch shows it over the page it is on.</p>
+<h2>The platform’s colour set</h2>
+<p class="intro">AppKit’s semantic colours under their own names, plus the fills the platform draws without naming one, measured. Each swatch is painted through <code>var(--platform-&lt;name&gt;)</code>, so the toggle restyles it; the hexes beside it are printed for both schemes, labelled L and D. A name that carries a coverage is printed and painted as <code>#rrggbbaa</code> &mdash; the platform’s answer for a label, a seam, an overlay or the focus ring is a colour AT a coverage over whatever lies beneath, and the swatch shows it over the page it is on.</p>
 <div class="platform-grid">
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-window-background)"></div>
@@ -656,7 +156,7 @@ h3 {
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-under-page-background)"></div>
-<p class="annot"><code>--platform-under-page-background</code><br>L #969696e6 &middot; D #282828</p>
+<p class="annot"><code>--platform-under-page-background</code><br>L #969696e5 &middot; D #282828</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-control-background)"></div>
@@ -688,7 +188,7 @@ h3 {
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-separator)"></div>
-<p class="annot"><code>--platform-separator</code><br>L #0000001a &middot; D #ffffff1a</p>
+<p class="annot"><code>--platform-separator</code><br>L #00000019 &middot; D #ffffff19</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-grid)"></div>
@@ -696,19 +196,19 @@ h3 {
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-label)"></div>
-<p class="annot"><code>--platform-label</code><br>L #000000d9 &middot; D #ffffffd9</p>
+<p class="annot"><code>--platform-label</code><br>L #000000d8 &middot; D #ffffffd8</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-secondary-label)"></div>
-<p class="annot"><code>--platform-secondary-label</code><br>L #00000080 &middot; D #ffffff8c</p>
+<p class="annot"><code>--platform-secondary-label</code><br>L #0000007f &middot; D #ffffff8c</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-tertiary-label)"></div>
-<p class="annot"><code>--platform-tertiary-label</code><br>L #00000042 &middot; D #ffffff40</p>
+<p class="annot"><code>--platform-tertiary-label</code><br>L #00000042 &middot; D #ffffff3f</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-quaternary-label)"></div>
-<p class="annot"><code>--platform-quaternary-label</code><br>L #0000001a &middot; D #ffffff1a</p>
+<p class="annot"><code>--platform-quaternary-label</code><br>L #00000019 &middot; D #ffffff19</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-text)"></div>
@@ -716,7 +216,7 @@ h3 {
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-placeholder-text)"></div>
-<p class="annot"><code>--platform-placeholder-text</code><br>L #00000080 &middot; D #ffffff8c</p>
+<p class="annot"><code>--platform-placeholder-text</code><br>L #0000007f &middot; D #ffffff8c</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-selected-text)"></div>
@@ -728,19 +228,19 @@ h3 {
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-header-text)"></div>
-<p class="annot"><code>--platform-header-text</code><br>L #000000d9 &middot; D #ffffff</p>
+<p class="annot"><code>--platform-header-text</code><br>L #000000d8 &middot; D #ffffff</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-control)"></div>
-<p class="annot"><code>--platform-control</code><br>L #ffffff &middot; D #ffffff40</p>
+<p class="annot"><code>--platform-control</code><br>L #ffffff &middot; D #ffffff3f</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-control-text)"></div>
-<p class="annot"><code>--platform-control-text</code><br>L #000000d9 &middot; D #ffffffd9</p>
+<p class="annot"><code>--platform-control-text</code><br>L #000000d8 &middot; D #ffffffd8</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-disabled-control-text)"></div>
-<p class="annot"><code>--platform-disabled-control-text</code><br>L #00000040 &middot; D #ffffff40</p>
+<p class="annot"><code>--platform-disabled-control-text</code><br>L #0000003f &middot; D #ffffff3f</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-selected-control)"></div>
@@ -748,7 +248,7 @@ h3 {
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-selected-control-text)"></div>
-<p class="annot"><code>--platform-selected-control-text</code><br>L #000000d9 &middot; D #ffffffd9</p>
+<p class="annot"><code>--platform-selected-control-text</code><br>L #000000d8 &middot; D #ffffffd8</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-alternate-selected-control-text)"></div>
@@ -760,7 +260,7 @@ h3 {
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-keyboard-focus-indicator)"></div>
-<p class="annot"><code>--platform-keyboard-focus-indicator</code><br>L #0067f480 &middot; D #1aa9ff80</p>
+<p class="annot"><code>--platform-keyboard-focus-indicator</code><br>L #0067f47f &middot; D #1aa9ff7f</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-system-red)"></div>
@@ -824,7 +324,11 @@ h3 {
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-sidebar-material)"></div>
-<p class="annot"><code>--platform-sidebar-material</code><br>L #ffffff &middot; D #232a2e</p>
+<p class="annot"><code>--platform-sidebar-material</code><br>L #f7f7f7 &middot; D #1c1c1c</p>
+</div>
+<div class="platform-name">
+<div class="platform-swatch" style="background: var(--platform-sidebar-selection)"></div>
+<p class="annot"><code>--platform-sidebar-selection</code><br>L #178bfb &middot; D #1994fc</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-card-fill)"></div>
@@ -852,7 +356,7 @@ h3 {
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-scrollbar-thumb)"></div>
-<p class="annot"><code>--platform-scrollbar-thumb</code><br>L #00000056 &middot; D #ffffff56</p>
+<p class="annot"><code>--platform-scrollbar-thumb</code><br>L #00000092 &middot; D #ffffff92</p>
 </div>
 <div class="platform-name">
 <div class="platform-swatch" style="background: var(--platform-alternating-content-background)"></div>
@@ -863,6 +367,27 @@ h3 {
 <p class="annot"><code>--platform-scrim</code><br>L #00000033 &middot; D #00000042</p>
 </div>
 </div>
+</section>
+<section>
+<h2>Measured contrast</h2>
+<p class="intro">APCA Lc is the one contrast measure (signed: negative means light-on-dark). Each foreground is flattened over the fill beneath it in encoded sRGB first, the way the platform composites it.</p>
+<table class="contrast">
+<thead>
+<tr><th scope="col">pair</th><th scope="col">light Lc</th><th scope="col">dark Lc</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">label on the window</th><td>101.8</td><td>-84.2</td></tr>
+<tr><th scope="row">secondary label on the window</th><td>66.9</td><td>-45.9</td></tr>
+<tr><th scope="row">label on the chrome material</th><td>97.3</td><td>-83.8</td></tr>
+<tr><th scope="row">label on the card</th><td>97.3</td><td>-82.3</td></tr>
+<tr><th scope="row">control text on the push button</th><td>91.2</td><td>-80.8</td></tr>
+<tr><th scope="row">alternate selected control text on the accent</th><td>-72.0</td><td>-72.0</td></tr>
+<tr><th scope="row">alternate selected control text on the selected row</th><td>-81.2</td><td>-85.5</td></tr>
+<tr><th scope="row">alternate selected control text on the sidebar pill</th><td>-66.6</td><td>-63.2</td></tr>
+<tr><th scope="row">link on the window</th><td>75.3</td><td>-46.1</td></tr>
+<tr><th scope="row">disabled control text on the push button</th><td>30.3</td><td>-17.2</td></tr>
+</tbody>
+</table>
 </section>
 </main>
 <script>

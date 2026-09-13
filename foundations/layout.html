@@ -9,8 +9,8 @@
 <style>
 body {
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--platform-window-background);
+  color: var(--platform-label);
   font-family: var(--font-family), system-ui, sans-serif;
   font-size: var(--font-body-medium-size);
   line-height: var(--font-body-medium-line-height);
@@ -50,14 +50,14 @@ h3 {
 }
 .intro {
   max-width: 48rem;
-  color: var(--color-neutral-700);
+  color: var(--platform-secondary-label);
 }
 .annot {
   font-size: var(--font-label-small-size);
   line-height: var(--font-label-small-line-height);
   font-weight: var(--font-label-small-weight);
   letter-spacing: var(--font-label-small-tracking);
-  color: var(--color-neutral-700);
+  color: var(--platform-secondary-label);
   margin: var(--space-1) 0 0;
 }
 .mode-toggle {
@@ -67,14 +67,14 @@ h3 {
   font-weight: var(--font-label-large-weight);
   letter-spacing: var(--font-label-large-tracking);
   padding: var(--space-2) var(--space-4);
-  color: var(--color-text);
-  background: var(--color-surface);
-  border: thin solid var(--color-control-border);
+  color: var(--platform-label);
+  background: var(--platform-card-fill);
+  border: thin solid var(--platform-field-edge);
   border-radius: var(--radius-base);
   cursor: pointer;
 }
 .mode-toggle:hover {
-  background: var(--color-neutral-300);
+  background: var(--platform-separator);
 }
 .space-row {
   display: flex;
@@ -88,7 +88,7 @@ h3 {
 }
 .space-bar {
   height: var(--space-4);
-  background: var(--color-accent);
+  background: var(--platform-control-accent);
   border-radius: var(--radius-sm);
 }
 .specimen-grid {
@@ -100,8 +100,8 @@ h3 {
 .radius-box {
   width: var(--space-24);
   height: var(--space-24);
-  background: var(--color-surface);
-  border: thin solid var(--color-control-border);
+  background: var(--platform-card-fill);
+  border: thin solid var(--platform-field-edge);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,15 +115,15 @@ h3 {
 .density-col {
   flex: 1 1 18rem;
   padding: var(--space-4);
-  background: var(--color-surface);
-  border: thin solid var(--color-neutral-300);
+  background: var(--platform-card-fill);
+  border: thin solid var(--platform-separator);
   border-radius: var(--radius-md);
 }
 .hit-target {
   display: flex;
   align-items: center;
   min-height: var(--density-min-hit-target);
-  border: thin dashed var(--color-control-border);
+  border: thin dashed var(--platform-field-edge);
   border-radius: var(--radius-sm);
   margin: var(--space-2) 0;
 }
@@ -132,8 +132,8 @@ h3 {
   padding: 0 var(--density-padding-x);
   display: inline-flex;
   align-items: center;
-  background: var(--color-accent);
-  color: var(--color-on-accent);
+  background: var(--platform-control-accent);
+  color: var(--platform-alternate-selected-control-text);
   border-radius: var(--radius-md);
   font-size: var(--font-label-large-size);
   font-weight: var(--font-label-large-weight);
@@ -144,9 +144,9 @@ h3 {
   margin-left: var(--space-2);
   display: inline-flex;
   align-items: center;
-  background: var(--color-surface);
-  color: var(--color-text);
-  border: thin solid var(--color-control-border);
+  background: var(--platform-card-fill);
+  color: var(--platform-label);
+  border: thin solid var(--platform-field-edge);
   border-radius: var(--radius-md);
   font-size: var(--font-label-large-size);
   font-weight: var(--font-label-large-weight);
@@ -174,8 +174,8 @@ h3 {
 .pad-box {
   display: inline-block;
   padding: var(--density-padding-y) var(--density-padding-x);
-  background: var(--color-neutral-200);
-  border: thin solid var(--color-control-border);
+  background: var(--platform-card-fill);
+  border: thin solid var(--platform-field-edge);
   border-radius: var(--radius-md);
   margin: var(--space-2) 0;
 }
@@ -184,7 +184,7 @@ h3 {
   flex-wrap: wrap;
   gap: var(--space-8);
   padding: var(--space-6);
-  background: var(--color-neutral-100);
+  background: var(--platform-window-background);
   border-radius: var(--radius-md);
   margin: var(--space-4) 0;
 }
@@ -192,7 +192,7 @@ h3 {
   width: var(--space-24);
   height: var(--space-20);
   border-radius: var(--radius-md);
-  border: thin solid var(--color-neutral-300);
+  border: thin solid var(--platform-separator);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -205,7 +205,7 @@ h3 {
 <h1>Layout</h1>
 <button type="button" class="mode-toggle">Light / dark</button>
 </div>
-<p class="intro">The spacing scale as sized bars, the control metrics at both density settings, the radius scale on sample boxes and tonal elevation as fill swatches &mdash; every bar width, control height, padding, corner radius, surface fill and shadow resolves through its token, so the sheet is the single source of these shapes.</p>
+<p class="intro">The spacing scale as sized bars, the control metrics at both density settings, the radius scale on sample boxes and the shadow depth each level casts &mdash; every bar width, control height, padding, corner radius and shadow resolves through its token, so the sheet is the single source of these shapes.</p>
 <section>
 <h2>Spacing</h2>
 <div class="space-row">
@@ -337,60 +337,32 @@ h3 {
 </div>
 </section>
 <section>
-<h2>Elevation</h2>
-<p class="intro">Elevation is tonal, and it climbs toward the light: <strong>in both schemes, every level is lighter than the one beneath it</strong> &mdash; one rule, no mirror. <code>--elevation-*</code> is the surface fill and the default cue, resolved per scheme, so both blocks state their own six. The levels run from the backdrop up toward the reader: the bare window plane, the chrome a window wears, the content surface, then raised insets and floating transients. Read the swatches below left to right and the fill gets lighter, in either scheme. The levels stop at 3 &mdash; desktop has no six-deep stack.</p>
+<h2>Shadow depth</h2>
+<p class="intro">A level’s FILL is the platform’s own name for what that region is &mdash; the window’s plane, the chrome material, the content, the card. What the levels state here is the shadow each casts, the opt-in cue a floating transient carries on top of its fill: <code>--shadow-N</code>, for menus, dialogs and tooltips. Neither level under the content casts anything &mdash; the backdrop is what everything stands on, and chrome lies flat on it. The levels stop at 3 &mdash; desktop has no six-deep stack.</p>
 <div class="elevation-row">
 <div>
-<div class="surface-card" style="background: var(--elevation-backdrop)">backdrop</div>
-<p class="annot"><code>--elevation-backdrop</code> &middot; nothing: it shows where nothing stands</p>
+<div class="surface-card" style="background: var(--platform-card-fill); box-shadow: var(--shadow-backdrop)">backdrop</div>
+<p class="annot"><code>--shadow-backdrop</code> &middot; depth 0dp &middot; nothing: it shows where nothing stands</p>
 </div>
 <div>
-<div class="surface-card" style="background: var(--elevation-chrome)">chrome</div>
-<p class="annot"><code>--elevation-chrome</code> &middot; navbars, toolbars, sidebars, panes</p>
+<div class="surface-card" style="background: var(--platform-card-fill); box-shadow: var(--shadow-chrome)">chrome</div>
+<p class="annot"><code>--shadow-chrome</code> &middot; depth 0dp &middot; navbars, toolbars, sidebars, panes</p>
 </div>
 <div>
-<div class="surface-card" style="background: var(--elevation-0)">0</div>
-<p class="annot"><code>--elevation-0</code> &middot; the content</p>
+<div class="surface-card" style="background: var(--platform-card-fill); box-shadow: var(--shadow-0)">0</div>
+<p class="annot"><code>--shadow-0</code> &middot; depth 0dp &middot; the content</p>
 </div>
 <div>
-<div class="surface-card" style="background: var(--elevation-1)">1</div>
-<p class="annot"><code>--elevation-1</code> &middot; cards, fences, fields</p>
+<div class="surface-card" style="background: var(--platform-card-fill); box-shadow: var(--shadow-1)">1</div>
+<p class="annot"><code>--shadow-1</code> &middot; depth 1dp &middot; cards, fences, fields</p>
 </div>
 <div>
-<div class="surface-card" style="background: var(--elevation-2)">2</div>
-<p class="annot"><code>--elevation-2</code> &middot; dialogs, toasts</p>
+<div class="surface-card" style="background: var(--platform-card-fill); box-shadow: var(--shadow-2)">2</div>
+<p class="annot"><code>--shadow-2</code> &middot; depth 3dp &middot; dialogs, toasts</p>
 </div>
 <div>
-<div class="surface-card" style="background: var(--elevation-3)">3</div>
-<p class="annot"><code>--elevation-3</code> &middot; menus, popovers</p>
-</div>
-</div>
-<h3>The opt-in shadow</h3>
-<p class="intro">The dp shadows survive as <code>--shadow-N</code> for floating transients only &mdash; menus, dialogs, tooltips: a float adds its shadow on top of its tonal fill; resting surfaces use the fill alone.</p>
-<div class="elevation-row">
-<div>
-<div class="surface-card" style="background: var(--elevation-backdrop); box-shadow: var(--shadow-backdrop)">backdrop</div>
-<p class="annot"><code>--shadow-backdrop</code> &middot; depth 0dp</p>
-</div>
-<div>
-<div class="surface-card" style="background: var(--elevation-chrome); box-shadow: var(--shadow-chrome)">chrome</div>
-<p class="annot"><code>--shadow-chrome</code> &middot; depth 0dp</p>
-</div>
-<div>
-<div class="surface-card" style="background: var(--elevation-0); box-shadow: var(--shadow-0)">0</div>
-<p class="annot"><code>--shadow-0</code> &middot; depth 0dp</p>
-</div>
-<div>
-<div class="surface-card" style="background: var(--elevation-1); box-shadow: var(--shadow-1)">1</div>
-<p class="annot"><code>--shadow-1</code> &middot; depth 1dp</p>
-</div>
-<div>
-<div class="surface-card" style="background: var(--elevation-2); box-shadow: var(--shadow-2)">2</div>
-<p class="annot"><code>--shadow-2</code> &middot; depth 3dp</p>
-</div>
-<div>
-<div class="surface-card" style="background: var(--elevation-3); box-shadow: var(--shadow-3)">3</div>
-<p class="annot"><code>--shadow-3</code> &middot; depth 6dp</p>
+<div class="surface-card" style="background: var(--platform-card-fill); box-shadow: var(--shadow-3)">3</div>
+<p class="annot"><code>--shadow-3</code> &middot; depth 6dp &middot; menus, popovers</p>
 </div>
 </div>
 </section>
