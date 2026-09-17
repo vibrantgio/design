@@ -68,8 +68,8 @@ never invent a class, a token, or a size variant.
   footer ending in the Return-bound default and **no close X**; a
   dismissable **panel** has a ghost close (`.btn.ghost.icon`) top-right and
   no footer. A corner affordance like that close draws at control height,
-  the same as every control — density is the only size knob, and the 44 dp
-  accessibility floor is an invisible hit target, never a painted size. Anchored surfaces: `.popover` with a `.popover-tail` on side
+  the same as every control — density is the only size knob, and the control
+  it draws is the pointer target, never a size of its own. Anchored surfaces: `.popover` with a `.popover-tail` on side
   `.top`/`.bottom`/`.left`/`.right`; `.tooltip` (inverse video); `.toast`
   (purposes `.success`/`.warning`/`.error`) stacked in a `.toast-stack`.
 - **State-forcing twins** — `.is-hover`, `.is-active`, `.is-focus`,
@@ -94,9 +94,9 @@ never invent a class, a token, or a size variant.
   `--font-title-medium-size`). Set all four together; never a bare
   `font-size`.
 - Density: `--density-control-height`, `--density-chip-height`,
-  `--density-padding-x`, `--density-padding-y`, `--density-min-hit-target`.
-  Controls are exactly one control height tall and a chip is four px under
-  it; `.compact` re-pitches everything but the hit-target floor.
+  `--density-field-height`, `--density-row-height`, `--density-padding-x`,
+  `--density-padding-y`. Controls are exactly one control height tall and a
+  chip is four px under it; `.compact` re-pitches every one of them.
 - Space: `--space-0`…`--space-24` on the 4-pt grid (keys 0–6, 8, 10, 12,
   16, 20, 24). Radius: `--radius-none`, `-sm`, `-base`, `-md`, `-lg`,
   `-xl`, `-2xl`, `-3xl`, `-full`.

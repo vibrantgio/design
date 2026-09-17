@@ -74,6 +74,7 @@
   --platform-scrollbar-thumb: #00000092;
   --platform-alternating-content-background: #f4f5f5;
   --platform-scrim: #00000033;
+  --platform-sidebar-search-fill: #e8e8e8;
   --font-family: "Roboto";
   --font-family-code: "Roboto Mono";
   --font-display-large-size: 57px;
@@ -146,7 +147,6 @@
   --density-row-height: 20px;
   --density-padding-x: 8px;
   --density-padding-y: 2px;
-  --density-min-hit-target: 44px;
   --space-0: 0px;
   --space-1: 4px;
   --space-2: 8px;
@@ -244,6 +244,7 @@
   --platform-scrollbar-thumb: #ffffff92;
   --platform-alternating-content-background: #ffffff0d;
   --platform-scrim: #00000042;
+  --platform-sidebar-search-fill: #2f3234;
 }
 
 .compact {

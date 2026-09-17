@@ -35,6 +35,7 @@
       "separator": "#00000019",
       "shadow": "#000000",
       "sidebar-material": "#f7f7f7",
+      "sidebar-search-fill": "#e8e8e8",
       "sidebar-selection": "#178bfb",
       "system-blue": "#0088ff",
       "system-brown": "#ac7f5e",
@@ -91,6 +92,7 @@
       "separator": "#ffffff19",
       "shadow": "#000000",
       "sidebar-material": "#1c1c1c",
+      "sidebar-search-fill": "#2f3234",
       "sidebar-selection": "#1994fc",
       "system-blue": "#0091ff",
       "system-brown": "#b78a66",
@@ -133,8 +135,7 @@
       "chipHeight": 15,
       "paddingX": 7,
       "paddingY": 0
-    },
-    "minHitTarget": 44
+    }
   },
   "elevation": {
     "shadowDp": [

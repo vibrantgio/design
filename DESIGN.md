@@ -228,12 +228,11 @@ and that is the answer even when neither clears a floor.
 ### Density is a theme token
 
 `tokens.Density` carries the drawn control height and inner padding:
-Comfortable (36 dp control, the default) and Compact (28 dp). Every components and
-patterns control sizes from it, so switching an app to Compact is a theme
-change, not a sweep. The WCAG 2.5.5 pointer target (44 dp) is deliberately
-*not* part of density — it is a constant floor, and components extend their
-pointer area beyond the drawn control to meet it. The numbers are measured,
-not invented (§Desktop divergences).
+Comfortable (the platform's regular control, the default) and Compact (its
+small one). Every components and patterns control sizes from it, so switching
+an app to Compact is a theme change, not a sweep. A control's pointer target
+is the control, so density moves the target with the pixels. The numbers are
+measured, not invented (§Desktop divergences).
 
 ### Motion is a theme token
 
@@ -270,8 +269,8 @@ not merely look wrong; it fails the build.
 - **Reduced motion snaps:** while the OS preference is on, the Motion
   observable emits zero durations; duration-driven components complete in
   zero frames, spring-driven components read the zeros as the snap signal.
-- **Hit targets** hold the 44 dp floor at every density, and every
-  interactive component participates in focus and keyboard activation.
+- **Pointer targets** are the controls themselves at every density, and
+  every interactive component participates in focus and keyboard activation.
 
 Apps do nothing to get any of this; it arrives through the theme.
 

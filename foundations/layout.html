@@ -119,12 +119,9 @@ h3 {
   border: thin solid var(--platform-separator);
   border-radius: var(--radius-md);
 }
-.hit-target {
+.control-row {
   display: flex;
   align-items: center;
-  min-height: var(--density-min-hit-target);
-  border: thin dashed var(--platform-field-edge);
-  border-radius: var(--radius-sm);
   margin: var(--space-2) 0;
 }
 .control-bar {
@@ -263,15 +260,15 @@ h3 {
 </section>
 <section>
 <h2>Density</h2>
-<p class="intro">Two published settings share one variable family: <code>:root</code> carries comfortable, and a <code>.compact</code> class block overrides every per-setting metric of the <code>--density-*</code> family the way <code>.dark</code> overrides the colours &mdash; the right column below is the same markup inside a <code>class="compact"</code> wrapper. The dashed outline is <code>--density-min-hit-target</code>, the WCAG 2.5.5 pointer-target floor: it is not overridden, so compact shrinks the drawn control but never the clickable area.</p>
+<p class="intro">Two published settings share one variable family: <code>:root</code> carries comfortable, and a <code>.compact</code> class block overrides every per-setting metric of the <code>--density-*</code> family the way <code>.dark</code> overrides the colours &mdash; the right column below is the same markup inside a <code>class="compact"</code> wrapper. A control's pointer target is the control: what it draws at <code>--density-control-height</code> is what a pointer lands on, so compact shrinks the target with the pixels.</p>
 <div class="density-pair">
 <div class="density-col">
 <h3>comfortable (root)</h3>
-<div class="hit-target">
+<div class="control-row">
 <span class="control-bar">Control</span>
 <span class="chip-bar">Chip</span>
 </div>
-<p class="annot"><code>--density-control-height</code> &middot; 24px &middot; <code>--density-chip-height</code> &middot; 20px &middot; hit target &ge; 44px</p>
+<p class="annot"><code>--density-control-height</code> &middot; 24px &middot; <code>--density-chip-height</code> &middot; 20px &mdash; each control's own pointer target</p>
 <div><span class="field-bar">Text field</span></div>
 <p class="annot"><code>--density-field-height</code> &middot; 27px &mdash; the platform draws a field taller than a button</p>
 <div class="row-bar">Stacked row</div>
@@ -281,11 +278,11 @@ h3 {
 </div>
 <div class="density-col compact">
 <h3>compact (.compact)</h3>
-<div class="hit-target">
+<div class="control-row">
 <span class="control-bar">Control</span>
 <span class="chip-bar">Chip</span>
 </div>
-<p class="annot"><code>--density-control-height</code> &middot; 19px &middot; <code>--density-chip-height</code> &middot; 15px &middot; hit target &ge; 44px</p>
+<p class="annot"><code>--density-control-height</code> &middot; 19px &middot; <code>--density-chip-height</code> &middot; 15px &mdash; each control's own pointer target</p>
 <div><span class="field-bar">Text field</span></div>
 <p class="annot"><code>--density-field-height</code> &middot; 21px &mdash; the platform draws a field taller than a button</p>
 <div class="row-bar">Stacked row</div>
