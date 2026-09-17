@@ -406,9 +406,7 @@ read as an Android port. ADR-005 ratified a choice the code had already made.
 ## Key architectural patterns
 
 *(Corrected to the shipped code; DESIGN-v1.md documents the original
-pre-migration wiring. The operational rules an app developer needs — AutoConnect
-counts, pitfalls, recipes — live in `llms.txt`; this section records why the
-architecture holds.)*
+pre-migration wiring.)*
 
 ### 1. The events goroutine is the heartbeat
 
@@ -878,6 +876,9 @@ public infrastructure only when a version is final or when the answer changes
 the next action.
 
 ### ADR-007: Nine functional steps, paired dark ramps, APCA contrast
+
+Superseded by DOMAIN Decision 0009: APCA is the one contrast measure; no
+ratio is computed or reported.
 
 **Decision.** Tone stops map to roles the functional way, in Claude Design's
 vocabulary: every colour role carries a **nine-step ramp, 100–900**, where
