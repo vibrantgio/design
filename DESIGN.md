@@ -262,8 +262,8 @@ not merely look wrong; it fails the build.
 - **Contrast is measured in APCA terms**, and a floor chooses a colour only
   where the platform did not already choose one: a pair the platform
   paints — white on `SystemGreen`, a label on its own plane — stands as
-  measured. WCAG 2 ratios are computed and reported — conformance claims cite
-  them — but they gate nothing, because WCAG 2 over-rates light-on-dark pairs.
+  measured. Lc is the one measure the system carries: no second ratio is
+  computed and none is reported alongside.
 - **High contrast follows the platform:** when the OS reports increased
   contrast, the platform reports a colour set of its own and the theme
   carries that, rather than deriving a variant.
