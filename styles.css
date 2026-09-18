@@ -80,6 +80,8 @@
   --platform-toolbar-control-rim: #00000000;
   --platform-toolbar-search-fill: #e8e8e8;
   --platform-toolbar-search-rim: #00000000;
+  --platform-toolbar-label: #4d4d4d;
+  --platform-toolbar-control-seam: #f2f2f2;
   --platform-toolbar-control-shadow: #00000009;
   --platform-toolbar-checked-overlay: #0000001a;
   --platform-pane-rim: #ffffff;
@@ -264,6 +266,8 @@
   --platform-toolbar-control-rim: #404040;
   --platform-toolbar-search-fill: #363636;
   --platform-toolbar-search-rim: #4d4d4d;
+  --platform-toolbar-label: #e9e9e9;
+  --platform-toolbar-control-seam: #3a3a3a;
   --platform-toolbar-control-shadow: #00000006;
   --platform-toolbar-checked-overlay: #ffffff29;
   --platform-pane-rim: #3a3a3a;
