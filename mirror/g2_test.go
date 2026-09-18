@@ -96,19 +96,19 @@ func TestComponentMirrors(t *testing.T) {
 		)},
 		{"checkbox.html", glyphSize, input.RenderCheckbox(
 			nil,
-			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
+			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.BodyLarge,
 			input.CheckboxRenderState{Surface: tokens.PlatformLight.WindowBackground},
 		)},
 		{"checkbox-checked.html", glyphSize, input.RenderCheckbox(
 			nil,
-			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
+			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.BodyLarge,
 			input.CheckboxRenderState{Checked: true, Surface: tokens.PlatformLight.WindowBackground},
 		)},
 		{"radio-selected.html", glyphSize, input.RenderRadio(
 			nil,
-			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
+			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.BodyLarge,
 			input.RadioRenderState{Selected: true, Surface: tokens.PlatformLight.WindowBackground},
 		)},
