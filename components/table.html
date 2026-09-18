@@ -9,12 +9,12 @@
 <style>
 body {
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--platform-window-background);
+  color: var(--platform-label);
   font-family: var(--font-family), system-ui, sans-serif;
   font-size: var(--font-body-medium-size);
   line-height: var(--font-body-medium-line-height);
-  letter-spacing: var(--font-body-medium-tracking);
+  letter-spacing: 0;
 }
 main {
   max-width: 64rem;
@@ -25,26 +25,26 @@ h1 {
   font-size: var(--font-headline-large-size);
   line-height: var(--font-headline-large-line-height);
   font-weight: var(--font-headline-large-weight);
-  letter-spacing: var(--font-headline-large-tracking);
+  letter-spacing: 0;
   margin: var(--space-6) 0 var(--space-2);
 }
 h2 {
   font-size: var(--font-title-large-size);
   line-height: var(--font-title-large-line-height);
   font-weight: var(--font-title-large-weight);
-  letter-spacing: var(--font-title-large-tracking);
+  letter-spacing: 0;
   margin: var(--space-10) 0 var(--space-3);
 }
 .intro {
   max-width: 48rem;
-  color: var(--color-neutral-700);
+  color: var(--platform-secondary-label);
 }
 .annot {
   font-size: var(--font-label-small-size);
   line-height: var(--font-label-small-line-height);
   font-weight: var(--font-label-small-weight);
-  letter-spacing: var(--font-label-small-tracking);
-  color: var(--color-neutral-700);
+  letter-spacing: 0;
+  color: var(--platform-secondary-label);
 }
 .row {
   display: flex;
@@ -52,9 +52,9 @@ h2 {
   align-items: flex-start;
   gap: var(--space-5);
   padding: var(--space-4);
-  border: 1px solid var(--color-seam);
+  border: 1px solid var(--platform-separator);
   border-radius: var(--radius-lg);
-  background: var(--color-surface);
+  background: var(--platform-control-background);
 }
 .cell {
   display: flex;
@@ -64,16 +64,16 @@ h2 {
 }
 .cell .table { width: 26rem; }
 .dark.row {
-  background: var(--color-surface);
-  border-color: var(--color-seam);
-  color: var(--color-text);
+  background: var(--platform-control-background);
+  border-color: var(--platform-separator);
+  color: var(--platform-label);
 }
 </style>
 </head>
 <body>
 <main>
 <h1>Table</h1>
-<p class="intro">The data table is <code>.table</code> on a native <code>&lt;table&gt;</code>. The grid stands on <code>--color-surface</code>; the header band fills <code>neutral-300</code> under <code>neutral-700</code> label-large text. Header and body rows are each exactly <code>--density-control-height</code> tall &mdash; the row rule, so compact density re-pitches the whole grid &mdash; and every row closes with a 1&nbsp;px <code>--color-seam</code> rule drawn inside its height. Cells inset horizontally by <code>--space-3</code>; body text is body-medium at the text pin. Rows separate by the rules alone &mdash; there is no zebra stripe. Column widths are fixed-layout: pin a column with a <code>&lt;col&gt;</code> width, leave the rest to flex.</p>
+<p class="intro">The data table is <code>.table</code> on a native <code>&lt;table&gt;</code>. The grid stands on <code>--platform-control-background</code>; the header band takes no fill of its own &mdash; on this platform a table's header is the content's fill under <code>--platform-header-text</code> in label-large, closed by <code>--platform-separator</code> along its foot. Header and body rows are each exactly <code>--density-row-height</code> tall &mdash; the platform's stacked row, 20&nbsp;px comfortable, which is shorter than a control &mdash; so compact density re-pitches the whole grid, and every body row closes with a 1&nbsp;px <code>--platform-grid</code> rule drawn inside its own height. Cells inset horizontally by <code>--space-3</code>; body text is body-medium in <code>--platform-label</code>. Every second body row is laid on <code>--platform-alternating-content-background</code>, which is what Finder's list view draws. Column widths are fixed-layout: pin a column with a <code>&lt;col&gt;</code> width, leave the rest to flex.</p>
 
 <section>
 <h2>The table — <code>.table</code></h2>

@@ -33,10 +33,13 @@ func onBackground(w layout.Widget) func(layout.Context) layout.Dimensions {
 	}
 }
 
-// glyphSize is the checkbox/radio capture viewport: the comfortable control
-// row the 16 dp glyph is centred in — exactly what drawCheckbox and drawRadio
-// return, which is max(ControlHeight, the glyph) square.
-var glyphSize = image.Pt(buttonHeight, buttonHeight)
+// glyphSize is the checkbox/radio capture viewport: the comfortable
+// CHECKBOX ROW the 16 dp glyph is centred in — exactly what drawCheckbox and
+// drawRadio return, which is the density's own footprint for these two
+// controls and not the push button's height. The measured 22 against the
+// button's 24 is why it is a frame of its own: a viewport a row too tall
+// would score two glyphs one pixel apart.
+var glyphSize = image.Pt(checkboxRowHeight, checkboxRowHeight)
 
 // fieldSize is the text-field capture viewport: 220 wide like the button
 // captures, and fieldHeight tall — BodyLarge's 24 dp line box plus twice the
@@ -164,4 +167,12 @@ func TestComponentMirrors(t *testing.T) {
 //
 // Measured on the authoritative machine, 2026-09-11: button-tonal 0.0218,
 // dropdown 0.0251, against the wrong-radius variant's 0.0279.
+//
+// Re-read 2026-09-18, after the sheet stopped spending the type roles'
+// tracking: button-tonal 0.0178 and dropdown 0.0176, both now UNDER Tolerance
+// itself, against the wrong-radius variant's 0.0278. Half the floor was the
+// sheet setting the label a fraction wider than the component, not the
+// rasterisers disagreeing. The ceiling is left where it stands rather than
+// retired in the same round that moved the drawings, so that one change is
+// read at a time; whether it retires now is on the open list.
 const pushButtonLabelFloor = 0.0265

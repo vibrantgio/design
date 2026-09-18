@@ -29,13 +29,16 @@ var mirrorSize = image.Pt(220, buttonHeight)
 // resolved by the density's own rule (tokens/density.go) rather than
 // hand-tuned, so a density change moves the frames with the components.
 //
-//	buttonHeight  max(ControlHeight 24, LabelLarge's 20 dp line box + 2×PaddingY 2)
-//	fieldHeight   max(FieldHeight 27, BodyLarge's 24 dp line box + 2×PaddingY 2)
-//	rowHeight     RowHeight, the platform's stacked row
+//	buttonHeight       max(ControlHeight 24, LabelLarge's 20 dp line box + 2×PaddingY 2)
+//	fieldHeight        max(FieldHeight 27, BodyLarge's 24 dp line box + 2×PaddingY 2)
+//	rowHeight          RowHeight, the platform's stacked row
+//	checkboxRowHeight  CheckboxRowHeight, the square footprint the 16 dp glyph
+//	                   is centred in and the pointer target it offers
 const (
-	buttonHeight = 24
-	fieldHeight  = 28
-	rowHeight    = 20
+	buttonHeight      = 24
+	fieldHeight       = 28
+	rowHeight         = 20
+	checkboxRowHeight = 22
 )
 
 // gioFilledButton captures the reference render: components/button's filled

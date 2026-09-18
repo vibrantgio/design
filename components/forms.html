@@ -9,12 +9,12 @@
 <style>
 body {
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--platform-window-background);
+  color: var(--platform-label);
   font-family: var(--font-family), system-ui, sans-serif;
   font-size: var(--font-body-medium-size);
   line-height: var(--font-body-medium-line-height);
-  letter-spacing: var(--font-body-medium-tracking);
+  letter-spacing: 0;
 }
 main {
   max-width: 64rem;
@@ -25,26 +25,26 @@ h1 {
   font-size: var(--font-headline-large-size);
   line-height: var(--font-headline-large-line-height);
   font-weight: var(--font-headline-large-weight);
-  letter-spacing: var(--font-headline-large-tracking);
+  letter-spacing: 0;
   margin: var(--space-6) 0 var(--space-2);
 }
 h2 {
   font-size: var(--font-title-large-size);
   line-height: var(--font-title-large-line-height);
   font-weight: var(--font-title-large-weight);
-  letter-spacing: var(--font-title-large-tracking);
+  letter-spacing: 0;
   margin: var(--space-10) 0 var(--space-3);
 }
 .intro {
   max-width: 48rem;
-  color: var(--color-neutral-700);
+  color: var(--platform-secondary-label);
 }
 .annot {
   font-size: var(--font-label-small-size);
   line-height: var(--font-label-small-line-height);
   font-weight: var(--font-label-small-weight);
-  letter-spacing: var(--font-label-small-tracking);
-  color: var(--color-neutral-700);
+  letter-spacing: 0;
+  color: var(--platform-secondary-label);
 }
 .row {
   display: flex;
@@ -52,9 +52,9 @@ h2 {
   align-items: flex-start;
   gap: var(--space-5);
   padding: var(--space-4);
-  border: 1px solid var(--color-seam);
+  border: 1px solid var(--platform-separator);
   border-radius: var(--radius-lg);
-  background: var(--color-surface);
+  background: var(--platform-control-background);
 }
 .cell {
   display: flex;
@@ -64,9 +64,9 @@ h2 {
 }
 .cell > .input, .cell > .select-wrap { width: 14rem; }
 .dark.row {
-  background: var(--color-surface);
-  border-color: var(--color-seam);
-  color: var(--color-text);
+  background: var(--platform-control-background);
+  border-color: var(--platform-separator);
+  color: var(--platform-label);
 }
 .choice {
   display: inline-flex;
@@ -74,27 +74,28 @@ h2 {
   gap: var(--space-2);
   font-size: var(--font-body-medium-size);
   line-height: var(--font-body-medium-line-height);
-  letter-spacing: var(--font-body-medium-tracking);
+  letter-spacing: 0;
 }
 </style>
 </head>
 <body>
 <main>
 <h1>Forms</h1>
-<p class="intro">Form controls are native elements wearing the token sheet's classes — no script anywhere on this page. <code>.input</code> dresses a text <code>&lt;input&gt;</code>; a dropdown is <code>&lt;select class="input select"&gt;</code> inside a <code>.select-wrap</code>, which draws the chevron; <code>.checkbox</code> and <code>.radio</code> dress their native input types. Resolution mirrors <code>components/input</code>: the platform's text background under <code>body-large</code> text, the measured field edge (<code>--platform-field-edge</code>) on the resting edge of the field, the checkbox and the radio alike, the platform's placeholder text, focus promoting the border to the accent, disabled fading every colour. Heights come from <code>--density-control-height</code>; density is the size axis.</p>
+<p class="intro">Form controls are native elements wearing the token sheet's classes &mdash; no script anywhere on this page. <code>.input</code> dresses a text <code>&lt;input&gt;</code>; a pop-up trigger is <code>&lt;select class="input select"&gt;</code> inside a <code>.select-wrap</code>, which draws the platform's pop-up mark; <code>.checkbox</code> and <code>.radio</code> dress their native input types. Resolution mirrors <code>components/input</code> and <code>components/picker</code>: the platform's text background under <code>body-large</code> text, the measured field edge (<code>--platform-field-edge</code>) on the resting edge of the field, the checkbox and the radio alike, the platform's placeholder text, focus adding the halo on the box the control already draws and moving nothing, and a switched-off control fading to the push button's own fill at <code>--disabled-coverage</code> over the surface it stands on. A text field's floor is <code>--density-field-height</code> and a trigger's is <code>--density-control-height</code>: the platform draws a field taller than the button beside it.</p>
 
 <section>
 <h2>Text field — <code>.input</code></h2>
 <div class="row">
 <div class="cell"><input class="input" type="text" placeholder="Placeholder"><span class="annot">empty</span></div>
 <div class="cell"><input class="input" type="text" value="Vibrant Gio"><span class="annot">filled in</span></div>
-<div class="cell"><input class="input is-focus" type="text" value="Vibrant Gio"><span class="annot">focus — accent border, 2&nbsp;px</span></div>
+<div class="cell"><input class="input is-focus" type="text" value="Vibrant Gio"><span class="annot">focus &mdash; the 4&nbsp;px halo on the field's own outline</span></div>
 <div class="cell"><input class="input" type="text" placeholder="Placeholder" disabled><span class="annot">disabled</span></div>
 </div>
 </section>
 
 <section>
-<h2>Dropdown — <code>.input.select</code> in <code>.select-wrap</code></h2>
+<h2>Pop-up trigger &mdash; <code>.input.select</code> in <code>.select-wrap</code></h2>
+<p class="intro">The one control in this family that is a BUTTON and not a field, so it is drawn as the platform's pop-up button: the push button's own fill at <code>--density-control-height</code>, no edge at all &mdash; its fill meets the surface directly, measured &mdash; its label 11&nbsp;px in from that fill's edge, and the platform's pop-up mark, the 8&nbsp;by&nbsp;11 chevron pair masked out of <code>--platform-control-text</code> with its last column 9&nbsp;px clear of the trailing edge. The pair points both ways because it says the control holds one of several values and can never say which way its menu goes.</p>
 <div class="row">
 <div class="cell">
 <span class="select-wrap"><select class="input select"><option selected>Comfortable</option><option>Compact</option></select></span>
@@ -105,6 +106,14 @@ h2 {
 <span class="annot">focus</span>
 </div>
 <div class="cell">
+<span class="select-wrap"><select class="input select is-hover"><option selected>Comfortable</option><option>Compact</option></select></span>
+<span class="annot">hover</span>
+</div>
+<div class="cell">
+<span class="select-wrap"><select class="input select is-active"><option selected>Comfortable</option><option>Compact</option></select></span>
+<span class="annot">held, and while its menu stands</span>
+</div>
+<div class="cell">
 <span class="select-wrap"><select class="input select" disabled><option selected>Comfortable</option><option>Compact</option></select></span>
 <span class="annot">disabled</span>
 </div>
@@ -112,12 +121,27 @@ h2 {
 </section>
 
 <section>
+<h2>Menu &mdash; <code>.menu</code></h2>
+<p class="intro">The surface a trigger opens: the window's own background under the measured floating shadow, which is the whole of what tells the menu's fill from the window's behind it, inside the platform's separator laid on the plane's own outline. A row is <code>--density-control-height</code> tall; the current one wears the pill and the check beside it. An open menu stands over its trigger with the current row on the trigger's own label rather than dropping below it, which is placement and the page's to arrange.</p>
+<div class="row">
+<div class="cell">
+<div class="menu" style="width: 14rem">
+  <div class="menu-item">Comfortable</div>
+  <div class="menu-item selected">Compact</div>
+  <div class="menu-item">Automatic</div>
+</div>
+<span class="annot">three options, the second the one held</span>
+</div>
+</div>
+</section>
+
+<section>
 <h2>Checkbox — <code>.checkbox</code></h2>
-<p class="intro">A 20&nbsp;px glyph at every density (the glyph does not shrink; the Gio side centres it in the control-height row and keeps the 44&nbsp;px pointer target). Checked is the accent fill under a check mark in the on-accent pin — the same figure the Gio side strokes on the icon set's 24-unit grid, drawn here out of two gradient bands. A fill says a colour was applied; only the mark says what that means.</p>
+<p class="intro">The measured 16&nbsp;px glyph at every density, centred in <code>--density-checkbox-row-height</code> &mdash; the square footprint the platform gives a pointer, 22&nbsp;px comfortable against the push button's 24 and the list row's 20. The glyph does not follow density and the footprint does. Its corner is the measured 5&nbsp;px and its edge the measured 1&nbsp;px of the platform's field hairline. Checked is the accent fill under a check mark in <code>--platform-alternate-selected-control-text</code> &mdash; the same figure the Gio side strokes on the icon set's 24-unit grid, drawn here out of two gradient bands. A fill says a colour was applied; only the mark says what that means. Switched off it is one fill and no edge at all.</p>
 <div class="row">
 <div class="cell"><label class="choice"><input class="checkbox" type="checkbox"> Unchecked</label><span class="annot">unchecked</span></div>
 <div class="cell"><label class="choice"><input class="checkbox" type="checkbox" checked> Checked</label><span class="annot">checked</span></div>
-<div class="cell"><label class="choice"><input class="checkbox is-focus" type="checkbox" checked> Focused</label><span class="annot">focus ring</span></div>
+<div class="cell"><label class="choice"><input class="checkbox is-focus" type="checkbox" checked> Focused</label><span class="annot">focus halo</span></div>
 <div class="cell"><label class="choice"><input class="checkbox" type="checkbox" disabled> Disabled</label><span class="annot">disabled</span></div>
 <div class="cell"><label class="choice"><input class="checkbox" type="checkbox" checked disabled> Disabled checked</label><span class="annot">disabled checked</span></div>
 </div>
@@ -125,11 +149,11 @@ h2 {
 
 <section>
 <h2>Radio — <code>.radio</code></h2>
-<p class="intro">The same 20&nbsp;px glyph as a circle; selected keeps a gap in the glyph's own raised fill between the accent ring and the 10&nbsp;px accent dot.</p>
+<p class="intro">The same 16&nbsp;px glyph as a disc. Selected is the accent filling the whole disc with a 5&nbsp;px white dot at its centre &mdash; the measured five sixteenths of the glyph, read off System Settings' selected radio in both appearances &mdash; one fill and one mark, and no gap ring.</p>
 <div class="row">
 <div class="cell"><label class="choice"><input class="radio" type="radio" name="r1"> Off</label><span class="annot">unselected</span></div>
 <div class="cell"><label class="choice"><input class="radio" type="radio" name="r1" checked> On</label><span class="annot">selected</span></div>
-<div class="cell"><label class="choice"><input class="radio is-focus" type="radio" name="r2" checked> Focused</label><span class="annot">focus ring</span></div>
+<div class="cell"><label class="choice"><input class="radio is-focus" type="radio" name="r2" checked> Focused</label><span class="annot">focus halo</span></div>
 <div class="cell"><label class="choice"><input class="radio" type="radio" name="r3" disabled> Disabled</label><span class="annot">disabled</span></div>
 <div class="cell"><label class="choice"><input class="radio" type="radio" name="r4" checked disabled> Disabled selected</label><span class="annot">disabled selected</span></div>
 </div>
@@ -137,12 +161,12 @@ h2 {
 
 <section>
 <h2>Compact density</h2>
-<p class="intro">The same markup inside a <code>class="compact"</code> wrapper: fields drop to the 28&nbsp;px control height. The 20&nbsp;px checkbox and radio glyphs deliberately keep their size — on the Gio side density shrinks the row they centre in, never the glyph.</p>
+<p class="intro">The same markup inside a <code>class="compact"</code> wrapper: a text field drops from 27 to 21&nbsp;px and a trigger from 24 to 19. The 16&nbsp;px checkbox and radio glyphs deliberately keep their size &mdash; density shrinks the row they centre in, from 22 to 17, never the glyph.</p>
 <div class="row compact">
 <div class="cell"><input class="input" type="text" placeholder="Placeholder"><span class="annot">text field</span></div>
 <div class="cell">
 <span class="select-wrap"><select class="input select"><option selected>Comfortable</option><option>Compact</option></select></span>
-<span class="annot">dropdown</span>
+<span class="annot">pop-up trigger</span>
 </div>
 <div class="cell"><label class="choice"><input class="checkbox" type="checkbox" checked> Checked</label><span class="annot">checkbox</span></div>
 <div class="cell"><label class="choice"><input class="radio" type="radio" name="rc" checked> Selected</label><span class="annot">radio</span></div>

@@ -41,14 +41,17 @@
 //
 // # The calibration
 //
-// Read on the authoritative machine (Chromium 153.0.8008.0, darwin/arm64)
-// on 2026-09-11, against the platform's own control scale — a 24 dp push
-// button, a 27 dp text field floor, a 20 dp stacked row:
+// Read on the authoritative machine (Chromium 153.0.8008.0, darwin/arm64),
+// against the platform's own control scale — a 24 dp push button, a 27 dp
+// text field floor, a 20 dp stacked row — and re-read on 2026-09-18, after
+// the sheet stopped spending the type roles' tracking (the library's typeset
+// spends none, so a sheet that spent it set every label a fraction wider
+// than the component beside it):
 //
-//	Gio filled button vs its bundle mirror:             0.0178
+//	Gio filled button vs its bundle mirror:             0.0177
 //	stability: same page captured twice in Chromium:    0.0000
-//	vs the mirror with the wrong colour (systemRed):    0.6765
-//	vs the mirror with the wrong radius (a pill):       0.0279
+//	vs the mirror with the wrong colour (systemRed):    0.6766
+//	vs the mirror with the wrong radius (a pill):       0.0278
 //	vs the mirror with the wrong size (compact 19 dp):  0.1502
 //
 // [Tolerance] is 0.0223, the geometric midpoint of the two clusters' nearest

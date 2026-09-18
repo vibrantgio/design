@@ -9,12 +9,12 @@
 <style>
 body {
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--platform-window-background);
+  color: var(--platform-label);
   font-family: var(--font-family), system-ui, sans-serif;
   font-size: var(--font-body-medium-size);
   line-height: var(--font-body-medium-line-height);
-  letter-spacing: var(--font-body-medium-tracking);
+  letter-spacing: 0;
 }
 main {
   max-width: 64rem;
@@ -25,26 +25,26 @@ h1 {
   font-size: var(--font-headline-large-size);
   line-height: var(--font-headline-large-line-height);
   font-weight: var(--font-headline-large-weight);
-  letter-spacing: var(--font-headline-large-tracking);
+  letter-spacing: 0;
   margin: var(--space-6) 0 var(--space-2);
 }
 h2 {
   font-size: var(--font-title-large-size);
   line-height: var(--font-title-large-line-height);
   font-weight: var(--font-title-large-weight);
-  letter-spacing: var(--font-title-large-tracking);
+  letter-spacing: 0;
   margin: var(--space-10) 0 var(--space-3);
 }
 .intro {
   max-width: 48rem;
-  color: var(--color-neutral-700);
+  color: var(--platform-secondary-label);
 }
 .annot {
   font-size: var(--font-label-small-size);
   line-height: var(--font-label-small-line-height);
   font-weight: var(--font-label-small-weight);
-  letter-spacing: var(--font-label-small-tracking);
-  color: var(--color-neutral-700);
+  letter-spacing: 0;
+  color: var(--platform-secondary-label);
 }
 .row {
   display: flex;
@@ -52,9 +52,9 @@ h2 {
   align-items: flex-start;
   gap: var(--space-5);
   padding: var(--space-4);
-  border: 1px solid var(--color-seam);
+  border: 1px solid var(--platform-separator);
   border-radius: var(--radius-lg);
-  background: var(--color-bg);
+  background: var(--platform-window-background);
 }
 .cell {
   display: flex;
@@ -64,11 +64,12 @@ h2 {
 }
 .cell .navbar { width: 30rem; }
 .cell .tabs, .cell .crumbs { min-width: 0; }
-.cell .sidebar { height: 12rem; }
+.cell .pane { height: 15rem; }
+.cell .sidebar { height: 100%; }
 .dark.row {
-  background: var(--color-bg);
-  border-color: var(--color-seam);
-  color: var(--color-text);
+  background: var(--platform-window-background);
+  border-color: var(--platform-separator);
+  color: var(--platform-label);
 }
 /* Page-local specimen helpers only: a brand wordmark slot and a
    placeholder 16px icon square for the sidebar rows — the icon slot's
@@ -77,23 +78,23 @@ h2 {
   font-size: var(--font-title-medium-size);
   line-height: var(--font-title-medium-line-height);
   font-weight: var(--font-title-medium-weight);
-  letter-spacing: var(--font-title-medium-tracking);
+  letter-spacing: 0;
 }
 .demo-icon {
   width: 16px;
   height: 16px;
-  background: var(--color-neutral-700);
+  background: currentColor;
 }
 </style>
 </head>
 <body>
 <main>
 <h1>Navigation</h1>
-<p class="intro">The four navigation patterns: <code>.navbar</code>, <code>.tabs</code>, <code>.sidebar</code> and <code>.crumbs</code>. All four rest their interactive cells on the surface fill, so hover is that surface's own one-step walk to <code>neutral-300</code> — the same walk the ghost button performs. Selection is the 2&nbsp;px <code>--color-accent</code> underline (navbar links, tabs) or the two-step walk to <code>primary-400</code> (sidebar rows). States shown statically wear the forcing twins (<code>.is-hover</code>, <code>.is-focus</code>) that the token sheet groups into the live pseudo-class rules.</p>
+<p class="intro">The four navigation patterns &mdash; <code>.navbar</code>, <code>.tabs</code>, <code>.sidebar</code> and <code>.crumbs</code> &mdash; and <code>.pane</code>, the inset panel a sidebar stands in. All of them stand on the chrome, <code>--platform-sidebar-material</code>, and draw the separator where two flush regions meet. None of them tints under the pointer: the platform tints neither a list row nor a sidebar row, and that is the measured absence rather than an omission. What they draw is selection &mdash; the 2&nbsp;px <code>--platform-selected-content-background</code> underline on a link or a tab, and the platform's own sidebar pill on a rail's row. States shown statically wear the forcing twins (<code>.is-focus</code>) that the token sheet groups into the live pseudo-class rules.</p>
 
 <section>
 <h2>Navbar — <code>.navbar</code></h2>
-<p class="intro">A horizontal surface bar, <code>--density-control-height</code> plus twice <code>--density-padding-y</code> tall (52&nbsp;px comfortable, 40 compact). Slots run brand, links, actions in document order; <code>.navbar-links</code> centres itself in the space the end slots leave over. Each <code>.navbar-link</code> is label-large text with a 2&nbsp;px underline slot along its bottom edge; <code>.selected</code> fills the slot with the accent pin. Links clip rather than wrap &mdash; there is no overflow affordance.</p>
+<p class="intro">A horizontal chrome bar, <code>--density-control-height</code> plus twice <code>--density-padding-y</code> tall (28&nbsp;px comfortable, 19 compact). Slots run brand, links, actions in document order; <code>.navbar-links</code> centres itself in the space the end slots leave over. Each <code>.navbar-link</code> is label-large text with a 2&nbsp;px underline slot along its bottom edge; <code>.selected</code> fills the slot with the platform's selection colour. Links clip rather than wrap &mdash; there is no overflow affordance.</p>
 <div class="row">
 <div class="cell">
 <nav class="navbar">
@@ -113,18 +114,18 @@ h2 {
 <nav class="navbar">
   <div class="navbar-links">
     <a class="navbar-link" href="#">Docs</a>
-    <a class="navbar-link is-hover" href="#">Components</a>
+    <a class="navbar-link" href="#">Components</a>
     <a class="navbar-link is-focus" href="#">Patterns</a>
   </div>
 </nav>
-<span class="annot">hover on the second link, focus ring on the third</span>
+<span class="annot">focus halo on the third link</span>
 </div>
 </div>
 </section>
 
 <section>
 <h2>Tabs — <code>.tabs</code></h2>
-<p class="intro">A strip of <code>.tab</code> cells exactly <code>--density-control-height</code> tall over the surface fill. Each cell is its label plus <code>--space-3</code> padding a side, with the same 2&nbsp;px underline slot as a navbar link; <code>.selected</code> fills it with the accent pin. The content panel below the strip is yours &mdash; the strip carries no seam of its own.</p>
+<p class="intro">A strip of <code>.tab</code> cells exactly <code>--density-control-height</code> tall over the chrome. Each cell is its label plus <code>--space-3</code> padding a side, with the same 2&nbsp;px underline slot as a navbar link; <code>.selected</code> fills it with the platform's selection colour. The content panel below the strip is yours &mdash; the strip carries no seam of its own.</p>
 <div class="row">
 <div class="cell">
 <div class="tabs" role="tablist">
@@ -137,53 +138,58 @@ h2 {
 <div class="cell">
 <div class="tabs" role="tablist">
   <button class="tab selected" role="tab" aria-selected="true">Preview</button>
-  <button class="tab is-hover" role="tab" aria-selected="false">Code</button>
+  <button class="tab" role="tab" aria-selected="false">Code</button>
   <button class="tab is-focus" role="tab" aria-selected="false">Notes</button>
 </div>
-<span class="annot">hover on the second, focus ring on the third</span>
+<span class="annot">focus halo on the third tab</span>
 </div>
 </div>
 </section>
 
 <section>
-<h2>Sidebar — <code>.sidebar</code></h2>
-<p class="intro">A vertical surface rail at the pattern's two contractual widths: 192&nbsp;px expanded, 48&nbsp;px with <code>.collapsed</code> &mdash; component constants, deliberately not tokens. The <code>.sidebar-toggle</code> row and every <code>.sidebar-item</code> are exactly <code>--density-control-height</code> tall; each item leads with a 48&nbsp;px <code>.sidebar-item-icon</code> column and its label starts at the column edge, one line, clipped &mdash; which is also what hides the labels at the collapsed width. <code>.selected</code> is the two-step walk to <code>primary-400</code>. The whole rail is one keyboard stop: the focus ring belongs to <code>.sidebar</code> itself, and the arrow keys move the selection.</p>
+<h2>Sidebar &mdash; <code>.sidebar</code> inside <code>.pane</code></h2>
+<p class="intro">The platform's sidebar is an inset rounded panel standing inside the window, not a flush column parted by a seam: <code>.pane</code> is that panel &mdash; 8&nbsp;px off the window's edges, cornered at 18, wearing <code>--platform-pane-rim</code> just inside its edge and casting <code>--platform-pane-shadow</code> onto what stands beside it. The rim and the shadow are the boundary.</p>
+<p class="intro">Inside it the rail draws its rows: a symbol, a label and, at the trailing end, a count when the entry has one, each part vertically centred, one line, clipped rather than wrapped &mdash; which is also what hides the label and the count at the collapsed width. Sections are headed by a small label in <code>--platform-secondary-label</code> and parted by that air alone; the platform draws no line there and neither does this. The row is 32&nbsp;px, the symbol's 24&nbsp;px box stands 17 in from the rail's leading edge, the label starts at 48 and the count ends 17 in from the trailing edge &mdash; every number measured. <code>.selected</code> wears the platform's sidebar pill, inset 10 from each edge and cornered at 8, and on it the label and the count both take the foreground the platform pairs with that fill. The two widths are the pattern's contractual 192&nbsp;px expanded and 48&nbsp;px with <code>.collapsed</code>, component constants and deliberately not tokens; collapsed, the symbol box is centred in the rail because there is no label to lead. The whole rail is one keyboard stop: the halo belongs to <code>.sidebar</code> itself, and the arrow keys move the selection.</p>
 <div class="row">
 <div class="cell">
+<div class="pane">
 <nav class="sidebar">
-  <div class="sidebar-toggle"></div>
-  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Overview</a>
-  <a class="sidebar-item selected" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Tokens</a>
-  <a class="sidebar-item is-hover" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Colour</a>
-  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Type</a>
+  <div class="sidebar-section">Library</div>
+  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Overview</span><span class="sidebar-item-count">12</span></a>
+  <a class="sidebar-item selected" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Tokens</span><span class="sidebar-item-count">4</span></a>
+  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Colour</span></a>
+  <div class="sidebar-section">Recents</div>
+  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Type</span><span class="sidebar-item-count">128</span></a>
 </nav>
-<span class="annot">expanded &mdash; second selected, third hovered</span>
+</div>
+<span class="annot">expanded in its panel &mdash; two sections, counts at the trailing end, the second row selected</span>
 </div>
 <div class="cell">
+<div class="pane">
 <nav class="sidebar collapsed">
-  <div class="sidebar-toggle"></div>
-  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Overview</a>
-  <a class="sidebar-item selected" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Tokens</a>
-  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Colour</a>
-  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Type</a>
+  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Overview</span></a>
+  <a class="sidebar-item selected" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Tokens</span></a>
+  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Colour</span></a>
 </nav>
-<span class="annot">collapsed &mdash; icons only</span>
+</div>
+<span class="annot">collapsed &mdash; the symbol box centred in the rail; the label, the count and the section heading are not drawn at all</span>
 </div>
 <div class="cell">
+<div class="pane">
 <nav class="sidebar is-focus">
-  <div class="sidebar-toggle"></div>
-  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Overview</a>
-  <a class="sidebar-item selected" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Tokens</a>
-  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Colour</a>
+  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Overview</span><span class="sidebar-item-count">12</span></a>
+  <a class="sidebar-item selected" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Tokens</span><span class="sidebar-item-count">4</span></a>
+  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Colour</span></a>
 </nav>
-<span class="annot">keyboard focus &mdash; the ring is the rail's</span>
+</div>
+<span class="annot">keyboard focus &mdash; the halo is the rail's</span>
 </div>
 </div>
 </section>
 
 <section>
 <h2>Breadcrumb — <code>.crumbs</code></h2>
-<p class="intro">A row of title-small segments with 12&nbsp;px chevron separators (<code>.crumb-sep</code>) and <code>--space-2</code> gaps. Colour follows position: the last <code>.crumb</code> is the current location at the text pin, ancestors rest on <code>neutral-700</code> and hover to <code>neutral-900</code> &mdash; the ghost variant's text walk. <code>.current</code> forces the current-location colour on a specimen that is not last. Every segment renders on one line; a deep trail clips rather than collapsing to an ellipsis.</p>
+<p class="intro">A row of title-small segments with 12&nbsp;px chevron separators (<code>.crumb-sep</code>) and <code>--space-2</code> gaps. Colour follows position: the last <code>.crumb</code> is the current location in <code>--platform-label</code>, ancestors are links and take <code>--platform-link</code>. <code>.current</code> forces the current-location colour on a specimen that is not last. Every segment renders on one line; a deep trail clips rather than collapsing to an ellipsis.</p>
 <div class="row">
 <div class="cell">
 <nav class="crumbs">
@@ -197,13 +203,13 @@ h2 {
 </div>
 <div class="cell">
 <nav class="crumbs">
-  <a class="crumb is-hover" href="#">Home</a>
+  <a class="crumb" href="#">Home</a>
   <span class="crumb-sep"></span>
   <a class="crumb is-focus" href="#">Design</a>
   <span class="crumb-sep"></span>
   <span class="crumb">Tokens</span>
 </nav>
-<span class="annot">hover on the first, focus ring on the second</span>
+<span class="annot">focus halo on the second segment</span>
 </div>
 <div class="cell">
 <nav class="crumbs">
@@ -216,7 +222,7 @@ h2 {
 
 <section>
 <h2>Compact density</h2>
-<p class="intro">The same markup inside a <code>class="compact"</code> wrapper: <code>--density-control-height</code> drops from 36 to 28&nbsp;px, so the navbar bar, the tab strip and every sidebar row re-pitch. The sidebar's widths and the breadcrumb do not move &mdash; density is vertical rhythm, and a breadcrumb is a text row, not a control.</p>
+<p class="intro">The same markup inside a <code>class="compact"</code> wrapper: <code>--density-control-height</code> drops from 24 to 19&nbsp;px, so the navbar bar and the tab strip re-pitch. The sidebar's rows do not: a chrome rail's row is the pattern's own measured 32&nbsp;px and not the density scale's. Neither do the sidebar's widths or the breadcrumb &mdash; a breadcrumb is a text row, not a control.</p>
 <div class="row compact">
 <div class="cell">
 <nav class="navbar">
@@ -226,29 +232,28 @@ h2 {
     <a class="navbar-link selected" href="#">Components</a>
   </div>
 </nav>
-<span class="annot">40&nbsp;px bar</span>
+<span class="annot">the bar at the compact control height</span>
 </div>
 <div class="cell">
 <div class="tabs" role="tablist">
   <button class="tab selected" role="tab" aria-selected="true">Preview</button>
   <button class="tab" role="tab" aria-selected="false">Code</button>
 </div>
-<span class="annot">28&nbsp;px strip</span>
+<span class="annot">the strip at the compact control height</span>
 </div>
 <div class="cell">
 <nav class="sidebar">
-  <div class="sidebar-toggle"></div>
-  <a class="sidebar-item selected" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Tokens</a>
-  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Colour</a>
+  <a class="sidebar-item selected" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Tokens</span><span class="sidebar-item-count">4</span></a>
+  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Colour</span></a>
 </nav>
-<span class="annot">28&nbsp;px rows</span>
+<span class="annot">the rail keeps its own measured row</span>
 </div>
 </div>
 </section>
 
 <section>
 <h2>Dark mode</h2>
-<p class="intro">Nothing here is mode-specific: a <code>class="dark"</code> wrapper flips the colour variables &mdash; the surface fills, the hover fill, the selected fill and the underlines all resolve from the platform's dark set.</p>
+<p class="intro">Nothing here is mode-specific: a <code>class="dark"</code> wrapper flips the colour variables &mdash; the chrome, the pill, the panel's rim and shadow and the underlines all resolve from the platform's dark set.</p>
 <div class="row dark">
 <div class="cell">
 <nav class="navbar">
@@ -256,7 +261,7 @@ h2 {
   <div class="navbar-links">
     <a class="navbar-link" href="#">Docs</a>
     <a class="navbar-link selected" href="#">Components</a>
-    <a class="navbar-link is-hover" href="#">Patterns</a>
+    <a class="navbar-link" href="#">Patterns</a>
   </div>
 </nav>
 <span class="annot">navbar</span>
@@ -265,16 +270,15 @@ h2 {
 <div class="tabs" role="tablist">
   <button class="tab selected" role="tab" aria-selected="true">Preview</button>
   <button class="tab" role="tab" aria-selected="false">Code</button>
-  <button class="tab is-hover" role="tab" aria-selected="false">Notes</button>
+  <button class="tab" role="tab" aria-selected="false">Notes</button>
 </div>
 <span class="annot">tabs</span>
 </div>
 <div class="cell">
 <nav class="sidebar">
-  <div class="sidebar-toggle"></div>
-  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Overview</a>
-  <a class="sidebar-item selected" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Tokens</a>
-  <a class="sidebar-item is-hover" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span>Colour</a>
+  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Overview</span><span class="sidebar-item-count">12</span></a>
+  <a class="sidebar-item selected" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Tokens</span><span class="sidebar-item-count">4</span></a>
+  <a class="sidebar-item" href="#"><span class="sidebar-item-icon"><span class="demo-icon"></span></span><span class="sidebar-item-label">Colour</span></a>
 </nav>
 <span class="annot">sidebar</span>
 </div>

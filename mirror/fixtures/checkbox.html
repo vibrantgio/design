@@ -1,14 +1,17 @@
 <!doctype html>
 <!-- G2.1 mirror fixture (design/mirror) — NOT part of the published bundle.
      components/input's unchecked checkbox: the published sheet's .checkbox
-     class, the 16px measured glyph centred in the 24px comfortable control
-     row the Gio reference draws (offset 4,4 in a 24x24 viewport). Its edge
-     is the platform's own measured field edge. -->
+     class, whose own margin centres the 16px measured glyph in the density's
+     22px checkbox row - the square footprint the Gio reference draws and the
+     pointer target it offers. Its edge is the platform's own measured field
+     edge, one pixel, and its corner the measured 5. The glyph is made a block
+     so no line box stands under it: the frame is the footprint exactly.
+-->
 <meta charset="utf-8">
 <link rel="stylesheet" href="/styles.css">
 <style>
   html, body { margin: 0; }
   body { background: var(--platform-window-background); }
-  .checkbox { margin: 4px; }
+  .checkbox { display: block; }
 </style>
 <input class="checkbox" type="checkbox">

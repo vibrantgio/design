@@ -47,17 +47,18 @@ both modes, labelled `L` and `D`.
 
 | Family | Tokens | Notes |
 | --- | --- | --- |
-| `--platform-<name>` | `--platform-window-background`, `--platform-under-page-background`, `--platform-control-background`, `--platform-text-background`, `--platform-selected-content-background`, `--platform-unemphasized-selected-content-background`, `--platform-selected-text-background`, `--platform-unemphasized-selected-text-background`, `--platform-find-highlight`, `--platform-separator`, `--platform-grid`, `--platform-label`, `--platform-secondary-label`, `--platform-tertiary-label`, `--platform-quaternary-label`, `--platform-text`, `--platform-placeholder-text`, `--platform-selected-text`, `--platform-link`, `--platform-header-text`, `--platform-control`, `--platform-control-text`, `--platform-disabled-control-text`, `--platform-selected-control`, `--platform-selected-control-text`, `--platform-alternate-selected-control-text`, `--platform-control-accent`, `--platform-keyboard-focus-indicator`, `--platform-system-red`, `--platform-system-orange`, `--platform-system-yellow`, `--platform-system-green`, `--platform-system-mint`, `--platform-system-teal`, `--platform-system-cyan`, `--platform-system-blue`, `--platform-system-indigo`, `--platform-system-purple`, `--platform-system-pink`, `--platform-system-brown`, `--platform-system-gray`, `--platform-shadow`, `--platform-highlight`, `--platform-sidebar-material`, `--platform-sidebar-selection`, `--platform-card-fill`, `--platform-push-button-fill`, `--platform-hover-overlay`, `--platform-press-overlay`, `--platform-floating-shadow`, `--platform-field-edge`, `--platform-scrollbar-thumb`, `--platform-alternating-content-background`, `--platform-scrim`, `--platform-sidebar-search-fill` | the platform's own colour set: AppKit's semantic colours under their own names, kebab-cased, plus the fills the platform draws without naming, measured. Both schemes state their own. A coverage is written out as `#rrggbbaa`, because the platform's answer for a label, a seam, an overlay or the focus ring IS a colour at a coverage over whatever lies beneath it |
+| `--platform-<name>` | `--platform-window-background`, `--platform-under-page-background`, `--platform-control-background`, `--platform-text-background`, `--platform-selected-content-background`, `--platform-unemphasized-selected-content-background`, `--platform-selected-text-background`, `--platform-unemphasized-selected-text-background`, `--platform-find-highlight`, `--platform-separator`, `--platform-grid`, `--platform-label`, `--platform-secondary-label`, `--platform-tertiary-label`, `--platform-quaternary-label`, `--platform-text`, `--platform-placeholder-text`, `--platform-selected-text`, `--platform-link`, `--platform-header-text`, `--platform-control`, `--platform-control-text`, `--platform-disabled-control-text`, `--platform-selected-control`, `--platform-selected-control-text`, `--platform-alternate-selected-control-text`, `--platform-control-accent`, `--platform-keyboard-focus-indicator`, `--platform-system-red`, `--platform-system-orange`, `--platform-system-yellow`, `--platform-system-green`, `--platform-system-mint`, `--platform-system-teal`, `--platform-system-cyan`, `--platform-system-blue`, `--platform-system-indigo`, `--platform-system-purple`, `--platform-system-pink`, `--platform-system-brown`, `--platform-system-gray`, `--platform-shadow`, `--platform-highlight`, `--platform-sidebar-material`, `--platform-sidebar-selection`, `--platform-sidebar-count`, `--platform-card-fill`, `--platform-push-button-fill`, `--platform-hover-overlay`, `--platform-press-overlay`, `--platform-floating-shadow`, `--platform-field-edge`, `--platform-scrollbar-thumb`, `--platform-alternating-content-background`, `--platform-scrim`, `--platform-sidebar-search-fill`, `--platform-toolbar-control-fill`, `--platform-toolbar-control-rim`, `--platform-toolbar-search-fill`, `--platform-toolbar-search-rim`, `--platform-toolbar-control-shadow`, `--platform-toolbar-checked-overlay`, `--platform-pane-rim`, `--platform-pane-shadow` | the platform's own colour set: AppKit's semantic colours under their own names, kebab-cased, plus the fills the platform draws without naming, measured. Both schemes state their own. A coverage is written out as `#rrggbbaa`, because the platform's answer for a label, a seam, an overlay or the focus ring IS a colour at a coverage over whatever lies beneath it |
 | `--font-family` | `--font-family` | the typeface every prose role uses |
 | `--font-family-code` | `--font-family-code` | the monospace typeface the code role uses |
 | `--font-<role>-*` | roles display-large, display-medium, display-small, headline-large, headline-medium, headline-small, title-large, title-medium, title-small, label-large, label-medium, label-small, body-large, body-medium, body-small, code; each with `-size`, `-line-height`, `-weight`, `-tracking` | px sizes, CSS numeric weights; code is the mono style outside the type grid, at body-medium's metrics |
-| `--density-<metric>` | `--density-control-height`, `--density-chip-height`, `--density-field-height`, `--density-row-height`, `--density-padding-x`, `--density-padding-y` | control metrics, px; `:root` is comfortable, `.compact` overrides every one of them |
+| `--density-<metric>` | `--density-control-height`, `--density-chip-height`, `--density-field-height`, `--density-row-height`, `--density-checkbox-row-height`, `--density-toolbar-control-height`, `--density-padding-x`, `--density-padding-y` | control metrics, px; `:root` is comfortable, `.compact` overrides every one of them |
 | `--space-<key>` | `--space-0`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24` | the 4-pt spacing grid, px |
 | `--radius-<key>` | `--radius-none`, `--radius-sm`, `--radius-base`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-3xl`, `--radius-full` | corner radii, Tailwind naming, px |
 | `--shadow-<level>` | `--shadow-backdrop`, `--shadow-chrome`, `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the cue a floating transient carries (menus, dialogs, tooltips) over the platform fill it stands in; resting surfaces cast none |
 | `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for the published two-segment path |
 | `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | duration stops, ms; the reduce-motion variant zeroes them |
-| interaction states | `--focus-ring-width` | the ring's 2 px stroke, mode-invariant, unlike the ring's colour, which is `--platform-keyboard-focus-indicator` and flips with the appearance |
+| interaction states | `--focus-halo-width`, `--disabled-coverage` | the focus halo's 4 px band and the platform's measured disabled coverage as a percentage, both mode-invariant, unlike the halo's colour, which is `--platform-keyboard-focus-indicator` and flips with the appearance |
+| `--toolbar-control-shadow-*` | `--toolbar-control-shadow-reach`, `--toolbar-control-shadow-offset` | the bordered toolbar control's drop shadow is the one material whose GEOMETRY the platform draws differently under the two appearances, so its reach and the depth its rectangle is sunk are stated per appearance beside the colour set; its peak is `--platform-toolbar-control-shadow` |
 
 ## Component classes
 
@@ -92,20 +93,28 @@ platform's default action. Two modifier classes select the less
 pronounced variants — `.btn.tonal`, the platform's ordinary push button
 (`--platform-push-button-fill` under `--platform-control-text`, inside a
 `--platform-separator` hairline), and `.btn.ghost`, its borderless kind
-(no fill, `--platform-control-text`). Nothing tints on hover: a Finder
-toolbar button does and a Save dialog's push button does not, and this
-sheet's classes are push buttons. Held (`:active`),
-`--platform-press-overlay` goes over whatever fill the variant carries
-and over the page where it carries none. Keyboard focus
-(`:focus-visible`) keeps the resting fill and insets
-`--platform-keyboard-focus-indicator` at `--focus-ring-width` — the same
-ring at the same width in every variant, because keyboard visibility is
-not a prominence property. Disabled (`:disabled`) is the platform's own
-answer rather than a fade: the fill falls back to the push button's
-inside the separator hairline and every foreground becomes
-`--platform-disabled-control-text`. `.btn.icon` is the icon-only form: a
-square the density's control height on a side, the glyph (an inline SVG
-on `currentColor`) inset by the density's vertical padding.
+(no fill, `--platform-control-text`). Under the pointer (`:hover`)
+`--platform-hover-overlay` goes over whatever fill the variant carries,
+and held (`:active`) `--platform-press-overlay` goes there instead, a
+press winning over a hover; over the page where the variant carries no
+fill, which is how a ghost gets one at all. Keyboard focus
+(`:focus-visible`) keeps the resting fill and lays
+`--platform-keyboard-focus-indicator` on the control's own outline at
+`--focus-halo-width`, half the band past the box and half over it — the
+same band at the same width in every variant, because keyboard
+visibility is not a prominence property. Disabled (`:disabled`) is the
+platform's fade: the fill falls back to the push button's own at
+`--disabled-coverage` over the surface the control stands on, its
+hairline to the separator at that same coverage, and every foreground
+becomes `--platform-disabled-control-text`. `.btn.icon` is the icon-only
+form: a square the density's control height on a side, the glyph (an
+inline SVG on `currentColor`) inset by the density's vertical padding.
+`.btn.chrome` is the bordered toolbar control: a capsule at
+`--density-toolbar-control-height` cornered at half of it, filled with
+`--platform-toolbar-control-fill` inside `--platform-toolbar-control-rim`
+(which answers no colour in the light appearance, where the platform
+draws none) and casting the measured drop shadow that tells a light
+control from a light band.
 
 `.badge` is the inline annotation: `label-medium` text on the platform's
 system colour for the status it carries, under
@@ -126,20 +135,28 @@ The form controls dress native elements — no script anywhere:
 native input types with `appearance: none`. They resolve exactly as
 `components/input` does: `--platform-text-background` under
 `--platform-text`, `--platform-placeholder-text` for a prompt,
-`--platform-field-edge` on the resting edge, focus replacing that edge
-with `--platform-keyboard-focus-indicator` at `--focus-ring-width`, and
+`--platform-field-edge` on the resting edge, focus adding the halo on
+the box the control already draws and moving nothing, and
 `--platform-disabled-control-text` where the control cannot be used —
 the fill staying exactly where it was, because the platform fades the
 wording and leaves the control. A text field's height floor is
 `--density-field-height`, not the control height: the platform draws a
-field shorter than the button beside it. The dropdown trigger is the
-exception in this family and is a BUTTON rather than a field, so
-`.select` takes the push button's fill, the separator hairline and the
-control height. Checked, the box is `--platform-control-accent` under a
-check mark drawn from the icon set's grid as two gradient bands — a fill
-says a colour was applied and only the mark says what it means. The
-radio's selected state is the same accent filling the circle with an
-8 dp white dot at its centre.
+field shorter than the button beside it. The pop-up trigger is the
+exception in this family and is a BUTTON rather than a field: `.select`
+takes the push button's fill at the control height, draws NO edge at
+all — its fill meets the surface directly, measured — sets its label
+11 px in from that fill's edge, and wears the platform's pop-up mark,
+the 8 by 11 chevron pair masked out of `--platform-control-text` with
+its last column 9 px clear of the trailing edge. `.menu` is the surface
+it opens. The checkbox and the radio draw their 16 px glyph centred in
+`--density-checkbox-row-height`, the square footprint the platform gives
+a pointer, with the measured 5 px corner and the measured 1 px edge.
+Checked, the box is `--platform-control-accent` under a check mark drawn
+from the icon set's grid as two gradient bands — a fill says a colour was
+applied and only the mark says what it means. The radio's selected state
+is the same accent filling the disc with a 5 px white dot at its centre,
+the measured five sixteenths of the glyph. Switched off, both are one
+fill and no edge: the push button's own fill at `--disabled-coverage`.
 
 `.card` is the platform's grouped box: `--platform-card-fill`, a small
 step of fill from the surface it stands on, with no hairline and no
@@ -152,10 +169,15 @@ the header band. The navigation family — `.navbar`, `.tabs`, `.sidebar`
 and `.crumbs` — stands on `--platform-sidebar-material`, the chrome, and
 draws the separator where two flush regions meet; selection is
 `--platform-selected-content-background`, as an underline on a link or a
-tab and as the row's own fill on a rail. The overlay family —
-`.scrim`/`.dialog`, `.popover`, `.tooltip`, `.toast` — is filled with
-`--platform-window-background`, which is what every floating surface on
-this platform is filled with, and floats on
+tab and as the row's own fill on a rail. `.pane` is the platform's
+sidebar as it actually stands: an inset rounded panel 8 px off the
+window's edges, cornered at 18, wearing `--platform-pane-rim` just
+inside its edge and casting `--platform-pane-shadow` onto what stands
+beside it — the rim and the shadow are the boundary, and no seam is
+drawn. The overlay family —
+`.scrim`/`.dialog`, `.popover`, `.tooltip`, `.toast`, `.menu` — is filled
+with `--platform-window-background`, which is what every floating surface
+on this platform is filled with, and floats on
 `--platform-floating-shadow`.
 
 ## Levels and the shadow
@@ -183,9 +205,13 @@ Two published settings, one variable family: comfortable (24 dp controls,
 controls, 15 dp chips, 7/0 dp padding) is the `.compact` class override,
 scoping to any subtree the way `.dark` scopes colours. The chip height is
 the control height less 4 dp in both settings — one relation, not a second
-scale. A text field and a stacked row are not controls and carry their own
-measured heights: `--density-field-height` (27 dp comfortable, 21 compact)
-and `--density-row-height` (20 dp, 19 compact).
+scale. A text field, a stacked row, a checkbox's row and a toolbar
+control are not that control and carry their own measured heights:
+`--density-field-height` (27 dp comfortable, 21 compact),
+`--density-row-height` (20 dp, 19 compact),
+`--density-checkbox-row-height` (22 dp, 17 compact) and
+`--density-toolbar-control-height` (36 dp in both, no capture holding a
+toolbar drawn small).
 A control's pointer target is the control: what it draws at
 `--density-control-height` is what a pointer has to land on, so compact
 shrinks the target with the pixels.

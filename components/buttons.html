@@ -9,12 +9,12 @@
 <style>
 body {
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--platform-window-background);
+  color: var(--platform-label);
   font-family: var(--font-family), system-ui, sans-serif;
   font-size: var(--font-body-medium-size);
   line-height: var(--font-body-medium-line-height);
-  letter-spacing: var(--font-body-medium-tracking);
+  letter-spacing: 0;
 }
 main {
   max-width: 64rem;
@@ -25,33 +25,33 @@ h1 {
   font-size: var(--font-headline-large-size);
   line-height: var(--font-headline-large-line-height);
   font-weight: var(--font-headline-large-weight);
-  letter-spacing: var(--font-headline-large-tracking);
+  letter-spacing: 0;
   margin: var(--space-6) 0 var(--space-2);
 }
 h2 {
   font-size: var(--font-title-large-size);
   line-height: var(--font-title-large-line-height);
   font-weight: var(--font-title-large-weight);
-  letter-spacing: var(--font-title-large-tracking);
+  letter-spacing: 0;
   margin: var(--space-10) 0 var(--space-3);
 }
 h3 {
   font-size: var(--font-title-medium-size);
   line-height: var(--font-title-medium-line-height);
   font-weight: var(--font-title-medium-weight);
-  letter-spacing: var(--font-title-medium-tracking);
+  letter-spacing: 0;
   margin: var(--space-6) 0 var(--space-2);
 }
 .intro {
   max-width: 48rem;
-  color: var(--color-neutral-700);
+  color: var(--platform-secondary-label);
 }
 .annot {
   font-size: var(--font-label-small-size);
   line-height: var(--font-label-small-line-height);
   font-weight: var(--font-label-small-weight);
-  letter-spacing: var(--font-label-small-tracking);
-  color: var(--color-neutral-700);
+  letter-spacing: 0;
+  color: var(--platform-secondary-label);
 }
 .row {
   display: flex;
@@ -59,9 +59,9 @@ h3 {
   align-items: flex-end;
   gap: var(--space-5);
   padding: var(--space-4);
-  border: 1px solid var(--color-seam);
+  border: 1px solid var(--platform-separator);
   border-radius: var(--radius-lg);
-  background: var(--color-surface);
+  background: var(--platform-control-background);
 }
 .cell {
   display: flex;
@@ -70,25 +70,25 @@ h3 {
   gap: var(--space-2);
 }
 .dark.row {
-  background: var(--color-surface);
-  border-color: var(--color-seam);
-  color: var(--color-text);
+  background: var(--platform-control-background);
+  border-color: var(--platform-separator);
+  color: var(--platform-label);
 }
 </style>
 </head>
 <body>
 <main>
 <h1>Buttons &amp; badges</h1>
-<p class="intro">The button is <code>.btn</code> — <strong>filled</strong> by default, with <code>.tonal</code> and <code>.ghost</code> selecting the less pronounced emphasis variants. Emphasis is a colour property and nothing else: every variant keeps the same size and the same focus ring. There is no size prop — heights come from <code>--density-control-height</code>, and density (<code>.compact</code> on any subtree) is the size axis. States shown statically wear the forcing twins (<code>.is-hover</code>, <code>.is-active</code>, <code>.is-focus</code>) that the token sheet groups into the live pseudo-class rules; disabled uses the native attribute.</p>
+<p class="intro">The button is <code>.btn</code> — <strong>filled</strong> by default, with <code>.tonal</code> and <code>.ghost</code> selecting the less pronounced emphasis variants. Emphasis is a colour property and nothing else: every variant keeps the same size and the same focus halo. There is no size prop — heights come from <code>--density-control-height</code>, and density (<code>.compact</code> on any subtree) is the size axis. States shown statically wear the forcing twins (<code>.is-hover</code>, <code>.is-active</code>, <code>.is-focus</code>) that the token sheet groups into the live pseudo-class rules; disabled uses the native attribute.</p>
 
 <section>
 <h2>Filled — <code>.btn</code></h2>
-<p class="intro">The most pronounced variant: the platform's accent under the text that reads on it. One per surface — the action the screen is about. Hover and press composite the platform's own overlays over that fill.</p>
+<p class="intro">The most pronounced variant: the platform's accent under the text that reads on it. One per surface &mdash; the action the screen is about. Under the pointer the platform's hover overlay composites over that fill and held its press overlay does, a press winning over a hover. Focus keeps the fill and lays the platform's keyboard focus indicator on the button's own outline at <code>--focus-halo-width</code>, half the band past the box and half over it. Disabled is the platform's fade: the push button's own fill at <code>--disabled-coverage</code> over the surface the button stands on, inside the separator at the same coverage, under the platform's disabled control text.</p>
 <div class="row">
 <div class="cell"><button class="btn">Save Changes</button><span class="annot">enabled</span></div>
 <div class="cell"><button class="btn is-hover">Save Changes</button><span class="annot">hover</span></div>
 <div class="cell"><button class="btn is-active">Save Changes</button><span class="annot">pressed</span></div>
-<div class="cell"><button class="btn is-focus">Save Changes</button><span class="annot">focus ring</span></div>
+<div class="cell"><button class="btn is-focus">Save Changes</button><span class="annot">focus halo</span></div>
 <div class="cell"><button class="btn" disabled>Save Changes</button><span class="annot">disabled</span></div>
 <div class="cell"><button class="btn icon" aria-label="Add"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M9 3h2v6h6v2h-6v6H9v-6H3V9h6z"/></svg></button><span class="annot">icon-only</span></div>
 </div>
@@ -101,7 +101,7 @@ h3 {
 <div class="cell"><button class="btn tonal">Save Changes</button><span class="annot">enabled</span></div>
 <div class="cell"><button class="btn tonal is-hover">Save Changes</button><span class="annot">hover</span></div>
 <div class="cell"><button class="btn tonal is-active">Save Changes</button><span class="annot">pressed</span></div>
-<div class="cell"><button class="btn tonal is-focus">Save Changes</button><span class="annot">focus ring</span></div>
+<div class="cell"><button class="btn tonal is-focus">Save Changes</button><span class="annot">focus halo</span></div>
 <div class="cell"><button class="btn tonal" disabled>Save Changes</button><span class="annot">disabled</span></div>
 <div class="cell"><button class="btn tonal icon" aria-label="Add"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M9 3h2v6h6v2h-6v6H9v-6H3V9h6z"/></svg></button><span class="annot">icon-only</span></div>
 </div>
@@ -109,20 +109,32 @@ h3 {
 
 <section>
 <h2>Ghost — <code>.btn.ghost</code></h2>
-<p class="intro">The least pronounced variant: no fill at rest, neutral 700 text, and a neutral fill only under the pointer. For affordances that must be present without being the subject — a dialog's close X, a toolbar of icons. A ghost is less pronounced, not smaller: full height, full focus ring.</p>
+<p class="intro">The least pronounced variant: no fill at rest, the platform's control text, and the platform's own overlay composited straight onto whatever it stands on under the pointer &mdash; which is the only fill a ghost ever has. For affordances that must be present without being the subject &mdash; a dialog's close X, a toolbar of icons. A ghost is less pronounced, not smaller: full height, full focus halo.</p>
 <div class="row">
 <div class="cell"><button class="btn ghost">Save Changes</button><span class="annot">enabled</span></div>
 <div class="cell"><button class="btn ghost is-hover">Save Changes</button><span class="annot">hover</span></div>
 <div class="cell"><button class="btn ghost is-active">Save Changes</button><span class="annot">pressed</span></div>
-<div class="cell"><button class="btn ghost is-focus">Save Changes</button><span class="annot">focus ring</span></div>
+<div class="cell"><button class="btn ghost is-focus">Save Changes</button><span class="annot">focus halo</span></div>
 <div class="cell"><button class="btn ghost" disabled>Save Changes</button><span class="annot">disabled</span></div>
 <div class="cell"><button class="btn ghost icon" aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5.4 4 10 8.6 14.6 4 16 5.4 11.4 10l4.6 4.6-1.4 1.4L10 11.4 5.4 16 4 14.6 8.6 10 4 5.4z"/></svg></button><span class="annot">icon-only</span></div>
 </div>
 </section>
 
 <section>
+<h2>Toolbar control &mdash; <code>.btn.chrome</code></h2>
+<p class="intro">The platform's bordered toolbar control: a capsule at <code>--density-toolbar-control-height</code> &mdash; the band's own measured 36&nbsp;px against a dialog control's 24 &mdash; cornered at half of it, filled with <code>--platform-toolbar-control-fill</code> inside <code>--platform-toolbar-control-rim</code>, casting the measured drop shadow that tells a light control from a light band. It is the one control on this platform that tints under the pointer. A chrome control belongs in a chrome region: one standing on the content plane is a defect in the page that put it there, so the specimen below stands on a band.</p>
+<div class="row" style="background: var(--platform-sidebar-material)">
+<div class="cell"><button class="btn chrome">View</button><span class="annot">enabled</span></div>
+<div class="cell"><button class="btn chrome is-hover">View</button><span class="annot">hover</span></div>
+<div class="cell"><button class="btn chrome is-active">View</button><span class="annot">pressed</span></div>
+<div class="cell"><button class="btn chrome is-focus">View</button><span class="annot">focus halo</span></div>
+<div class="cell"><button class="btn chrome icon" aria-label="Add"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M9 3h2v6h6v2h-6v6H9v-6H3V9h6z"/></svg></button><span class="annot">a symbol as the label</span></div>
+</div>
+</section>
+
+<section>
 <h2>Compact density</h2>
-<p class="intro">The same markup inside a <code>class="compact"</code> wrapper: <code>--density-control-height</code> drops from 36 to 28&nbsp;px and the padding follows. Density is the size axis — there is no small or large button. The pointer target keeps its 44&nbsp;px floor on the Gio side regardless.</p>
+<p class="intro">The same markup inside a <code>class="compact"</code> wrapper: <code>--density-control-height</code> drops from 24 to 19&nbsp;px and the padding follows. Density is the size axis &mdash; there is no small or large button. A control's pointer target is the control: what it draws is what a pointer has to land on, so compact shrinks the target with the pixels.</p>
 <div class="row compact">
 <div class="cell"><button class="btn">Save Changes</button><span class="annot">filled</span></div>
 <div class="cell"><button class="btn is-hover">Save Changes</button><span class="annot">filled hover</span></div>

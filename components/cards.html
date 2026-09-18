@@ -9,12 +9,12 @@
 <style>
 body {
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--platform-window-background);
+  color: var(--platform-label);
   font-family: var(--font-family), system-ui, sans-serif;
   font-size: var(--font-body-medium-size);
   line-height: var(--font-body-medium-line-height);
-  letter-spacing: var(--font-body-medium-tracking);
+  letter-spacing: 0;
 }
 main {
   max-width: 64rem;
@@ -25,26 +25,26 @@ h1 {
   font-size: var(--font-headline-large-size);
   line-height: var(--font-headline-large-line-height);
   font-weight: var(--font-headline-large-weight);
-  letter-spacing: var(--font-headline-large-tracking);
+  letter-spacing: 0;
   margin: var(--space-6) 0 var(--space-2);
 }
 h2 {
   font-size: var(--font-title-large-size);
   line-height: var(--font-title-large-line-height);
   font-weight: var(--font-title-large-weight);
-  letter-spacing: var(--font-title-large-tracking);
+  letter-spacing: 0;
   margin: var(--space-10) 0 var(--space-3);
 }
 .intro {
   max-width: 48rem;
-  color: var(--color-neutral-700);
+  color: var(--platform-secondary-label);
 }
 .annot {
   font-size: var(--font-label-small-size);
   line-height: var(--font-label-small-line-height);
   font-weight: var(--font-label-small-weight);
-  letter-spacing: var(--font-label-small-tracking);
-  color: var(--color-neutral-700);
+  letter-spacing: 0;
+  color: var(--platform-secondary-label);
 }
 .row {
   display: flex;
@@ -52,9 +52,9 @@ h2 {
   align-items: flex-start;
   gap: var(--space-5);
   padding: var(--space-4);
-  border: 1px solid var(--color-seam);
+  border: 1px solid var(--platform-separator);
   border-radius: var(--radius-lg);
-  background: var(--color-surface);
+  background: var(--platform-control-background);
 }
 .cell {
   display: flex;
@@ -66,23 +66,23 @@ h2 {
 /* Slot typography is the content's, not the card's — the Gio card draws no
    text of its own, and the group draws only its own label. These are this
    page's example slots: a title-medium header, a body-medium body in the
-   low-contrast step, a label-medium footer in the accent pin. */
+   platform's secondary label, a label-medium footer in its link colour. */
 .card-title {
   font-size: var(--font-title-medium-size);
   line-height: var(--font-title-medium-line-height);
   font-weight: var(--font-title-medium-weight);
-  letter-spacing: var(--font-title-medium-tracking);
+  letter-spacing: 0;
 }
 .card-body {
   margin: 0;
-  color: var(--color-neutral-700);
+  color: var(--platform-secondary-label);
 }
 .card-footer {
   font-size: var(--font-label-medium-size);
   line-height: var(--font-label-medium-line-height);
   font-weight: var(--font-label-medium-weight);
-  letter-spacing: var(--font-label-medium-tracking);
-  color: var(--color-accent);
+  letter-spacing: 0;
+  color: var(--platform-control-accent);
 }
 .level {
   width: 8.75rem;
@@ -94,8 +94,8 @@ h2 {
   font-weight: var(--font-title-medium-weight);
 }
 .dark.row {
-  border-color: var(--color-seam);
-  color: var(--color-text);
+  border-color: var(--platform-separator);
+  color: var(--platform-label);
 }
 </style>
 </head>
@@ -107,7 +107,7 @@ h2 {
 <section>
 <h2>The card — <code>.card</code></h2>
 <p class="intro">One rounded surface in <code>--platform-card-fill</code>, a small step of fill away from the content it stands on, and that fill is the whole of how it singles its content out: no line of its own, no shadow, never wearing a role. What you want to say <em>about</em> a card is a <code>.badge</code> in its header.</p>
-<div class="row" style="background: var(--color-bg)">
+<div class="row" style="background: var(--platform-window-background)">
 <div class="cell">
 <div class="card">
 <div class="card-title">Density</div>
@@ -128,7 +128,7 @@ h2 {
 <section>
 <h2>The group — <code>.group</code></h2>
 <p class="intro">A hairline and nothing else: the group declares no background, so it takes the fill of the surface it is in and what it holds stands on that surface. The line is <code>--platform-separator</code>, the seam two regions sharing one fill are parted by — less pronounced than the 3:1 mark a graphic carrying meaning owes, and never transparent, because it is all that says where the group ends. The optional label is <code>.group-label</code>, top-leading inside the hairline. A group may hold a card; it never holds another group, and it wears no role.</p>
-<div class="row" style="background: var(--color-bg)">
+<div class="row" style="background: var(--platform-window-background)">
 <div class="cell">
 <div class="group">
 <div class="group-label">Density</div>
@@ -169,7 +169,7 @@ h2 {
 <section>
 <h2>Dark mode</h2>
 <p class="intro">Nothing here is mode-specific: a <code>class="dark"</code> wrapper flips the platform variables, and every level is filled from them &mdash; the card's fill and the group's hairline alike.</p>
-<div class="row dark" style="background: var(--color-bg)">
+<div class="row dark" style="background: var(--platform-window-background)">
 <div class="cell">
 <div class="card">
 <div class="card-title">Density</div>
