@@ -124,14 +124,16 @@ func TestNavigationMirrors(t *testing.T) {
 			sidebar.Props{Items: navItems()},
 			false,
 			tokens.PlatformLight, tokens.Spacing,
-			tokens.DefaultTypography.LabelLarge, tokens.Comfortable,
+			tokens.DefaultTypography.LabelLarge, tokens.DefaultTypography.LabelSmall,
+			tokens.Comfortable,
 		)},
 		{"sidebar-collapsed.html", sidebarCollapsedSize, sidebar.Render(
 			shaper,
 			sidebar.Props{Items: navItems()},
 			true,
 			tokens.PlatformLight, tokens.Spacing,
-			tokens.DefaultTypography.LabelLarge, tokens.Comfortable,
+			tokens.DefaultTypography.LabelLarge, tokens.DefaultTypography.LabelSmall,
+			tokens.Comfortable,
 		)},
 		{"breadcrumb.html", breadcrumbSize, breadcrumb.Render(
 			shaper,
