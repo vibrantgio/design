@@ -64,8 +64,8 @@ h2 {
 }
 /* A stage: a window-in-miniature the scrimmed specimens composite over.
    .scrim is position:absolute against it, exactly as the pattern's scrim
-   is against the window's plane. The .floor block inside the stage is app
-   content at level 1, so the scrim visibly dims something. */
+   is against the window's plane. The .content block inside the stage is the
+   app's own raised content, so the scrim visibly dims something. */
 .stage {
   position: relative;
   overflow: hidden;
@@ -76,11 +76,11 @@ h2 {
   border-radius: var(--radius-lg);
   background: var(--platform-window-background);
 }
-.stage .floor {
+.stage .content {
   position: absolute;
   inset: var(--space-4);
   border-radius: var(--radius-lg);
-  background: var(--elevation-1);
+  background: var(--platform-card-fill);
 }
 /* Anchored specimens (popover, tooltip, toast) sit on a shallower stage
    with no scrim. */
@@ -126,7 +126,7 @@ h2 {
 <div class="row">
 <div class="cell">
 <div class="stage">
-<div class="floor"></div>
+<div class="content"></div>
 <div class="scrim">
 <div class="dialog">
 <div class="dialog-header"><div class="dialog-title">Discard changes?</div></div>
@@ -149,7 +149,7 @@ h2 {
 <div class="row">
 <div class="cell">
 <div class="stage">
-<div class="floor"></div>
+<div class="content"></div>
 <div class="scrim">
 <div class="dialog">
 <div class="dialog-header">
@@ -171,7 +171,7 @@ h2 {
 <div class="row">
 <div class="cell">
 <div class="stage">
-<div class="floor"></div>
+<div class="content"></div>
 <div class="scrim">
 <div class="dialog">
 <div class="dialog-header">
@@ -258,7 +258,7 @@ h2 {
 <div class="row dark">
 <div class="cell">
 <div class="stage">
-<div class="floor"></div>
+<div class="content"></div>
 <div class="scrim">
 <div class="dialog">
 <div class="dialog-header">

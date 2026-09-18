@@ -60,14 +60,6 @@ func TestComponentMirrors(t *testing.T) {
 	srv := Serve(t)
 	shaper := tokens.DefaultTypography.DeterministicShaper()
 
-	// ceilings overrides Tolerance for a pair whose own cross-renderer floor
-	// sits above it; every other pair is scored against Tolerance itself.
-	// See pushButtonLabelFloor for the two entries and their measurement.
-	ceilings := map[string]float64{
-		"button-tonal.html": pushButtonLabelFloor,
-		"dropdown.html":     pushButtonLabelFloor,
-	}
-
 	cases := []struct {
 		fixture string
 		size    image.Point
@@ -125,54 +117,25 @@ func TestComponentMirrors(t *testing.T) {
 			}
 			web := CaptureBrowser(t, srv.URL+"/fixtures/"+c.fixture, c.size)
 			d := Distance(gio, web)
-			ceiling := Tolerance
-			if v, ok := ceilings[c.fixture]; ok {
-				ceiling = v
-			}
-			t.Logf("distance gio vs %s: %.4f (ceiling %.4f)", c.fixture, d, ceiling)
-			if d > ceiling {
-				t.Errorf("pair %s scored %.4f > %.4f: the mirror does not read as the component", c.fixture, d, ceiling)
+			t.Logf("distance gio vs %s: %.4f (Tolerance %.4f)", c.fixture, d, Tolerance)
+			if d > Tolerance {
+				t.Errorf("pair %s scored %.4f > Tolerance %.4f: the mirror does not read as the component", c.fixture, d, Tolerance)
 			}
 		})
 	}
 }
 
-// pushButtonLabelFloor is the cross-renderer floor shared by the two
-// specimens that are the push button's own fill under the platform's control
-// text at the control height — the tonal button and the dropdown trigger.
-// This comment is the measurement that says why it is a floor rather than a
-// disagreement.
+// ONE CEILING. Every pair in this file is scored against [Tolerance] and
+// nothing else. Two of them — the tonal button and the dropdown trigger, the
+// push button's own fill under the platform's control text at the control
+// height — carried a measured ceiling above it until 2026-09-18, on the
+// reading that the two renderers place the same glyphs one pixel apart and
+// weigh their stems differently inside a frame that is almost entirely label.
 //
-// The two halves agree on colour exactly. Scored column by column across the
-// 220-wide dropdown frame, every cell right of the label — the trigger's
-// fill, its edge, the chevron — measures 0.0000; the whole distance is the
-// label band, and inside it the two renderers place the same glyphs one pixel
-// apart and weigh their stems differently, Chromium's macOS rasteriser
-// gamma-darkening stems where Gio's does not. That is the cross-renderer
-// floor the package comment names.
-//
-// It clears Tolerance only because Distance is a mean of absolute RGB
-// distances with no contrast normalisation, so a fixed coverage disagreement
-// costs in proportion to the gap between foreground and fill — and these are
-// the highest-contrast frames in the set: labelColor flattened in sRGB over
-// the push button's own #ececec fill is a 200-level gap on every channel,
-// inside a frame that is the control height and therefore almost entirely
-// label. The share is what moved, not the drawing: at the platform's 24 dp
-// control the label is 20 of 24 rows where it was 20 of 40.
-//
-// The ceiling sits above both measurements and below the nearest wrong
-// variant the calibration scores, so a real drift still fails. It retires the
-// day Distance normalises by the frame's own foreground-to-fill range, which
-// would fold both back under one Tolerance.
-//
-// Measured on the authoritative machine, 2026-09-11: button-tonal 0.0218,
-// dropdown 0.0251, against the wrong-radius variant's 0.0279.
-//
-// Re-read 2026-09-18, after the sheet stopped spending the type roles'
-// tracking: button-tonal 0.0178 and dropdown 0.0176, both now UNDER Tolerance
-// itself, against the wrong-radius variant's 0.0278. Half the floor was the
-// sheet setting the label a fraction wider than the component, not the
-// rasterisers disagreeing. The ceiling is left where it stands rather than
-// retired in the same round that moved the drawings, so that one change is
-// read at a time; whether it retires now is on the open list.
-const pushButtonLabelFloor = 0.0265
+// Half of that gap was the sheet, not the rasterisers: it set every label a
+// fraction wider than the component because it spent the type roles' tracking
+// where the library's typeset spends none. With that fixed both pairs measure
+// under Tolerance on the authoritative machine — button-tonal 0.0178 and
+// dropdown 0.0176 against Tolerance's 0.0223 — with the nearest wrong variant
+// the calibration scores, the wrong radius, at 0.0278. So the ceiling is one
+// number again and a pair that drifts fails wherever it drifts.

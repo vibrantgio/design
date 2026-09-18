@@ -69,8 +69,9 @@
 // and stops being the NEAREST wrong variant, which is the whole reason that
 // fixture pins the threshold rather than the wrong-size one.
 //
-// The two specimens that are the push button's own fill under the platform's
-// control text — the tonal button and the dropdown trigger — carry their own
-// measured ceiling above Tolerance; see pushButtonLabelFloor for why that is
-// a floor and not a disagreement.
+// Every pair in the package is scored against that one number. Two of
+// them — the tonal button and the dropdown trigger — carried a measured
+// ceiling of their own above it until the sheet stopped spending the type
+// roles' tracking; both now land under Tolerance, and g2_test.go records what
+// that ceiling was and why it went.
 package mirror
