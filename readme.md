@@ -59,6 +59,7 @@ both modes, labelled `L` and `D`.
 | `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | duration stops, ms; the reduce-motion variant zeroes them |
 | interaction states | `--focus-halo-width`, `--disabled-coverage` | the focus halo's 4 px band and the platform's measured disabled coverage as a percentage, both mode-invariant, unlike the halo's colour, which is `--platform-keyboard-focus-indicator` and flips with the appearance |
 | `--dialog-corner` | the dialog surface's corner radius, px | measured off the platform's own sheet and identical in both appearances, which is why it is not a stop on the radius scale |
+| `--dialog-button-width` | the width a dialog's footer lays each action out in, px | measured off the platform's own sheet, where both answers are 74 wide; it is a floor, so a label that does not fit widens its own button |
 | `--toolbar-control-shadow-*` | `--toolbar-control-shadow-reach`, `--toolbar-control-shadow-offset` | the bordered toolbar control's drop shadow is the one material whose GEOMETRY the platform draws differently under the two appearances, so its reach and the depth its rectangle is sunk are stated per appearance beside the colour set; its peak is `--platform-toolbar-control-shadow` |
 
 ## Component classes

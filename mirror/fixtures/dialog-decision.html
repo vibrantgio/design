@@ -3,9 +3,11 @@
      patterns/modal's DECISION purpose at the light-with-actions golden's
      configuration: the published sheet's .scrim + .dialog with NO close X,
      the question title ("Discard changes?"), modal_test.go's grey body
-     stand-in, and its two 60x28 footer action stand-ins (Cancel blue,
+     stand-in, and its two 74x28 footer action stand-ins (Cancel blue,
      Discard red — specimen colours a fixture may pin) right-aligned in a
-     .dialog-footer with the S2 gap. The decision's scrim is inert on the
+     .dialog-footer with the S2 gap. The 74 is not the fixture's to pin
+     either: it is the platform's measured dialog button width, which the
+     footer lays every action out in. The decision's scrim is inert on the
      live path; nothing about that is visible here, but the fixture states
      it because a fixture also documents the intended call. -->
 <meta charset="utf-8">
@@ -14,8 +16,8 @@
   html, body { margin: 0; }
   body { background: var(--platform-window-background); width: 320px; height: 240px; }
   .body-slot { width: 100%; height: 40px; background: #c8c8c8; }
-  .act-cancel { width: 60px; height: 28px; background: #50a0dc; }
-  .act-discard { width: 60px; height: 28px; background: #dc6464; }
+  .act-cancel { width: 74px; height: 28px; background: #50a0dc; }
+  .act-discard { width: 74px; height: 28px; background: #dc6464; }
 </style>
 <div class="scrim">
   <div class="dialog">

@@ -206,6 +206,7 @@
   --focus-halo-width: 4px;
   --disabled-coverage: 66.67%;
   --dialog-corner: 27px;
+  --dialog-button-width: 74px;
 }
 
 .dark {
@@ -1309,13 +1310,20 @@
 }
 
 /* The footer row (modal.go footerWidget): right-aligned actions with S2
-   gaps. Each action is a bare component owning its own focus ring — the
-   dialog wraps and decorates nothing. */
+   gaps, each laid out in the platform's measured dialog button width
+   (--dialog-button-width). Each action is a bare component owning its own
+   focus ring — the dialog wraps and decorates nothing — and the row draws
+   nothing of its own: no band, no hairline, no rule between it and the body,
+   because the sheet it is drawn after draws none. The width is a floor, so a
+   label that does not fit widens its own button and nothing else. */
 .dialog-footer {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: var(--space-2);
+}
+.dialog-footer .btn {
+  min-width: var(--dialog-button-width);
 }
 
 /* Popover (popover.go drawPopover): the unscrimmed anchored surface —

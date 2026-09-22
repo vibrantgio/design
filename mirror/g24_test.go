@@ -61,6 +61,18 @@ func chip(c color.NRGBA, widthDp, heightDp float32) layout.Widget {
 	}
 }
 
+// actionChip is a footer action's stand-in: a flat rectangle filling the box
+// the footer lays an action out in, heightDp tall. It states no width of its
+// own, matching the fixture's divs, which take the footer's width from the
+// sheet.
+func actionChip(c color.NRGBA, heightDp float32) layout.Widget {
+	return func(gtx layout.Context) layout.Dimensions {
+		size := image.Pt(gtx.Constraints.Max.X, gtx.Dp(unit.Dp(heightDp)))
+		paint.FillShape(gtx.Ops, c, clip.Rect{Max: size}.Op())
+		return layout.Dimensions{Size: size}
+	}
+}
+
 // bodyLine mirrors popover_test.go's textContent: one non-wrapping
 // body-medium line in the platform's label, flattened onto the window
 // background the popover is filled with, drawn through theme/typeset so the
@@ -125,9 +137,12 @@ func TestOverlayMirrors(t *testing.T) {
 		{"dialog-decision.html", lightBg, modal.Render(
 			shaper,
 			modal.Props{
-				Title:    "Discard changes?",
-				Body:     grow(slotGrey, 40),
-				Actions:  []layout.Widget{chip(chipBlue, 60, 28), chip(chipRed, 60, 28)},
+				Title: "Discard changes?",
+				Body:  grow(slotGrey, 40),
+				// Neither stand-in states a width: the footer lays every
+				// action out in the platform's measured dialog button
+				// width, which is the 74 the fixture's own divs carry.
+				Actions:  []layout.Widget{actionChip(chipBlue, 28), actionChip(chipRed, 28)},
 				Decision: &modal.Decision{Destructive: true},
 				Shaper:   shaper,
 			},
