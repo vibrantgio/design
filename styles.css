@@ -65,6 +65,8 @@
   --platform-highlight: #ffffff;
   --platform-sidebar-material: #f7f7f7;
   --platform-sidebar-selection: #178bfb;
+  --platform-sidebar-selection-unemphasized: #0000000b;
+  --platform-sidebar-selection-unemphasized-label: #0072f7;
   --platform-sidebar-count: #6d6d6d;
   --platform-sidebar-symbol: #000000;
   --platform-card-fill: #f7f7f7;
@@ -255,6 +257,8 @@
   --platform-highlight: #b4b4b4;
   --platform-sidebar-material: #1c1c1c;
   --platform-sidebar-selection: #1994fc;
+  --platform-sidebar-selection-unemphasized: #ffffff10;
+  --platform-sidebar-selection-unemphasized-label: #148fff;
   --platform-sidebar-count: #a4a4a4;
   --platform-sidebar-symbol: #ffffff;
   --platform-card-fill: #2a3034;
@@ -1094,6 +1098,19 @@
   z-index: -1;
   border-radius: 8px;  /* SelectionRadius */
   background: var(--platform-sidebar-selection);
+}
+/* A sidebar whose list does not hold the keyboard draws the platform's other
+   pill: the grey one, with the label, the symbol and the count on it in the
+   accent as the platform's vibrancy lands it there. Both are MEASURED off
+   finder-sidebar-unfocused-{light,dark}.png, where the pill keeps the
+   emphasized one's geometry exactly. */
+.sidebar.unfocused .sidebar-item.selected,
+.sidebar.unfocused .sidebar-item.selected .sidebar-item-icon,
+.sidebar.unfocused .sidebar-item.selected .sidebar-item-count {
+  color: var(--platform-sidebar-selection-unemphasized-label);
+}
+.sidebar.unfocused .sidebar-item.selected::before {
+  background: var(--platform-sidebar-selection-unemphasized);
 }
 .sidebar-item-icon {
   flex: none;
