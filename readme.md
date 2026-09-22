@@ -93,8 +93,8 @@ a control needs to know about its host; nothing is handed down.
 under `--platform-alternate-selected-control-text`, which is the
 platform's default action. Two modifier classes select the less
 pronounced variants — `.btn.tonal`, the platform's ordinary push button
-(`--platform-push-button-fill` under `--platform-control-text`, inside a
-`--platform-separator` hairline), and `.btn.ghost`, its borderless kind
+(`--platform-push-button-fill` under `--platform-control-text`, with no
+edge around it), and `.btn.ghost`, its borderless kind
 (no fill, `--platform-control-text`). Under the pointer (`:hover`)
 `--platform-hover-overlay` goes over whatever fill the variant carries,
 and held (`:active`) `--platform-press-overlay` goes there instead, a
@@ -106,9 +106,9 @@ fill, which is how a ghost gets one at all. Keyboard focus
 same band at the same width in every variant, because keyboard
 visibility is not a prominence property. Disabled (`:disabled`) is the
 platform's fade: the fill falls back to the push button's own at
-`--disabled-coverage` over the surface the control stands on, its
-hairline to the separator at that same coverage, and every foreground
-becomes `--platform-disabled-control-text`. `.btn.icon` is the icon-only
+`--disabled-coverage` over the surface the control stands on, and every
+foreground becomes `--platform-disabled-control-text`. A switched-off
+control draws no edge either. `.btn.icon` is the icon-only
 form: a square the density's control height on a side, the glyph (an
 inline SVG on `currentColor`) inset by the density's vertical padding.
 `.btn.chrome` is the bordered toolbar control: a capsule at

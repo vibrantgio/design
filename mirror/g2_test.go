@@ -135,7 +135,7 @@ func TestComponentMirrors(t *testing.T) {
 // Half of that gap was the sheet, not the rasterisers: it set every label a
 // fraction wider than the component because it spent the type roles' tracking
 // where the library's typeset spends none. With that fixed both pairs measure
-// under Tolerance on the authoritative machine — button-tonal 0.0178 and
+// under Tolerance on the authoritative machine — button-tonal 0.0174 and
 // dropdown 0.0176 against Tolerance's 0.0223 — with the nearest wrong variant
-// the calibration scores, the wrong radius, at 0.0278. So the ceiling is one
+// the calibration scores, the wrong radius, at 0.0255. So the ceiling is one
 // number again and a pair that drifts fails wherever it drifts.

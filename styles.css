@@ -334,19 +334,20 @@
 }
 
 /* Tonal is the platform's ordinary push button: its own measured fill under
-   the control text, inside a separator hairline. Both the label and the
-   hairline are coverages the platform states over that fill, so the element's
-   background paints under the border and the browser flattens them there. */
+   the control text, with no edge around it — the platform draws none in any
+   captured state, the push button's boundary stepping in one row from the
+   sheet to its own fill. The label is a coverage the platform states over
+   that fill, so the element's background paints under it and the browser
+   flattens the two there. */
 .btn.tonal {
   background: var(--platform-push-button-fill);
-  border: 1px solid var(--platform-separator);
-  padding: calc(var(--density-padding-y) - 1px) calc(var(--density-padding-x) - 1px);
   color: var(--platform-control-text);
 }
 
 /* Ghost is the borderless kind: no fill at rest, the control text over
-   whatever it stands on. Held, the press overlay composites straight onto
-   that surface, which is the only fill a ghost ever has. */
+   whatever it stands on, and no edge either. Held, the press overlay
+   composites straight onto that surface, which is the only fill a ghost ever
+   has. */
 .btn.ghost {
   background: transparent;
   color: var(--platform-control-text);
@@ -361,12 +362,6 @@
   width: var(--density-control-height);
   height: var(--density-control-height);
   min-height: var(--density-control-height);
-  padding: var(--density-padding-y);
-}
-.btn.tonal.icon, .btn.icon:disabled {
-  padding: calc(var(--density-padding-y) - 1px);
-}
-.btn.ghost.icon:disabled {
   padding: var(--density-padding-y);
 }
 .btn.icon svg {
@@ -456,25 +451,18 @@
 
 /* Disabled is the platform's fade: a variant that carries a fill falls back
    to the push button's own fill at --disabled-coverage over the surface the
-   control stands on, its hairline is the separator at that same coverage, and
-   every foreground becomes the platform's disabled control text. The fill is
-   clipped to the padding box so the faded fill and the faded hairline each
-   composite over the page rather than over one another, which is where
-   control.Faded lands them. The padding gives back the hairline's 1px, as
-   everywhere else in this sheet, so the drawn box does not grow. A ghost
-   keeps its absence of fill: there is nothing to fall back to. */
+   control stands on, and every foreground becomes the platform's disabled
+   control text. A switched-off control draws no edge either — the Save
+   sheet's switched-off checkbox meets it with a one-pixel ramp and no stroke
+   row — so the box is the same one the enabled button draws. A ghost keeps
+   its absence of fill: there is nothing to fall back to. */
 .btn:disabled {
   cursor: default;
   background: color-mix(in srgb, var(--platform-push-button-fill) var(--disabled-coverage), transparent);
-  background-clip: padding-box;
-  border: 1px solid color-mix(in srgb, var(--platform-separator) var(--disabled-coverage), transparent);
-  padding: calc(var(--density-padding-y) - 1px) calc(var(--density-padding-x) - 1px);
   color: var(--platform-disabled-control-text);
 }
 .btn.ghost:disabled {
   background: transparent;
-  border: none;
-  padding: var(--density-padding-y) var(--density-padding-x);
   color: var(--platform-disabled-control-text);
 }
 
