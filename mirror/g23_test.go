@@ -15,11 +15,13 @@ import (
 	"testing"
 
 	"gioui.org/layout"
+	"gioui.org/op"
 	"gioui.org/op/clip"
 	"gioui.org/op/paint"
 
 	"github.com/vibrantgio/components/breadcrumb"
 	"github.com/vibrantgio/components/golden"
+	"github.com/vibrantgio/components/icons"
 	"github.com/vibrantgio/patterns/navbar"
 	"github.com/vibrantgio/patterns/sidebar"
 	"github.com/vibrantgio/patterns/tabs"
@@ -42,11 +44,11 @@ const paddingY = 2
 // the fixture pins the same way the sidebar fixture pins its icon squares.
 var tabsSize = image.Pt(240, 128)
 
-// Sidebar capture viewports: the pattern's two contractual widths (192
+// Sidebar capture viewports: the pattern's two contractual widths (220
 // expanded, 48 collapsed — sidebar.go's expandedDp/collapsedDp) at the
 // sidebar goldens' 256 height.
 var (
-	sidebarSize          = image.Pt(192, 256)
+	sidebarSize          = image.Pt(220, 256)
 	sidebarCollapsedSize = image.Pt(48, 256)
 )
 
@@ -64,13 +66,15 @@ func fillRect(c color.NRGBA) layout.Widget {
 }
 
 // navIcon mirrors sidebar_test.go's testIcon: a 16x16 filled square in a
-// fixed mid-blue, so the icon slot compares deterministically without
-// dragging font rasterisation into the icon column.
-func navIcon() layout.Widget {
-	return func(gtx layout.Context) layout.Dimensions {
-		size := image.Pt(16, 16)
-		paint.FillShape(gtx.Ops, color.NRGBA{R: 0x3b, G: 0x82, B: 0xf6, A: 0xff}, clip.Rect{Max: size}.Op())
-		return layout.Dimensions{Size: size}
+// fixed mid-blue centred in the box the row hands it, so the icon slot
+// compares deterministically without dragging font rasterisation into the
+// icon column. It spends the colour the row hands it on nothing, which is
+// what makes the square the fixture's own specimen colour on both sides.
+func navIcon() icons.Painter {
+	return func(gtx layout.Context, box int, _ color.NRGBA) {
+		defer op.Offset(image.Pt((box-16)/2, (box-16)/2)).Push(gtx.Ops).Pop()
+		paint.FillShape(gtx.Ops, color.NRGBA{R: 0x3b, G: 0x82, B: 0xf6, A: 0xff},
+			clip.Rect{Max: image.Pt(16, 16)}.Op())
 	}
 }
 
