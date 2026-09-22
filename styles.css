@@ -205,6 +205,7 @@
   --duration-x-slow: 500ms; /* @kind other */
   --focus-halo-width: 4px;
   --disabled-coverage: 66.67%;
+  --dialog-corner: 27px;
 }
 
 .dark {
@@ -1277,12 +1278,14 @@
 /* Dialog (modal.go drawModal): the centred surface — width 75% of the window
    plane clamped to 180-560 dp, height hugging its content between the 120 dp
    floor and the 560 dp cap (overflow clips), the window background under the
-   platform's shadow and no hairline at all, radius Lg, an S5 inset and S3
-   gaps between header, body and footer. G0A.2's two purposes share this one
-   surface: a PANEL carries a ghost icon close (.btn.ghost.icon) in its header
-   and no footer of its own; a DECISION carries no X anywhere and a
-   .dialog-footer whose right-aligned actions end in the Return-bound
-   default. */
+   platform's shadow and no hairline at all, the sheet's own measured corner
+   (--dialog-corner), an S5 inset and S3 gaps between header, body and footer.
+   G0A.2's two purposes share this one surface: a PANEL carries a ghost icon
+   close (.btn.ghost.icon) in its header and no footer of its own; a DECISION
+   carries no X anywhere and a .dialog-footer whose right-aligned actions end
+   in the Return-bound default, drawn as the platform draws a sheet's push
+   buttons: the default filled with the accent and the other an ordinary push
+   button (.btn.tonal), never borderless. */
 .dialog {
   box-sizing: border-box;
   display: flex;
@@ -1296,7 +1299,7 @@
   overflow: hidden;
   padding: var(--space-5);
   border: none;
-  border-radius: var(--radius-lg);
+  border-radius: var(--dialog-corner);
   background: var(--platform-window-background);
   color: var(--platform-label);
 }
