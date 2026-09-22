@@ -69,6 +69,7 @@
   --platform-sidebar-symbol: #000000;
   --platform-card-fill: #f7f7f7;
   --platform-push-button-fill: #ececec;
+  --platform-default-button-fill: #157efb;
   --platform-hover-overlay: #0000000d;
   --platform-press-overlay: #00000019;
   --platform-floating-shadow: #00000013;
@@ -256,6 +257,7 @@
   --platform-sidebar-symbol: #ffffff;
   --platform-card-fill: #2a3034;
   --platform-push-button-fill: #333a3f;
+  --platform-default-button-fill: #157efb;
   --platform-hover-overlay: #ffffff18;
   --platform-press-overlay: #ffffff19;
   --platform-floating-shadow: #00000013;
@@ -326,7 +328,7 @@
   line-height: var(--font-label-large-line-height);
   font-weight: var(--font-label-large-weight);
   letter-spacing: 0;
-  background: var(--platform-control-accent);
+  background: var(--platform-default-button-fill);
   color: var(--platform-alternate-selected-control-text);
 }
 
