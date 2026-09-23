@@ -388,14 +388,14 @@
 }
 
 /* The bordered toolbar control (components/button's chrome variant, drawn
-   through internal/toolbarface): a capsule at the toolbar band's own measured
+   through internal/controlface): a capsule at the toolbar band's own measured
    height - 36 against a dialog control's 24 - cornered at half of it, filled
    with the platform's measured toolbar control fill, rimmed with the
    platform's measured value for that rim (which answers no colour in the
    light appearance, where the platform draws none) and casting the measured
    drop shadow that tells a light control from a light band. The rim is an
    inset ring rather than a border so the control's box does not grow, exactly
-   as toolbarface lays its band ON the shape's outline.
+   as controlface lays its band ON the shape's outline.
 
    The shadow's ramp is the linear falloff effects/depth draws, approximated
    by eight stacked spreads each carrying an eighth of the peak, sunk the
