@@ -28,6 +28,7 @@
   --platform-unemphasized-selected-content-background: #dcdcdc;
   --platform-selected-text-background: #b3d7ff;
   --platform-unemphasized-selected-text-background: #dcdcdc;
+  --platform-unemphasized-selected-text: #000000;
   --platform-find-highlight: #faefbd;
   --platform-separator: #00000019;
   --platform-grid: #e6e6e6;
@@ -222,6 +223,7 @@
   --platform-unemphasized-selected-content-background: #464646;
   --platform-selected-text-background: #3f638b;
   --platform-unemphasized-selected-text-background: #464646;
+  --platform-unemphasized-selected-text: #ffffff;
   --platform-find-highlight: #6e6e4d;
   --platform-separator: #ffffff19;
   --platform-grid: #1a1a1a;

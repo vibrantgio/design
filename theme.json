@@ -70,6 +70,7 @@
       "toolbar-search-rim": "#00000000",
       "under-page-background": "#969696e5",
       "unemphasized-selected-content-background": "#dcdcdc",
+      "unemphasized-selected-text": "#000000",
       "unemphasized-selected-text-background": "#dcdcdc",
       "window-background": "#ffffff"
     },
@@ -142,6 +143,7 @@
       "toolbar-search-rim": "#4d4d4d",
       "under-page-background": "#282828",
       "unemphasized-selected-content-background": "#464646",
+      "unemphasized-selected-text": "#ffffff",
       "unemphasized-selected-text-background": "#464646",
       "window-background": "#1e1e1e"
     }
