@@ -61,6 +61,7 @@ both modes, labelled `L` and `D`.
 | `--navbar-band` | the toolbar band a navbar stands in, px | the platform's: nineteen px of inset either side of a fourteen px window control circle, so it takes no density and no setting of how tightly a window sets its rows moves it |
 | `--dialog-corner` | the dialog surface's corner radius, px | measured off the platform's own sheet and identical in both appearances, which is why it is not a stop on the radius scale |
 | `--dialog-button-width` | the width a dialog's footer lays each action out in, px | measured off the platform's own sheet, where both answers are 74 wide; it is a floor, so a label that does not fit widens its own button |
+| `--dialog-footer-air` | the air between a decision's footer hairline and the actions under it, px | measured off the platform's own sheet, whose 65 px footer band holds its 24 px buttons with 21 rows clear above and the sheet's own 20 px inset below |
 | `--toolbar-control-shadow-*` | `--toolbar-control-shadow-reach`, `--toolbar-control-shadow-offset` | the bordered toolbar control's drop shadow is the one material whose GEOMETRY the platform draws differently under the two appearances, so its reach and the depth its rectangle is sunk are stated per appearance beside the colour set; its peak is `--platform-toolbar-control-shadow` |
 
 ## Component classes
