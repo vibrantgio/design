@@ -23,20 +23,17 @@ import (
 	"github.com/vibrantgio/components/golden"
 	"github.com/vibrantgio/components/icons"
 	"github.com/vibrantgio/patterns/navbar"
+	"github.com/vibrantgio/patterns/pane"
 	"github.com/vibrantgio/patterns/sidebar"
 	"github.com/vibrantgio/patterns/tabs"
 	"github.com/vibrantgio/theme/tokens"
 )
 
 // navbarSize is the navbar capture viewport: the navbar goldens' 480 width
-// at the density-pinned bar height patterns/shell allocates — ControlHeight
-// + 2·PaddingY = 28 comfortable — because the bar fills whatever it is
-// handed and the shell pin is the height the class layer publishes.
-var navbarSize = image.Pt(480, buttonHeight+2*paddingY)
-
-// paddingY is the comfortable density's vertical padding, which the navbar's
-// own height is stated in.
-const paddingY = 2
+// at the toolbar band patterns/shell hands the bar — pane.BandDp, 52, which
+// takes no density — because the bar fills whatever it is given and the band
+// is the height the class layer publishes as --navbar-band.
+var navbarSize = image.Pt(480, int(pane.BandDp))
 
 // tabsSize is the tabs capture viewport — TestTabsGolden's 240x128 frame:
 // the ControlHeight strip and, below it, the selected tab's content panel
@@ -44,11 +41,11 @@ const paddingY = 2
 // the fixture pins the same way the sidebar fixture pins its icon squares.
 var tabsSize = image.Pt(240, 128)
 
-// Sidebar capture viewports: the pattern's two contractual widths (220
-// expanded, 48 collapsed — sidebar.go's expandedDp/collapsedDp) at the
-// sidebar goldens' 256 height.
+// Sidebar capture viewports: the pattern's two contractual widths
+// (sidebar.ExpandedWidth, 220, and sidebar.go's collapsed 48) at the sidebar
+// goldens' 256 height.
 var (
-	sidebarSize          = image.Pt(220, 256)
+	sidebarSize          = image.Pt(int(sidebar.ExpandedWidth), 256)
 	sidebarCollapsedSize = image.Pt(48, 256)
 )
 
