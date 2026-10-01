@@ -1006,7 +1006,7 @@
    separator along its foot, each cell its label plus 2*S3 horizontal padding
    with the label centred in the height that remains above the 2 dp underline
    slot — which border-box centring reproduces. The selected cell fills the
-   slot with the platform's selection colour; content panels below the strip
+   slot with the platform's selection colour; content panes below the strip
    are the caller's, and stand on the content fill. */
 .tabs {
   box-sizing: border-box;
@@ -1026,11 +1026,11 @@
    pattern's two contractual widths — 220 dp expanded, 48 dp collapsed
    (sidebar.ExpandedWidth and collapsedDp: component constants, deliberately
    not tokens and not density-responsive; a different rail copies the
-   pattern). The 220 is MEASURED: the panel in
+   pattern). The 220 is MEASURED: the pane in
    voicememos-multi-folder-2026-09-18.png spans x 64–283, and
    patterns/sidebar owns that reading — the Go side reads it there and
    restates it nowhere. It draws no line down its trailing edge — the platform's sidebar
-   is an inset panel, and its rim and shadow are what part it from the content
+   is an inset pane, and its rim and shadow are what part it from the content
    (patterns/pane draws both). The toggle row is ControlHeight;
    every item row is the sidebar's OWN row height, the pattern's RowHeight
    rather than the density scale's, because a chrome rail draws a taller row
@@ -1085,7 +1085,7 @@
    SectionBaseline): Finder's and Voice Memos' selected sidebar rows span 32 px
    at 1x, the pill is inset 10 from each edge of the rail, and a circular fit
    to its corner reads 8; Voice Memos' folder mark is centred on 29 in from the
-   panel's edge, its names start at 48 and its counts end 17 in from the
+   pane's edge, its names start at 48 and its counts end 17 in from the
    trailing edge. */
 .sidebar-item {
   box-sizing: border-box;
@@ -1290,8 +1290,8 @@
 /* Scrim (modal.go drawModal): the whole-plane dimmer under a dialog — the
    platform's own scrim coverage, identical in both appearances, because a
    scrim dims by reducing luminance and never flips with the scheme. The scrim
-   centres the dialog, exactly as drawModal centres the surface in the window
-   plane. Behaviour is part of the pattern: on a PANEL a scrim press invokes
+   centres the dialog, exactly as drawModal centres the surface in the window.
+   Behaviour is part of the pattern: on a PANE a scrim press invokes
    OnClose; on a DECISION the scrim is INERT — it absorbs presses and answers
    none of them, because dismissal is one of the decision's answers and a
    stray click must not give it. */
@@ -1308,7 +1308,7 @@
    floor and the 560 dp cap (overflow clips), the window background under the
    platform's shadow and no hairline at all, the sheet's own measured corner
    (--dialog-corner), an S5 inset and S3 gaps between header, body and footer.
-   G0A.2's two purposes share this one surface: a PANEL carries a ghost icon
+   G0A.2's two purposes share this one surface: a PANE carries a ghost icon
    close (.btn.ghost.icon) in its header and no footer of its own; a DECISION
    carries no X anywhere and a .dialog-footer whose right-aligned actions end
    in the Return-bound default, drawn as the platform draws a sheet's push
@@ -1361,9 +1361,9 @@
    MEASURED,
    save-dialog-{light,dark}.png: the line at y=479 runs x 165-534, the sheet's
    own first column to its last, and the 65px band under it holds the 24px
-   push buttons with 21 rows clear above and 20 below. A PANEL has no footer
+   push buttons with 21 rows clear above and 20 below. A PANE has no footer
    and so no line: the sheet's other hairline parts its own rows from an
-   accessory view, one body region from another, and a panel here has one
+   accessory view, one body region from another, and a pane here has one
    body. */
 .dialog-footer {
   display: flex;
@@ -1513,14 +1513,14 @@
   background-size: 3.943px 3.943px, 7.943px 7.943px;
 }
 
-/* Pane (patterns/pane): the platform's sidebar is an inset rounded panel
+/* Pane (patterns/pane): the platform's sidebar is an inset rounded pane
    standing inside the window, not a flush column parted by a seam. MEASURED
-   off the stored Voice Memos captures: the panel is inset 8 from the window's
+   off the stored Voice Memos captures: the pane is inset 8 from the window's
    leading, top and bottom edges, cornered at 18 - concentric with the
    window's own 26 one margin out - wears a 1 px rim just inside its edge in
    the platform's measured value for it, and casts a shadow onto what lies
-   beside it from a rectangle sunk 9 below the panel, carrying 24 out. The
-   rim is an inset ring so the panel's box does not grow, and the shadow is
+   beside it from a rectangle sunk 9 below the pane, carrying 24 out. The
+   rim is an inset ring so the pane's box does not grow, and the shadow is
    the same eight-step approximation of effects/depth's linear falloff the
    floating surfaces take. The content beside it is the window's own plane:
    the rim and the shadow are the boundary, and no seam is drawn. */

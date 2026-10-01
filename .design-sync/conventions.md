@@ -66,7 +66,7 @@ never invent a class, a token, or a size variant.
   `.dialog-header` (holding the `.dialog-title`) and, for decision dialogs,
   a right-aligned `.dialog-footer`. Two purposes: a **decision** dialog has a
   footer ending in the Return-bound default and **no close X**; a
-  dismissable **panel** has a ghost close (`.btn.ghost.icon`) top-right and
+  dismissable **pane** has a ghost close (`.btn.ghost.icon`) top-right and
   no footer. A corner affordance like that close draws at control height,
   the same as every control — density is the only size knob, and the control
   it draws is the pointer target, never a size of its own. Anchored surfaces: `.popover` with a `.popover-tail` on side

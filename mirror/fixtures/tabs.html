@@ -4,8 +4,8 @@
      published sheet's own .tabs classes, the three labels tabs_test.go
      shapes (Preview, Code, Notes), first selected, over the golden's
      240x128 viewport — the 24 dp ControlHeight strip and the
-     selected tab's 104 px content panel below it. The panel's flat #ff4040 is the golden fixture's
-     specimen colour (contentRect), not the sheet's: content panels are the
+     selected tab's 104 px content pane below it. The pane's flat #ff4040 is the golden fixture's
+     specimen colour (contentRect), not the sheet's: content panes are the
      caller's, and fixtures may pin specimen colours where the class layer
      may not. -->
 <meta charset="utf-8">
@@ -14,11 +14,11 @@
   html, body { margin: 0; }
   body { background: var(--platform-control-background); }
   .tabs { width: 240px; }
-  .panel { width: 240px; height: 104px; background: #ff4040; }
+  .content-slot { width: 240px; height: 104px; background: #ff4040; }
 </style>
 <div class="tabs" role="tablist">
   <button class="tab selected" role="tab" aria-selected="true">Preview</button>
   <button class="tab" role="tab" aria-selected="false">Code</button>
   <button class="tab" role="tab" aria-selected="false">Notes</button>
 </div>
-<div class="panel"></div>
+<div class="content-slot"></div>

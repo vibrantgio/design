@@ -36,7 +36,7 @@ import (
 var navbarSize = image.Pt(480, int(pane.BandDp))
 
 // tabsSize is the tabs capture viewport — TestTabsGolden's 240x128 frame:
-// the ControlHeight strip and, below it, the selected tab's content panel
+// the ControlHeight strip and, below it, the selected tab's content pane
 // in tabs_test.go's fixed specimen colour (contentRect's #ff4040), which
 // the fixture pins the same way the sidebar fixture pins its icon squares.
 var tabsSize = image.Pt(240, 128)
@@ -54,7 +54,7 @@ var breadcrumbSize = image.Pt(320, 32)
 
 // fillRect mirrors tabs_test.go's contentRect: a layout.Widget filling its
 // constraints with a fixed specimen colour, so the selected tab's content
-// panel compares deterministically.
+// pane compares deterministically.
 func fillRect(c color.NRGBA) layout.Widget {
 	return func(gtx layout.Context) layout.Dimensions {
 		paint.FillShape(gtx.Ops, c, clip.Rect{Max: gtx.Constraints.Max}.Op())

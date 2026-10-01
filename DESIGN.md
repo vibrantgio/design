@@ -388,7 +388,7 @@ Three contracts follow from the numbers:
    measured and rejected (evidence in `effects/glow`'s doc): visually better,
    but an animating blur-glow costs 0.2–0.8 ms of events-thread CPU plus an
    image-sized allocation and texture upload per glow per frame, against
-   ~0.5 µs for the eight-gradient halo — and no cache holds while the radius
+   ~0.5 µs for the eight-gradient spread — and no cache holds while the radius
    or intensity animates. A correct approximation beats a slow exact answer.
 
 ### The component inventory: shadcn's

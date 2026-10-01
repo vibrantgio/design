@@ -127,7 +127,7 @@ func TestOverlayMirrors(t *testing.T) {
 		bg      color.NRGBA
 		gio     layout.Widget
 	}{
-		{"dialog-panel.html", lightBg, modal.Render(
+		{"dialog-pane.html", lightBg, modal.Render(
 			shaper,
 			modal.Props{Title: "Preferences", Body: grow(slotGrey, 40), Shaper: shaper},
 			true,

@@ -175,7 +175,7 @@ and `.crumbs` — stands on `--platform-sidebar-material`, the chrome, and
 draws the separator where two flush regions meet; selection is
 `--platform-selected-content-background`, as an underline on a link or a
 tab and as the row's own fill on a rail. `.pane` is the platform's
-sidebar as it actually stands: an inset rounded panel 8 px off the
+sidebar as it actually stands: an inset rounded pane 8 px off the
 window's edges, cornered at 18, wearing `--platform-pane-rim` just
 inside its edge and casting `--platform-pane-shadow` onto what stands
 beside it — the rim and the shadow are the boundary, and no seam is

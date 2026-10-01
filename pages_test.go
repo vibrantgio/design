@@ -25,7 +25,7 @@ var (
 // theme/export generates AND the six hand-authored ones under components/ —
 // because the hand-authored pages are the ones nothing else checks. A
 // reference that resolves to nothing is silent in a browser: the property
-// falls back to its initial value, so a panel loses its fill and still lays
+// falls back to its initial value, so a pane loses its fill and still lays
 // out, and only a reader who knows what the page should look like sees it.
 // theme/export's own TestPageVarClosure covers what the generator emits at
 // the moment it emits it; this one covers what is published.
