@@ -81,8 +81,8 @@ func cardSlots(shaper *text.Shaper) (header, body, footer layout.Widget) {
 // label over the same role in its secondary label, both single non-wrapping
 // lines so neither renderer has a line-break decision to disagree on. A group
 // declares no fill, so both coverages are flattened onto the surface it
-// stands on. The group's own label is not here — the pattern draws that
-// itself, from Props.Label.
+// stands on. The group's own title is not here — the pattern draws that
+// itself, from Props.Title.
 func groupContent(shaper *text.Shaper) []layout.Widget {
 	c := tokens.PlatformLight
 	typo := tokens.DefaultTypography
@@ -132,7 +132,7 @@ func TestPatternMirrors(t *testing.T) {
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 		)},
 		{"group.html", cardSize, group.Render(shaper,
-			group.Props{Label: "Density", Content: groupContent(shaper)},
+			group.Props{Title: "Density", Content: groupContent(shaper)},
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.LabelLarge,
 		)},

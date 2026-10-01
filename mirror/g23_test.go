@@ -82,7 +82,7 @@ func navItems() []sidebar.Item {
 	labels := []string{"Overview", "Tokens", "Colour"}
 	items := make([]sidebar.Item, len(labels))
 	for i, l := range labels {
-		items[i] = sidebar.Item{Icon: navIcon(), Label: l, Active: i == 1}
+		items[i] = sidebar.Item{Icon: navIcon(), Title: l, Active: i == 1}
 	}
 	return items
 }
@@ -104,8 +104,8 @@ func TestNavigationMirrors(t *testing.T) {
 		{"navbar.html", navbarSize, navbar.Render(
 			shaper,
 			navbar.Props{Links: []navbar.Link{
-				{Label: "Docs"},
-				{Label: "Components", Active: true},
+				{Title: "Docs"},
+				{Title: "Components", Active: true},
 			}},
 			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.LabelLarge, tokens.Comfortable,
@@ -113,8 +113,8 @@ func TestNavigationMirrors(t *testing.T) {
 		{"tabs.html", tabsSize, tabs.Render(
 			shaper,
 			tabs.Props{Tabs: []tabs.Tab{
-				{Label: "Preview", Content: fillRect(color.NRGBA{R: 0xff, G: 0x40, B: 0x40, A: 0xff})},
-				{Label: "Code"}, {Label: "Notes"},
+				{Title: "Preview", Content: fillRect(color.NRGBA{R: 0xff, G: 0x40, B: 0x40, A: 0xff})},
+				{Title: "Code"}, {Title: "Notes"},
 			}},
 			0,
 			tokens.PlatformLight, tokens.Spacing,
@@ -139,7 +139,7 @@ func TestNavigationMirrors(t *testing.T) {
 		{"breadcrumb.html", breadcrumbSize, breadcrumb.Render(
 			shaper,
 			breadcrumb.Props{Items: []breadcrumb.Item{
-				{Label: "Home"}, {Label: "Design"}, {Label: "Tokens"},
+				{Title: "Home"}, {Title: "Design"}, {Title: "Tokens"},
 			}},
 			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.TitleSmall,
