@@ -44,7 +44,7 @@ never invent a class, a token, or a size variant.
 - **Cards and groups** — `.card` is one thing singled out: the platform's
   grouped-box fill, a small step of fill on the content, no line of its own. `.group` divides
   the page: a hairline at the level of the surface it is in, no fill of its
-  own, with an optional `.group-label` top-leading inside it. Which one to
+  own, with an optional `.group-title` top-leading inside it. Which one to
   reach for answers one question — am I dividing the page, or singling
   something out? A row of tiers, a form in sections, a list of articles are
   groups; the one thing that must stand apart is the card. A group may hold

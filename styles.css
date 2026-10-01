@@ -849,7 +849,7 @@
    which has no native counterpart and does not survive a Lg corner. The
    label-large role in the platform's secondary label: a group's own name is
    set under the content it names. */
-.group-label {
+.group-title {
   font-size: var(--font-label-large-size);
   line-height: var(--font-label-large-line-height);
   font-weight: var(--font-label-large-weight);
@@ -1156,20 +1156,20 @@
   margin-left: calc((48px - 24px) / 2);  /* collapsedDp less SymbolBox, halved */
   margin-right: 0;
 }
-.sidebar.collapsed .sidebar-item-label,
+.sidebar.collapsed .sidebar-item-title,
 .sidebar.collapsed .sidebar-item-count,
 .sidebar.collapsed .sidebar-section {
   display: none;
 }
 /* A row with no symbol still starts its title at the same column, so the
    names of a list whose entries differ still line up. */
-.sidebar-item-label {
+.sidebar-item-title {
   flex: 1;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.sidebar-item-label:first-child { margin-left: 48px; }  /* TitleInset */
+.sidebar-item-title:first-child { margin-left: 48px; }  /* TitleInset */
 .sidebar-item-count {
   flex: none;
   margin-left: var(--space-2);

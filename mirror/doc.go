@@ -60,7 +60,7 @@
 //
 // Both margins narrowed at this re-baseline, and the cause is the platform's
 // scale rather than anything either side draws. The matching distance is the
-// label band and almost nothing else, and a 20 dp line box fills 20 of a
+// title band and almost nothing else, and a 20 dp line box fills 20 of a
 // 24 dp button's rows where it filled 20 of 36; the wrong radius, meanwhile,
 // is a pill on a 24 dp button, which is a 12 px corner against the correct 6
 // where it used to be 18 against 6. The floor rose and the signal shrank,
