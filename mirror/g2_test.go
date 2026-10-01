@@ -33,13 +33,13 @@ func onBackground(w layout.Widget) func(layout.Context) layout.Dimensions {
 	}
 }
 
-// glyphSize is the checkbox/radio capture viewport: the comfortable
-// CHECKBOX ROW the 16 dp glyph is centred in — exactly what drawCheckbox and
+// symbolSize is the checkbox/radio capture viewport: the comfortable
+// CHECKBOX ROW the 16 dp symbol is centred in — exactly what drawCheckbox and
 // drawRadio return, which is the density's own footprint for these two
 // controls and not the push button's height. The measured 22 against the
 // button's 24 is why it is a frame of its own: a viewport a row too tall
-// would score two glyphs one pixel apart.
-var glyphSize = image.Pt(checkboxRowHeight, checkboxRowHeight)
+// would score two symbols one pixel apart.
+var symbolSize = image.Pt(checkboxRowHeight, checkboxRowHeight)
 
 // fieldSize is the text-field capture viewport: 220 wide like the button
 // captures, and fieldHeight tall — BodyLarge's 24 dp line box plus twice the
@@ -89,19 +89,19 @@ func TestComponentMirrors(t *testing.T) {
 			tokens.DefaultTypography.BodyLarge, tokens.Comfortable,
 			input.DropdownRenderState{Options: []string{"Comfortable", "Compact"}},
 		)},
-		{"checkbox.html", glyphSize, input.RenderCheckbox(
+		{"checkbox.html", symbolSize, input.RenderCheckbox(
 			nil,
 			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.BodyLarge,
 			input.CheckboxRenderState{Surface: tokens.PlatformLight.WindowBackground},
 		)},
-		{"checkbox-checked.html", glyphSize, input.RenderCheckbox(
+		{"checkbox-checked.html", symbolSize, input.RenderCheckbox(
 			nil,
 			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.BodyLarge,
 			input.CheckboxRenderState{Checked: true, Surface: tokens.PlatformLight.WindowBackground},
 		)},
-		{"radio-selected.html", glyphSize, input.RenderRadio(
+		{"radio-selected.html", symbolSize, input.RenderRadio(
 			nil,
 			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.BodyLarge,
@@ -129,7 +129,7 @@ func TestComponentMirrors(t *testing.T) {
 // nothing else. Two of them — the tonal button and the dropdown trigger, the
 // push button's own fill under the platform's control text at the control
 // height — carried a measured ceiling above it until 2026-09-18, on the
-// reading that the two renderers place the same glyphs one pixel apart and
+// reading that the two renderers place the same symbols one pixel apart and
 // weigh their stems differently inside a frame that is almost entirely label.
 //
 // Half of that gap was the sheet, not the rasterisers: it set every label a

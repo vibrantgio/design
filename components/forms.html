@@ -81,14 +81,14 @@ h2 {
 <body>
 <main>
 <h1>Forms</h1>
-<p class="intro">Form controls are native elements wearing the token sheet's classes &mdash; no script anywhere on this page. <code>.input</code> dresses a text <code>&lt;input&gt;</code>; a pop-up trigger is <code>&lt;select class="input select"&gt;</code> inside a <code>.select-wrap</code>, which draws the platform's pop-up mark; <code>.checkbox</code> and <code>.radio</code> dress their native input types. Resolution mirrors <code>components/input</code> and <code>components/picker</code>: the platform's text background under <code>body-large</code> text, the measured field edge (<code>--platform-field-edge</code>) on the resting edge of the field, the checkbox and the radio alike, the platform's placeholder text, focus adding the halo on the box the control already draws and moving nothing, and a switched-off control fading to the push button's own fill at <code>--disabled-coverage</code> over the surface it stands on. A text field's floor is <code>--density-field-height</code> and a trigger's is <code>--density-control-height</code>: the platform draws a field taller than the button beside it.</p>
+<p class="intro">Form controls are native elements wearing the token sheet's classes &mdash; no script anywhere on this page. <code>.input</code> dresses a text <code>&lt;input&gt;</code>; a pop-up trigger is <code>&lt;select class="input select"&gt;</code> inside a <code>.select-wrap</code>, which draws the platform's pop-up mark; <code>.checkbox</code> and <code>.radio</code> dress their native input types. Resolution mirrors <code>components/input</code> and <code>components/picker</code>: the platform's text background under <code>body-large</code> text, the measured field edge (<code>--platform-field-edge</code>) on the resting edge of the field, the checkbox and the radio alike, the platform's placeholder text, focus adding the ring on the box the control already draws and moving nothing, and a switched-off control fading to the push button's own fill at <code>--disabled-coverage</code> over the surface it stands on. A text field's floor is <code>--density-field-height</code> and a trigger's is <code>--density-control-height</code>: the platform draws a field taller than the button beside it.</p>
 
 <section>
 <h2>Text field — <code>.input</code></h2>
 <div class="row">
 <div class="cell"><input class="input" type="text" placeholder="Placeholder"><span class="annot">empty</span></div>
 <div class="cell"><input class="input" type="text" value="Vibrant Gio"><span class="annot">filled in</span></div>
-<div class="cell"><input class="input is-focus" type="text" value="Vibrant Gio"><span class="annot">focus &mdash; the 4&nbsp;px halo on the field's own outline</span></div>
+<div class="cell"><input class="input is-focus" type="text" value="Vibrant Gio"><span class="annot">focus &mdash; the 4&nbsp;px ring on the field's own outline</span></div>
 <div class="cell"><input class="input" type="text" placeholder="Placeholder" disabled><span class="annot">disabled</span></div>
 </div>
 </section>
@@ -137,11 +137,11 @@ h2 {
 
 <section>
 <h2>Checkbox — <code>.checkbox</code></h2>
-<p class="intro">The measured 16&nbsp;px glyph at every density, centred in <code>--density-checkbox-row-height</code> &mdash; the square footprint the platform gives a pointer, 22&nbsp;px comfortable against the push button's 24 and the list row's 20. The glyph does not follow density and the footprint does. Its corner is the measured 5&nbsp;px and its edge the measured 1&nbsp;px of the platform's field hairline. Checked is the accent fill under a check mark in <code>--platform-alternate-selected-control-text</code> &mdash; the same figure the Gio side strokes on the icon set's 24-unit grid, drawn here out of two gradient bands. A fill says a colour was applied; only the mark says what that means. Switched off it is one fill and no edge at all.</p>
+<p class="intro">The measured 16&nbsp;px symbol at every density, centred in <code>--density-checkbox-row-height</code> &mdash; the square footprint the platform gives a pointer, 22&nbsp;px comfortable against the push button's 24 and the list row's 20. The symbol does not follow density and the footprint does. Its corner is the measured 5&nbsp;px and its edge the measured 1&nbsp;px of the platform's field hairline. Checked is the accent fill under a check mark in <code>--platform-alternate-selected-control-text</code> &mdash; the same figure the Gio side strokes on the icon set's 24-unit grid, drawn here out of two gradient bands. A fill says a colour was applied; only the mark says what that means. Switched off it is one fill and no edge at all.</p>
 <div class="row">
 <div class="cell"><label class="choice"><input class="checkbox" type="checkbox"> Unchecked</label><span class="annot">unchecked</span></div>
 <div class="cell"><label class="choice"><input class="checkbox" type="checkbox" checked> Checked</label><span class="annot">checked</span></div>
-<div class="cell"><label class="choice"><input class="checkbox is-focus" type="checkbox" checked> Focused</label><span class="annot">focus halo</span></div>
+<div class="cell"><label class="choice"><input class="checkbox is-focus" type="checkbox" checked> Focused</label><span class="annot">focus ring</span></div>
 <div class="cell"><label class="choice"><input class="checkbox" type="checkbox" disabled> Disabled</label><span class="annot">disabled</span></div>
 <div class="cell"><label class="choice"><input class="checkbox" type="checkbox" checked disabled> Disabled checked</label><span class="annot">disabled checked</span></div>
 </div>
@@ -149,11 +149,11 @@ h2 {
 
 <section>
 <h2>Radio — <code>.radio</code></h2>
-<p class="intro">The same 16&nbsp;px glyph as a disc. Selected is the accent filling the whole disc with a 5&nbsp;px white dot at its centre &mdash; the measured five sixteenths of the glyph, read off System Settings' selected radio in both appearances &mdash; one fill and one mark, and no gap ring.</p>
+<p class="intro">The same 16&nbsp;px symbol as a disc. Selected is the accent filling the whole disc with a 5&nbsp;px white dot at its centre &mdash; the measured five sixteenths of the symbol, read off System Settings' selected radio in both appearances &mdash; one fill and one mark, and no gap ring.</p>
 <div class="row">
 <div class="cell"><label class="choice"><input class="radio" type="radio" name="r1"> Off</label><span class="annot">unselected</span></div>
 <div class="cell"><label class="choice"><input class="radio" type="radio" name="r1" checked> On</label><span class="annot">selected</span></div>
-<div class="cell"><label class="choice"><input class="radio is-focus" type="radio" name="r2" checked> Focused</label><span class="annot">focus halo</span></div>
+<div class="cell"><label class="choice"><input class="radio is-focus" type="radio" name="r2" checked> Focused</label><span class="annot">focus ring</span></div>
 <div class="cell"><label class="choice"><input class="radio" type="radio" name="r3" disabled> Disabled</label><span class="annot">disabled</span></div>
 <div class="cell"><label class="choice"><input class="radio" type="radio" name="r4" checked disabled> Disabled selected</label><span class="annot">disabled selected</span></div>
 </div>
@@ -161,7 +161,7 @@ h2 {
 
 <section>
 <h2>Compact density</h2>
-<p class="intro">The same markup inside a <code>class="compact"</code> wrapper: a text field drops from 27 to 21&nbsp;px and a trigger from 24 to 19. The 16&nbsp;px checkbox and radio glyphs deliberately keep their size &mdash; density shrinks the row they centre in, from 22 to 17, never the glyph.</p>
+<p class="intro">The same markup inside a <code>class="compact"</code> wrapper: a text field drops from 27 to 21&nbsp;px and a trigger from 24 to 19. The 16&nbsp;px checkbox and radio symbols deliberately keep their size &mdash; density shrinks the row they centre in, from 22 to 17, never the symbol.</p>
 <div class="row compact">
 <div class="cell"><input class="input" type="text" placeholder="Placeholder"><span class="annot">text field</span></div>
 <div class="cell">
@@ -175,7 +175,7 @@ h2 {
 
 <section>
 <h2>Dark mode</h2>
-<p class="intro">A <code>class="dark"</code> wrapper flips the colour variables; every border, fill and glyph resolves from the platform's dark set.</p>
+<p class="intro">A <code>class="dark"</code> wrapper flips the colour variables; every border, fill and symbol resolves from the platform's dark set.</p>
 <div class="row dark">
 <div class="cell"><input class="input" type="text" placeholder="Placeholder"><span class="annot">text field</span></div>
 <div class="cell"><input class="input is-focus" type="text" value="Vibrant Gio"><span class="annot">focus</span></div>

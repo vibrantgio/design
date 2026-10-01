@@ -36,7 +36,7 @@ import (
 var ghostIconSize = image.Pt(2*buttonHeight, 2*buttonHeight)
 
 // modalCross mirrors patterns/modal's crossIcon geometry — and the fixture's
-// SVG: two diagonal strokes 2 dp wide, inset 6 dp on every side of the glyph
+// SVG: two diagonal strokes 2 dp wide, inset 6 dp on every side of the symbol
 // box. Vector clip strokes keep the capture deterministic.
 func modalCross(gtx layout.Context, sizePx int, col color.NRGBA) {
 	w, h := float32(sizePx), float32(sizePx)

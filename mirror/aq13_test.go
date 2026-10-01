@@ -13,8 +13,8 @@ package mirror
 // The text field is the specimen because its ring is its own promoted border,
 // which both sides place identically — Gio thickens the border inward, the
 // sheet draws the second pixel as an inset shadow. The checkbox and the radio
-// put their ring in the slack outside the glyph while CSS puts an outline on
-// the glyph's edge, a geometry difference no colour verdict should be asked
+// put their ring in the slack outside the symbol while CSS puts an outline on
+// the symbol's edge, a geometry difference no colour verdict should be asked
 // to see through.
 
 import (

@@ -79,16 +79,16 @@ h3 {
 <body>
 <main>
 <h1>Buttons &amp; badges</h1>
-<p class="intro">The button is <code>.btn</code> — <strong>filled</strong> by default, with <code>.tonal</code> and <code>.ghost</code> selecting the less pronounced emphasis variants. Emphasis is a colour property and nothing else: every variant keeps the same size and the same focus halo. There is no size prop — heights come from <code>--density-control-height</code>, and density (<code>.compact</code> on any subtree) is the size axis. States shown statically wear the forcing twins (<code>.is-hover</code>, <code>.is-active</code>, <code>.is-focus</code>) that the token sheet groups into the live pseudo-class rules; disabled uses the native attribute.</p>
+<p class="intro">The button is <code>.btn</code> — <strong>filled</strong> by default, with <code>.tonal</code> and <code>.ghost</code> selecting the less pronounced emphasis variants. Emphasis is a colour property and nothing else: every variant keeps the same size and the same focus ring. There is no size prop — heights come from <code>--density-control-height</code>, and density (<code>.compact</code> on any subtree) is the size axis. States shown statically wear the forcing twins (<code>.is-hover</code>, <code>.is-active</code>, <code>.is-focus</code>) that the token sheet groups into the live pseudo-class rules; disabled uses the native attribute.</p>
 
 <section>
 <h2>Filled — <code>.btn</code></h2>
-<p class="intro">The most pronounced variant: the default push button's own measured fill under the text that reads on it. One per surface &mdash; the action the screen is about. Under the pointer the platform's hover overlay composites over that fill and held its press overlay does, a press winning over a hover. Focus keeps the fill and lays the platform's keyboard focus indicator on the button's own outline at <code>--focus-halo-width</code>, half the band past the box and half over it. Disabled is the platform's fade: the push button's own fill at <code>--disabled-coverage</code> over the surface the button stands on, inside the separator at the same coverage, under the platform's disabled control text.</p>
+<p class="intro">The most pronounced variant: the default push button's own measured fill under the text that reads on it. One per surface &mdash; the action the screen is about. Under the pointer the platform's hover overlay composites over that fill and held its press overlay does, a press winning over a hover. Focus keeps the fill and lays the platform's keyboard focus indicator on the button's own outline at <code>--focus-ring-width</code>, half the band past the box and half over it. Disabled is the platform's fade: the push button's own fill at <code>--disabled-coverage</code> over the surface the button stands on, inside the separator at the same coverage, under the platform's disabled control text.</p>
 <div class="row">
 <div class="cell"><button class="btn">Save Changes</button><span class="annot">enabled</span></div>
 <div class="cell"><button class="btn is-hover">Save Changes</button><span class="annot">hover</span></div>
 <div class="cell"><button class="btn is-active">Save Changes</button><span class="annot">pressed</span></div>
-<div class="cell"><button class="btn is-focus">Save Changes</button><span class="annot">focus halo</span></div>
+<div class="cell"><button class="btn is-focus">Save Changes</button><span class="annot">focus ring</span></div>
 <div class="cell"><button class="btn" disabled>Save Changes</button><span class="annot">disabled</span></div>
 <div class="cell"><button class="btn icon" aria-label="Add"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M9 3h2v6h6v2h-6v6H9v-6H3V9h6z"/></svg></button><span class="annot">icon-only</span></div>
 </div>
@@ -101,7 +101,7 @@ h3 {
 <div class="cell"><button class="btn tonal">Save Changes</button><span class="annot">enabled</span></div>
 <div class="cell"><button class="btn tonal is-hover">Save Changes</button><span class="annot">hover</span></div>
 <div class="cell"><button class="btn tonal is-active">Save Changes</button><span class="annot">pressed</span></div>
-<div class="cell"><button class="btn tonal is-focus">Save Changes</button><span class="annot">focus halo</span></div>
+<div class="cell"><button class="btn tonal is-focus">Save Changes</button><span class="annot">focus ring</span></div>
 <div class="cell"><button class="btn tonal" disabled>Save Changes</button><span class="annot">disabled</span></div>
 <div class="cell"><button class="btn tonal icon" aria-label="Add"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M9 3h2v6h6v2h-6v6H9v-6H3V9h6z"/></svg></button><span class="annot">icon-only</span></div>
 </div>
@@ -109,12 +109,12 @@ h3 {
 
 <section>
 <h2>Ghost — <code>.btn.ghost</code></h2>
-<p class="intro">The least pronounced variant: no fill at rest, the platform's control text, and the platform's own overlay composited straight onto whatever it stands on under the pointer &mdash; which is the only fill a ghost ever has. For affordances that must be present without being the subject &mdash; a dialog's close X, a toolbar of icons. A ghost is less pronounced, not smaller: full height, full focus halo.</p>
+<p class="intro">The least pronounced variant: no fill at rest, the platform's control text, and the platform's own overlay composited straight onto whatever it stands on under the pointer &mdash; which is the only fill a ghost ever has. For affordances that must be present without being the subject &mdash; a dialog's close X, a toolbar of icons. A ghost is less pronounced, not smaller: full height, full focus ring.</p>
 <div class="row">
 <div class="cell"><button class="btn ghost">Save Changes</button><span class="annot">enabled</span></div>
 <div class="cell"><button class="btn ghost is-hover">Save Changes</button><span class="annot">hover</span></div>
 <div class="cell"><button class="btn ghost is-active">Save Changes</button><span class="annot">pressed</span></div>
-<div class="cell"><button class="btn ghost is-focus">Save Changes</button><span class="annot">focus halo</span></div>
+<div class="cell"><button class="btn ghost is-focus">Save Changes</button><span class="annot">focus ring</span></div>
 <div class="cell"><button class="btn ghost" disabled>Save Changes</button><span class="annot">disabled</span></div>
 <div class="cell"><button class="btn ghost icon" aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5.4 4 10 8.6 14.6 4 16 5.4 11.4 10l4.6 4.6-1.4 1.4L10 11.4 5.4 16 4 14.6 8.6 10 4 5.4z"/></svg></button><span class="annot">icon-only</span></div>
 </div>
@@ -127,7 +127,7 @@ h3 {
 <div class="cell"><button class="btn chrome">View</button><span class="annot">enabled</span></div>
 <div class="cell"><button class="btn chrome is-hover">View</button><span class="annot">hover</span></div>
 <div class="cell"><button class="btn chrome is-active">View</button><span class="annot">pressed</span></div>
-<div class="cell"><button class="btn chrome is-focus">View</button><span class="annot">focus halo</span></div>
+<div class="cell"><button class="btn chrome is-focus">View</button><span class="annot">focus ring</span></div>
 <div class="cell"><button class="btn chrome icon" aria-label="Add"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M9 3h2v6h6v2h-6v6H9v-6H3V9h6z"/></svg></button><span class="annot">a symbol as the label</span></div>
 </div>
 </section>

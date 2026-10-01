@@ -57,7 +57,7 @@ both modes, labelled `L` and `D`.
 | `--shadow-<level>` | `--shadow-backdrop`, `--shadow-chrome`, `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the cue a floating transient carries (menus, dialogs, tooltips) over the platform fill it stands in; resting surfaces cast none |
 | `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for the published two-segment path |
 | `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | duration stops, ms; the reduce-motion variant zeroes them |
-| interaction states | `--focus-halo-width`, `--disabled-coverage` | the focus halo's 4 px band and the platform's measured disabled coverage as a percentage, both mode-invariant, unlike the halo's colour, which is `--platform-keyboard-focus-indicator` and flips with the appearance |
+| interaction states | `--focus-ring-width`, `--disabled-coverage` | the focus ring's 4 px band and the platform's measured disabled coverage as a percentage, both mode-invariant, unlike the ring's colour, which is `--platform-keyboard-focus-indicator` and flips with the appearance |
 | `--navbar-band` | the toolbar band a navbar stands in, px | the platform's: nineteen px of inset either side of a fourteen px window control circle, so it takes no density and no setting of how tightly a window sets its rows moves it |
 | `--dialog-corner` | the dialog surface's corner radius, px | measured off the platform's own sheet and identical in both appearances, which is why it is not a stop on the radius scale |
 | `--dialog-button-width` | the width a dialog's footer lays each action out in, px | measured off the platform's own sheet, where both answers are 74 wide; it is a floor, so a label that does not fit widens its own button |
@@ -69,7 +69,7 @@ both modes, labelled `L` and `D`.
 `styles.css` ends with the component class layer, defined over the tokens
 above — no literal colours anywhere, the only literal lengths being the
 component constants the Gio side also hardcodes (the 16 dp
-checkbox/radio glyph, its 8 dp dot, the 16 dp dropdown chevron, the
+checkbox/radio symbol, its 8 dp dot, the 16 dp dropdown chevron, the
 1/2 dp input borders) — so it flips to `.dark` and densifies to
 `.compact` with the sheet. Every colour in it is the platform's own
 name for what that element is on the platform, the same mapping the Gio
@@ -105,14 +105,14 @@ press winning over a hover; over the page where the variant carries no
 fill, which is how a ghost gets one at all. Keyboard focus
 (`:focus-visible`) keeps the resting fill and lays
 `--platform-keyboard-focus-indicator` on the control's own outline at
-`--focus-halo-width`, half the band past the box and half over it — the
+`--focus-ring-width`, half the band past the box and half over it — the
 same band at the same width in every variant, because keyboard
 visibility is not a prominence property. Disabled (`:disabled`) is the
 platform's fade: the fill falls back to the push button's own at
 `--disabled-coverage` over the surface the control stands on, and every
 foreground becomes `--platform-disabled-control-text`. A switched-off
 control draws no edge either. `.btn.icon` is the icon-only
-form: a square the density's control height on a side, the glyph (an
+form: a square the density's control height on a side, the symbol (an
 inline SVG on `currentColor`) inset by the density's vertical padding.
 `.btn.chrome` is the bordered toolbar control: a capsule at
 `--density-toolbar-control-height` cornered at half of it, filled with
@@ -140,7 +140,7 @@ The form controls dress native elements — no script anywhere:
 native input types with `appearance: none`. They resolve exactly as
 `components/input` does: `--platform-text-background` under
 `--platform-text`, `--platform-placeholder-text` for a prompt,
-`--platform-field-edge` on the resting edge, focus adding the halo on
+`--platform-field-edge` on the resting edge, focus adding the ring on
 the box the control already draws and moving nothing, and
 `--platform-disabled-control-text` where the control cannot be used —
 the fill staying exactly where it was, because the platform fades the
@@ -153,14 +153,14 @@ all — its fill meets the surface directly, measured — sets its label
 11 px in from that fill's edge, and wears the platform's pop-up mark,
 the 8 by 11 chevron pair masked out of `--platform-control-text` with
 its last column 9 px clear of the trailing edge. `.menu` is the surface
-it opens. The checkbox and the radio draw their 16 px glyph centred in
+it opens. The checkbox and the radio draw their 16 px symbol centred in
 `--density-checkbox-row-height`, the square footprint the platform gives
 a pointer, with the measured 5 px corner and the measured 1 px edge.
 Checked, the box is `--platform-control-accent` under a check mark drawn
 from the icon set's grid as two gradient bands — a fill says a colour was
 applied and only the mark says what it means. The radio's selected state
 is the same accent filling the disc with a 5 px white dot at its centre,
-the measured five sixteenths of the glyph. Switched off, both are one
+the measured five sixteenths of the symbol. Switched off, both are one
 fill and no edge: the push button's own fill at `--disabled-coverage`.
 
 `.card` is the platform's grouped box: `--platform-card-fill`, a small

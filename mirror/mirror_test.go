@@ -32,7 +32,7 @@ var mirrorSize = image.Pt(220, buttonHeight)
 //	buttonHeight       max(ControlHeight 24, LabelLarge's 20 dp line box + 2×PaddingY 2)
 //	fieldHeight        max(FieldHeight 27, BodyLarge's 24 dp line box + 2×PaddingY 2)
 //	rowHeight          RowHeight, the platform's stacked row
-//	checkboxRowHeight  CheckboxRowHeight, the square footprint the 16 dp glyph
+//	checkboxRowHeight  CheckboxRowHeight, the square footprint the 16 dp symbol
 //	                   is centred in and the pointer target it offers
 const (
 	buttonHeight      = 24
