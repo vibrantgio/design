@@ -76,12 +76,12 @@ func navIcon() icons.Painter {
 }
 
 // navItems is the sidebar fixture's item set: the first three of
-// sidebar_test.go's labels, the second Active, so the selected row's
+// sidebar_test.go's titles, the second Active, so the selected row's
 // selection fill is in frame in both widths.
 func navItems() []sidebar.Item {
-	labels := []string{"Overview", "Tokens", "Colour"}
-	items := make([]sidebar.Item, len(labels))
-	for i, l := range labels {
+	titles := []string{"Overview", "Tokens", "Colour"}
+	items := make([]sidebar.Item, len(titles))
+	for i, l := range titles {
 		items[i] = sidebar.Item{Icon: navIcon(), Title: l, Active: i == 1}
 	}
 	return items

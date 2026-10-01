@@ -60,7 +60,7 @@ both modes, labelled `L` and `D`.
 | interaction states | `--focus-ring-width`, `--disabled-coverage` | the focus ring's 4 px band and the platform's measured disabled coverage as a percentage, both mode-invariant, unlike the ring's colour, which is `--platform-keyboard-focus-indicator` and flips with the appearance |
 | `--navbar-band` | the toolbar band a navbar stands in, px | the platform's: nineteen px of inset either side of a fourteen px window control circle, so it takes no density and no setting of how tightly a window sets its rows moves it |
 | `--dialog-corner` | the dialog surface's corner radius, px | measured off the platform's own sheet and identical in both appearances, which is why it is not a stop on the radius scale |
-| `--dialog-button-width` | the width a dialog's footer lays each action out in, px | measured off the platform's own sheet, where both answers are 74 wide; it is a floor, so a label that does not fit widens its own button |
+| `--dialog-button-width` | the width a dialog's footer lays each action out in, px | measured off the platform's own sheet, where both answers are 74 wide; it is a floor, so a title that does not fit widens its own button |
 | `--dialog-footer-air` | the air between a decision's footer hairline and the actions under it, px | measured off the platform's own sheet, whose 65 px footer band holds its 24 px buttons with 21 rows clear above and the sheet's own 20 px inset below |
 | `--toolbar-control-shadow-*` | `--toolbar-control-shadow-reach`, `--toolbar-control-shadow-offset` | the bordered toolbar control's drop shadow is the one material whose GEOMETRY the platform draws differently under the two appearances, so its reach and the depth its rectangle is sunk are stated per appearance beside the colour set; its peak is `--platform-toolbar-control-shadow` |
 
@@ -149,7 +149,7 @@ wording and leaves the control. A text field's height floor is
 field shorter than the button beside it. The pop-up trigger is the
 exception in this family and is a BUTTON rather than a field: `.select`
 takes the push button's fill at the control height, draws NO edge at
-all — its fill meets the surface directly, measured — sets its label
+all — its fill meets the surface directly, measured — sets its title
 11 px in from that fill's edge, and wears the platform's pop-up mark,
 the 8 by 11 chevron pair masked out of `--platform-control-text` with
 its last column 9 px clear of the trailing edge. `.menu` is the surface

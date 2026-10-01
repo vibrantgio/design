@@ -78,7 +78,7 @@ func TestBadgeMirrors(t *testing.T) {
 	for _, c := range badgeCases {
 		t.Run(c.fixture, func(t *testing.T) {
 			gio := golden.Capture(t, badgeSize, onColor(tokens.PlatformLight.WindowBackground,
-				badge.Render(shaper, c.label, nil, c.status,
+				badge.Render(shaper, c.title, nil, c.status,
 					tokens.PlatformLight, tokens.Spacing, tokens.Radius, style,
 					badge.RenderState{Surface: tokens.PlatformLight.WindowBackground})))
 			for _, other := range badgeCases {
@@ -101,7 +101,7 @@ func TestBadgeMirrors(t *testing.T) {
 // hues would pass on a sheet that shaped every badge identically.
 var badgeCases = []struct {
 	fixture string
-	label   string
+	title   string
 	status  badge.Status
 }{
 	{"badge-neutral.html", "Beta", badge.Neutral},

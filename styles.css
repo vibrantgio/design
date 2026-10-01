@@ -308,7 +308,7 @@
    exactly as buttonColors resolves them. .input/.select/.checkbox/.radio
    mirror components/input and the trigger components/picker draws for it,
    .badge the inline annotation components/badge draws (the plain category
-   label and the four statuses; the close mark is a Gio interaction and has
+   title and the four statuses; the close mark is a Gio interaction and has
    no class here), .card the patterns/card box and .group the patterns/group
    hairline, .table the patterns/table grid, the navigation family —
    .navbar, .tabs, .sidebar (patterns) and .crumbs (components/breadcrumb) —
@@ -353,7 +353,7 @@
 /* Tonal is the platform's ordinary push button: its own measured fill under
    the control text, with no edge around it — the platform draws none in any
    captured state, the push button's boundary stepping in one row from the
-   sheet to its own fill. The label is a coverage the platform states over
+   sheet to its own fill. The title is a coverage the platform states over
    that fill, so the element's background paints under it and the browser
    flattens the two there. */
 .btn.tonal {
@@ -424,7 +424,7 @@
     0 var(--toolbar-control-shadow-offset) 0 var(--toolbar-control-shadow-reach) var(--toolbar-shadow-step),
     inset 0 0 0 1px var(--platform-toolbar-control-rim);
 }
-/* A chrome control whose whole label is a symbol: the measured 24 dp mark
+/* A chrome control whose whole title is a symbol: the measured 24 dp mark
    box with the measured 7 dp of clear room a side, so the capsule is 38
    across at the band's own height. */
 .btn.chrome.icon {
@@ -599,7 +599,7 @@
    control is 24 px tall, the same height the push button beside it draws and
    not the text field's 27; a run down its middle gives the push button's own
    fill from its first row to its last with no darker column at either end, so
-   it draws NO edge and its fill meets the surface directly; its label's
+   it draws NO edge and its fill meets the surface directly; its title's
    origin is 11 columns in from that fill's edge (the measured twelve less the
    one column of bearing the capture's own first letter carries), five deeper
    than the field's; and the mark's last column stands 9 clear of the trailing
@@ -614,7 +614,7 @@
    over the surface the trigger stands on, and every foreground over it
    becomes the platform's disabled control text.
 
-   The trailing room the label is kept clear of is the S3 gap plus the mark's
+   The trailing room the title is kept clear of is the S3 gap plus the mark's
    own 8 px plus the measured 9 px of clearance - the gap is the trigger's,
    what stops a long value running into the mark, and not one of its two
    ends. */
@@ -772,7 +772,7 @@
    draws an edge column in either appearance - its rim is a one-pixel antialiased ramp from this fill
    to the sheet. The border is kept at its width in transparent so the symbol's
    drawn box does not move. Checked, the mark takes the colour the
-   switched-off label beside it takes, the platform's tertiary label, no
+   switched-off title beside it takes, the platform's tertiary label, no
    stored capture holding a switched-off checked box. */
 .checkbox:disabled, .radio:disabled {
   cursor: default;
@@ -821,7 +821,7 @@
    where the CSS border does, so its padding gives the border's 1px back and
    the slots land where the Gio inset puts them; the card has no line to give
    back. Neither styles slot text of its own: the Gio card draws no text at
-   all, and the group draws only its own label. */
+   all, and the group draws only its own title. */
 .card {
   box-sizing: border-box;
   display: flex;
@@ -843,7 +843,7 @@
   border-radius: var(--radius-lg);
   color: var(--platform-label);
 }
-/* The group's own label: top-leading, inside the hairline, as the first row
+/* The group's own title: top-leading, inside the hairline, as the first row
    of the group's stack — the platform's idiom for a section header over a
    bordered container, and not the fieldset legend cut into the top line,
    which has no native counterpart and does not survive a Lg corner. The
@@ -1003,8 +1003,8 @@
 
 /* Tabs (patterns/tabs tabs.go): the strip is a chrome row exactly
    ControlHeight tall (drawTabs pins stripH to the density), closed by the
-   separator along its foot, each cell its label plus 2*S3 horizontal padding
-   with the label centred in the height that remains above the 2 dp underline
+   separator along its foot, each cell its title plus 2*S3 horizontal padding
+   with the title centred in the height that remains above the 2 dp underline
    slot — which border-box centring reproduces. The selected cell fills the
    slot with the platform's selection colour; content panes below the strip
    are the caller's, and stand on the content fill. */
@@ -1067,15 +1067,15 @@
   background: var(--platform-secondary-label);
 }
 
-/* An item row (drawItem): a symbol, a label and, at the trailing end, a count
+/* An item row (drawItem): a symbol, a title and, at the trailing end, a count
    when the entry has one. The symbol stands in a 24 dp square set 17 in from
-   the rail's leading edge, the label-large label starts at 48 in, and the
+   the rail's leading edge, the label-large title starts at 48 in, and the
    count's trailing edge is 17 in from the rail's trailing edge; each part is
    vertically centred, one line, clipped rather than wrapped — which is also
-   what hides the label and the count at the collapsed width. The symbol wears
+   what hides the title and the count at the collapsed width. The symbol wears
    the sidebar's own measured symbol colour, which stands stronger than the
-   label beside it. Selected wears the platform's sidebar pill, and on it the
-   symbol, the label and the count all take the foreground the platform pairs
+   title beside it. Selected wears the platform's sidebar pill, and on it the
+   symbol, the title and the count all take the foreground the platform pairs
    with that fill; nothing else moves, and nothing tints under the pointer.
 
    The row height, the pill's inset and its corner, the three columns and the
@@ -1109,7 +1109,7 @@
 }
 /* The pill is a layer behind the row's own content rather than the row's
    fill, because it is inset from the rail while the icon column and the
-   label are not. */
+   title are not. */
 .sidebar-item.selected {
   color: var(--platform-alternate-selected-control-text);
 }
@@ -1122,7 +1122,7 @@
   background: var(--platform-sidebar-selection);
 }
 /* A sidebar whose list does not hold the keyboard draws the platform's other
-   pill: the grey one, with the label, the symbol and the count on it in the
+   pill: the grey one, with the title, the symbol and the count on it in the
    accent as the platform's vibrancy lands it there. Both are MEASURED off
    finder-sidebar-unfocused-{light,dark}.png, where the pill keeps the
    emphasized one's geometry exactly. */
@@ -1149,7 +1149,7 @@
   color: var(--platform-alternate-selected-control-text);
 }
 /* Collapsed a row is its symbol and nothing else: drawItem returns after the
-   symbol, so the label, the count and the section heading are not drawn at
+   symbol, so the title, the count and the section heading are not drawn at
    all, and the symbol box is centred in the rail rather than set at the
    leading inset. */
 .sidebar.collapsed .sidebar-item-icon {
@@ -1161,7 +1161,7 @@
 .sidebar.collapsed .sidebar-section {
   display: none;
 }
-/* A row with no symbol still starts its label at the same column, so the
+/* A row with no symbol still starts its title at the same column, so the
    names of a list whose entries differ still line up. */
 .sidebar-item-label {
   flex: 1;
@@ -1180,7 +1180,7 @@
   color: var(--platform-alternate-selected-control-text);
 }
 
-/* A section's heading: a small label in the platform's secondary label,
+/* A section's heading: set small in the platform's secondary label,
    17 in from the rail's leading edge, its baseline 30 down a block of 42,
    and parted from the rows around it by that air alone — the platform draws
    no line there and neither does this.
@@ -1352,7 +1352,7 @@
    each laid out in the platform's measured dialog button width
    (--dialog-button-width). Each action is a bare component owning its own
    focus ring — the dialog wraps and decorates nothing. The width is a floor,
-   so a label that does not fit widens its own button and nothing else.
+   so a title that does not fit widens its own button and nothing else.
 
    The footer is a band of the SHEET and not of the inset column, which is why
    it reaches back over the dialog's padding: a 1px separator hairline runs
@@ -1437,13 +1437,13 @@
 
    A row is the control height tall with the density's vertical padding, its
    mark box standing 10 in from the leading edge at the 16 dp size a mark
-   beside a line of body text is drawn at, its label starting a text lead
+   beside a line of body text is drawn at, its title starting a text lead
    after that box, and 16 clear at the trailing end. The current row wears the
    pill and takes the foreground the platform pairs with that fill; nothing
    else moves.
 
    An open menu stands OVER its trigger with the current row on the trigger's
-   own label rather than dropping below it, which is placement and the page's
+   own title rather than dropping below it, which is placement and the page's
    to arrange - the class carries the surface and the rows. */
 .menu {
   box-sizing: border-box;
@@ -1544,7 +1544,7 @@
 }
 
 /* Tooltip (components/tooltip tooltip.go drawSurface): the window background
-   inside the platform's separator under a label in the platform's label
+   inside the platform's separator under its text in the platform's label
    colour, label-small, radius Sm, S2/S1 padding measured from the outer edge,
    clamped to the 24x16 dp minimum. It casts no shadow: the hairline is the
    whole of a still tooltip's edge, and what places it draws whatever shadow
