@@ -6,7 +6,7 @@ package mirror
 // (RenderState.Surface) and flattens against it; the sheet is told nothing
 // and lets the browser composite against the pixels actually beneath. This
 // pair scores the two against each other in the configuration where they
-// could part — the modal-close icon ghost, HELD, standing on the dialog's
+// could part — the dialog-close icon ghost, HELD, standing on the dialog's
 // fill, where the platform's press overlay is the whole of what is drawn.
 // The hover state it used to score is gone with the walk: a push button on
 // this platform does not tint under the pointer. Like TestCalibration and the
@@ -35,10 +35,10 @@ import (
 // against the fill it is laid on.
 var ghostIconSize = image.Pt(2*buttonHeight, 2*buttonHeight)
 
-// modalCross mirrors patterns/modal's crossIcon geometry — and the fixture's
+// dialogCross mirrors patterns/dialog's crossIcon geometry — and the fixture's
 // SVG: two diagonal strokes 2 dp wide, inset 6 dp on every side of the symbol
 // box. Vector clip strokes keep the capture deterministic.
-func modalCross(gtx layout.Context, sizePx int, col color.NRGBA) {
+func dialogCross(gtx layout.Context, sizePx int, col color.NRGBA) {
 	w, h := float32(sizePx), float32(sizePx)
 	pad := float32(gtx.Dp(unit.Dp(6)))
 	stroke := float32(gtx.Dp(unit.Dp(2)))
@@ -67,7 +67,7 @@ func TestHostedGhostMirrors(t *testing.T) {
 
 	const fixture = "icon-ghost-dialog-press.html"
 	gio := golden.Capture(t, ghostIconSize, onColor(tokens.PlatformLight.WindowBackground, button.RenderIcon(
-		modalCross, tokens.PlatformLight, tokens.Spacing, tokens.Radius, tokens.Comfortable,
+		dialogCross, tokens.PlatformLight, tokens.Spacing, tokens.Radius, tokens.Comfortable,
 		button.RenderState{Emphasis: button.Ghost, Surface: tokens.PlatformLight.WindowBackground, Pressed: true},
 	)))
 	if !FixtureExists("fixtures/" + fixture) {

@@ -2,7 +2,7 @@ package mirror
 
 // The overlay-page verdicts: the .scrim/.dialog, .popover, .tooltip
 // and .toast classes — the vocabulary components/dialog.html composes with —
-// captured from the real Gio packages (patterns/modal, patterns/popover,
+// captured from the real Gio packages (patterns/dialog, patterns/popover,
 // components/tooltip, patterns/notifications) and compared against browser
 // captures of per-specimen fixtures wearing exactly the published sheet's
 // classes. Like
@@ -26,7 +26,7 @@ import (
 	"github.com/vibrantgio/components/golden"
 	"github.com/vibrantgio/components/toast"
 	"github.com/vibrantgio/components/tooltip"
-	"github.com/vibrantgio/patterns/modal"
+	"github.com/vibrantgio/patterns/dialog"
 	"github.com/vibrantgio/patterns/notifications"
 	"github.com/vibrantgio/patterns/popover"
 	vgcolor "github.com/vibrantgio/theme/color"
@@ -35,11 +35,11 @@ import (
 )
 
 // overlaySize is the shared overlay capture viewport — the patterns overlay
-// goldens' 320x240 viewport (modal_test.go, popover_test.go, tooltip_test.go
+// goldens' 320x240 viewport (dialog_test.go, popover_test.go, tooltip_test.go
 // and notifications_test.go all pin the same one).
 var overlaySize = image.Pt(320, 240)
 
-// grow mirrors modal_test.go's fillRect: a sharp-edged solid stand-in
+// grow mirrors dialog_test.go's fillRect: a sharp-edged solid stand-in
 // filling its width at a fixed height, used as the dialog body so neither
 // renderer has a text-wrap decision to disagree on inside the surface.
 func grow(c color.NRGBA, heightDp float32) layout.Widget {
@@ -127,23 +127,23 @@ func TestOverlayMirrors(t *testing.T) {
 		bg      color.NRGBA
 		gio     layout.Widget
 	}{
-		{"dialog-pane.html", lightBg, modal.Render(
+		{"dialog-pane.html", lightBg, dialog.Render(
 			shaper,
-			modal.Props{Title: "Preferences", Body: grow(slotGrey, 40), Shaper: shaper},
+			dialog.Props{Title: "Preferences", Body: grow(slotGrey, 40), Shaper: shaper},
 			true,
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.TitleMedium, tokens.Comfortable,
 		)},
-		{"dialog-decision.html", lightBg, modal.Render(
+		{"dialog-decision.html", lightBg, dialog.Render(
 			shaper,
-			modal.Props{
+			dialog.Props{
 				Title: "Discard changes?",
 				Body:  grow(slotGrey, 40),
 				// Neither stand-in states a width: the footer lays every
 				// action out in the platform's measured dialog button
 				// width, which is the 74 the fixture's own divs carry.
 				Actions:  []layout.Widget{actionChip(chipBlue, 28), actionChip(chipRed, 28)},
-				Decision: &modal.Decision{Destructive: true},
+				Decision: &dialog.Decision{Destructive: true},
 				Shaper:   shaper,
 			},
 			true,

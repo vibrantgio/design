@@ -312,7 +312,7 @@
    no class here), .card the patterns/card box and .group the patterns/group
    hairline, .table the patterns/table grid, the navigation family —
    .navbar, .tabs, .sidebar (patterns) and .crumbs (components/breadcrumb) —
-   and the overlay family — .scrim/.dialog (patterns/modal), .popover,
+   and the overlay family — .scrim/.dialog (patterns/dialog), .popover,
    .tooltip, .toast — the transient surfaces. Each state rule carries a
    forcing twin class (.is-hover, .is-active, .is-focus, .is-checked) so a
    static page can show the state with the very declarations the live
@@ -1258,7 +1258,7 @@
 }
 
 /* ---- Overlays ----
-   The transient surfaces: the scrimmed dialog (patterns/modal), the
+   The transient surfaces: the scrimmed dialog (patterns/dialog), the
    unscrimmed popover (patterns/popover), the tooltip (components/tooltip) and
    the floating toast (components/toast, stood in a column by
    patterns/notifications). On this platform a floating surface is filled with
@@ -1287,10 +1287,10 @@
     0 0 0 24px var(--floating-shadow-step);
 }
 
-/* Scrim (modal.go drawModal): the whole-plane dimmer under a dialog — the
+/* Scrim (dialog.go drawDialog): the whole-plane dimmer under a dialog — the
    platform's own scrim coverage, identical in both appearances, because a
    scrim dims by reducing luminance and never flips with the scheme. The scrim
-   centres the dialog, exactly as drawModal centres the surface in the window.
+   centres the dialog, exactly as drawDialog centres the surface in the window.
    Behaviour is part of the pattern: on a PANE a scrim press invokes
    OnClose; on a DECISION the scrim is INERT — it absorbs presses and answers
    none of them, because dismissal is one of the decision's answers and a
@@ -1303,12 +1303,12 @@
   background: var(--platform-scrim);
 }
 
-/* Dialog (modal.go drawModal): the centred surface — width 75% of the window
+/* Dialog (dialog.go drawDialog): the centred surface — width 75% of the window
    surface clamped to 180-560 dp, height hugging its content between the 120 dp
    floor and the 560 dp cap (overflow clips), the window background under the
    platform's shadow and no hairline at all, the sheet's own measured corner
    (--dialog-corner), an S5 inset and S3 gaps between header, body and footer.
-   A modal's two purposes share this one surface: a PANE carries a ghost icon
+   A dialog's two purposes share this one surface: a PANE carries a ghost icon
    close (.btn.ghost.icon) in its header and no footer of its own; a DECISION
    carries no X anywhere and a .dialog-footer whose right-aligned actions end
    in the Return-bound default, drawn as the platform draws a sheet's push
@@ -1332,7 +1332,7 @@
   color: var(--platform-label);
 }
 
-/* The header row (modal.go headerWidget): the title-medium title on the
+/* The header row (dialog.go headerWidget): the title-medium title on the
    left, the close affordance — when the purpose shows one — on the right,
    middle-aligned so the ghost button's square drives the row height. */
 .dialog-header {
@@ -1348,7 +1348,7 @@
   letter-spacing: 0;
 }
 
-/* The footer row (modal.go drawModal): right-aligned actions with S2 gaps,
+/* The footer row (dialog.go drawDialog): right-aligned actions with S2 gaps,
    each laid out in the platform's measured dialog button width
    (--dialog-button-width). Each action is a bare component owning its own
    focus ring — the dialog wraps and decorates nothing. The width is a floor,

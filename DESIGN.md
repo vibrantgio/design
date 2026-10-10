@@ -154,7 +154,7 @@ appearances, converted to sRGB, alpha kept, and is stored with its reader in
 the org's macOS reference. Ten more fills the platform draws without giving
 them an NSColor name — the chrome material, the grouped box, the push
 button's fill, the hover and press overlays, the floating shadow, the field's
-hairline, the scrollbar's knob, the alternating row and the modal's
+hairline, the scrollbar's knob, the alternating row and the dialog's
 scrim — were measured off stored captures of platform windows and carry their
 provenance in the token set beside them. Nothing is derived from anything
 else: nothing is generated, nothing is walked, no foreground is solved for. Where the platform's
@@ -394,7 +394,7 @@ Three contracts follow from the numbers:
 ### The component inventory: shadcn's
 
 The system's inventory — shell, navbar, sidebar, table, pagination, tabs,
-modal, alert, popover, tooltip, toast, card, accordion, breadcrumb, plus the
+dialog, alert, popover, tooltip, toast, card, accordion, breadcrumb, plus the
 marketing sections — is shadcn/ui's inventory. The touch reference has no breadcrumb, no data
 table and no pricing section; conversely there is no FAB, navigation rail,
 bottom sheet or snackbar here, because adopting them would make a Mac app

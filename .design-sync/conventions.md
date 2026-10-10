@@ -62,7 +62,7 @@ never invent a class, a token, or a size variant.
   and `.sidebar-item-icon`; breadcrumbs are `.crumbs` holding `.crumb`s
   separated by `.crumb-sep`, the last (or `.current`) crumb in text colour.
   `.selected` marks the active link, tab or sidebar item.
-- **Overlays** — a modal is `.dialog` inside a full-viewport `.scrim`, with
+- **Overlays** — a dialog is `.dialog` inside a full-viewport `.scrim`, with
   `.dialog-header` (holding the `.dialog-title`) and, for decision dialogs,
   a right-aligned `.dialog-footer`. Two purposes: a **decision** dialog has a
   footer ending in the Return-bound default and **no close X**; a
@@ -110,7 +110,7 @@ never invent a class, a token, or a size variant.
   resting surfaces never cast one.
 - Interaction: `--platform-keyboard-focus-indicator` with
   `--focus-ring-width` (the one focus treatment everywhere), and
-  `--platform-scrim` (the veil a modal draws over what it covers).
+  `--platform-scrim` (the veil a dialog draws over what it covers).
 - Motion: `--ease-standard`, `--ease-standard-accelerate`,
   `--ease-standard-decelerate`, `--ease-emphasized`,
   `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate`;
