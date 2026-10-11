@@ -1205,14 +1205,19 @@
 }
 
 /* Breadcrumb (components/breadcrumb breadcrumb.go): a row of title-small
-   segments with S2 gaps around 12 dp chevron separators (chevronDp). The last
-   segment is the current location in the platform's label; every ancestor is
-   a link and takes the platform's link colour. Colour follows position
-   (labelColor), so :last-child carries it; .current forces it for a specimen. */
+   places parted by the icon set's chevron, drawn as the platform's path bar.
+   Every place is set in the platform's label, the one before the last as
+   much as the last, and which place you are at is told by standing last and
+   answering nothing — so no rule here colours a place by its position. The
+   pointer over the row stays the arrow, as it does over the platform's path
+   bar; the pointing hand belongs to links in the content. The gap is the
+   row's own stated one: 8 px clear of the chevron's drawn figure on each
+   side, of which the square the mark stands in already leaves 6.67, so the
+   row lays out the 1.33 that is left. */
 .crumbs {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 1.33px;   /* the stated 8 less the 6.67 the mark box leaves clear */
   font-family: var(--font-family);
   font-size: var(--font-title-small-size);
   line-height: var(--font-title-small-line-height);
@@ -1220,30 +1225,36 @@
   letter-spacing: 0;
 }
 .crumb {
-  color: var(--platform-link);
+  color: var(--platform-label);
   text-decoration: none;
   white-space: nowrap;
+  cursor: default;
 }
-.crumbs .crumb:last-child, .crumb.current { color: var(--platform-label); }
 
-/* The chevron separator (chevronWidget/drawChevron): a right-pointing
-   triangle half the 12 dp box wide and the full box tall, centred in it, in
-   the platform's secondary label. */
+/* The chevron separator: the one right-pointing chevron the icon set draws,
+   in the platform's secondary label, standing in the 20 px square the
+   library gives a mark beside text (DefaultChevron). It is drawn as two
+   borders of a square turned a quarter less an eighth, at the side that
+   brings the covered figure out at the mark's own 6.7 by 11.7 px at 1x; the
+   turn leaves that figure 2.42 px right of the square's middle, which the
+   shift takes back, so the mark stands centred in its box as it does in the
+   drawing. */
 .crumb-sep {
   flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 12px;   /* chevronDp */
-  height: 12px;
+  width: 20px;   /* DefaultChevron */
+  height: 20px;
 }
 .crumb-sep::before {
   content: "";
-  width: 0;
-  height: 0;
-  border-top: 6px solid transparent;    /* 12 dp tall */
-  border-bottom: 6px solid transparent;
-  border-left: 6px solid var(--platform-secondary-label);  /* 6 dp deep, apex along +X */
+  box-sizing: border-box;
+  width: 8.25px;
+  height: 8.25px;
+  border-right: 1.4px solid var(--platform-secondary-label);
+  border-bottom: 1.4px solid var(--platform-secondary-label);
+  transform: translateX(-2.42px) rotate(-45deg);
 }
 
 /* The keyboard ring, identical to every other control's: per-cell for the

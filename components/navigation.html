@@ -189,7 +189,7 @@ h2 {
 
 <section>
 <h2>Breadcrumb — <code>.crumbs</code></h2>
-<p class="intro">A row of title-small segments with 12&nbsp;px chevron separators (<code>.crumb-sep</code>) and <code>--space-2</code> gaps. Colour follows position: the last <code>.crumb</code> is the current location in <code>--platform-label</code>, ancestors are links and take <code>--platform-link</code>. <code>.current</code> forces the current-location colour on a specimen that is not last. Every segment renders on one line; a deep trail clips rather than collapsing to an ellipsis.</p>
+<p class="intro">A row of title-small places parted by the icon set's chevron (<code>.crumb-sep</code>), drawn as the platform's path bar. Every <code>.crumb</code> is set in <code>--platform-label</code>, the one before the last as much as the last, and which place you are at is told by standing last and answering nothing rather than by a colour of its own. The separator stands in a 20&nbsp;px square and the row leaves its drawn figure 8&nbsp;px clear on each side. The pointer stays the arrow: the pointing hand belongs to links in the content. Every place renders on one line; a deep trail clips rather than collapsing to an ellipsis, so eliding a middle place is the caller's.</p>
 <div class="row">
 <div class="cell">
 <nav class="crumbs">
@@ -213,7 +213,7 @@ h2 {
 </div>
 <div class="cell">
 <nav class="crumbs">
-  <span class="crumb current">Home</span>
+  <span class="crumb">Home</span>
 </nav>
 <span class="annot">single segment &mdash; no chevrons</span>
 </div>
