@@ -32,6 +32,7 @@
   --platform-find-highlight: #faefbd;
   --platform-separator: #00000019;
   --platform-grid: #e6e6e6;
+  --platform-seam: #e6e6e6;
   --platform-label: #000000d8;
   --platform-secondary-label: #0000007f;
   --platform-tertiary-label: #00000042;
@@ -227,6 +228,7 @@
   --platform-find-highlight: #6e6e4d;
   --platform-separator: #ffffff19;
   --platform-grid: #1a1a1a;
+  --platform-seam: #000000;
   --platform-label: #ffffffd8;
   --platform-secondary-label: #ffffff8c;
   --platform-tertiary-label: #ffffff3f;
