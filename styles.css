@@ -1003,19 +1003,21 @@
   border-bottom-color: var(--platform-selected-content-background);
 }
 
-/* Tabs (patterns/tabs tabs.go): the strip is a chrome row exactly
-   ControlHeight tall (drawTabs pins stripH to the density), closed by the
-   separator along its foot, each cell its title plus 2*S3 horizontal padding
-   with the title centred in the height that remains above the 2 dp underline
+/* Tabs (patterns/tabs tabs.go): the strip has no fill of its own. It
+   declares no background, so it shows the fill of the region it is in,
+   and the separator along its foot lies over that fill — the Go side
+   flattens the separator onto the fill it is handed, which is the same
+   colour. The strip is exactly ControlHeight tall (drawTabs pins stripH
+   to the density), each cell its title plus 2*S3 horizontal padding with
+   the title centred in the height that remains above the 2 dp underline
    slot — which border-box centring reproduces. The selected cell fills the
-   slot with the platform's selection colour; content panes below the strip
-   are the caller's, and stand on the content fill. */
+   slot with the platform's selection colour; the active tab's content is
+   the caller's and stands on the same fill. */
 .tabs {
   box-sizing: border-box;
   display: flex;
   align-items: stretch;
   height: var(--density-control-height);
-  background: var(--platform-sidebar-material);
   box-shadow: inset 0 -1px 0 var(--platform-separator);
 }
 .tab {

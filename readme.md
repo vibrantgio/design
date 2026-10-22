@@ -170,9 +170,11 @@ shadow. `.group` is the other half of that ruling — a
 fill of the surface it is in and declaring none. `.table` prints on
 `--platform-control-background` with rows a `--density-row-height`
 tall, `--platform-grid` closing each and `--platform-separator` closing
-the header band. The navigation family — `.navbar`, `.tabs`, `.sidebar`
-and `.crumbs` — stands on `--platform-sidebar-material`, the chrome, and
-draws the separator where two flush regions meet; selection is
+the header band. Of the navigation family, `.navbar` and `.sidebar`
+stand on `--platform-sidebar-material`, the chrome, while `.tabs` and
+`.crumbs` declare no fill and stand on the fill of the region they are
+in; the separator is drawn where two flush regions meet, as along the
+foot of the bar and of the tab strip; selection is
 `--platform-selected-content-background`, as an underline on a link or a
 tab and as the row's own fill on a rail. `.pane` is the platform's
 sidebar as it actually stands: an inset rounded pane 8 px off the
