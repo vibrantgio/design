@@ -36,7 +36,7 @@ colour, depth, motion) and philosophical (alive, reactive, responsive).
 It is **one coherent design system across twenty-two repositories**: nineteen
 library repos, the `workbench` repo carrying the seven reference
 applications, this `design` repo carrying the published token bundle and this
-rationale, and the org's `.github` repo carrying the plan and the agent
+rationale, and the `organisation` repo holding the plan and the agent
 guide. Coherence is the point and the discipline —
 one theme observable carries the entire look (colour, typography, density,
 elevation, motion), every module sits in an enforced tier, and the reference

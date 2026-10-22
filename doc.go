@@ -3,7 +3,7 @@
 // styles.css and the foundation pages under foundations/.
 //
 // The bundle is generated, never edited here: theme's cmd/vg-tokens writes
-// it (scripts/push-design.sh in the org's .github repository runs that and
+// it (scripts/push-design.sh in the organisation repository runs that and
 // then pushes the result), so a change to a token or a ramp lands in theme
 // first and is re-emitted into this repository. Editing one of these files
 // directly is the same mistake as editing any other generated file — the
