@@ -1,71 +1,49 @@
-# Vibrant Gio Design System — Architecture & Rationale
+# Vibrant Gio Design System — Architecture
 
-> **Status:** Second edition (2026-08). This document describes the system as
-> shipped across the organization's repositories after the Phase B–F rework:
-> the inverted layering, the platform colour model, and the deliberate
-> desktop divergences from the touch-first reference it started from. The original design document is
-> preserved as [DESIGN-v1.md](DESIGN-v1.md); the road from there to here is
-> summarised near the end. Since the rework the release has been cut and the
-> repositories renamed: the `spectrum`, `prism`, `pulse` and `cadence` this
-> document's historical passages speak of are today's `theme`, `components`,
-> `effects` and `patterns`. Current published versions are recorded where
-> they always were — ADR-006's tag rules govern them and `llms.txt` lists
-> them — never here.
-
-**Two documents, two jobs.** This file is the design rationale — *why* the
-system is shaped the way it is, for people (and agents) working **on** the
-design system. The canonical guide for building applications **with** it is
-[`llms.txt`](https://raw.githubusercontent.com/vibrantgio/workbench/master/llms.txt)
-in the `workbench` repository (ADR-004): bootstrap skeleton,
-token vocabulary, component catalogue, pitfalls. If you are writing an app,
-read that first; if you are changing the system, read this. This file lives
-in the `design` repository, beside the published token bundle it explains;
-it spent its first life in `workbench`, and its pre-move history is in that
-repository's log.
+> **Status:** This document describes the system as shipped. It is for
+> people and agents working **on** the design system. The guide for building
+> applications **with** it is
+> [`llms.txt`](https://raw.githubusercontent.com/vibrantgio/workbench/master/llms.txt)
+> in the `workbench` repository: the bootstrap skeleton, the token
+> vocabulary, the component catalogue and the pitfalls. What that guide
+> says is referred to here, not repeated.
 
 ---
 
 ## What Vibrant Gio is
 
-Vibrant Gio is a platform for building beautiful, native desktop applications
-on macOS, Windows, and Linux, built on [gioui.org](https://gioui.org). The
-goal is a first-class design system — what a platform's own design system is
-for that platform — but unique to Vibrant Gio. The "vibrancy" in the name is both literal (rich
-colour, depth, motion) and philosophical (alive, reactive, responsive).
+Vibrant Gio is a design system for native desktop applications on macOS,
+Windows and Linux, built on [gioui.org](https://gioui.org). An application
+built with it looks like a macOS application: its colours, control heights,
+text sizes and shapes are the platform's, measured off the platform's own
+windows where a capture holds them and taken from its published guidelines
+otherwise.
 
-It is **one coherent design system across twenty-two repositories**: nineteen
-library repos, the `workbench` repo carrying the seven reference
-applications, this `design` repo carrying the published token bundle and this
-rationale, and the `organisation` repo holding the plan and the agent
-guide. Coherence is the point and the discipline —
-one theme observable carries the entire look (colour, typography, density,
-elevation, motion), every module sits in an enforced tier, and the reference
-apps all embody the same contract.
+It is one design system across nineteen library repositories, the
+`workbench` repository with its example applications, this `design`
+repository with the published token bundle, and the `organisation`
+repository with the agent guide and the gate scripts. One theme observable carries
+the whole look — colour, typography, density, levels and motion — and
+every library module sits in an enforced tier.
 
-The application model is **Functional Reactive Programming** using
-`reactivego/rx` and `vibrantgio/mvu`. The design system feels native to that
-model — components take the theme observable and need nothing else. Two
-pattern families coexist: pure FRP composition and an explicit MVU
-(Model–View–Update) state machine; every component serves both through one
-API (§Key architectural patterns).
+The application model is Functional Reactive Programming with
+`reactivego/rx` and `vibrantgio/mvu`. Components take the theme observable
+and need nothing else. Two styles of application use the same components:
+pure FRP composition, and an explicit MVU (Model–View–Update) state machine
+(§Key architectural patterns).
 
 ### Non-goals
 
-- **No web target.** This is a desktop-native system; we do not aim for
-  browser deployment. (Tokens are *exported* to CSS for prototyping in
-  Claude Design, but that surface renders specimens, not applications.)
-- **No mobile target initially.** Gio supports Android/iOS but Vibrant Gio is
-  optimised for desktop input modalities, window chrome, and platform
-  integration.
-- **No embedded / kiosk target.** No memory- or binary-size budgets shaped
-  around constrained devices.
-- **No CSS-like dynamic styling.** Tokens are typed Go values, not
-  stringly-typed maps.
-- **No hand-picked palettes, and no derived ones.** Colour is the
-  platform's, read off the platform per scheme; a lint fails the build on
-  colour literals in the component repos.
-- **Not a touch-first look.** The reference system's *ideas* are adopted where
-  they earn their place; its touch-first look is deliberately rejected (ADR-005).
+- **No web target.** Tokens are exported to CSS for prototyping in Claude
+  Design, and those pages show components, not applications.
+- **No mobile target.** Gio supports Android and iOS; Vibrant Gio is made
+  for desktop input, window chrome and platform integration.
+- **No embedded or kiosk target.** No memory or binary-size budgets.
+- **No CSS-like dynamic styling.** Tokens are typed Go values, not maps of
+  strings.
+- **No picked palettes and no derived ones.** Colour is the platform's,
+  read off the platform per scheme; a lint fails `go test` on colour
+  literals in the component repositories.
 
 ---
 
@@ -74,22 +52,14 @@ API (§Key architectural patterns).
 The design-system spine, foundation first:
 
 ```
-mvu  →  theme  →  components  →  effects  →  patterns  →  markdown
+mvu  →  theme  →  components  →  effects  →  patterns, markdown
 ```
 
-`theme` — the theme runtime and every design token — is the **foundation**
-of the design system, below the components it themes. This is the inversion
-ADR-001 records: the system was first built with the tokens inside `prism`
-and `spectrum` layered above it, which meant the theme depended on what it
-themed, `LiveTheme` hardcoded the default palettes, and there was no palette
-injection point anywhere in the stack. Moving the token and theme contract
-down into `spectrum` (and the animation code out of it, into
-`pulse/transition`) gave the stack one direction: tokens flow up, nothing
-flows down.
+`theme` — the theme runtime and every design token — is the foundation,
+below the components it themes. Tokens flow up; nothing flows down.
 
-The full tier table judges all nineteen library modules, not just the spine.
-A module may import only modules in a strictly lower tier, plus anything in
-the support row:
+The tier table judges all nineteen library modules. A module may import
+only modules in a strictly lower tier, plus anything in the support row:
 
 | Tier | Modules | May import |
 | --- | --- | --- |
@@ -100,945 +70,348 @@ the support row:
 | 4 | patterns, markdown | tiers 0–3 |
 | — | ivg, svg, seen, csg, kiwi, noise, traer | nothing in this table |
 
-Notes the table needs to be read with:
+How to read it:
 
-- **`font` is tier 0** because theme depends on it for the default Roboto
-  and Roboto Mono faces (ADR-003). Without that row the layer check would
-  reject the exact edge the typography decision requires.
-- **One intra-tier edge is admitted explicitly:** `style` imports `font` and
-  `textdraw`, both tier 0. `style` is frozen rather than deleted (ADR-003),
-  so the check permits that single edge instead of renumbering the tier.
-- **The support libraries** are consumed by the design system and never
-  depend on it. That is the whole of their contract.
-- **Nested demo modules are exempt from being imported, not from importing.**
-  `components/gallery` and `mvu/example` are separate modules that may depend on
-  layers above their parent; their parents may not inherit that edge. This is
-  the mechanism that keeps a demo from re-closing a cycle — the org's one
-  real dependency cycle (pulse into prism) was a single demo file's doing.
-- **`workbench` is eight application modules in subdirectories**, each
-  released on its own cadence, beside a root module that collects them. No
-  library imports any of them, and a nested module stands outside its parent
-  by Go's own rules, so the root never swallows an application.
+- **`font` is tier 0** because theme takes its default faces, Roboto and
+  Roboto Mono, from it.
+- **Two edges inside tier 0 are admitted:** `style` imports `font` and
+  `textdraw`. `style` is a frozen type scale; the check admits those two
+  edges rather than renumbering the tier.
+- **The support libraries** never import the design system.
+- **Nested demo modules may import upward; their parents may not.**
+  `components/gallery` and `mvu/example` are separate modules that may
+  import tiers above their parent, and a parent that imports its own nested
+  module fails the check. This keeps a demo from closing a dependency
+  cycle.
+- **Nested adapter modules** (`ivg/raster/gio`, `svg/driver/*`, `kiwi/gio`,
+  `traer/gio`, `seen/context/gio`) stand outside the table.
+- **Applications are at the top of the stack:** the workbench's
+  application modules, its root module and `design` may import anything,
+  and no library imports them.
 
-The table is enforced, not aspirational: the org's `check-layers.sh` script
-walks `go list -deps` for every module and asserts only the edges the table
-permits. A layering rule that is not checked is not a rule.
-
-**Compatibility shims.** The inversion was landed without breaking any
-consumer: `prism/tokens`, `prism/theme` and `prism/a11y` stayed behind as
-alias packages forwarding to their spectrum homes, and `spectrum/transition`
-forwarded to `pulse/transition`, for one release cycle. The breaking release
-that followed the rework deleted them all — after every in-org consumer had
-moved off them, which the reference apps had already done as of Phase F1.
-The only import paths today are the real ones: `theme/…` and
-`effects/transition`.
+The table is enforced: `organisation/scripts/check-layers.sh` walks
+`go list -deps` for every module and fails on any edge the table does not
+permit.
 
 ---
 
 ## The colour model
 
-Colour is **read off the platform, not derived**. `tokens.PlatformColors`
-carries AppKit's semantic colours under their own names — one field per name,
-in Go casing, with the value that name reports for one appearance — and the
-theme observable carries the set to every component.
-
-```go
-light, dark := tokens.PlatformLight, tokens.PlatformDark
-p := light.WithAccent(accent) // the five rows the platform derives from the accent
-```
+Colour is **read off the platform, never derived**. `tokens.PlatformColors`
+carries AppKit's semantic colours under their own names, one field per
+name in Go casing, with the value that name reports for one appearance.
+`tokens.PlatformLight` and `tokens.PlatformDark` are the two recorded sets,
+and the theme observable carries the current one to every component.
 
 ### The names are the platform's
 
-The catalogue was read off AppKit with a command-line program under both
-appearances, converted to sRGB, alpha kept, and is stored with its reader in
-the org's macOS reference. Ten more fills the platform draws without giving
-them an NSColor name — the chrome material, the grouped box, the push
-button's fill, the hover and press overlays, the floating shadow, the field's
-hairline, the scrollbar's knob, the alternating row and the dialog's
-scrim — were measured off stored captures of platform windows and carry their
-provenance in the token set beside them. Nothing is derived from anything
-else: nothing is generated, nothing is walked, no foreground is solved for. Where the platform's
-published guideline and what it actually draws differ, what it draws wins.
+Forty-four fields carry AppKit's names. Forty-three were read off AppKit
+with a command-line program under both appearances, converted to sRGB with
+alpha kept, and are stored with that program in the reference; a test pins
+both sets against the stored catalogue. The forty-fourth, `FindHighlight`,
+is measured off Mail's find bar, because AppKit's own value is not what the
+platform's applications paint. Twenty-eight more are fills the platform
+draws without giving them a name — among them the sidebar material, the
+grouped box, the push button's fill, the hover and press overlays, the
+floating shadow, the field's hairline, the overlay scrollbar's thumb, the
+alternating row, the dim behind a sheet and the toolbar's controls. They
+were measured off stored captures of the platform's windows — the
+alternating row read off the array AppKit answers with and confirmed
+against a capture — and each carries its provenance beside its value. No
+colour is generated from another. Where the platform's published guideline and what
+it draws differ, what it draws wins.
 
-### A coverage is part of the answer
+### A coverage is part of the value
 
-A label, a seam, a disabled control's text, the focus ring, the overlays and
-the shadow are a colour AT a coverage, and they composite over whatever lies
-beneath — which is how one recorded value reads correctly on every fill. The
-platform takes that composite in **encoded sRGB**, where Gio's rasterizer
-takes it in linear light, so a consumer flattens the name onto the fill it
-actually lands on (`theme/color.Flatten`) and hands Gio an opaque colour.
-Which surface that is, is the one thing a component cannot work out for
-itself: a caller that put it on a card, a selected row or a coloured fill says
-so through the component's `Surface` property.
+Text, a separator, a disabled control's text, the focus ring, the hover and
+press overlays and the shadow are each a colour at a coverage: they
+composite over whatever is beneath, which is how one recorded value is
+right on every fill. The platform composites in **encoded sRGB**, and Gio's
+rasterizer composites in linear light, so a component flattens the colour
+onto the fill it is drawn on (`theme/color.Flatten`) and hands Gio an opaque
+colour. Which fill that is, is the one thing a component must be told: a
+caller that puts it on a card, a selected row or a coloured fill says so
+through the component's `Surface` property.
 
-An overlay with no one fill beneath it — a scrim over a page, which is mixed
-content — has no surface to name, so it is composited against the pixels
-instead: the frame so far is rendered offscreen and the overlay flattened over
-every one of them (`components/composite`). Where even that is not available,
-the coverage handed to the rasterizer is the one fitted to its own blend
-(`theme/color.LinearCoverage`), which is what the floating shadow's gradient
-takes.
+An overlay with no one fill beneath it — a scrim over a page — is
+composited against what is already painted: the frame so far is rendered
+offscreen and the overlay flattened over every pixel
+(`components/composite`). The floating shadow's gradient takes the coverage
+fitted to Gio's own blend (`theme/color.LinearCoverage`).
 
-### The accent is the one row a machine moves
+### The accent
 
-`ControlAccent` is the accent the user chose, and four more rows follow
-it — the emphasized selection, the text selection, the selected control and
-the focus ring. On macOS `theme/system` asks AppKit for each of those names
-directly, so the platform's own answer is what arrives.
-`PlatformColors.WithAccent` is the rule for Windows and Linux, whose desktops
-publish an accent colour but no colour set: it keeps the accent's hue and
-saturation and takes each recorded row's own lightness and alpha. The theme
-colour — the platform's accent unless the user chooses one in the themer —
-stands in wherever the platform uses its accent, and nothing else derives
-from it.
+`ControlAccent` is the accent the user chose, and seven more fields follow
+it: four AppKit names — the emphasized selection, the text selection, the
+selected control and the focus ring — and three measured fills — the
+sidebar's selection, the sidebar's unemphasized selected text and the
+default button's fill. On macOS `theme/system` asks AppKit for the four
+names, so the platform's own value arrives. `PlatformColors.WithAccent`
+rebuilds all seven: it keeps the accent's hue and saturation and takes
+each recorded field's own lightness and alpha. It is the rule on Windows and
+Linux, whose desktops publish an accent but no colour set, and on every
+platform when a theme colour is chosen; on macOS with no theme colour
+chosen, the three measured fills keep their recorded values. The theme colour — the platform's accent unless the user chooses
+one in the themer — is used wherever the platform uses its accent, and
+nothing else is computed from it.
 
-### States are the platform's answers
+### States are the platform's
 
-Hover and press are the measured overlays, laid over a control's own fill and
-only where the platform tints at all: a toolbar button does, a push button
-and a list row do not. Selected is the selection colours, emphasized in the
-active window and the inactive grey otherwise. The default action is the
-accent under `AlternateSelectedControlText`. Disabled is
-`DisabledControlText`. None of these is a walk up a scale.
+Hover and press are the measured overlays, laid over a control's own fill,
+or over the surface beneath where the control has none. Selected is the selection colours, emphasized
+in the active window and the inactive grey otherwise. The default action is
+the accent under `AlternateSelectedControlText`. Disabled is
+`DisabledControlText`.
 
-### Level is told the way the platform tells it
+### Contrast
 
-A window has five levels — backdrop, chrome, content, raised, floating — and
-each one's fill is the platform's, read off the platform per scheme and never
-derived from another level's. The backdrop is `UnderPageBackground`, the
-chrome the measured chrome material, the content `TextBackground` or
-`ControlBackground`, a raised thing the platform's grouped box, and a
-floating thing the window background under the platform's shadow. No level is
-lighter or darker than another by rule: a raised thing is told by the box's
-small step of fill, with no hairline and no shadow, and a floating thing by
-its shadow — black at the measured 0.075 at its own edge, falling linearly to
-nothing 24 px out.
-
-### Contrast measures, it does not derive
-
-APCA lightness contrast is the one measure, and what it is for now is
-judging: a floor chooses a colour only where the platform did not already
-choose one. A pair measured off the platform — white on `SystemGreen`,
-say — stands as the platform paints it, floor or no floor. A fill the user
-chose takes as its foreground whichever of black or white reads better on it,
-and that is the answer even when neither clears a floor.
-
-
-### Density is a theme token
-
-`tokens.Density` carries the drawn control height and inner padding:
-Comfortable (the platform's regular control, the default) and Compact (its
-small one). Every components and patterns control sizes from it, so switching
-an app to Compact is a theme change, not a sweep. A control's pointer target
-is the control, so density moves the target with the pixels. The numbers are
-measured, not invented (§Desktop divergences).
-
-### Motion is a theme token
-
-`tokens.MotionScale` carries the motion *semantics* at desktop pace: five
-duration stops (50/150/250/400/500 ms), the standard and emphasized
-easing families as cubic-bezier control points, and spring presets
-(mass/stiffness/damping) for the effects physics path. Components take
-durations from the theme, never from local constants — which is what makes
-reduced motion free (below).
-
-### Typography is a theme token
-
-**The theme owns the typeface** (ADR-003). `tokens.Typography` carries one
-`TextStyle` per type role — fifteen roles — plus `Code`, a sixteenth
-style outside that grid (BodyMedium's metrics on the mono face; the published
-scale has no code role, so the org added one). Typography also carries the face collection
-and builds **one** cached `text.Shaper` shared by every component. Roboto is
-the default because the default Typography names it; Roboto Mono is its
-companion for code. No library source file may import `gioui.org/font/gofont`
-— a lint fails `go test`, and therefore CI, in the four component repos. A
-second lint does the same for `color.NRGBA` literals. The old practice does
-not merely look wrong; it fails the build.
-
-### Accessibility composes on top
-
-- **Contrast is measured in APCA terms**, and a floor chooses a colour only
-  where the platform did not already choose one: a pair the platform
-  paints — white on `SystemGreen`, a label on its own plane — stands as
-  measured. Lc is the one measure the system carries: no second ratio is
-  computed and none is reported alongside.
-- **High contrast follows the platform:** when the OS reports increased
-  contrast, the platform reports a colour set of its own and the theme
-  carries that, rather than deriving a variant.
-- **Reduced motion snaps:** while the OS preference is on, the Motion
-  observable emits zero durations; duration-driven components complete in
-  zero frames, spring-driven components read the zeros as the snap signal.
-- **Pointer targets** are the controls themselves at every density, and
-  every interactive component participates in focus and keyboard activation.
-
-Apps do nothing to get any of this; it arrives through the theme.
-
-### The export surface
-
-`theme/export` serialises a theme emission to `theme.json` (the generative
-parameters — the theme is reproducible from the file alone) and a CSS token
-sheet: the platform's colour set as `--platform-<name>` in both schemes, with
-a coverage written out as `#rrggbbaa` where a name carries one, alongside
-`--font-*`, `--space-*`, `--radius-*`, the density metrics — control, chip,
-field and row heights and the inner padding — and motion. Below the token
-blocks sits the component class layer, and every colour in it is now a
-`--platform-` name: the same mapping the Gio components take, class for
-class. A coverage needs no arithmetic there — the browser composites
-`#rrggbbaa` in encoded sRGB, which is what the platform does and what
-`theme/color.Flatten` reproduces — so a rule names the platform's colour and
-lets the browser flatten it, clipping the background to the padding box where
-the Gio side flattens onto the surface the control stands on rather than onto
-the control's own fill. The derived colour family
-(`--color-<role>-100…900`, the pins and the elevation surfaces) is still
-emitted above it for the pages that have not converted, and leaves when they
-do. There
-are also foundation pages that render the scales at real sizes, the colour
-page listing the platform's set name by name in both schemes. A round-trip test parses the CSS
-back and asserts every value against the Go token it came from, so the two
-cannot drift. The emitted bundle is committed in the org's `design`
-repository — the repository this document lives in — and uploaded to
-`claude.ai/design` by the org's `push-design.sh`. This is the prototyping
-surface: look-and-feel decisions are judged in a browser before they cost a
-golden-image sweep.
+APCA lightness contrast, Lc, is the one measure; no second ratio is computed
+or reported. A pair the platform paints — white on `SystemGreen`, say — is
+kept as the platform paints it. A fill the user chose takes as its
+foreground whichever of black or white reads better on it by that measure
+(`theme/color.BestOn`).
 
 ---
 
-## Desktop divergences from the touch-first reference
+## Levels
 
-The reference system assumes touch and Android. Where that assumption shows,
-Vibrant Gio diverges deliberately and says why — this is what makes the system
-Vibrant Gio's rather than a port (ADR-005).
+A window has five levels — backdrop, chrome, content, raised and floating —
+and each level's fill is the platform's, read off the platform per scheme
+and never derived from another level's. No level is lighter or darker than
+another by rule.
 
-### Density: shadcn/ui's metrics, not the touch reference's
+| Level | Holds | Fill |
+| --- | --- | --- |
+| backdrop | the window's own surface, wherever nothing else is | `WindowBackground` |
+| chrome | sidebars, toolbars, navbars, inspectors, status bars, panes | the measured sidebar material |
+| content | the document being read, lists, tables | `TextBackground` or `ControlBackground` |
+| raised | cards, fields and insets on the content | the measured grouped box; a field the platform's field |
+| floating | dialogs, toasts, menus, popovers, tooltips | `WindowBackground`, under the platform's shadow |
 
-The touch reference is touch-first: 48 dp targets, 40 dp buttons, 56 dp text fields.
-Desktop numbers were **measured, not invented** — the three-way table lives
-as the doc comment of `theme/tokens/density.go` (sources fetched/measured
-2026-08-05):
+A raised thing is told by the box's small step of fill, with no hairline
+and no shadow. A floating thing is told by its shadow: black at a measured
+coverage of 0.075 at the surface's edge, falling linearly to nothing 24 px
+out. `effects/depth` draws it, as eight gradient tiles and one interior
+fill, nine paint operations per shadow; a step of fill is one. The platform
+draws two more measured shadows, around an inset sidebar pane and under a
+bordered toolbar control, and both are tokens of `PlatformColors` beside the
+floating one.
 
-| metric | shadcn/ui | touch reference | macOS (AppKit, measured) |
-| --- | --- | --- | --- |
-| button height, default | 36 px (h-9) | 40 dp | 24 pt regular, 28 pt large |
-| button height, small | 32 px (h-8) | — | 20 pt small, 16 pt mini |
-| input height | 36 px (h-9) | 56 dp | 24 pt |
-| stacked spacing | 8 px label→control | 8 dp grid | 8 pt system spacing |
+---
 
-The picks: **Comfortable = 36 dp** (the shadcn/ui default, between macOS
-large and the touch reference's 40) and **Compact = 28 dp** (macOS's large control height).
-The pre-rework hardcoded 44 dp was rejected as a control height — 44 comes
-from touch guidelines; it survives as the pointer-target *floor*, independent
-of density.
+## Density
 
-### Elevation: a step of fill for what is raised, a shadow for what floats
+`tokens.Density` carries the heights and the inner padding a control is
+drawn at, set once for the window and never per component. Comfortable is
+the platform's regular control and the default; Compact is its small one.
+Switching an application to Compact is a theme change.
 
-A raised surface reads as raised by its **fill**, and only what **floats**
-casts a shadow — which is what the platform does: its grouped box is a small
-step of fill with no hairline and no shadow, and its dialogs, menus, popovers
-and toasts stand on the window plane under one. `effects/depth` draws that
-one, in the platform's colour at the measured coverage over the measured
-reach; the verdict on when is recorded in that package's doc. The cost backs
-the rule: one `depth.Shadow` issues nine paint operations per frame (eight
-gradient fills plus an interior fill, measured), a step of fill is one
-`FillShape`. The caller audit executed this: toast kept its shadow,
-mindchat's floating undo bar kept its, the card lost its — a card is raised on
-the content by its fill alone.
+| Height | Comfortable | Compact |
+| --- | --- | --- |
+| control | 24 dp, measured | 19 dp, the platform's published small control |
+| text field | 27 dp, measured | 21 dp |
+| list and table row | 20 dp, measured | 19 dp |
+| checkbox row | 22 dp, measured | 17 dp |
+| toolbar control | 36 dp, measured | 36 dp |
 
-### Motion: a subset, at desktop pace
+The control and field heights are the least a control is drawn at: a
+control is `max(height, line box + 2 × PaddingY)` tall, so a Comfortable
+button draws 24 dp, a Compact button 20 dp, a Comfortable text field 28 dp
+and a Compact one 24 dp. Rows and the toolbar control are drawn at exactly
+their height. Each number's provenance is in the doc comment of
+`theme/tokens/density.go`.
 
-The published scale defines sixteen duration stops; desktop wants fewer and
-faster. The scale maps the existing five stops onto those published roles — 50 ms
-hover feedback up to a 500 ms ceiling — keeping the easing semantics (standard
-and emphasized families, accelerate/decelerate variants) and adding spring
-presets the published scale has no vocabulary for. The mapping and its reasoning live in the
-token doc comment, the same contract as density's table.
+---
 
-### Blur: owned, measured, and rationed
+## Motion
 
-Gio exposes no blur primitive and no custom shaders — but
-`gioui.org/gpu/headless` can render an op list offscreen and read the pixels
-back, which is a real backdrop-blur pipeline built from Gio's own primitives.
-The org owns the kernel rather than importing one (all three candidate
-libraries measured compromised: unmaintained, anomalously slow, or silently
-wrong): `effects/blur` is a parallel three-pass box approximation of a
-Gaussian, correct at the edges and allocation-free in steady state.
+`tokens.MotionScale` carries five duration stops (50, 150, 250, 400 and
+500 ms), the standard and emphasized easing families as cubic-bezier
+control points, and three spring presets (mass, stiffness and damping).
+Components that animate over a duration take it from the theme's Motion
+observable, which is what makes reduced motion free (§Accessibility).
+`effects/springbutton` does not: it uses spring constants of its own,
+steps its spring once per frame at a fixed step of 1/60 s, so it runs
+faster on a faster display, and does not read the theme's Motion.
 
-The economics are measured (ten-core Apple Silicon; a 60 fps frame budget is
-16.7 ms). Full shipped pipeline for a 1440×900 backdrop — record ops,
-headless render at reduced resolution, readback, blur — by divisor:
+---
 
-    ÷1  1440×900  σ=8   blur 5.8  ms   pipeline 29.0 ms
-    ÷2   720×450  σ=4   blur 1.8  ms   pipeline  8.1 ms
-    ÷4   360×225  σ=2   blur 0.74 ms   pipeline  2.9 ms   ← the working configuration
-    ÷8   180×112  σ=1   blur 0.35 ms   pipeline  1.1 ms
+## Typography
 
-(The pipeline beats the exploratory spike's numbers — 69.2/12.9/3.8/1.6 ms —
-in every row by reusing the headless window and readback buffer; synchronous
-GPU readback dominates, so the resolution divisor is the lever that matters.
-The blur destroys the detail anyway.)
+**The theme owns the typeface.** `tokens.Typography` carries one
+`TextStyle` — typeface, weight, size, line height, tracking — per
+typography role: Display, Headline, Title, Label and Body, each in Large,
+Medium and Small; plus `Code`, one monospaced size; plus `DocumentHeadings`,
+the six heading steps of a prose document, derived from Body. A role's size
+and weight are the platform's for the text the role sets. Roboto is the
+default typeface because the default `Typography` names it, and Roboto Mono
+sets `Code`.
 
-Three contracts follow from the numbers:
+`Typography` also carries the face collection and builds two cached
+shapers: `Shaper()`, which falls back to the platform's own fonts for
+anything the faces lack and is what applications draw with, and
+`DeterministicShaper()`, the faces and nothing else, which golden tests draw
+with. A lint in components, effects, patterns and markdown fails `go test`
+on any import of `gioui.org/font/gofont`, and a second lint does the same
+for `color.NRGBA` literals.
 
-1. **Refresh policy.** The pipeline runs synchronously on the events thread;
-   it is driven by *content change* (a dialog opened, a scroll settled),
-   never per frame — painting the cached result is free.
-2. **Fallback.** Headless rendering is not available on every platform; the
-   documented fallback is a flat tinted scrim, never a crash.
-3. **What not to blur: animated glows.** A blur-based glow was prototyped,
-   measured and rejected (evidence in `effects/glow`'s doc): visually better,
-   but an animating blur-glow costs 0.2–0.8 ms of events-thread CPU plus an
-   image-sized allocation and texture upload per glow per frame, against
-   ~0.5 µs for the eight-gradient spread — and no cache holds while the radius
-   or intensity animates. A correct approximation beats a slow exact answer.
+---
 
-### The component inventory: shadcn's
+## Accessibility
 
-The system's inventory — shell, navbar, sidebar, table, pagination, tabs,
-dialog, alert, popover, tooltip, toast, card, accordion, breadcrumb, plus the
-marketing sections — is shadcn/ui's inventory. The touch reference has no breadcrumb, no data
-table and no pricing section; conversely there is no FAB, navigation rail,
-bottom sheet or snackbar here, because adopting them would make a Mac app
-read as an Android port. ADR-005 ratified a choice the code had already made.
+- **Contrast is measured in APCA terms** (§Contrast).
+- **Increased contrast follows the platform on macOS:** when the
+  preference is on, AppKit reports the colours it paints under it and the
+  theme carries them.
+- **Reduced motion snaps:** while the preference is on, the Motion
+  observable emits zero durations, and components driven by durations
+  complete in zero frames.
+- **Keyboard:** every interactive component takes part in focus and
+  keyboard activation.
+
+Applications do nothing to get any of this; it arrives through the theme.
+
+---
+
+## Blur
+
+Gio has no blur primitive and no custom shaders, but `gioui.org/gpu/headless`
+renders an op list offscreen and reads the pixels back. `effects/blur`
+builds a backdrop blur on that: three box blurs approximating a Gaussian,
+run in parallel across the CPUs, with only small per-call worker state
+allocated in steady state. `blur.Backdrop` takes the
+look as a sigma in full-resolution pixels and renders at a reduced
+resolution chosen from it (`DefaultDivisor`; a divisor of 4 at sigma 8),
+which cuts render, readback and blur work by the divisor squared and loses
+nothing the blur would keep.
+
+Three rules follow:
+
+1. **Refresh on content change.** The pipeline runs synchronously on the
+   events goroutine, driven by a change in what is behind it — a dialog
+   opened, a scroll settled — never every frame. Painting the cached result
+   is free.
+2. **Fallback.** Where headless rendering is not available the caller paints
+   a flat scrim of one colour (`blur.FallbackOp`), never a crash.
+3. **No animated blur glow.** `effects/glow` draws its glow with gradients:
+   an animating blur glow would cost 0.2–0.8 ms of events-goroutine time plus
+   an image-sized allocation and upload per glow per frame, against about
+   0.5 µs for the gradients.
+
+---
+
+## The export
+
+`theme/export` serialises a theme emission, and `theme/cmd/vg-tokens` writes
+it into this repository:
+
+- **`theme.json`** — the parameters the theme is reproduced from: the theme
+  colour, the platform's whole set per appearance, the faces, both density
+  settings, the shadow per level and the motion scale.
+- **`styles.css`** — the token sheet: the platform's colour set as
+  `--platform-<name>` in both schemes, a coverage written as `#rrggbbaa`,
+  beside `--font-*`, `--space-*`, `--radius-*`, `--density-*`, `--shadow-*`,
+  `--ease-*` and `--duration-*`; then the component class layer, in which
+  every colour is a `--platform-` name, the same mapping the Gio components
+  take. The browser composites `#rrggbbaa` in encoded sRGB, as the platform
+  does and as `theme/color.Flatten` does, so a rule names the platform's
+  colour and the browser flattens it.
+- **`readme.md`** — the token families and the class layer, generated from
+  the same tables the sheet is.
+- **The pages** — `foundations/color.html`, `type.html` and `layout.html`,
+  generated, and six hand-authored component pages under `components/`.
+
+A round-trip test parses the sheet back and asserts every value against the
+Go token it came from. `design/mirror` renders the component pages in a
+headless browser and scores them against the Gio components' golden images.
+`organisation/scripts/push-design.sh` regenerates the bundle and uploads it
+to Claude Design, where look-and-feel questions are tried in a browser.
+
+---
+
+## The applications
+
+The `workbench` repository holds nine example applications — feeds,
+iconbrowser, marketing, mindchat, sitedocs, sk150, themer, todos and
+vaultview — each a module of its own in a subdirectory, and at its root the
+workbench: one window listing those applications, each with a control that
+starts it. The library is proved against them; `llms.txt` describes what
+each one shows.
 
 ---
 
 ## Key architectural patterns
 
-*(Corrected to the shipped code; DESIGN-v1.md documents the original
-pre-migration wiring.)*
-
 ### 1. The events goroutine is the heartbeat
 
-Gio has enforced a synchronous frame protocol since v0.9: events must be read
-and `Frame()` called on the same goroutine. `mvu.Window.Render` therefore
-subscribes the `CombineLatest` of all layers on an rx goroutine and stores
-each result as an **atomic snapshot**, then invalidates the window; the
-events goroutine reads the snapshot when the frame event arrives and lays out
-from it.
+Gio reads events and calls `Frame()` on one goroutine. `mvu.Window.Render`
+subscribes the `CombineLatest` of all layers on an rx goroutine, stores each
+result as an atomic snapshot and invalidates the window; the events
+goroutine reads the snapshot when the frame event arrives and lays out from
+it. Heavy upstream work runs freely on rx goroutines, values reach rendering
+only at a frame boundary, and everything that touches Gio ops runs on one
+goroutine. The frame loop leads the FRP graph rather than taking part in it.
 
-The consequence is the same claim the system was founded on, in its current
-form: heavy upstream work (data processing, theme computation, layout
-preparation) parallelises freely on rx goroutines, but values only reach
-rendering at a frame boundary, and everything that touches Gio ops runs
-single-threaded. The events goroutine is the heartbeat; everything else beats
-to its rhythm. This is how FRP coexists with Gio's single-threaded
-immediate-mode model — by making the frame loop the leader of the FRP graph,
-not a participant in it.
+### 2. Interaction state is in `rx.Defer` closures
 
-### 2. Interaction state lives in `rx.Defer` closures
+State allocated inside an `rx.Defer` factory is created once per
+subscription and captured by reference in the map functions and
+`layout.Widget` closures below it. It is read and written only on the events
+goroutine, so it needs no locks, and it is never handed to another
+goroutine or stored in a subject. The scopes: the Defer closure (once per
+subscription), the map closure (per emission), the `layout.Widget` closure
+(per frame). `components/keyed` hands back the same per-key state across
+reorder, insertion and deletion, and `components/initial` is the
+first-frame sentinel.
 
-State allocated inside an `rx.Defer` factory is created once per subscription
-and captured by reference in the map functions and `layout.Widget` closures
-below it. It is only ever read or written from the events goroutine, so it
-needs no locks — and it must never be handed to another goroutine or stored
-in a subject. The scope hierarchy: Defer closure (once per subscription, owns
-the lifetime) → Map closure (per emission) → `layout.Widget` closure (per
-frame, events goroutine).
+### 3. `MessageOp` connects components to MVU
 
-Component identity — v1's open "Experiment A" — landed as `components/keyed`:
-`keyed.Defer` hands back the same per-key state across reorder, insertion and
-deletion, which is what makes dynamic lists safe in the FRP style.
-First-frame sentinels standardised as `components/initial`.
+Components emit messages by adding `mvu.MessageOp{Message: …}` to the ops;
+the runtime collects them during the frame and delivers them to `Update`.
+MVU applications use `MessageOp`; FRP applications pass plain callbacks.
+One component serves both.
 
-### 3. `MessageOp` bridges components to MVU
+### 4. Animation schedules itself and idles
 
-Components emit messages by adding `mvu.MessageOp{Message: …}` to the ops
-buffer; the runtime collects them during the frame and delivers them to
-`Update`. The collection is a registered collector on the ops buffer — the
-`unsafe.Pointer` reinterpretation of Gio's internal ops layout that v1
-documented as a known fragility was repaid during the Gio migration, exactly
-as its repayment plan promised. One component serves both pattern families:
-MVU consumers use `MessageOp`, FRP consumers pass plain callbacks and wrap
-them in subjects. The bridge is event-shaped, not state-shaped.
-
-### 4. Animation self-schedules and idles
-
-Animated components tick their simulation inside the frame and request the
-next frame only while active (`gtx.Execute(op.InvalidateCmd{})`); when
-activity settles, nothing invalidates and Gio goes idle. Invalidation is
-window-global — every component re-lays-out — so expensive components cache
-ops when inputs are unchanged (`components/cache`, v1's "Experiment B"
-landed). Effects are explicit *variants* of the library's components
-(`effects/springbutton` wraps `components/button`), opt-in per call site,
-never a global decorator — and every animated component takes its durations
-and springs from the theme's MotionScale, which is what makes reduced motion
-a zero-cost guarantee.
+Animated components step their simulation inside the frame and request the
+next frame only while active (`gtx.Execute(op.InvalidateCmd{})`); when they
+settle nothing invalidates and Gio goes idle. Invalidation is window-wide,
+so expensive components cache their ops while their inputs are unchanged
+(`components/cache`). The packages of `effects` are components of their own
+that draw the library's components with their effect —
+`effects/springbutton` draws `components/button` with a spring — chosen per
+call site, never applied globally.
 
 ---
 
-## Threading & lifecycle
-
-1. **The events goroutine is single-threaded and authoritative.** Anything
-   that mutates UI state, allocates Gio ops, or reads Gio's event queue runs
-   there. Never call Gio from your own goroutine.
-2. **Upstream observables may be multi-threaded.** The layer subscription
-   runs on an rx goroutine; values cross into rendering only via the atomic
-   snapshot, read at frame time.
-3. **`Defer`-scoped state is implicitly serialised** by being touched only
-   from the events goroutine. Do not pass it to goroutines.
-4. **Messages cross thread boundaries via a buffered channel.** MVU updates
-   run on the loop's goroutine, not the events goroutine.
-5. **Subscription lifecycle.** A subscription begins at `Render`; every
-   `Defer` factory runs once. It ends when the window closes
-   (`app.DestroyEvent`) or the observable completes or errors — state is
-   collected with the closure. Re-subscription is not supported: to restart a
-   UI, build new layers for a new `Render` call. Components must not error
-   except on unrecoverable failure.
-
----
-
-## The road from v1
-
-The original document ([DESIGN-v1.md](DESIGN-v1.md)) planned in phases named
-Components → Theme → Effects → Patterns and recorded open experiments and known
-fragilities. Its bets mostly paid off, and its debts were repaid:
-
-- **The Gio migration ("Phase −1") happened.** The stack sits on a current
-  Gio (v0.10.x), and the architecture's abstract claims survived the API
-  rework — the strongest evidence they were architecture rather than
-  coincidence. The `unsafe.Pointer` MessageOp hack is gone.
-- **The validation experiments became packages.** Keyed identity is
-  `components/keyed`, op caching is `components/cache`, cross-component coordination
-  became `components/coordination` — since deprecated: ADR-008 (recorded in
-  `llms.txt` §Coordination) retired the cross-component bus in favour of
-  `mvu/stream.Value` and the arbiter pattern.
-- **The layering inverted.** v1 put the token contract in components with
-  spectrum above it; ADR-001 records why that was wrong and the tier table
-  that replaced it.
-- **The token scale outgrew its sources.** v1 aligned with Tailwind's values
-  wholesale; the shipped system reads colour off the platform and keeps only
-  the 4-pt spacing scale idea. The "three design systems in a
-  trench coat" token package is gone.
-- **The touch-first system stopped being the reference for the look.** ADR-005
-  records the split; Phase E implemented it.
-
-What survives intact from v1 is the application model itself — the FRP/MVU
-duality, Defer-scoped state, the heartbeat, frame-driven physics — and the
-project's character: measured over assumed, explicit over magic, accessibility
-non-optional.
-
----
-
-## Decision records
-
-The seven architecture decision records below were made and landed during the
-Phase A–F rework. They are adapted from the working plan: task mechanics are
-stripped, decisions, reasoning and measured evidence are kept. All seven are
-**adopted and landed**, including the consequences that were still planned
-when this edition was first written — the release tags were cut and the
-shim-deleting breaking release happened. The records keep the repository
-names the decisions were made under (`spectrum`, `prism`, `pulse`,
-`cadence` — today's `theme`, `components`, `effects`, `patterns`). Decisions
-made after the rework — ADR-008's coordination retirement onward — are
-recorded in `llms.txt` and the working plan, not back-filled here.
-
-### ADR-001: Spectrum is the foundation, not a consumer
-
-**Decision.** The token and theme contract moves from `prism` down into
-`spectrum`. The design-system spine becomes
-`mvu → spectrum → prism → pulse → cadence → markdown` — under today's names,
-`mvu → theme → components → effects → patterns → markdown` — governed by the full
-tier table in §The layering, which admits all nineteen library modules and is
-enforced by the org's layer-check script. `spectrum/transition` moves to
-`pulse/transition` (today `effects/transition`), since it is animation code — that move removed an edge
-that already existed rather than preventing a hypothetical one: the
-foundation imported the effects layer, tier 1 reaching into tier 3.
-`spectrum/window` may keep its `mvu` dependency; mvu carries no design
-tokens.
-
-**Why.** `spectrum` — the theme runtime — depended on `prism`, the component
-library it exists to theme. The theme therefore sat above what it themes,
-which is why `LiveTheme` hardcoded the default palettes and why there was no
-palette injection point anywhere in the stack. Separately, `prism` and
-`pulse` required each other — a demo file's doing — and that cycle pinned
-half the org to a stale prism while the other half moved on; cutting it is
-what made one current version resolvable everywhere. The nested-demo rule
-(demo modules may import upward, their parents may not inherit the edge)
-exists so no demo re-closes a cycle.
-
-**How it stayed non-breaking.** `prism/tokens`, `prism/theme` and
-`prism/a11y` remained as alias packages of type aliases and re-exported
-variables; every downstream import path kept working for one release cycle,
-and the breaking release then deleted the shims (§The layering,
-"Compatibility shims").
-
-### ADR-002: CIELAB tone with OKLCh hue and chroma
-
-**Decision.** Derive tonal palettes on two axes: **tone is CIELAB L\***,
-exactly as MD3 defines it, and **hue and chroma come from OKLCh**. Replace
-both the colour mathematics and the hardcoded values that preceded them. This
-is HCT's architecture with OKLab substituted for CAM16. *(As originally
-written this ADR also kept MD3's role vocabulary and its tone-assignment
-tables; the D0.1 spike amended that — ADR-007 retired the tables. The
-mathematics was not reopened: all three candidate assignment models need a
-perceptually even lightness axis and none supplies one.)*
-
-**Why not what was there.** The predecessor token package was three design
-systems in a trench coat: MD3 type roles, a verbatim Tailwind v3 palette
-wearing MD3 semantic names, Tailwind spacing and radius keys, MD3 elevation
-levels, and CSS easing names. No single system's design logic survived the
-mix — which is precisely why nothing felt designed together.
-
-**Why not HCT.** MD3's own space carries CAM16 and viewing-condition
-machinery that buys little on a desktop screen and is substantial to
-implement correctly.
-
-**Why not plain OKLCh.** OKLab's L is not CIELAB L\*. Deriving tones from it
-means "tone 40" stops meaning what Google means by it. Keeping L\* as the
-tone axis kept that vocabulary for free — and even after ADR-007 retired the
-role tables, the axis still pays: the generator was validated against MD3's
-published palettes, tone numbers stay comparable with Google's, and the spike
-reproduced the seed exactly at tone 40 on this axis.
-
-**Why OKLCh for the other two axes.** Holding CIELAB `a,b` constant while
-sweeping L\* does not hold *perceived* hue constant — the blue shift is
-exactly why Google built HCT rather than using CIELAB directly. OKLab fixes
-it in a short, testable conversion chain, with no dependency and no
-viewing-condition model.
-
-**On `reactivego/luminance`.** That package already implemented the
-sRGB ↔ XYZ(D65) ↔ CIELAB chain correctly and dependency-free, and its
-`Lab()`/`RGB()` pair is precisely the tone axis this ADR needs. Its math was
-**lifted into `spectrum/color` (today `theme/color`), not imported** — same developer, so reuse rather
-than a dependency decision. Not imported because the package is MD2-era by
-design: its `Lighten`/`Darken` API and `Kn = 18` constant are a chroma.js
-port tuned to the retired material.io Color Tool, it declares `go 1.14`,
-carries no tests, and its `go.mod` would drag freetype into the foundation's
-module graph via shared examples. Lifted: the conversion chain, the D65 white
-point, the CIE ϵ/κ constants — with a file header recording the lineage.
-Left behind: the lighten/darken API and the per-channel clamp, which is not
-gamut mapping and was replaced by chroma-reduction mapping.
-
-**Tailwind's ramps** may survive as an optional palette provider. They must
-not appear in the semantic layer.
-
-### ADR-003: The theme owns the typeface
-
-**Decision.** `Typography` is a theme token carrying, per MD3 role, a full
-`TextStyle` — typeface, weight, size, line height, tracking — plus the face
-collection and a lazily built shaper. Roboto is the default because the
-default typography names it. `Props.Shaper` survives only as an explicit
-per-call override. No library source file may import `gioui.org/font/gofont`;
-a CI lint enforces it.
-
-**Why.** The predecessor `TypeScale` was fifteen `float32` sizes and nothing
-else, so the theme had no seam for a typeface at all. The consequence was
-mechanical: seventeen `Props` structs and 118 function signatures carried a
-`*text.Shaper`, and components, effects, patterns and markdown all constructed a
-gofont shaper inside library code — gofont was not merely used by the
-examples, it was the compiled-in default of the component library. Meanwhile
-`font` and `style`, the repos that package Roboto and a type scale, went
-unconsumed by any library source.
-
-**A measurement that sharpened the decision.** A survey mid-plan found
-`style` imported by twenty-one files — thirteen demo mains, but also four of
-the seven workbench applications. So `style` was not a vestige nobody used;
-it was how every Vibrant Gio application that drew its own text got its
-shaper. That did not weaken the ADR — the scale still could not vary with the
-theme, which is the actual argument — but it made the migration a real
-migration rather than a cleanup. It has since completed: as of Phase F1 no
-reference app imports `style`, builds a shaper, or touches gofont.
-
-**Consequences.** `style` is frozen rather than deleted: its MD2 scale is
-superseded by `Typography`, and it keeps working through the deprecation
-window. (`textdraw` is *not* deprecated — it is the low-level text layer and
-has no replacement; only the scale froze.) The default Typography grew a
-sixteenth style, `Code`, on the Roboto Mono face packaged alongside Roboto.
-
-### ADR-004: The canonical agent guide lives in `workbench`
-
-**Decision (amended 2026-08-23).** `llms.txt` lives at the root of the
-`workbench` repository and is the single source. Every repository carries a
-short, static `AGENTS.md` that names the module in one sentence and links
-that raw URL. The content is never duplicated — only pointed at. `AGENTS.md`
-is not generated, does not embed tags or import graphs, and is not rewritten
-when `.github` changes. The original decision placed the guide in `.github`;
-that is reversed: `workbench` is where the org showcases how to build
-applications with Vibrant Gio, and so is the natural home for the guide that
-teaches exactly that, while `.github` is where Vibrant Gio itself is built —
-the plan and the gates. The version-sync scripts stay in `.github` and reach
-across to the workbench clone.
-
-**Why.** The guide was genuinely good — hundreds of accurate lines on the
-MVU loop, rx semantics and real pitfalls — but it existed exactly once,
-inside `workbench/`, and nothing linked to it: not the org profile, not any
-repo README, and no repo had an `AGENTS.md` at all. An assistant pointed at
-the organization read the profile README, found a repo list and screenshots,
-and stopped. Worse, the guide taught the then-current defect: it omitted
-`style` and `font` from its bootstrap skeleton, so an assistant that followed
-it perfectly shipped a gofont application.
-
-**Consequences.** The guide was moved, corrected, and has been rewritten
-against each phase as it landed; every repo's `AGENTS.md` is a pointer to
-it. The generated `AGENTS.md` machinery — `sync-agents.sh`,
-`check-agents.sh`, `templates/` — was removed: a second copy of measurable
-facts forced a commit in every sibling whenever the template or a nested
-tag moved, which made `git log` on a leaf unreadable. The division of
-labour that remains is the one this document's preamble states: `llms.txt`
-teaches building *with* the system, DESIGN.md records *why* the system is
-shaped this way.
-
-### ADR-005: MD3's system, not MD3's look
-
-**Decision.** Take MD3's *system* and reject MD3's *look*. Specifically:
-
-- **From MD3:** the generative token model (ADR-002), the type-role scale,
-  state layers, tonal elevation, and the motion semantics.
-- **From shadcn/ui:** density, restraint, and the component inventory. Its
-  metrics are the target for the `Density` token — copied rather than
-  invented.
-- **From neither:** the visual identity. That comes from `effects` — glow,
-  depth, spring physics — which is what this document names as the point of
-  the project.
-
-**Why.** MD3 is touch-first: 48 dp targets, generous spacing, large type, and
-a component set shaped for phones — FAB, navigation rail, bottom sheet,
-chips, snackbar. Adopting its look would make a Mac app read as an Android
-port, which defeats the word "native" in the project's own vision statement.
-
-Patterns had *already* made this choice without recording it. Its inventory is
-shadcn's inventory, not MD3's — MD3 has no breadcrumb, no data table and no
-pricing section. This ADR ratified a decision the code made a year earlier,
-so the next contributor stops trying to reconcile the two. The hardcoded
-44 dp minimum height in `components/button` was the same tension showing up as a
-magic number; it is now the density-independent pointer-target floor, with
-36/28 dp as the measured control heights (§Desktop divergences).
-
-**What shadcn is not adopted for.** Its colour model is flat, hand-authored
-semantic pairs written twice, once under `:root` and once under `.dark` —
-structurally what the predecessor token package already did, so taking it
-would be standing still. shadcn moved to OKLCH values without moving to
-generation; MD3 generates without a modern space; ADR-002 does both. Its
-distribution model (copying component source into the consumer's repo) is
-also not adopted: it has no Go idiom and fights module versioning and golden
-tests. The philosophy behind it does carry over — components should be
-readable and forkable, not opaque configuration surfaces.
-
-**Consequences.** Phase E implemented the divergences this ADR licensed:
-measured density, the tonal elevation levels with opt-in shadows, the desktop
-motion subset, and the blur economics — all recorded with their evidence in
-§Desktop divergences from MD3.
-
-### ADR-006: One workspace while developing, tags at the seams
-
-*This is the record an outside contributor cannot infer from the repos: no
-member repo contains a `go.work`, a `replace` directive, or any visible trace
-of how twenty-odd mutually dependent modules are developed together.*
-
-**Decision.** Development across the org's modules happens under a single
-`go.work` at the workspace root — the shared parent directory where every
-repository, `.github` among them, is cloned as a sibling. The file is
-generated by `.github`'s `clone-all.sh` from what is actually cloned (36
-modules in a full checkout) and committed nowhere: a workspace describes one
-developer's checkout, and a partial checkout is a smaller workspace rather
-than a list of dangling paths. No member repo ever gets a `replace`
-directive. *(As originally adopted, the clones hid under a gitignored
-`.repos/` inside `.github` and `go.work` was committed there; Phase G0E
-moved the checkout to sibling directories and made the workspace
-generated.)*
-
-**Green has two meanings, and a change is done only when it has both:**
-
-- **Green under the workspace** — `go build ./... && go test ./...` with the
-  workspace active, resolving siblings from the working tree. This is what
-  "green before commit" means for every change.
-- **Green without it** — the same commands under `GOWORK=off`, resolving each
-  `go.mod` against published tags. This is what CI sees, and what a stranger
-  running `go get` sees.
-
-**The two diverge at seams.** A seam is any change that creates or widens a
-dependency edge — during the rework: spectrum gaining tokens and theme, then
-Typography, the derived ramps, density, motion, and the mono face. At each
-seam the lower module is tagged and pushed before the upper module's `go.mod`
-names it, and a check script (`check-no-workspace.sh`) reports the
-outstanding debt between a seam landing and its tags being cut — that gap is
-where "green in the tree, broken for the world" lives.
-
-**Why not `replace` directives.** They would have to be committed to be
-useful to the next change, and a committed `replace` in a public module
-breaks every consumer not sitting in this working tree. `go.work` is what Go
-added for exactly this, and it is invisible downstream.
-
-**Why not defer all tagging to the release.** The seams are load-bearing and
-there were many: three separate phases each moved a contract down into
-spectrum and then migrated four repos onto it. Leaving the modules mutually
-unbuildable for months would make "never commit red" unenforceable — and a
-rule that cannot be checked is not a rule.
-
-**Sequencing note that generalises:** the workspace was established only
-*after* version alignment, not before. A workspace resolves shared
-dependencies at the highest version any member requires, so joining 36
-modules while their Gio versions were still spread would have broken the ones
-on older versions — a self-inflicted failure looking exactly like the drift
-the alignment existed to fix. Align, then join.
-
-**The seam procedure is proven, not theoretical.** The version-alignment
-baseline ran it end to end: tag and push the bottom layer, bump the layer
-above onto those tags, verify with `GOWORK=off`, tag and push it, repeat.
-Seven layers, in this order:
-
-```
-0  mvu font traer svg seen ivg kiwi noise csg circle gradient backdrop textdraw
-1  style  kiwi/gio  seen/context/gio  svg/driver/{pdf,raster}
-2  svg/driver/{gio,seen}  ivg/raster/gio  traer/gio
-3  prism      4  pulse      5  spectrum      6  cadence markdown
-7  workbench/*  mvu/example  prism/gallery
-```
-
-(That list is the alignment baseline's order, under the old names and the
-pre-inversion stack — spectrum then still sat above prism. The release
-protocol's coarser cut under today's stack: mvu, font → theme →
-components → effects → patterns, markdown → workbench apps, with the nested demo
-modules last. font tags beside mvu, not beside theme, because theme
-requires it — ADR-003's tier-0/tier-1 edge. No layer is tagged while the
-layer check or the workspace-debt check fails.)
-
-Three lessons that cost time and will cost it again:
-
-1. **A module's newest git tag is authoritative, not the proxy's `@v/list`**
-   — that endpoint caches and reports a version behind for a while after a
-   push, which reads as false staleness.
-2. **Tagging a whole layer in one round leaves each new tag referencing its
-   siblings' previous tags**; making the set self-referencing needs a second
-   pass, so budget both.
-3. **Go keeps two caches, and clearing one is not enough.** Besides the
-   module cache at `$GOMODCACHE/cache/download`, Go keeps a bare git clone
-   per repository under `$GOMODCACHE/cache/vcs`, and that clone still holds
-   tags deleted upstream. Evicting only the download cache and re-resolving
-   appears to prove a withdrawn version is still published when it is being
-   served from the stale clone. Evict both, or `go clean -modcache`, before
-   concluding anything about what a stranger can fetch. (Measured after
-   evicting both: two properly withdrawn versions failed with `unknown
-   revision` while their replacements resolved normally.)
-
-**Tag rules.**
-
-- **No double-digit component in any tag. Ever.** When a series hits `.9`,
-  the next release rolls the component above: `v0.0.9 → v0.1.0`, never
-  `v0.0.10`. This is a hard rule, not a preference: a tag is immutable the
-  moment the proxy sees it, so a `v0.0.10` cannot be withdrawn, only buried
-  under a correction that leaves it in the list forever.
-- **Violated once, recorded honestly.** A run of seam tags was cut without
-  consulting the rule: spectrum ran v0.0.10 through v0.0.15 and pulse v0.0.10
-  through v0.0.12, and all nine are on the remotes, immutable. The remedy was
-  the rule's own: bury them. Spectrum's next tag was **v0.1.0** and pulse's
-  was **v0.1.0**, cut exactly as the release tasks named them — and neither
-  repo has published another v0.0.x since.
-- **The patch is the default bump; the minor is rationed.** Single-digit
-  components give a major ten minors, and past v1.0.0 the series has no
-  relief valve: v1.9's only successor is v2.0.0, which in Go is not a bigger
-  number but a different module — a `/v2` in the module path that every
-  consumer must edit into every import. So nothing takes the major, and a
-  minor is spent only on a release that changes an existing contract: an
-  exported symbol moved, removed or re-signatured, or observable behaviour a
-  caller could have relied on. Everything else — additive API, new
-  components, fixes, re-pins, docs, and a repaint that moves pixels but no
-  contract — is a patch; the goldens and the tag annotation carry the news
-  a wider bump used to. This deliberately
-  under-promises against strict SemVer, which would call additive API a
-  minor; the signal that a release is purely additive is traded for the
-  survival of the major, and a consumer that needs a new symbol names the
-  exact version rather than reading the bump's width. The same default holds
-  under v0.x. A patch series that hits .9 still rolls the minor — that spend
-  is the double-digit rule being mechanical, not a judgment.
-- **A nested module's tag mirrors its root's version.** A module in a
-  subdirectory is tagged `<subdir>/vX.Y.Z`, requiring the root at exactly
-  `vX.Y.Z`; root first (committed, tagged, *pushed* — the submodule cannot
-  `go get` an unpushed tag), submodule second. A submodule is not re-tagged
-  every time the root moves — the root running ahead of an unchanged
-  submodule is the normal state, not drift. What the rule forbids is the
-  submodule running on its own counter, which destroys the correspondence;
-  if the matching root number is already taken, cut a fresh root tag rather
-  than letting the submodule run ahead.
-
-**The retraction window, precisely.** `GOPRIVATE` on the development machines
-covers `github.com/vibrantgio/*`, so Go there bypasses `proxy.golang.org` and
-`sum.golang.org` entirely and resolves straight from GitHub — which is why
-`git ls-remote` is the authority worth consulting locally. But that is a fact
-about those machines, not about the modules, and reading it as the latter was
-a recorded mistake. These are public repositories: anyone without `GOPRIVATE`
-resolves through the proxy and verifies against `sum.golang.org`, and doing
-so records the version there *permanently* (one `go install` from an
-unconfigured machine did exactly that; measured afterwards, the proxy listed
-25 versions of mvu and the sumdb answered 200 for probed versions). A version
-recorded in the checksum database is immutable forever: retag it and every
-non-`GOPRIVATE` consumer gets a permanent checksum mismatch no origin repair
-can fix. So the retraction window closes per version, silently, and nothing
-local tells you it has.
-
-**And the check is not free — this is the trap.** The proxy fetches from
-origin on a cache miss, so probing a version that exists is one of the ways
-it gets mirrored; `sum.golang.org/lookup` will compute and *append* a missing
-entry. The observation causes the thing being observed. Therefore: while a
-tag is in flux, use `git ls-remote` — authoritative and inert — and probe the
-public infrastructure only when a version is final or when the answer changes
-the next action.
-
-### ADR-007: Nine functional steps, paired dark ramps, APCA contrast
-
-Superseded by DOMAIN Decision 0009: APCA is the one contrast measure; no
-ratio is computed or reported.
-
-**Decision.** Tone stops map to roles the functional way, in Claude Design's
-vocabulary: every colour role carries a **nine-step ramp, 100–900**, where
-the step *is* the meaning — 100–300 tinted fills, hovers and subtle borders,
-500 the mid-value reference, 700–900 text over tinted fills and pressed
-states — and the role's **base is pinned separately** from the ramp, exactly
-as the reference project's `theme.json` pins `accent`. **Dark mode is a
-paired ramp, not a second table**: the generator emits light and dark scales
-in which the same step keeps the same job — Radix's pairing mechanism under
-Claude Design's numbering — so a component asks for neutral‑200 and gets a
-light card on a light surface and a dark card on a dark one, with no second
-assignment table to drift. **The contrast gate is APCA**: in both ramps, step
-900 must reach Lc 90 and step 700 Lc 60 over the step‑100 and step‑200
-surfaces, and each pinned base's on-colour Lc 60 over the base. WCAG 2 ratios
-are still computed and reported — conformance claims cite them — but they do
-not gate the palette.
-
-MD3's role→tone tables are retired. A thin semantic layer — background,
-surface, text, seam, plus the pinned role bases — sits over the ramps so
-call sites read purpose; the MD3-named fields survived as deprecated aliases
-resolved into ramp steps until the breaking release deleted them.
-
-**The surface mapping.** Identical in both modes, because the dark ramp is
-paired rather than re-assigned:
-
-| Surface | Step |
-| --- | --- |
-| app background | neutral‑100 (or the pinned `bg`) |
-| card / raised surface | neutral‑200 |
-| hovered element background | one step past its own fill (200 → 300) |
-| pressed / selected background | two steps past its own fill |
-| subtle border, separator | neutral‑300 |
-| strong border, focusable edge | neutral‑500 |
-| solid fill | the pinned role base |
-| solid hover / pressed | one / two steps from the pin toward 900 |
-| low-contrast text | neutral‑700 (Lc ≥ 60 guaranteed) |
-| body / high-contrast text | neutral‑900 (Lc ≥ 90 guaranteed) |
-
-**The evidence.** All three candidate models were generated from the seed
-`#6750A4` by a spike script implementing ADR-002's math — CIELAB tone, OKLCh
-hue and chroma, chroma-reduction gamut mapping — which reproduces the seed
-exactly at tone 40. The Radix columns re-hue its published violet scales to
-the seed's hue and chroma; the Claude Design columns use the shared lightness
-scale measured from the reference project's own ramps (steps 100–900 ≈ L\*
-97, 92, 85, 74, 63, 51, 39, 28, 18). MD3 states are its 8%/12% overlays; the
-other two walk ramp steps.
-
-| Surface | MD3 light | Radix light | CD light | MD3 dark | Radix dark | CD dark |
-| --- | --- | --- | --- | --- | --- | --- |
-| app background | `#faf9ff` | `#fcfcfe` | `#f5f4fc` | `#141318` | `#14121c` | `#18171c` |
-| card | `#eeedf4` | `#f9f8fe` | `#e8e7ee` | `#201f24` | `#191622` | `#222126` |
-| hover | `#dddce3` | `#e9e5f9` | `#d4d3da` | `#2f2e34` | `#32284f` | `#2e2e33` |
-| pressed | `#d5d4db` | `#dfdbf6` | `#b7b6bd` | `#37363c` | `#3c315b` | `#47464c` |
-| subtle border | `#c7c5d3` | `#d3ccf2` | `#d4d3da` | `#474551` | `#463b68` | `#2e2e33` |
-| strong border | `#787582` | `#c1b8e6` | `#98979e` | `#918f9d` | `#554a7b` | `#9e9da4` |
-| solid fill | `#6750a4` | `#735cb1` | `#6750a4` | `#cbbeff` | `#735cb1` | `#a690ea` |
-| low-contrast text | `#474551` | `#68559f` | `#5d5c62` | `#c7c5d3` | `#b8abeb` | `#cccbd2` |
-| body text | `#1c1b20` | `#332851` | `#2b2a30` | `#e3e2e9` | `#e2def6` | `#eeedf4` |
-
-All three set a competent table — the differences are in who maintains what.
-MD3's dark column exists because a second hand-written table says so; the
-other two derive it. Radix alone keeps the brand colour identical in dark
-mode; MD3 and this ADR lighten the fill and accept that dark mode shifts the
-accent, which is also what every Material app already does.
-
-**Where nine cannot say what twelve can.** Hover background and subtle border
-collide on step 300 (visible in the CD columns above), and there is no
-dedicated solid-hover stop. Neither costs this org anything: components and
-patterns carry exactly two border weights — mapped to 500 and 300 — and
-derive hover as a state resolution rather than a distinct token; MD3 itself
-makes hover an 8% overlay, not a stop. Radix's extra resolution buys
-precision nothing in components or patterns consumes.
-
-**The seed sits deep, so bases are pins.** `#6750A4` is L\* 40 — step‑700
-depth on the shared scale, where 500 sits at L\* 63. Reading the solid fill
-off the ramp would lighten the brand colour to `#a08ae4`; pinning reproduces
-it exactly. This is the reference project's own practice, not a deviation:
-its `.btn-primary` uses `--color-accent` — the pin — while the ramp supplies
-tints and text shades.
-
-**Why APCA and not WCAG 2.** The theme tracks OS dark mode by default, and
-WCAG 2's known failure mode is over-rating light-on-dark. Measured on this
-seed's own dark palettes: outline-strength text `#918f9d` on an MD3 card
-`#201f24` scores WCAG 5.17:1 — a clean AA pass — at APCA Lc −41, unreadable
-as body text. The seed's tone 60 `#9983dc` on the dark surface passes AA at
-5.85:1 with Lc −42; tone 50 passes AA-large at 4.13:1 with Lc −30. Every one
-of those would sail through a ratio gate and fail readers. On pairs that are
-genuinely fine the two metrics agree (dark-mode body text lands Lc −87…−96
-across all three models), so APCA costs nothing where WCAG was right. Radix
-reaches Lc 60/90 by hand-tuning; here the generator meets the same numbers by
-test.
-
-**Tunings the gate forced, landed with the generator.** The spike predicted
-one small tuning; implementation found it needed two larger ones. APCA's soft
-black clamp caps even pure black near Lc 92 over the L\* 92 step‑200 surface,
-so the light 900 stop deepened from the measured L\* 18 to L\* 6 — the depth
-where all five ramps clear Lc 90 with margin. And the dark pins rose from the
-measured L\* 65 — a mid-tone no text of any colour reaches Lc 60 over (black
-tops out near 52, white near 57) — to L\* 82, the dark scale's step‑700 depth
-beside MD3's dark accent tone 80. The dark fill in the evidence table,
-`#a690ea`, survives as the dark primary ramp's step 500; the shipped dark pin
-for this seed is `#d0c4ff`. The evidence table itself is the spike's
-measurement and stands unchanged.
-
-**Why not MD3's tables.** The design knowledge lives in two hand-written
-role→tone tables that must be kept in step — dual authorship of dark mode,
-the exact drift this system keeps removing elsewhere — feeding a
-twenty-six-name role set whose meaning lives in documentation rather than
-structure. Its states are alpha overlays a token sheet cannot address, and
-its conformance anchor is the ratio shown above over-rating every dark pair.
-Its tone *mathematics* is kept in full (ADR-002); only the assignment tables
-retire.
-
-**Why not Radix's twelve.** The strongest model in isolation, and this ADR
-takes its two best ideas — paired scales and APCA guarantees. But its step
-numbers are its vocabulary, and that vocabulary collides with the surface
-this org prototypes on: the token export feeds a Claude Design project whose
-entire convention speaks `--color-*-100…900`. Adopting step‑9/step‑11 would
-put a translation table between every prototype and the app it prototypes —
-the exact incoherence this system exists to remove. Its scales are also
-hand-tuned per hue rather than generated, so "adopt Radix" really means
-"build a different generator and borrow its numbering" — and the numbering is
-the part that costs.
-
-**Consequences, as landed.** The ramp/pin/semantic types and the paired
-generator live in `theme/tokens` (the MD3-name aliases are gone since the
-breaking release);
-interaction states resolve as step walks rather than opacity overlays; the
-APCA gates run in the test suite with WCAG AA reported alongside; the token
-export emits `--color-<role>-100…900` plus the pinned bases, and the colour
-foundation page annotates step purposes and the measured Lc of each text
-pair. The elevation levels (§The generative model) extended the same
-mechanism to surfaces. ADR-002 is amended by this record: its mathematics
-stands untouched; its role-vocabulary clause is superseded.
+## Threading and lifecycle
+
+Besides the rules above: messages cross goroutines through a buffered
+channel, and MVU updates run on the loop's goroutine, not the events
+goroutine. A subscription begins at `Render`, and every `Defer` factory runs
+once. It ends when the window closes (`app.DestroyEvent`); a layer that
+completes or errors does not end it. A UI is restarted by building new
+layers for a new `Render` call.
 
 ---
 
 ## Design principles
 
-- **One theme carries the whole look:** colour, typography, density,
-  elevation and motion all arrive through the theme observable; a correct
-  app wires the theme once and styles nothing per component
-- **Derived, not picked:** palettes generate from a seed; contrast is
-  guaranteed by construction and gated in APCA terms
-- **Observable-native:** components participate in the FRP graph from birth,
-  not retrofitted
-- **Single-threaded UI:** the events goroutine owns rendering; everything
-  else beats to its rhythm
-- **Defer for interaction state:** mutable state lives in `rx.Defer`
-  closures, never in subjects
-- **Frame-driven motion:** animated components self-schedule and idle when
-  settled; reduced motion snaps for free
-- **Progressive enhancement is explicit:** effects components are *variants*
-  of the library's components, not silent decorators
-- **Desktop-native over touch-translated:** measured density, tonal
-  elevation, a faster motion subset, shadows only for what floats
-- **Accessibility is non-optional:** keyboard, focus, contrast floors, hit
-  targets and reduced motion are contract, not options
-- **No string tokens:** all design values are typed Go values, and the lints
-  make the old practices fail the build
-- **Module boundaries are enforced:** the tier table is checked in CI, and
-  green has two meanings — the workspace and the world
-- **Performance is measured, not assumed:** density metrics, blur budgets
-  and glow verdicts all cite benchmarks, and golden tests pin what renders
+- **One theme carries the whole look:** colour, typography, density, levels
+  and motion arrive through the theme observable; an application wires the
+  theme once and styles nothing per component.
+- **The platform's values, measured:** colours, heights and sizes are read
+  off the platform's windows where a capture holds them, and what it draws
+  beats what it publishes.
+- **Observable-native:** components take part in the FRP graph from the
+  start.
+- **Single-threaded UI:** the events goroutine owns rendering.
+- **Effects are chosen:** an effect is a component of its own, never a
+  silent decorator.
+- **Accessibility is part of the contract:** keyboard, focus, measured
+  contrast and reduced motion.
+- **Typed values:** every design value is a typed Go value, and the lints
+  fail `go test` on colour literals and on gofont.
+- **Module boundaries are enforced:** the tier table is checked.
+- **Measured, not assumed:** density, the shadows, the blur economics and
+  the glow verdict cite measurements, and golden tests pin what renders.

@@ -37,7 +37,11 @@ it by hand — regenerate it.
 - `components/*.html` — hand-authored component pages (not generated):
   every class-layer component in every variant and state, at both
   densities, as copyable markup. `buttons.html` covers `.btn` and `.badge`,
-  `forms.html` the native-element form controls.
+  `forms.html` the native-element form controls and the menu,
+  `cards.html` `.card`, `.group` and the levels, `dialog.html` the
+  overlays (`.scrim`/`.dialog`, `.popover`, `.tooltip`, `.toast`),
+  `navigation.html` `.navbar`, `.tabs`, `.sidebar`, `.pane` and `.crumbs`,
+  and `table.html` `.table`.
 
 Each page reads only from `styles.css` — every styled value is a `var(--…)`
 reference — and carries a light/dark toggle. Annotation numbers are printed for
@@ -54,15 +58,16 @@ both modes, labelled `L` and `D`.
 | `--density-<metric>` | `--density-control-height`, `--density-chip-height`, `--density-field-height`, `--density-row-height`, `--density-checkbox-row-height`, `--density-toolbar-control-height`, `--density-padding-x`, `--density-padding-y` | control metrics, px; `:root` is comfortable, `.compact` overrides every one of them |
 | `--space-<key>` | `--space-0`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24` | the 4-pt spacing grid, px |
 | `--radius-<key>` | `--radius-none`, `--radius-sm`, `--radius-base`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-3xl`, `--radius-full` | corner radii, Tailwind naming, px |
-| `--shadow-<level>` | `--shadow-backdrop`, `--shadow-chrome`, `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | dp box-shadows — the cue a floating transient carries (menus, dialogs, tooltips) over the platform fill it stands in; resting surfaces cast none |
+| `--shadow-<level>` | `--shadow-backdrop`, `--shadow-chrome`, `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | one dp box-shadow per level, `none` for the backdrop, the chrome and the content; no rule in the class layer casts them, because a floating surface casts the measured floating shadow drawn in `--floating-shadow-step` |
 | `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for the published two-segment path |
 | `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | duration stops, ms; the reduce-motion variant zeroes them |
 | interaction states | `--focus-ring-width`, `--disabled-coverage` | the focus ring's 4 px band and the platform's measured disabled coverage as a percentage, both mode-invariant, unlike the ring's colour, which is `--platform-keyboard-focus-indicator` and flips with the appearance |
 | `--navbar-band` | the toolbar band a navbar stands in, px | the platform's: nineteen px of inset either side of a fourteen px window control circle, so it takes no density and no setting of how tightly a window sets its rows moves it |
 | `--dialog-corner` | the dialog surface's corner radius, px | measured off the platform's own sheet and identical in both appearances, which is why it is not a stop on the radius scale |
-| `--dialog-button-width` | the width a dialog's footer lays each action out in, px | measured off the platform's own sheet, where both answers are 74 wide; it is a floor, so a title that does not fit widens its own button |
+| `--dialog-button-width` | the width a dialog's footer lays each action out in, px | measured off the platform's own sheet, where both answers are 74 wide; it is the least width, so a title that does not fit widens its own button |
 | `--dialog-footer-air` | the air between a decision's footer hairline and the actions under it, px | measured off the platform's own sheet, whose 65 px footer band holds its 24 px buttons with 21 rows clear above and the sheet's own 20 px inset below |
-| `--toolbar-control-shadow-*` | `--toolbar-control-shadow-reach`, `--toolbar-control-shadow-offset` | the bordered toolbar control's drop shadow is the one material whose GEOMETRY the platform draws differently under the two appearances, so its reach and the depth its rectangle is sunk are stated per appearance beside the colour set; its peak is `--platform-toolbar-control-shadow` |
+| `--toolbar-control-shadow-*` | `--toolbar-control-shadow-reach`, `--toolbar-control-shadow-offset` | the bordered toolbar control's drop shadow is the one material whose GEOMETRY the platform draws differently under the two appearances, so how far it is drawn around the control and the depth its rectangle is sunk are stated per appearance beside the colour set; its peak is `--platform-toolbar-control-shadow` |
+| shadow steps | `--floating-shadow-step`, `--pane-shadow-step`, `--toolbar-shadow-step` | one eighth of the floating, pane and toolbar control shadow's peak coverage, declared on the rules that cast those shadows: CSS has no linear falloff, so each measured shadow is drawn as eight stacked spreads of its step |
 
 ## Component classes
 
@@ -144,7 +149,7 @@ native input types with `appearance: none`. They resolve exactly as
 the box the control already draws and moving nothing, and
 `--platform-disabled-control-text` where the control cannot be used —
 the fill staying exactly where it was, because the platform fades the
-wording and leaves the control. A text field's height floor is
+wording and leaves the control. A text field's least height is
 `--density-field-height`, not the control height: the platform draws a
 field shorter than the button beside it. The pop-up trigger is the
 exception in this family and is a BUTTON rather than a field: `.select`
@@ -190,20 +195,22 @@ on this platform is filled with, and floats on
 ## Levels and the shadow
 
 A level's FILL is the platform's own name for what that region is, not a
-derivation: the window's plane under `--platform-window-background`, the
+derivation: the window's own surface under `--platform-window-background`, the
 chrome under `--platform-sidebar-material`, the content under
 `--platform-control-background`, a card under `--platform-card-fill`, and
 every floating surface under `--platform-window-background` again, which
 is what this platform fills a dialog, a menu and a popover with. Six
 levels, counted from the backdrop up toward the reader: the bare window
-plane, the chrome a window wears, the content surface, a raised inset, and
+surface, the chrome a window wears, the content surface, a raised inset, and
 the two floating levels. The levels stop at 3: desktop has no six-deep
 stack. Chrome is window-scale only — the trim inside a component or a
 pattern is that thing's structure and takes no level of its own.
 
-What the sheet states per level is the shadow: `--shadow-<level>`, the cue
-a floating transient carries over its fill. Neither level under the content
-casts anything, and a resting surface never does.
+What the sheet states per level is a shadow, `--shadow-<level>`: `none`
+for the backdrop, the chrome and the content. No rule in the class layer
+casts the others: `.dialog`, `.popover` and `.toast` cast the platform's
+measured floating shadow as eight stacked spreads of
+`--floating-shadow-step`, and a card casts none.
 
 ## Density
 
