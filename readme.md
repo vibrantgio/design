@@ -32,8 +32,7 @@ it by hand — regenerate it.
   self-hosted with their licences: the same Roboto regular and medium the
   Gio applications embed, and Roboto Mono from the font repository.
 - `foundations/layout.html` — the spacing scale, the control metrics at both
-  density settings, the radius scale and the shadow depth each level casts,
-  as rendered specimens.
+  density settings and the radius scale, as rendered specimens.
 - `components/*.html` — hand-authored component pages (not generated):
   every class-layer component in every variant and state, at both
   densities, as copyable markup. `buttons.html` covers `.btn` and `.badge`,
@@ -58,7 +57,6 @@ both modes, labelled `L` and `D`.
 | `--density-<metric>` | `--density-control-height`, `--density-chip-height`, `--density-field-height`, `--density-row-height`, `--density-checkbox-row-height`, `--density-toolbar-control-height`, `--density-padding-x`, `--density-padding-y` | control metrics, px; `:root` is comfortable, `.compact` overrides every one of them |
 | `--space-<key>` | `--space-0`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24` | the 4-pt spacing grid, px |
 | `--radius-<key>` | `--radius-none`, `--radius-sm`, `--radius-base`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-3xl`, `--radius-full` | corner radii, Tailwind naming, px |
-| `--shadow-<level>` | `--shadow-backdrop`, `--shadow-chrome`, `--shadow-0`, `--shadow-1`, `--shadow-2`, `--shadow-3` | one dp box-shadow per level, `none` for the backdrop, the chrome and the content; no rule in the class layer casts them, because a floating surface casts the measured floating shadow drawn in `--floating-shadow-step` |
 | `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for the published two-segment path |
 | `--duration-<stop>` | `--duration-x-fast`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-x-slow` | duration stops, ms; the reduce-motion variant zeroes them |
 | interaction states | `--focus-ring-width`, `--disabled-coverage` | the focus ring's 4 px band and the platform's measured disabled coverage as a percentage, both mode-invariant, unlike the ring's colour, which is `--platform-keyboard-focus-indicator` and flips with the appearance |
@@ -194,23 +192,23 @@ on this platform is filled with, and floats on
 
 ## Levels and the shadow
 
-A level's FILL is the platform's own name for what that region is, not a
-derivation: the window's own surface under `--platform-window-background`, the
-chrome under `--platform-sidebar-material`, the content under
-`--platform-control-background`, a card under `--platform-card-fill`, and
-every floating surface under `--platform-window-background` again, which
-is what this platform fills a dialog, a menu and a popover with. Six
-levels, counted from the backdrop up toward the reader: the bare window
-surface, the chrome a window wears, the content surface, a raised inset, and
-the two floating levels. The levels stop at 3: desktop has no six-deep
-stack. Chrome is window-scale only — the trim inside a component or a
-pattern is that thing's structure and takes no level of its own.
+Elevation is spoken in levels. There are five, counted from the backdrop up
+toward the reader: the backdrop, the chrome, the content, raised and
+floating. Each level's fill is the platform's own and is never derived
+from another level's fill. The backdrop is the window's own surface under
+`--platform-window-background`. The chrome regions use
+`--platform-sidebar-material`. The content uses
+`--platform-text-background`. A card is raised and uses
+`--platform-card-fill`. Every floating surface uses
+`--platform-window-background` again, under the platform's shadow. Chrome
+is window-scale only: the trim inside a component or a pattern is part of
+that thing's structure and takes no level of its own.
 
-What the sheet states per level is a shadow, `--shadow-<level>`: `none`
-for the backdrop, the chrome and the content. No rule in the class layer
-casts the others: `.dialog`, `.popover` and `.toast` cast the platform's
-measured floating shadow as eight stacked spreads of
-`--floating-shadow-step`, and a card casts none.
+A raised thing shows its level by its small step of fill and casts no
+shadow. A floating thing shows its level by its shadow. The floating level
+has one shadow, the measured floating shadow: `.dialog`, `.popover`,
+`.toast` and `.menu` draw it as eight stacked spreads of
+`--floating-shadow-step`.
 
 ## Density
 
@@ -244,7 +242,7 @@ every duration zeroed; the sheet is generated from the non-reduced scale.
 
 `theme.json` records the theme colour, the platform's whole set per
 appearance keyed by the same names the sheet carries, the faces, the base
-radius, both density settings' metrics, the shadow depth per level and the
+radius, both density settings' metrics and the
 motion set (durations, easings, springs). A round-trip test in
 `theme/export` asserts the file and the sheet agree value for value, so the
 file, not this text, is the contract. To change the theme colour, rerun

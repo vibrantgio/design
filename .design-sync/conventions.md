@@ -116,11 +116,10 @@ never invent a class, a token, or a size variant.
   toolbar, sidebar, inspector, status bar, pane), the content, what is
   raised on it, and what floats. A level is not a fill source: each one is
   filled with the platform name for what stands there, so read the level to
-  know which `--platform-*` to use. The sheet states one shadow per level in
-  six variables, `--shadow-backdrop`, `--shadow-chrome` and
-  `--shadow-0`…`--shadow-3`, the first three `none`. `.dialog`, `.popover`
-  and `.toast` cast the platform's measured floating shadow, eight stacked
-  spreads of `--floating-shadow-step`; a card casts none.
+  know which `--platform-*` to use. The floating level has one shadow, the
+  platform's measured floating shadow: `.dialog`, `.popover`, `.toast` and
+  `.menu` cast it as eight stacked spreads of `--floating-shadow-step`. A card is
+  raised and casts none.
 - Interaction: `--platform-keyboard-focus-indicator` with
   `--focus-ring-width` (the one focus treatment everywhere), and
   `--platform-scrim` (the veil a dialog draws over what it covers).

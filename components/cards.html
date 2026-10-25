@@ -157,12 +157,10 @@ h2 {
 </section>
 
 <section>
-<h2>The opt-in shadow</h2>
-<p class="intro">The dp shadows are <code>--shadow-N</code> for <strong>floating transients only</strong> &mdash; menus, dialogs, toasts, tooltips: a float adds <code>box-shadow: var(--shadow-N)</code> on top of the platform fill its level is given. Resting surfaces &mdash; every card among them &mdash; use the fill alone.</p>
+<h2>The floating shadow</h2>
+<p class="intro">A floating thing casts the measured floating shadow. The floating level has this one shadow and no other. <code>.dialog</code>, <code>.popover</code>, <code>.toast</code> and <code>.menu</code> draw it as eight stacked spreads of <code>--floating-shadow-step</code>, around a fill of <code>--platform-window-background</code>. A raised thing casts no shadow: a card shows its level by its step of fill alone.</p>
 <div class="row" style="background: var(--platform-under-page-background)">
-<div class="cell"><div class="level" style="background: var(--platform-window-background); box-shadow: var(--shadow-1)">1</div><span class="annot"><code>--shadow-1</code> &middot; depth 1dp</span></div>
-<div class="cell"><div class="level" style="background: var(--platform-window-background); box-shadow: var(--shadow-2)">2</div><span class="annot"><code>--shadow-2</code> &middot; depth 3dp</span></div>
-<div class="cell"><div class="level" style="background: var(--platform-window-background); box-shadow: var(--shadow-3)">3</div><span class="annot"><code>--shadow-3</code> &middot; depth 6dp</span></div>
+<div class="cell"><div class="popover">floating</div><span class="annot"><code>.popover</code> &middot; <code>--floating-shadow-step</code></span></div>
 </div>
 </section>
 

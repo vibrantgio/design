@@ -196,24 +196,6 @@ h3 {
   border-radius: var(--radius-md);
   margin: var(--space-2) 0;
 }
-.elevation-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-8);
-  padding: var(--space-6);
-  background: var(--platform-window-background);
-  border-radius: var(--radius-md);
-  margin: var(--space-4) 0;
-}
-.surface-card {
-  width: var(--space-24);
-  height: var(--space-20);
-  border-radius: var(--radius-md);
-  border: thin solid var(--platform-separator);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 </style>
 </head>
 <body>
@@ -222,7 +204,7 @@ h3 {
 <h1>Layout</h1>
 <button type="button" class="mode-toggle">Light / dark</button>
 </div>
-<p class="intro">The spacing scale as sized bars, the control metrics at both density settings, the radius scale on sample boxes and the shadow depth each level casts &mdash; every bar width, control height, padding, corner radius and shadow resolves through its token, so the sheet is the single source of these shapes.</p>
+<p class="intro">The spacing scale as sized bars, the control metrics at both density settings and the radius scale on sample boxes &mdash; every bar width, control height, padding and corner radius resolves through its token, so the sheet is the single source of these shapes.</p>
 <section>
 <h2>Spacing</h2>
 <div class="space-row">
@@ -358,36 +340,6 @@ h3 {
 <div>
 <div class="radius-box" style="border-radius: var(--radius-full)">Aa</div>
 <p class="annot"><code>--radius-full</code> &middot; 9999px</p>
-</div>
-</div>
-</section>
-<section>
-<h2>Shadow depth</h2>
-<p class="intro">A level’s FILL is the platform’s own name for what that region is &mdash; the window’s plane, the chrome material, the content, the card. What the levels state here is the shadow each casts, the opt-in cue a floating transient carries on top of its fill: <code>--shadow-N</code>, for menus, dialogs and tooltips. Neither level under the content casts anything &mdash; the backdrop is what everything stands on, and chrome lies flat on it. The levels stop at 3 &mdash; desktop has no six-deep stack.</p>
-<div class="elevation-row">
-<div>
-<div class="surface-card" style="background: var(--platform-card-fill); box-shadow: var(--shadow-backdrop)">backdrop</div>
-<p class="annot"><code>--shadow-backdrop</code> &middot; depth 0dp &middot; nothing: it shows where nothing stands</p>
-</div>
-<div>
-<div class="surface-card" style="background: var(--platform-card-fill); box-shadow: var(--shadow-chrome)">chrome</div>
-<p class="annot"><code>--shadow-chrome</code> &middot; depth 0dp &middot; navbars, toolbars, sidebars, panes</p>
-</div>
-<div>
-<div class="surface-card" style="background: var(--platform-card-fill); box-shadow: var(--shadow-0)">0</div>
-<p class="annot"><code>--shadow-0</code> &middot; depth 0dp &middot; the content</p>
-</div>
-<div>
-<div class="surface-card" style="background: var(--platform-card-fill); box-shadow: var(--shadow-1)">1</div>
-<p class="annot"><code>--shadow-1</code> &middot; depth 1dp &middot; cards, fences, fields</p>
-</div>
-<div>
-<div class="surface-card" style="background: var(--platform-card-fill); box-shadow: var(--shadow-2)">2</div>
-<p class="annot"><code>--shadow-2</code> &middot; depth 3dp &middot; dialogs, toasts</p>
-</div>
-<div>
-<div class="surface-card" style="background: var(--platform-card-fill); box-shadow: var(--shadow-3)">3</div>
-<p class="annot"><code>--shadow-3</code> &middot; depth 6dp &middot; menus, popovers</p>
 </div>
 </div>
 </section>

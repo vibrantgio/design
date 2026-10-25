@@ -307,10 +307,10 @@ it into this repository:
 
 - **`theme.json`** — the parameters the theme is reproduced from: the theme
   colour, the platform's whole set per appearance, the faces, both density
-  settings, the shadow per level and the motion scale.
+  settings and the motion scale.
 - **`styles.css`** — the token sheet: the platform's colour set as
   `--platform-<name>` in both schemes, a coverage written as `#rrggbbaa`,
-  beside `--font-*`, `--space-*`, `--radius-*`, `--density-*`, `--shadow-*`,
+  beside `--font-*`, `--space-*`, `--radius-*`, `--density-*`,
   `--ease-*` and `--duration-*`; then the component class layer, in which
   every colour is a `--platform-` name, the same mapping the Gio components
   take. The browser composites `#rrggbbaa` in encoded sRGB, as the platform
