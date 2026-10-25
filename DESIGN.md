@@ -331,9 +331,9 @@ to Claude Design, where look-and-feel questions are tried in a browser.
 
 ## The applications
 
-The `workbench` repository holds nine example applications — feeds,
-iconbrowser, marketing, mindchat, sitedocs, sk150, themer, todos and
-vaultview — each a module of its own in a subdirectory, and at its root the
+The `workbench` repository holds eight example applications — feeds,
+iconbrowser, marketing, mindchat, sitedocs, sk150, themer and todos —
+each a module of its own in a subdirectory, and at its root the
 workbench: one window listing those applications, each with a control that
 starts it. The library is proved against them; `llms.txt` describes what
 each one shows.
