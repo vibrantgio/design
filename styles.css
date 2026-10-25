@@ -1300,7 +1300,7 @@
    platform's own scrim coverage, identical in both appearances, because a
    scrim dims by reducing luminance and never flips with the scheme. The scrim
    centres the dialog, exactly as drawDialog centres the surface in the window.
-   Behaviour is part of the pattern: on a PANE a scrim press invokes
+   Behaviour is part of the pattern: on a DISMISSIBLE DIALOG a scrim press invokes
    OnClose; on a DECISION the scrim is INERT — it absorbs presses and answers
    none of them, because dismissal is one of the decision's answers and a
    stray click must not give it. */
@@ -1317,8 +1317,8 @@
    floor and the 560 dp cap (overflow clips), the window background under the
    platform's shadow and no hairline at all, the sheet's own measured corner
    (--dialog-corner), an S5 inset and S3 gaps between header, body and footer.
-   A dialog's two purposes share this one surface: a PANE carries a ghost icon
-   close (.btn.ghost.icon) in its header and no footer of its own; a DECISION
+   A dialog's two purposes share this one surface: a DISMISSIBLE DIALOG carries a
+   ghost icon close (.btn.ghost.icon) in its header and no footer of its own; a DECISION
    carries no X anywhere and a .dialog-footer whose right-aligned actions end
    in the Return-bound default, drawn as the platform draws a sheet's push
    buttons: the default filled with the accent and the other an ordinary push
@@ -1370,9 +1370,9 @@
    MEASURED,
    save-dialog-{light,dark}.png: the line at y=479 runs x 165-534, the sheet's
    own first column to its last, and the 65px band under it holds the 24px
-   push buttons with 21 rows clear above and 20 below. A PANE has no footer
+   push buttons with 21 rows clear above and 20 below. A DISMISSIBLE DIALOG has no footer
    and so no line: the sheet's other hairline parts its own rows from an
-   accessory view, one body region from another, and a pane here has one
+   accessory view, one body region from another, and a dismissible dialog here has one
    body. */
 .dialog-footer {
   display: flex;
