@@ -230,9 +230,9 @@ their height. Each number's provenance is in the doc comment of
 control points, and three spring presets (mass, stiffness and damping).
 Components that animate over a duration take it from the theme's Motion
 observable, which is what makes reduced motion free (§Accessibility).
-`effects/springbutton` does not: it uses spring constants of its own,
-steps its spring once per frame at a fixed step of 1/60 s, so it runs
-faster on a faster display, and does not read the theme's Motion.
+`effects/springbutton` takes its spring from the theme's Motion, steps
+it by each frame's elapsed time, and snaps when Motion's durations are
+zero.
 
 ---
 
