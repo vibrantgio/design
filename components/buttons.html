@@ -79,7 +79,7 @@ h3 {
 <body>
 <main>
 <h1>Buttons &amp; badges</h1>
-<p class="intro">The button is <code>.btn</code> — <strong>filled</strong> by default, with <code>.tonal</code> and <code>.ghost</code> selecting the less pronounced emphasis variants. Emphasis is a colour property and nothing else: every variant keeps the same size and the same focus ring. There is no size prop — heights come from <code>--density-control-height</code>, and density (<code>.compact</code> on any subtree) is the size axis. States shown statically wear the forcing twins (<code>.is-hover</code>, <code>.is-active</code>, <code>.is-focus</code>) that the token sheet groups into the live pseudo-class rules; disabled uses the native attribute.</p>
+<p class="intro">The button is <code>.btn</code> — <strong>filled</strong> by default, with <code>.tonal</code> and <code>.ghost</code> selecting the less pronounced emphasis variants. Emphasis is a colour property and nothing else: every variant keeps the same size and the same focus ring. There is no size prop — heights come from <code>--density-control-height</code>, and density (<code>.compact</code> on any subtree) is the size axis. States shown statically apply the forcing twins (<code>.is-hover</code>, <code>.is-active</code>, <code>.is-focus</code>) that the token sheet groups into the live pseudo-class rules; disabled uses the native attribute.</p>
 
 <section>
 <h2>Filled — <code>.btn</code></h2>
@@ -96,7 +96,7 @@ h3 {
 
 <section>
 <h2>Tonal — <code>.btn.tonal</code></h2>
-<p class="intro">The middle variant: the platform's ordinary push button — its measured fill under the control text, with no edge around it. The variant for a secondary action, and the one a row of equals wears.</p>
+<p class="intro">The middle variant: the platform's ordinary push button — its measured fill under the control text, with no edge around it. The variant for a secondary action, and the one applied to a row of equals.</p>
 <div class="row">
 <div class="cell"><button class="btn tonal">Save Changes</button><span class="annot">enabled</span></div>
 <div class="cell"><button class="btn tonal is-hover">Save Changes</button><span class="annot">hover</span></div>
@@ -147,7 +147,7 @@ h3 {
 
 <section>
 <h2>Badges — <code>.badge</code></h2>
-<p class="intro">The system's own word about a thing, set inline at <code>small-system-font</code> metrics over a field of the platform's own system colour, with the text that reads on it — the platform paints a status disc in the system colour itself and never a tint of it. No boundary and no vertical padding, so the height is the role's line box; the side padding is <code>--space-2</code> and the corner is <code>--radius-base</code>, deliberately not the pill a chip wears. A badge beside a button is a fraction of that button's height and is meant to be. The default is the plain category title. A badge speaks as a word or as a count; the close mark a dismissible one carries is a Gio interaction and has no class in this sheet.</p>
+<p class="intro">The system's own word about a thing, set inline at <code>small-system-font</code> metrics over a field of the platform's own system colour, with the text that reads on it — the platform paints a status disc in the system colour itself and never a tint of it. No boundary and no vertical padding, so the height is the role's line box; the side padding is <code>--space-2</code> and the corner is <code>--radius-base</code>, deliberately not the pill a chip has. A badge beside a button is a fraction of that button's height and is meant to be. The default is the plain category title. A badge speaks as a word or as a count; the close mark a dismissible one carries is a Gio interaction and has no class in this sheet.</p>
 <div class="row">
 <div class="cell"><span class="badge">Popular</span><span class="annot">word</span></div>
 <div class="cell"><span class="badge">128</span><span class="annot">count</span></div>

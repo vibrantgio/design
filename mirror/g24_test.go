@@ -4,8 +4,8 @@ package mirror
 // and .toast classes — the vocabulary components/dialog.html composes with —
 // captured from the real Gio packages (patterns/dialog, patterns/popover,
 // components/tooltip, patterns/notifications) and compared against browser
-// captures of per-specimen fixtures wearing exactly the published sheet's
-// classes. Like
+// captures of per-specimen fixtures with exactly the published sheet's
+// classes applied. Like
 // TestCalibration and the other mirror verdicts, these only deliver a verdict
 // on the authoritative machine; elsewhere one half of the harness skips
 // loudly.

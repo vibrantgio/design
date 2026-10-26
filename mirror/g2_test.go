@@ -4,7 +4,7 @@ package mirror
 // pages compose with — .btn's less pronounced variants and the
 // form controls — captured from the real Gio components (components/button,
 // components/input) and compared against browser captures of per-specimen
-// fixtures wearing exactly the published sheet's classes. Like
+// fixtures with exactly the published sheet's classes applied. Like
 // TestCalibration, these only deliver a verdict on the authoritative
 // machine; elsewhere one half of the harness skips loudly.
 

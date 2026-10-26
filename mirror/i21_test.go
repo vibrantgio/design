@@ -3,7 +3,7 @@ package mirror
 // The badge verdicts: the .badge / .badge.success / .badge.warning /
 // .badge.error / .badge.info classes — captured from the real
 // components/badge and compared against browser captures of per-specimen
-// fixtures wearing exactly the published sheet's classes. Like
+// fixtures with exactly the published sheet's classes applied. Like
 // TestCalibration and the earlier mirror verdicts, these only deliver a
 // verdict on the authoritative machine; elsewhere one half of the harness
 // skips loudly.

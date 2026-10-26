@@ -53,7 +53,7 @@ never invent a class, a token, or a size variant.
   reach for answers one question — am I dividing the page, or singling
   something out? A row of tiers, a form in sections, a list of articles are
   groups; the one thing that must stand apart is the card. A group may hold
-  a card; it never holds another group, and neither wears a role.
+  a card; it never holds another group, and neither is drawn in a colour role.
 - **Table** — `.table` on a real `<table>`: header band, rows
   `--density-row-height` tall, each closed by a `--platform-grid` rule, every
   even body row filled with `--platform-alternating-content-background`. Tables are unframed: the Surface fill and

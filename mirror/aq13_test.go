@@ -1,6 +1,6 @@
 package mirror
 
-// The focus-ring verdict: a focused control wears the platform's keyboard
+// The focus-ring verdict: a focused control is drawn with the platform's keyboard
 // focus indicator, which is a colour at a coverage over whatever the ring
 // lies on. The sheet names that coverage and lets the browser composite it;
 // the Gio side flattens it against the surface the control was told it

@@ -4,8 +4,8 @@ package mirror
 // .crumbs classes — the vocabulary components/navigation.html composes
 // with — captured from the real Gio packages (patterns/navbar,
 // patterns/tabs, patterns/sidebar, components/breadcrumb) and compared
-// against browser captures of per-specimen fixtures wearing exactly the
-// published sheet's classes. Like TestCalibration and the other mirror
+// against browser captures of per-specimen fixtures with exactly the
+// published sheet's classes applied. Like TestCalibration and the other mirror
 // verdicts, these only deliver a verdict on the authoritative machine;
 // elsewhere one half of the harness skips loudly.
 

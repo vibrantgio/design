@@ -134,10 +134,10 @@ status"; `.badge.success` / `.badge.warning` / `.badge.error` /
 Never invert the pair and never tint the system colour toward the
 surface. No boundary and no vertical padding, so its height is the
 role's line box; the side padding is `--space-2` and the corner is
-`--radius-base`, deliberately not the pill a chip wears. A badge is
+`--radius-base`, deliberately not the pill a chip has. A badge is
 read, not used: no interaction states.
 
-The form controls dress native elements — no script anywhere:
+The form control styles apply to native elements — no script anywhere:
 `.input` (text `<input>`, and `<select class="input select">` inside a
 `.select-wrap` for the chevron), `.checkbox` and `.radio` on their
 native input types with `appearance: none`. They resolve exactly as
@@ -153,7 +153,7 @@ draws a field taller than the button beside it. The pop-up trigger is the
 exception in this family and is a BUTTON rather than a field: `.select`
 takes the push button's fill at the control height, draws NO edge at
 all — its fill meets the surface directly, measured — sets its title
-11 px in from that fill's edge, and wears the platform's pop-up mark,
+11 px in from that fill's edge, and has the platform's pop-up mark,
 the 8 by 11 chevron pair masked out of `--platform-control-text` with
 its last column 9 px clear of the trailing edge. `.menu` is the surface
 it opens. The checkbox and the radio draw their 16 px symbol centred in
@@ -181,7 +181,7 @@ foot of the bar and of the tab strip; selection is
 `--platform-selected-content-background`, as an underline on a link or a
 tab and as the row's own fill on a rail. `.pane` is the platform's
 sidebar as it actually stands: an inset rounded pane 8 px off the
-window's edges, cornered at 18, wearing `--platform-pane-rim` just
+window's edges, cornered at 18, drawn with `--platform-pane-rim` just
 inside its edge and casting `--platform-pane-shadow` onto what stands
 beside it — the rim and the shadow are the boundary, and no seam is
 drawn. The overlay family —

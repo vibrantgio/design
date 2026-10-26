@@ -4,8 +4,8 @@ package mirror
 // cards.html and table.html component pages compose with — captured from
 // the real patterns components (patterns/card, patterns/group,
 // patterns/table) and compared
-// against browser captures of per-specimen fixtures wearing exactly the
-// published sheet's classes. Like TestCalibration and TestComponentMirrors,
+// against browser captures of per-specimen fixtures with exactly the
+// published sheet's classes applied. Like TestCalibration and TestComponentMirrors,
 // these only deliver a verdict on the authoritative machine; elsewhere one
 // half of the harness skips loudly.
 
