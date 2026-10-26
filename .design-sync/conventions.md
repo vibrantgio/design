@@ -99,8 +99,8 @@ never invent a class, a token, or a size variant.
   whatever is beneath, which is how one value reads right on every fill.
 - Type: `--font-family`, `--font-family-code`, and per-role
   `--font-<role>-size`/`-line-height`/`-weight` for the platform's roles
-  `large-title`…`empty-state-line`, the group title's `label-large`, the
-  sidebar section title's `label-small`, and `code` (e.g.
+  `large-title`…`empty-state-line`, the two section headings
+  `section-heading` and `small-section-heading`, and `code` (e.g.
   `--font-title-2-size`). Set all three together; never a bare
   `font-size`. A role adds no tracking.
 - Density: `--density-control-height`, `--density-chip-height`,

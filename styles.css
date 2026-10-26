@@ -140,12 +140,12 @@
   --font-empty-state-line-size: 28px;
   --font-empty-state-line-line-height: 33px;
   --font-empty-state-line-weight: 400;
-  --font-label-large-size: 14px;
-  --font-label-large-line-height: 20px;
-  --font-label-large-weight: 500;
-  --font-label-small-size: 11px;
-  --font-label-small-line-height: 16px;
-  --font-label-small-weight: 500;
+  --font-section-heading-size: 13px;
+  --font-section-heading-line-height: 16px;
+  --font-section-heading-weight: 600;
+  --font-small-section-heading-size: 11px;
+  --font-small-section-heading-line-height: 13px;
+  --font-small-section-heading-weight: 600;
   --font-code-size: 13px;
   --font-code-line-height: 16px;
   --font-code-weight: 400;
@@ -840,12 +840,12 @@
    of the group's stack — the platform's idiom for a section header over a
    bordered container, and not the fieldset legend cut into the top line,
    which has no native counterpart and does not survive a Lg corner. The
-   group title's style in the platform's secondary label: a group's own name is
-   set under the content it names. */
+   section heading role in the platform's secondary label: a group's own name
+   is set under the content it names. */
 .group-title {
-  font-size: var(--font-label-large-size);
-  line-height: var(--font-label-large-line-height);
-  font-weight: var(--font-label-large-weight);
+  font-size: var(--font-section-heading-size);
+  line-height: var(--font-section-heading-line-height);
+  font-weight: var(--font-section-heading-weight);
   letter-spacing: 0;
   color: var(--platform-secondary-label);
 }
@@ -1185,18 +1185,19 @@
 
    A sheet cannot place a baseline, so what is written is where the library's
    own placement puts the line box: 30 less the role's ascent inside its line
-   box, which for the shipped face at 11 dp on a 16 dp line is 18. */
+   box. Roboto at 11 dp draws its line 14 px tall, taller than the role's
+   13 dp, and its ascent in that line is 11, so the line box starts at 19. */
 .sidebar-section {
   box-sizing: border-box;
   flex: none;
   display: flex;
   align-items: flex-start;
   height: 42px;  /* SectionHeight */
-  padding: 18px 17px 0;  /* SectionBaseline less the role's ascent; SectionInset */
+  padding: 19px 17px 0;  /* SectionBaseline less the role's ascent; SectionInset */
   font-family: var(--font-family);
-  font-size: var(--font-label-small-size);
-  line-height: var(--font-label-small-line-height);
-  font-weight: var(--font-label-small-weight);
+  font-size: var(--font-small-section-heading-size);
+  line-height: var(--font-small-section-heading-line-height);
+  font-weight: var(--font-small-section-heading-weight);
   letter-spacing: 0;
   color: var(--platform-secondary-label);
   user-select: none;

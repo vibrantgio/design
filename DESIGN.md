@@ -248,11 +248,12 @@ system font and the small system font, and the empty state line; plus
 `Code`, one monospaced size; plus `DocumentHeadings`, the six heading steps
 of a prose document, derived from Body. A role's size, weight and line
 height are the platform's for the text the role sets. A role adds no
-tracking: the typeface's own spacing sets the text. Two further styles set
-the text that opens a section at the medium weight: a group's title and a
-sidebar's section title. Roboto is the
-default typeface because the default `Typography` names it, and Roboto Mono
-sets `Code`.
+tracking: the typeface's own spacing sets the text. Two roles of the
+library's own set the text that opens a section, both semibold: Section
+heading sets a group's title at the system font's size, and Small section
+heading sets a sidebar's section heading at the small system font's size.
+Roboto is the default typeface because the default `Typography` names it,
+and Roboto Mono sets `Code`.
 
 `Typography` also carries the face collection and builds two cached
 shapers: `Shaper()`, which falls back to the platform's own fonts for
