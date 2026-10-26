@@ -153,6 +153,7 @@
   --density-search-field-height: 26px;
   --density-sidebar-search-field-height: 28px;
   --density-row-height: 20px;
+  --density-content-list-row-height: 32px;
   --density-checkbox-row-height: 22px;
   --density-toolbar-control-height: 36px;
   --density-padding-x: 8px;
@@ -282,6 +283,7 @@
   --density-search-field-height: 21px;
   --density-sidebar-search-field-height: 22px;
   --density-row-height: 19px;
+  --density-content-list-row-height: 32px;
   --density-checkbox-row-height: 17px;
   --density-toolbar-control-height: 36px;
   --density-padding-x: 7px;
