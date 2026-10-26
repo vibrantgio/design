@@ -80,6 +80,7 @@
   --platform-field-edge: #f3f3f3;
   --platform-scrollbar-thumb: #00000085;
   --platform-alternating-content-background: #f4f5f5;
+  --platform-content-list-selection: #00000014;
   --platform-scrim: #00000033;
   --platform-sidebar-search-fill: #e8e8e8;
   --platform-toolbar-control-fill: #ffffff;
@@ -260,6 +261,7 @@
   --platform-field-edge: #282828;
   --platform-scrollbar-thumb: #ffffff92;
   --platform-alternating-content-background: #ffffff0d;
+  --platform-content-list-selection: #ffffff27;
   --platform-scrim: #00000042;
   --platform-sidebar-search-fill: #2f3234;
   --platform-toolbar-control-fill: #262626;
