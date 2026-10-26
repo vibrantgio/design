@@ -166,7 +166,7 @@
       "checkboxRowHeight": 22,
       "toolbarControlHeight": 36,
       "paddingX": 8,
-      "paddingY": 2
+      "symbolSize": 20
     },
     "compact": {
       "controlHeight": 19,
@@ -176,7 +176,7 @@
       "checkboxRowHeight": 17,
       "toolbarControlHeight": 36,
       "paddingX": 7,
-      "paddingY": 0
+      "symbolSize": 19
     }
   },
   "motion": {

@@ -43,7 +43,7 @@ var symbolSize = image.Pt(checkboxRowHeight, checkboxRowHeight)
 
 // fieldSize is the text-field capture viewport: 220 wide like the button
 // captures, and fieldHeight tall — the 27 dp field-height floor, which beats
-// SystemFont's 16 dp line box plus twice the density's 2 dp vertical padding.
+// SystemFont's 16 dp line box.
 var fieldSize = image.Pt(220, fieldHeight)
 
 // triggerSize is the dropdown capture viewport: the same width, at the

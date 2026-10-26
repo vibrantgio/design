@@ -215,9 +215,11 @@ Switching an application to Compact is a theme change.
 | toolbar control | 36 dp, measured | 36 dp |
 
 The control and field heights are the least a control is drawn at: a
-control is `max(height, line box + 2 × PaddingY)` tall, so a Comfortable
-button draws 24 dp, a Compact button 20 dp, a Comfortable text field 28 dp
-and a Compact one 24 dp. Rows and the toolbar control are drawn at exactly
+control is `max(height, line box)` tall, with the line centred. Its padding
+is what the height leaves around the line. A Comfortable button draws 24 dp,
+a Compact button 19 dp, a Comfortable text field 27 dp and a Compact one
+21 dp. A symbol in a control is 20 dp at Comfortable and 19 dp at Compact,
+a value of its own. Rows and the toolbar control are drawn at exactly
 their height. Each number's provenance is in the doc comment of
 `theme/tokens/density.go`.
 

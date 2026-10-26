@@ -21,7 +21,7 @@ import (
 
 // mirrorSize is the shared capture size: the Gio button fills its window's
 // width and draws max(Comfortable's 24 dp control height, SystemFont's 16 dp
-// line box + 2×PaddingY) = 24, so a 220×24 window is exactly the button —
+// line box) = 24, so a 220×24 window is exactly the button —
 // and the fixtures draw a 220-wide .btn at the same viewport.
 var mirrorSize = image.Pt(220, buttonHeight)
 
@@ -29,8 +29,8 @@ var mirrorSize = image.Pt(220, buttonHeight)
 // resolved by the density's own rule (tokens/density.go) rather than
 // hand-tuned, so a density change moves the frames with the components.
 //
-//	buttonHeight       max(ControlHeight 24, SystemFont's 16 dp line box + 2×PaddingY 2)
-//	fieldHeight        max(FieldHeight 27, SystemFont's 16 dp line box + 2×PaddingY 2)
+//	buttonHeight       max(ControlHeight 24, SystemFont's 16 dp line box)
+//	fieldHeight        max(FieldHeight 27, SystemFont's 16 dp line box)
 //	rowHeight          RowHeight, the platform's stacked row
 //	checkboxRowHeight  CheckboxRowHeight, the square footprint the 16 dp symbol
 //	                   is centred in and the pointer target it offers
