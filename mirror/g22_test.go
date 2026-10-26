@@ -109,7 +109,7 @@ func tableWidget(shaper *text.Shaper) layout.Widget {
 		{Header: "Steps", Width: unit.Dp(96), Cell: cell(func(i int) string { return strconv.Itoa(4 * (i + 1)) })},
 	}
 	return table.Render(shaper, cols, []int{0, 1, 2, 3}, table.Sort{Column: 0, Asc: true},
-		tokens.PlatformLight, tokens.Spacing, tokens.DefaultTypography.SystemFont, tokens.Comfortable)
+		tokens.PlatformLight, tokens.Spacing, tokens.DefaultTypography.SystemFont, tokens.Comfortable, nil)
 }
 
 // TestPatternMirrors scores each pattern specimen pair: the patterns component
