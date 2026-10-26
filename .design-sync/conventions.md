@@ -104,11 +104,12 @@ never invent a class, a token, or a size variant.
   `--font-title-2-size`). Set all three together; never a bare
   `font-size`. A role adds no tracking.
 - Density: `--density-control-height`, `--density-chip-height`,
-  `--density-field-height`, `--density-row-height`,
+  `--density-text-field-height`, `--density-search-field-height`,
+  `--density-sidebar-search-field-height`, `--density-row-height`,
   `--density-checkbox-row-height`, `--density-toolbar-control-height`,
   `--density-padding-x`, `--density-symbol-size`. A control is at least one
-  control height tall with its line centred and no vertical padding, a text
-  field at least one field height, and a chip is four px under the control
+  control height tall with its line centred and no vertical padding, a field
+  at least its own measured field height, and a chip is four px under the control
   height; `.compact` re-pitches every one of them.
 - Space: `--space-0`…`--space-24` on the 4-pt grid (keys 0–6, 8, 10, 12,
   16, 20, 24). Radius: `--radius-none`, `-sm`, `-base`, `-md`, `-lg`,

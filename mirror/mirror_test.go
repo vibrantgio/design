@@ -30,7 +30,7 @@ var mirrorSize = image.Pt(220, buttonHeight)
 // hand-tuned, so a density change moves the frames with the components.
 //
 //	buttonHeight       max(ControlHeight 24, SystemFont's 16 dp line box)
-//	fieldHeight        max(FieldHeight 27, SystemFont's 16 dp line box)
+//	fieldHeight        max(TextFieldHeight 27, SystemFont's 16 dp line box)
 //	rowHeight          RowHeight, the platform's stacked row
 //	checkboxRowHeight  CheckboxRowHeight, the square footprint the 16 dp symbol
 //	                   is centred in and the pointer target it offers

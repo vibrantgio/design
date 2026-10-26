@@ -42,7 +42,7 @@ func onBackground(w layout.Widget) func(layout.Context) layout.Dimensions {
 var symbolSize = image.Pt(checkboxRowHeight, checkboxRowHeight)
 
 // fieldSize is the text-field capture viewport: 220 wide like the button
-// captures, and fieldHeight tall — the 27 dp field-height floor, which beats
+// captures, and fieldHeight tall — the 27 dp text field height floor, which beats
 // SystemFont's 16 dp line box.
 var fieldSize = image.Pt(220, fieldHeight)
 

@@ -161,7 +161,9 @@
     "comfortable": {
       "controlHeight": 24,
       "chipHeight": 20,
-      "fieldHeight": 27,
+      "textFieldHeight": 27,
+      "searchFieldHeight": 26,
+      "sidebarSearchFieldHeight": 28,
       "rowHeight": 20,
       "checkboxRowHeight": 22,
       "toolbarControlHeight": 36,
@@ -171,7 +173,9 @@
     "compact": {
       "controlHeight": 19,
       "chipHeight": 15,
-      "fieldHeight": 21,
+      "textFieldHeight": 21,
+      "searchFieldHeight": 21,
+      "sidebarSearchFieldHeight": 22,
       "rowHeight": 19,
       "checkboxRowHeight": 17,
       "toolbarControlHeight": 36,

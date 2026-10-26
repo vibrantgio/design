@@ -54,7 +54,7 @@ both modes, labelled `L` and `D`.
 | `--font-family` | `--font-family` | the typeface every prose role uses |
 | `--font-family-code` | `--font-family-code` | the monospace typeface the code role uses |
 | `--font-<role>-*` | roles large-title, title-1, title-2, title-3, headline, subheadline, body, callout, footnote, caption-1, caption-2, system-font, small-system-font, empty-state-line, label-large, label-small, code; each with `-size`, `-line-height`, `-weight` | px sizes, CSS numeric weights; the platform's roles, then the group title's and the sidebar section title's styles, then code, the mono style at body's metrics; a role adds no tracking |
-| `--density-<metric>` | `--density-control-height`, `--density-chip-height`, `--density-field-height`, `--density-row-height`, `--density-checkbox-row-height`, `--density-toolbar-control-height`, `--density-padding-x`, `--density-symbol-size` | control metrics, px; `:root` is comfortable, `.compact` overrides every one of them |
+| `--density-<metric>` | `--density-control-height`, `--density-chip-height`, `--density-text-field-height`, `--density-search-field-height`, `--density-sidebar-search-field-height`, `--density-row-height`, `--density-checkbox-row-height`, `--density-toolbar-control-height`, `--density-padding-x`, `--density-symbol-size` | control metrics, px; `:root` is comfortable, `.compact` overrides every one of them |
 | `--space-<key>` | `--space-0`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24` | the 4-pt spacing grid, px |
 | `--radius-<key>` | `--radius-none`, `--radius-sm`, `--radius-base`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-3xl`, `--radius-full` | corner radii, Tailwind naming, px |
 | `--ease-<name>` | `--ease-standard`, `--ease-standard-accelerate`, `--ease-standard-decelerate`, `--ease-emphasized`, `--ease-emphasized-accelerate`, `--ease-emphasized-decelerate` | easing presets as `cubic-bezier()`; emphasized is the documented single-bezier stand-in for the published two-segment path |
@@ -148,8 +148,8 @@ the box the control already draws and moving nothing, and
 `--platform-disabled-control-text` where the control cannot be used —
 the fill staying exactly where it was, because the platform fades the
 wording and leaves the control. A text field's least height is
-`--density-field-height`, not the control height: the platform draws a
-field shorter than the button beside it. The pop-up trigger is the
+`--density-text-field-height`, not the control height: the platform
+draws a field taller than the button beside it. The pop-up trigger is the
 exception in this family and is a BUTTON rather than a field: `.select`
 takes the push button's fill at the control height, draws NO edge at
 all — its fill meets the surface directly, measured — sets its title
@@ -217,9 +217,13 @@ Two published settings, one variable family: comfortable (24 dp controls,
 controls, 15 dp chips, 7/0 dp padding) is the `.compact` class override,
 scoping to any subtree the way `.dark` scopes colours. The chip height is
 the control height less 4 dp in both settings — one relation, not a second
-scale. A text field, a stacked row, a checkbox's row and a toolbar
-control are not that control and carry their own measured heights:
-`--density-field-height` (27 dp comfortable, 21 compact),
+scale. A text field, a search field, a stacked row, a checkbox's row and a
+toolbar control are not that control and carry their own measured heights:
+`--density-text-field-height` (27 dp comfortable, 21 compact),
+`--density-search-field-height` (26 dp, 21 compact) for a search
+field on the content,
+`--density-sidebar-search-field-height` (28 dp, 22 compact) for a
+search field in a sidebar,
 `--density-row-height` (20 dp, 19 compact),
 `--density-checkbox-row-height` (22 dp, 17 compact) and
 `--density-toolbar-control-height` (36 dp in both, no capture holding a

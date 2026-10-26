@@ -149,7 +149,9 @@
   --font-code-weight: 400;
   --density-control-height: 24px;
   --density-chip-height: 20px;
-  --density-field-height: 27px;
+  --density-text-field-height: 27px;
+  --density-search-field-height: 26px;
+  --density-sidebar-search-field-height: 28px;
   --density-row-height: 20px;
   --density-checkbox-row-height: 22px;
   --density-toolbar-control-height: 36px;
@@ -276,7 +278,9 @@
 .compact {
   --density-control-height: 19px;
   --density-chip-height: 15px;
-  --density-field-height: 21px;
+  --density-text-field-height: 21px;
+  --density-search-field-height: 21px;
+  --density-sidebar-search-field-height: 22px;
   --density-row-height: 19px;
   --density-checkbox-row-height: 17px;
   --density-toolbar-control-height: 36px;
@@ -523,8 +527,8 @@
    the same pixel. */
 
 /* Text field (components/input textfield.go). The height floor is
-   Density.FieldHeight, not ControlHeight — the platform draws a field shorter
-   than the button beside it — and the drawn height is max(that, line box),
+   Density.TextFieldHeight, not ControlHeight — the platform draws a field
+   taller than the button beside it — and the drawn height is max(that, line box),
    the line centred. The horizontal inset is S3 (12 dp, static: it does not follow
    density) measured from the OUTER edge, so the padding gives back whatever
    the border occupies and the text lands where the Gio side puts it.
@@ -542,7 +546,7 @@
   width: 100%;
   margin: 0;
   appearance: none;
-  min-height: var(--density-field-height);
+  min-height: var(--density-text-field-height);
   padding: 0 calc(var(--space-3) - 1px);
   border: 1px solid var(--platform-field-edge);
   border-radius: var(--radius-md);
