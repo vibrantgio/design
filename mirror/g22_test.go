@@ -64,20 +64,20 @@ func textSlot(shaper *text.Shaper, style tokens.TextStyle, c color.NRGBA, s stri
 }
 
 // cardSlots is the header / body / footer trio both card fixtures carry:
-// title-medium in the platform's label, a single non-wrapping body-medium
-// line in its secondary label, label-medium in its link colour —
+// title-2 in the platform's label, a single non-wrapping callout line in
+// its secondary label, small-system-font in its link colour —
 // card_test.go's slots(), shortened so neither renderer has a line-break
 // decision to disagree on. Each coverage is flattened onto the card's own
 // fill, which is what the slot is drawn over.
 func cardSlots(shaper *text.Shaper) (header, body, footer layout.Widget) {
 	c := tokens.PlatformLight
 	typo := tokens.DefaultTypography
-	return textSlot(shaper, typo.TitleMedium, vgcolor.Flatten(c.Label, c.CardFill), "Density"),
-		textSlot(shaper, typo.BodyMedium, vgcolor.Flatten(c.SecondaryLabel, c.CardFill), "Comfortable and Compact"),
-		textSlot(shaper, typo.LabelMedium, c.Link, "Read the token")
+	return textSlot(shaper, typo.Title2, vgcolor.Flatten(c.Label, c.CardFill), "Density"),
+		textSlot(shaper, typo.Callout, vgcolor.Flatten(c.SecondaryLabel, c.CardFill), "Comfortable and Compact"),
+		textSlot(shaper, typo.SmallSystemFont, c.Link, "Read the token")
 }
 
-// groupContent is what the group fixture holds: body-medium in the platform's
+// groupContent is what the group fixture holds: callout in the platform's
 // label over the same role in its secondary label, both single non-wrapping
 // lines so neither renderer has a line-break decision to disagree on. A group
 // declares no fill, so both coverages are flattened onto the surface it
@@ -87,8 +87,8 @@ func groupContent(shaper *text.Shaper) []layout.Widget {
 	c := tokens.PlatformLight
 	typo := tokens.DefaultTypography
 	return []layout.Widget{
-		textSlot(shaper, typo.BodyMedium, vgcolor.Flatten(c.Label, c.WindowBackground), "Comfortable"),
-		textSlot(shaper, typo.BodyMedium, vgcolor.Flatten(c.SecondaryLabel, c.WindowBackground), "Compact re-pitches"),
+		textSlot(shaper, typo.Callout, vgcolor.Flatten(c.Label, c.WindowBackground), "Comfortable"),
+		textSlot(shaper, typo.Callout, vgcolor.Flatten(c.SecondaryLabel, c.WindowBackground), "Compact re-pitches"),
 	}
 }
 
@@ -99,7 +99,7 @@ func groupContent(shaper *text.Shaper) []layout.Widget {
 func tableWidget(shaper *text.Shaper) layout.Widget {
 	cell := func(f func(int) string) func(int) layout.Widget {
 		return func(i int) layout.Widget {
-			return table.RenderTextCell(shaper, tokens.PlatformLight, tokens.DefaultTypography.BodyMedium, f(i))
+			return table.RenderTextCell(shaper, tokens.PlatformLight, tokens.DefaultTypography.SystemFont, f(i))
 		}
 	}
 	names := []string{"Tokens", "Density", "Elevation", "Motion"}
@@ -109,7 +109,7 @@ func tableWidget(shaper *text.Shaper) layout.Widget {
 		{Header: "Steps", Width: unit.Dp(96), Cell: cell(func(i int) string { return strconv.Itoa(4 * (i + 1)) })},
 	}
 	return table.Render(shaper, cols, []int{0, 1, 2, 3}, table.Sort{Column: 0, Asc: true},
-		tokens.PlatformLight, tokens.Spacing, tokens.DefaultTypography.LabelLarge, tokens.Comfortable)
+		tokens.PlatformLight, tokens.Spacing, tokens.DefaultTypography.SystemFont, tokens.Comfortable)
 }
 
 // TestPatternMirrors scores each pattern specimen pair: the patterns component
@@ -134,7 +134,7 @@ func TestPatternMirrors(t *testing.T) {
 		{"group.html", cardSize, group.Render(shaper,
 			group.Props{Title: "Density", Content: groupContent(shaper)},
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
-			tokens.DefaultTypography.LabelLarge,
+			group.TitleStyle(tokens.DefaultTypography),
 		)},
 		{"table.html", tableSize, tableWidget(shaper)},
 	}

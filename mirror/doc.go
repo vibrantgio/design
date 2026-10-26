@@ -37,41 +37,36 @@
 // and antialias edges differently by construction. [Distance] instead
 // box-downscales both images to coarse cells and averages the Euclidean RGB
 // distance per cell, so shaping and AA noise averages away while a wrong
-// colour, radius or size still moves the number.
+// colour or size still moves the number.
 //
 // # The calibration
 //
-// Read on the authoritative machine (Chromium 153.0.8008.0, darwin/arm64),
-// against the platform's own control scale — a 24 dp push button, a 27 dp
-// text field floor, a 20 dp stacked row — and re-read on 2026-09-18, after
-// the sheet stopped spending the type roles' tracking (the library's typeset
-// spends none, so a sheet that spent it set every label a fraction wider
-// than the component beside it):
+// The harness read these scores on the authoritative machine (Chromium
+// 153.0.8008.0, darwin/arm64), at the platform's own control scale: a 24 dp
+// push button set in the platform's 13 pt regular system font, a 27 dp text
+// field and a 20 dp stacked row.
 //
-//	Gio filled button vs its bundle mirror:             0.0177
+//	Gio filled button vs its bundle mirror:             0.0053
 //	stability: same page captured twice in Chromium:    0.0000
-//	vs the mirror with the wrong colour (systemRed):    0.6766
-//	vs the mirror with the wrong radius (a pill):       0.0278
-//	vs the mirror with the wrong size (compact 19 dp):  0.1502
+//	vs the mirror with the wrong colour (systemRed):    0.6553
+//	vs the mirror with the wrong size (compact 19 dp):  0.1455
 //
-// [Tolerance] is 0.0223, the geometric midpoint of the two clusters' nearest
-// members: 1.25× the measured matching distance and 1.25× below the nearest
-// wrong variant, the pill radius, so both clear it by the same margin.
+// [Tolerance] is 0.0223. Every matching pair in the package scores at most
+// 0.0150. The nearest wrong variant, the wrong size, scores 0.1455. Every
+// pair in the package is scored against that one number.
 //
-// Both margins narrowed at this re-baseline, and the cause is the platform's
-// scale rather than anything either side draws. The matching distance is the
-// title band and almost nothing else, and a 20 dp line box fills 20 of a
-// 24 dp button's rows where it filled 20 of 36; the wrong radius, meanwhile,
-// is a pill on a 24 dp button, which is a 12 px corner against the correct 6
-// where it used to be 18 against 6. The floor rose and the signal shrank,
-// both by the height. Widening the deliberate radius error instead of moving
-// the threshold was measured and rejected: an elliptical cap scores 0.1530
-// and stops being the NEAREST wrong variant, which is the whole reason that
-// fixture pins the threshold rather than the wrong-size one.
+// # What the metric does not see
 //
-// Every pair in the package is scored against that one number. Two of
-// them — the tonal button and the dropdown trigger — carried a measured
-// ceiling of their own above it until the sheet stopped spending the type
-// roles' tracking; both now land under Tolerance, and g2_test.go records what
-// that ceiling was and why it went.
+// At the platform scale (13 pt regular text on a 24 dp control) the metric
+// does not see a radius error or a weight error. A corner or a stem of that
+// size changes too few pixels to move the 4×4 cell means above the matching
+// pairs. The harness scored each variant below against the matching Gio
+// button:
+//
+//	the mirror with a pill radius:     0.0149
+//	the mirror with a square corner:   0.0090
+//	the mirror with a bold title:      0.0126
+//
+// All three land under [Tolerance], so the calibration scores no radius or
+// weight variant. The metric sees a wrong colour and a wrong size.
 package mirror

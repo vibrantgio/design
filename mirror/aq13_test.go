@@ -33,7 +33,7 @@ func TestFocusRingMirrors(t *testing.T) {
 	gio := golden.Capture(t, fieldSize, onColor(tokens.PlatformLight.WindowBackground, input.Render(
 		shaper, "Placeholder",
 		tokens.PlatformLight, tokens.Spacing, tokens.Radius,
-		tokens.DefaultTypography.BodyLarge, tokens.Comfortable,
+		tokens.DefaultTypography.SystemFont, tokens.Comfortable,
 		input.RenderState{Focused: true, Surface: tokens.PlatformLight.WindowBackground},
 	)))
 	if !FixtureExists("fixtures/" + fixture) {

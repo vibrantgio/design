@@ -12,8 +12,8 @@ body {
   background: var(--platform-window-background);
   color: var(--platform-label);
   font-family: var(--font-family), system-ui, sans-serif;
-  font-size: var(--font-body-medium-size);
-  line-height: var(--font-body-medium-line-height);
+  font-size: var(--font-body-size);
+  line-height: var(--font-body-line-height);
   letter-spacing: 0;
 }
 main {
@@ -28,23 +28,23 @@ main {
   gap: var(--space-4);
 }
 h1 {
-  font-size: var(--font-headline-large-size);
-  line-height: var(--font-headline-large-line-height);
-  font-weight: var(--font-headline-large-weight);
+  font-size: var(--font-large-title-size);
+  line-height: var(--font-large-title-line-height);
+  font-weight: var(--font-large-title-weight);
   letter-spacing: 0;
   margin: var(--space-6) 0 var(--space-2);
 }
 h2 {
-  font-size: var(--font-title-large-size);
-  line-height: var(--font-title-large-line-height);
-  font-weight: var(--font-title-large-weight);
+  font-size: var(--font-title-2-size);
+  line-height: var(--font-title-2-line-height);
+  font-weight: var(--font-title-2-weight);
   letter-spacing: 0;
   margin: var(--space-10) 0 var(--space-3);
 }
 h3 {
-  font-size: var(--font-title-medium-size);
-  line-height: var(--font-title-medium-line-height);
-  font-weight: var(--font-title-medium-weight);
+  font-size: var(--font-title-3-size);
+  line-height: var(--font-title-3-line-height);
+  font-weight: var(--font-title-3-weight);
   letter-spacing: 0;
   margin: var(--space-6) 0 var(--space-2);
 }
@@ -53,18 +53,18 @@ h3 {
   color: var(--platform-secondary-label);
 }
 .annot {
-  font-size: var(--font-label-small-size);
-  line-height: var(--font-label-small-line-height);
-  font-weight: var(--font-label-small-weight);
+  font-size: var(--font-caption-1-size);
+  line-height: var(--font-caption-1-line-height);
+  font-weight: var(--font-caption-1-weight);
   letter-spacing: 0;
   color: var(--platform-secondary-label);
   margin: var(--space-1) 0 0;
 }
 .mode-toggle {
   font-family: var(--font-family), system-ui, sans-serif;
-  font-size: var(--font-label-large-size);
-  line-height: var(--font-label-large-line-height);
-  font-weight: var(--font-label-large-weight);
+  font-size: var(--font-system-font-size);
+  line-height: var(--font-system-font-line-height);
+  font-weight: var(--font-system-font-weight);
   letter-spacing: 0;
   padding: var(--space-2) var(--space-4);
   color: var(--platform-label);
@@ -132,8 +132,8 @@ h3 {
   background: var(--platform-control-accent);
   color: var(--platform-alternate-selected-control-text);
   border-radius: var(--radius-md);
-  font-size: var(--font-label-large-size);
-  font-weight: var(--font-label-large-weight);
+  font-size: var(--font-system-font-size);
+  font-weight: var(--font-system-font-weight);
 }
 .chip-bar {
   height: var(--density-chip-height);
@@ -145,8 +145,8 @@ h3 {
   color: var(--platform-label);
   border: thin solid var(--platform-field-edge);
   border-radius: var(--radius-md);
-  font-size: var(--font-label-large-size);
-  font-weight: var(--font-label-large-weight);
+  font-size: var(--font-system-font-size);
+  font-weight: var(--font-system-font-weight);
 }
 .field-bar {
   height: var(--density-field-height);
@@ -157,7 +157,7 @@ h3 {
   color: var(--platform-placeholder-text);
   border: thin solid var(--platform-field-edge);
   border-radius: var(--radius-md);
-  font-size: var(--font-body-large-size);
+  font-size: var(--font-system-font-size);
 }
 .row-bar {
   height: var(--density-row-height);
@@ -166,7 +166,7 @@ h3 {
   align-items: center;
   background: var(--platform-alternating-content-background);
   color: var(--platform-label);
-  font-size: var(--font-body-large-size);
+  font-size: var(--font-system-font-size);
 }
 /* The checkbox's footprint, shown with the sheet's own .checkbox standing in
    it: the symbol's margin is the slack that centres it, so the wrapper comes
@@ -185,8 +185,8 @@ h3 {
   background: var(--platform-toolbar-control-fill);
   color: var(--platform-control-text);
   border-radius: calc(var(--density-toolbar-control-height) / 2);
-  font-size: var(--font-label-large-size);
-  font-weight: var(--font-label-large-weight);
+  font-size: var(--font-system-font-size);
+  font-weight: var(--font-system-font-weight);
 }
 .pad-box {
   display: inline-block;

@@ -239,11 +239,16 @@ zero.
 ## Typography
 
 **The theme owns the typeface.** `tokens.Typography` carries one
-`TextStyle` — typeface, weight, size, line height, tracking — per
-typography role: Display, Headline, Title, Label and Body, each in Large,
-Medium and Small; plus `Code`, one monospaced size; plus `DocumentHeadings`,
-the six heading steps of a prose document, derived from Body. A role's size
-and weight are the platform's for the text the role sets. Roboto is the
+`TextStyle` — typeface, weight, size, line height — per typography role:
+the platform's text styles with the platform's names (Large Title, Title 1
+to 3, Headline, Subheadline, Body, Callout, Footnote, Caption 1 and 2), the
+system font and the small system font, and the empty state line; plus
+`Code`, one monospaced size; plus `DocumentHeadings`, the six heading steps
+of a prose document, derived from Body. A role's size, weight and line
+height are the platform's for the text the role sets. A role adds no
+tracking: the typeface's own spacing sets the text. Two further styles set
+the text that opens a section at the medium weight: a group's title and a
+sidebar's section title. Roboto is the
 default typeface because the default `Typography` names it, and Roboto Mono
 sets `Code`.
 

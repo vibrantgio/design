@@ -12,8 +12,8 @@ body {
   background: var(--platform-window-background);
   color: var(--platform-label);
   font-family: var(--font-family), system-ui, sans-serif;
-  font-size: var(--font-body-medium-size);
-  line-height: var(--font-body-medium-line-height);
+  font-size: var(--font-body-size);
+  line-height: var(--font-body-line-height);
   letter-spacing: 0;
 }
 main {
@@ -22,16 +22,16 @@ main {
   padding: var(--space-6) var(--space-6) var(--space-16);
 }
 h1 {
-  font-size: var(--font-headline-large-size);
-  line-height: var(--font-headline-large-line-height);
-  font-weight: var(--font-headline-large-weight);
+  font-size: var(--font-large-title-size);
+  line-height: var(--font-large-title-line-height);
+  font-weight: var(--font-large-title-weight);
   letter-spacing: 0;
   margin: var(--space-6) 0 var(--space-2);
 }
 h2 {
-  font-size: var(--font-title-large-size);
-  line-height: var(--font-title-large-line-height);
-  font-weight: var(--font-title-large-weight);
+  font-size: var(--font-title-2-size);
+  line-height: var(--font-title-2-line-height);
+  font-weight: var(--font-title-2-weight);
   letter-spacing: 0;
   margin: var(--space-10) 0 var(--space-3);
 }
@@ -40,9 +40,9 @@ h2 {
   color: var(--platform-secondary-label);
 }
 .annot {
-  font-size: var(--font-label-small-size);
-  line-height: var(--font-label-small-line-height);
-  font-weight: var(--font-label-small-weight);
+  font-size: var(--font-caption-1-size);
+  line-height: var(--font-caption-1-line-height);
+  font-weight: var(--font-caption-1-weight);
   letter-spacing: 0;
   color: var(--platform-secondary-label);
 }
@@ -93,9 +93,9 @@ h2 {
   border-radius: var(--radius-md);
   background: var(--platform-control-accent);
   color: var(--platform-alternate-selected-control-text);
-  font-size: var(--font-label-large-size);
-  line-height: var(--font-label-large-line-height);
-  font-weight: var(--font-label-large-weight);
+  font-size: var(--font-system-font-size);
+  line-height: var(--font-system-font-line-height);
+  font-weight: var(--font-system-font-weight);
   letter-spacing: 0;
 }
 .hover-col {
@@ -218,7 +218,7 @@ h2 {
 
 <section>
 <h2>Tooltip</h2>
-<p class="intro">The inverse-video bubble: <code>--platform-label</code> as fill under a label in <code>--platform-control-background</code>, <code>label-small</code> metrics, radius <code>--radius-sm</code>, <code>--space-2</code>/<code>--space-1</code> padding, one <code>--space-1</code> gap from its trigger. It takes no fill from the elevation levels and no shadow — at tooltip size, inversion is the whole cue. It appears after a dwell and only one is visible per window.</p>
+<p class="intro">The inverse-video bubble: <code>--platform-label</code> as fill under a label in <code>--platform-control-background</code>, <code>small-system-font</code> metrics, radius <code>--radius-sm</code>, <code>--space-2</code>/<code>--space-1</code> padding, one <code>--space-1</code> gap from its trigger. It takes no fill from the elevation levels and no shadow — at tooltip size, inversion is the whole cue. It appears after a dwell and only one is visible per window.</p>
 <div class="row">
 <div class="cell">
 <div class="stage shallow">
@@ -235,7 +235,7 @@ h2 {
 
 <section>
 <h2>Toast</h2>
-<p class="intro">One queued notification: 240&nbsp;px wide with a 36&nbsp;px legibility floor that deliberately does not follow density &mdash; a toast is a message, not a control &mdash; <code>label-medium</code> text in <code>--platform-label</code> over <code>--platform-window-background</code>, which is what every floating surface on this platform is filled with, floating on the measured <code>--platform-floating-shadow</code>. The status is carried on the leading edge alone, one <code>--space-2</code> wide, in the platform's system colour for it: <code>.success</code>, <code>.warning</code> and <code>.error</code> swap that colour and the default is systemBlue. A toast says one thing about one event, and the colour of that edge is the whole of what it says; the message stays in the reading colour every other surface uses. Toasts stack in a corner-anchored <code>.toast-stack</code>, newest nearest the anchored edge.</p>
+<p class="intro">One queued notification: 240&nbsp;px wide with a 36&nbsp;px legibility floor that deliberately does not follow density &mdash; a toast is a message, not a control &mdash; <code>small-system-font</code> text in <code>--platform-label</code> over <code>--platform-window-background</code>, which is what every floating surface on this platform is filled with, floating on the measured <code>--platform-floating-shadow</code>. The status is carried on the leading edge alone, one <code>--space-2</code> wide, in the platform's system colour for it: <code>.success</code>, <code>.warning</code> and <code>.error</code> swap that colour and the default is systemBlue. A toast says one thing about one event, and the colour of that edge is the whole of what it says; the message stays in the reading colour every other surface uses. Toasts stack in a corner-anchored <code>.toast-stack</code>, newest nearest the anchored edge.</p>
 <div class="row">
 <div class="cell">
 <div class="toast-stack">

@@ -12,8 +12,8 @@ body {
   background: var(--platform-window-background);
   color: var(--platform-label);
   font-family: var(--font-family), system-ui, sans-serif;
-  font-size: var(--font-body-medium-size);
-  line-height: var(--font-body-medium-line-height);
+  font-size: var(--font-body-size);
+  line-height: var(--font-body-line-height);
   letter-spacing: 0;
 }
 main {
@@ -22,16 +22,16 @@ main {
   padding: var(--space-6) var(--space-6) var(--space-16);
 }
 h1 {
-  font-size: var(--font-headline-large-size);
-  line-height: var(--font-headline-large-line-height);
-  font-weight: var(--font-headline-large-weight);
+  font-size: var(--font-large-title-size);
+  line-height: var(--font-large-title-line-height);
+  font-weight: var(--font-large-title-weight);
   letter-spacing: 0;
   margin: var(--space-6) 0 var(--space-2);
 }
 h2 {
-  font-size: var(--font-title-large-size);
-  line-height: var(--font-title-large-line-height);
-  font-weight: var(--font-title-large-weight);
+  font-size: var(--font-title-2-size);
+  line-height: var(--font-title-2-line-height);
+  font-weight: var(--font-title-2-weight);
   letter-spacing: 0;
   margin: var(--space-10) 0 var(--space-3);
 }
@@ -40,9 +40,9 @@ h2 {
   color: var(--platform-secondary-label);
 }
 .annot {
-  font-size: var(--font-label-small-size);
-  line-height: var(--font-label-small-line-height);
-  font-weight: var(--font-label-small-weight);
+  font-size: var(--font-caption-1-size);
+  line-height: var(--font-caption-1-line-height);
+  font-weight: var(--font-caption-1-weight);
   letter-spacing: 0;
   color: var(--platform-secondary-label);
 }
@@ -75,9 +75,9 @@ h2 {
    placeholder 16px icon square for the sidebar rows — the icon slot's
    content is the caller's, like the Gio pattern's Icon field. */
 .brand {
-  font-size: var(--font-title-medium-size);
-  line-height: var(--font-title-medium-line-height);
-  font-weight: var(--font-title-medium-weight);
+  font-size: var(--font-title-2-size);
+  line-height: var(--font-title-2-line-height);
+  font-weight: var(--font-title-2-weight);
   letter-spacing: 0;
 }
 .demo-icon {
@@ -94,7 +94,7 @@ h2 {
 
 <section>
 <h2>Navbar — <code>.navbar</code></h2>
-<p class="intro">A horizontal chrome bar, <code>--density-control-height</code> plus twice <code>--density-padding-y</code> tall (28&nbsp;px comfortable, 19 compact). Slots run brand, links, actions in document order; <code>.navbar-links</code> centres itself in the space the end slots leave over. Each <code>.navbar-link</code> is label-large text with a 2&nbsp;px underline slot along its bottom edge; <code>.selected</code> fills the slot with the platform's selection colour. Links clip rather than wrap &mdash; there is no overflow affordance.</p>
+<p class="intro">A horizontal chrome bar, <code>--density-control-height</code> plus twice <code>--density-padding-y</code> tall (28&nbsp;px comfortable, 19 compact). Slots run brand, links, actions in document order; <code>.navbar-links</code> centres itself in the space the end slots leave over. Each <code>.navbar-link</code> is system-font text with a 2&nbsp;px underline slot along its bottom edge; <code>.selected</code> fills the slot with the platform's selection colour. Links clip rather than wrap &mdash; there is no overflow affordance.</p>
 <div class="row">
 <div class="cell">
 <nav class="navbar">
@@ -189,7 +189,7 @@ h2 {
 
 <section>
 <h2>Breadcrumb — <code>.crumbs</code></h2>
-<p class="intro">A row of title-small places parted by the icon set's chevron (<code>.crumb-sep</code>), drawn as the platform's path bar. Every <code>.crumb</code> is set in <code>--platform-label</code>, the one before the last as much as the last, and which place you are at is told by standing last and answering nothing rather than by a colour of its own. The separator stands in a 20&nbsp;px square and the row leaves its drawn figure 8&nbsp;px clear on each side. The pointer stays the arrow: the pointing hand belongs to links in the content. Every place renders on one line; a deep trail clips rather than collapsing to an ellipsis, so eliding a middle place is the caller's.</p>
+<p class="intro">A row of system-font places parted by the icon set's chevron (<code>.crumb-sep</code>), drawn as the platform's path bar. Every <code>.crumb</code> is set in <code>--platform-label</code>, the one before the last as much as the last, and which place you are at is told by standing last and answering nothing rather than by a colour of its own. The separator stands in a 20&nbsp;px square and the row leaves its drawn figure 8&nbsp;px clear on each side. The pointer stays the arrow: the pointing hand belongs to links in the content. Every place renders on one line; a deep trail clips rather than collapsing to an ellipsis, so eliding a middle place is the caller's.</p>
 <div class="row">
 <div class="cell">
 <nav class="crumbs">

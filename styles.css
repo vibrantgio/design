@@ -96,70 +96,57 @@
   --toolbar-control-shadow-offset: 9px;
   --font-family: "Roboto";
   --font-family-code: "Roboto Mono";
-  --font-display-large-size: 57px;
-  --font-display-large-line-height: 64px;
-  --font-display-large-weight: 400;
-  --font-display-large-tracking: -0.25px;
-  --font-display-medium-size: 45px;
-  --font-display-medium-line-height: 52px;
-  --font-display-medium-weight: 400;
-  --font-display-medium-tracking: 0px;
-  --font-display-small-size: 36px;
-  --font-display-small-line-height: 44px;
-  --font-display-small-weight: 400;
-  --font-display-small-tracking: 0px;
-  --font-headline-large-size: 32px;
-  --font-headline-large-line-height: 40px;
-  --font-headline-large-weight: 400;
-  --font-headline-large-tracking: 0px;
-  --font-headline-medium-size: 28px;
-  --font-headline-medium-line-height: 36px;
-  --font-headline-medium-weight: 400;
-  --font-headline-medium-tracking: 0px;
-  --font-headline-small-size: 24px;
-  --font-headline-small-line-height: 32px;
-  --font-headline-small-weight: 400;
-  --font-headline-small-tracking: 0px;
-  --font-title-large-size: 22px;
-  --font-title-large-line-height: 28px;
-  --font-title-large-weight: 400;
-  --font-title-large-tracking: 0px;
-  --font-title-medium-size: 16px;
-  --font-title-medium-line-height: 24px;
-  --font-title-medium-weight: 500;
-  --font-title-medium-tracking: 0.15px;
-  --font-title-small-size: 14px;
-  --font-title-small-line-height: 20px;
-  --font-title-small-weight: 500;
-  --font-title-small-tracking: 0.1px;
+  --font-large-title-size: 26px;
+  --font-large-title-line-height: 32px;
+  --font-large-title-weight: 400;
+  --font-title-1-size: 22px;
+  --font-title-1-line-height: 26px;
+  --font-title-1-weight: 400;
+  --font-title-2-size: 17px;
+  --font-title-2-line-height: 22px;
+  --font-title-2-weight: 400;
+  --font-title-3-size: 15px;
+  --font-title-3-line-height: 20px;
+  --font-title-3-weight: 400;
+  --font-headline-size: 13px;
+  --font-headline-line-height: 16px;
+  --font-headline-weight: 700;
+  --font-subheadline-size: 11px;
+  --font-subheadline-line-height: 14px;
+  --font-subheadline-weight: 400;
+  --font-body-size: 13px;
+  --font-body-line-height: 16px;
+  --font-body-weight: 400;
+  --font-callout-size: 12px;
+  --font-callout-line-height: 15px;
+  --font-callout-weight: 400;
+  --font-footnote-size: 10px;
+  --font-footnote-line-height: 13px;
+  --font-footnote-weight: 400;
+  --font-caption-1-size: 10px;
+  --font-caption-1-line-height: 13px;
+  --font-caption-1-weight: 400;
+  --font-caption-2-size: 10px;
+  --font-caption-2-line-height: 13px;
+  --font-caption-2-weight: 510;
+  --font-system-font-size: 13px;
+  --font-system-font-line-height: 16px;
+  --font-system-font-weight: 400;
+  --font-small-system-font-size: 11px;
+  --font-small-system-font-line-height: 13px;
+  --font-small-system-font-weight: 400;
+  --font-empty-state-line-size: 28px;
+  --font-empty-state-line-line-height: 33px;
+  --font-empty-state-line-weight: 400;
   --font-label-large-size: 14px;
   --font-label-large-line-height: 20px;
   --font-label-large-weight: 500;
-  --font-label-large-tracking: 0.1px;
-  --font-label-medium-size: 12px;
-  --font-label-medium-line-height: 16px;
-  --font-label-medium-weight: 500;
-  --font-label-medium-tracking: 0.5px;
   --font-label-small-size: 11px;
   --font-label-small-line-height: 16px;
   --font-label-small-weight: 500;
-  --font-label-small-tracking: 0.5px;
-  --font-body-large-size: 16px;
-  --font-body-large-line-height: 24px;
-  --font-body-large-weight: 400;
-  --font-body-large-tracking: 0.5px;
-  --font-body-medium-size: 14px;
-  --font-body-medium-line-height: 20px;
-  --font-body-medium-weight: 400;
-  --font-body-medium-tracking: 0.25px;
-  --font-body-small-size: 12px;
-  --font-body-small-line-height: 16px;
-  --font-body-small-weight: 400;
-  --font-body-small-tracking: 0.4px;
-  --font-code-size: 14px;
-  --font-code-line-height: 20px;
+  --font-code-size: 13px;
+  --font-code-line-height: 16px;
   --font-code-weight: 400;
-  --font-code-tracking: 0.25px;
   --density-control-height: 24px;
   --density-chip-height: 20px;
   --density-field-height: 27px;
@@ -338,9 +325,9 @@
   padding: var(--density-padding-y) var(--density-padding-x);
   border-radius: var(--radius-md);
   font-family: var(--font-family);
-  font-size: var(--font-label-large-size);
-  line-height: var(--font-label-large-line-height);
-  font-weight: var(--font-label-large-weight);
+  font-size: var(--font-system-font-size);
+  line-height: var(--font-system-font-line-height);
+  font-weight: var(--font-system-font-weight);
   letter-spacing: 0;
   background: var(--platform-default-button-fill);
   color: var(--platform-alternate-selected-control-text);
@@ -490,11 +477,11 @@
    giving no status colour for "no status".
 
    It is off the control metrics — no boundary, no minimum height, no vertical
-   padding — so its whole height is the label role's line box. The side
+   padding — so its whole height is the small system font's line box. The side
    padding is the S2 stop and the corner the radius scale's Base stop,
    deliberately not the pill, which is a chip's shape.
 
-   The label role is the comfortable density's. The sheet re-maps no type role
+   The role is the comfortable density's. The sheet re-maps no type role
    under .compact, so the class states the comfortable role and a compact page
    sets its badges in the same one.
 
@@ -508,9 +495,9 @@
   padding: 0 var(--space-2);
   border-radius: var(--radius-base);
   font-family: var(--font-family);
-  font-size: var(--font-label-medium-size);
-  line-height: var(--font-label-medium-line-height);
-  font-weight: var(--font-label-medium-weight);
+  font-size: var(--font-small-system-font-size);
+  line-height: var(--font-small-system-font-line-height);
+  font-weight: var(--font-small-system-font-weight);
   letter-spacing: 0;
   background: var(--platform-system-gray);
   color: var(--platform-alternate-selected-control-text);
@@ -563,9 +550,9 @@
   background-clip: padding-box;
   color: var(--platform-label);
   font-family: var(--font-family);
-  font-size: var(--font-body-large-size);
-  line-height: var(--font-body-large-line-height);
-  font-weight: var(--font-body-large-weight);
+  font-size: var(--font-system-font-size);
+  line-height: var(--font-system-font-line-height);
+  font-weight: var(--font-system-font-weight);
   letter-spacing: 0;
 }
 .input::placeholder { color: var(--platform-placeholder-text); opacity: 1; }
@@ -843,7 +830,7 @@
    of the group's stack — the platform's idiom for a section header over a
    bordered container, and not the fieldset legend cut into the top line,
    which has no native counterpart and does not survive a Lg corner. The
-   label-large role in the platform's secondary label: a group's own name is
+   group title's style in the platform's secondary label: a group's own name is
    set under the content it names. */
 .group-title {
   font-size: var(--font-label-large-size);
@@ -864,7 +851,7 @@
    platform's grid colour drawn inside its own height; the header's foot is
    the separator over the content fill. Cells inset horizontally by S3
    (cellPadDp, 12 dp — static, the same inset rule the input uses); body text
-   is body-medium in the platform's label (RenderTextCell), header text the
+   is the system font in the platform's label (RenderTextCell), header text the
    platform's header text. Every second body row is laid on the platform's
    alternating content background, which is what Finder's list view draws.
    Sort is a 10 dp chevron in the header's own foreground at
@@ -879,9 +866,9 @@
   background: var(--platform-control-background);
   color: var(--platform-label);
   font-family: var(--font-family);
-  font-size: var(--font-body-medium-size);
-  line-height: var(--font-body-medium-line-height);
-  font-weight: var(--font-body-medium-weight);
+  font-size: var(--font-system-font-size);
+  line-height: var(--font-system-font-line-height);
+  font-weight: var(--font-system-font-weight);
   letter-spacing: 0;
 }
 .table th, .table td {
@@ -906,9 +893,9 @@
   background: var(--platform-control-background);
   box-shadow: inset 0 -1px 0 var(--platform-separator);
   color: var(--platform-header-text);
-  font-size: var(--font-label-large-size);
-  line-height: var(--font-label-large-line-height);
-  font-weight: var(--font-label-large-weight);
+  font-size: var(--font-system-font-size);
+  line-height: var(--font-system-font-line-height);
+  font-weight: var(--font-system-font-weight);
   letter-spacing: 0;
 }
 .table th.sortable { cursor: pointer; }
@@ -965,7 +952,7 @@
   margin-inline: auto;  /* the leftover space, halved on either side */
 }
 
-/* A link cell (navbar.go linkWidget): label-large in the platform's label
+/* A link cell (navbar.go linkWidget): the system font in the platform's label
    inside (S3, PaddingY) padding, with a 2 dp underline slot along the bottom
    edge that the Active link fills with the platform's selection colour — the
    underline runs the full cell width, padding included, exactly the
@@ -983,9 +970,9 @@
   white-space: nowrap;
   cursor: pointer;
   font-family: var(--font-family);
-  font-size: var(--font-label-large-size);
-  line-height: var(--font-label-large-line-height);
-  font-weight: var(--font-label-large-weight);
+  font-size: var(--font-system-font-size);
+  line-height: var(--font-system-font-line-height);
+  font-weight: var(--font-system-font-weight);
   letter-spacing: 0;
   color: var(--platform-label);
   border-bottom: 2px solid transparent;  /* underlineDp: the underline slot */
@@ -1067,7 +1054,7 @@
 
 /* An item row (drawItem): a symbol, a title and, at the trailing end, a count
    when the entry has one. The symbol stands in a 24 dp square set 17 in from
-   the rail's leading edge, the label-large title starts at 48 in, and the
+   the rail's leading edge, the title starts at 48 in, and the
    count's trailing edge is 17 in from the rail's trailing edge; each part is
    vertically centred, one line, clipped rather than wrapped — which is also
    what hides the title and the count at the collapsed width. The symbol wears
@@ -1097,9 +1084,9 @@
   white-space: nowrap;
   cursor: pointer;
   font-family: var(--font-family);
-  font-size: var(--font-label-large-size);
-  line-height: var(--font-label-large-line-height);
-  font-weight: var(--font-label-large-weight);
+  font-size: var(--font-system-font-size);
+  line-height: var(--font-system-font-line-height);
+  font-weight: var(--font-system-font-weight);
   letter-spacing: 0;
   color: var(--platform-label);
   text-decoration: none;
@@ -1202,7 +1189,7 @@
   user-select: none;
 }
 
-/* Breadcrumb (components/breadcrumb breadcrumb.go): a row of title-small
+/* Breadcrumb (components/breadcrumb breadcrumb.go): a row of system-font
    places parted by the icon set's chevron, drawn as the platform's path bar.
    Every place is set in the platform's label, the one before the last as
    much as the last, and which place you are at is told by standing last and
@@ -1217,9 +1204,9 @@
   align-items: center;
   gap: 1.33px;   /* the stated 8 less the 6.67 the mark box leaves clear */
   font-family: var(--font-family);
-  font-size: var(--font-title-small-size);
-  line-height: var(--font-title-small-line-height);
-  font-weight: var(--font-title-small-weight);
+  font-size: var(--font-system-font-size);
+  line-height: var(--font-system-font-line-height);
+  font-weight: var(--font-system-font-weight);
   letter-spacing: 0;
 }
 .crumb {
@@ -1341,7 +1328,7 @@
   color: var(--platform-label);
 }
 
-/* The header row (dialog.go headerWidget): the title-medium title on the
+/* The header row (dialog.go headerWidget): the title-2 title on the
    left, the close affordance — when the purpose shows one — on the right,
    middle-aligned so the ghost button's square drives the row height. */
 .dialog-header {
@@ -1351,9 +1338,9 @@
 .dialog-title {
   flex: 1;
   font-family: var(--font-family);
-  font-size: var(--font-title-medium-size);
-  line-height: var(--font-title-medium-line-height);
-  font-weight: var(--font-title-medium-weight);
+  font-size: var(--font-title-2-size);
+  line-height: var(--font-title-2-line-height);
+  font-weight: var(--font-title-2-weight);
   letter-spacing: 0;
 }
 
@@ -1464,9 +1451,9 @@
   background: var(--platform-window-background);
   color: var(--platform-label);
   font-family: var(--font-family);
-  font-size: var(--font-body-large-size);
-  line-height: var(--font-body-large-line-height);
-  font-weight: var(--font-body-large-weight);
+  font-size: var(--font-system-font-size);
+  line-height: var(--font-system-font-line-height);
+  font-weight: var(--font-system-font-weight);
   letter-spacing: 0;
   --floating-shadow-step: color-mix(in srgb, var(--platform-floating-shadow) 12.5%, transparent);
   box-shadow:
@@ -1554,7 +1541,7 @@
 
 /* Tooltip (components/tooltip tooltip.go drawSurface): the window background
    inside the platform's separator under its text in the platform's label
-   colour, label-small, radius Sm, S2/S1 padding measured from the outer edge,
+   colour, the small system font, radius Sm, S2/S1 padding measured from the outer edge,
    clamped to the 24x16 dp minimum. It casts no shadow: the hairline is the
    whole of a still tooltip's edge, and what places it draws whatever shadow
    the placement owes. The same in both appearances. */
@@ -1571,15 +1558,15 @@
   color: var(--platform-label);
   white-space: nowrap;
   font-family: var(--font-family);
-  font-size: var(--font-label-small-size);
-  line-height: var(--font-label-small-line-height);
-  font-weight: var(--font-label-small-weight);
+  font-size: var(--font-small-system-font-size);
+  line-height: var(--font-small-system-font-line-height);
+  font-weight: var(--font-small-system-font-weight);
   letter-spacing: 0;
 }
 
 /* Toast: one queued notification — 240 dp wide, a 36 dp legibility floor that
    deliberately does not follow density (a toast is not a control), radius Md,
-   label-medium in the platform's label over the window background, and
+   the small system font in the platform's label over the window background, and
    floating on the platform's measured shadow. The status is carried on the
    leading edge alone, one S2 wide, in the platform's system colour for it —
    painted as a two-stop gradient so the chip's own radius rounds it. A toast
@@ -1598,9 +1585,9 @@
   background: linear-gradient(to right, var(--platform-system-blue) 0 var(--space-2), var(--platform-window-background) var(--space-2));
   color: var(--platform-label);
   font-family: var(--font-family);
-  font-size: var(--font-label-medium-size);
-  line-height: var(--font-label-medium-line-height);
-  font-weight: var(--font-label-medium-weight);
+  font-size: var(--font-small-system-font-size);
+  line-height: var(--font-small-system-font-line-height);
+  font-weight: var(--font-small-system-font-weight);
   letter-spacing: 0;
 }
 .toast.success {

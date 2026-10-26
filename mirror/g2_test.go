@@ -42,8 +42,8 @@ func onBackground(w layout.Widget) func(layout.Context) layout.Dimensions {
 var symbolSize = image.Pt(checkboxRowHeight, checkboxRowHeight)
 
 // fieldSize is the text-field capture viewport: 220 wide like the button
-// captures, and fieldHeight tall — BodyLarge's 24 dp line box plus twice the
-// density's 2 dp vertical padding, which beats the 27 dp field-height floor.
+// captures, and fieldHeight tall — the 27 dp field-height floor, which beats
+// SystemFont's 16 dp line box plus twice the density's 2 dp vertical padding.
 var fieldSize = image.Pt(220, fieldHeight)
 
 // triggerSize is the dropdown capture viewport: the same width, at the
@@ -68,43 +68,43 @@ func TestComponentMirrors(t *testing.T) {
 		{"button-tonal.html", mirrorSize, button.Render(
 			shaper, "Save Changes",
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
-			tokens.DefaultTypography.LabelLarge, tokens.Comfortable,
+			tokens.DefaultTypography.SystemFont, tokens.Comfortable,
 			button.RenderState{Emphasis: button.Tonal, Surface: tokens.PlatformLight.WindowBackground},
 		)},
 		{"button-ghost.html", mirrorSize, button.Render(
 			shaper, "Save Changes",
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
-			tokens.DefaultTypography.LabelLarge, tokens.Comfortable,
+			tokens.DefaultTypography.SystemFont, tokens.Comfortable,
 			button.RenderState{Emphasis: button.Ghost, Surface: tokens.PlatformLight.WindowBackground},
 		)},
 		{"textfield.html", fieldSize, input.Render(
 			shaper, "Placeholder",
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
-			tokens.DefaultTypography.BodyLarge, tokens.Comfortable,
+			tokens.DefaultTypography.SystemFont, tokens.Comfortable,
 			input.RenderState{Surface: tokens.PlatformLight.WindowBackground},
 		)},
 		{"dropdown.html", triggerSize, input.RenderDropdown(
 			shaper,
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
-			tokens.DefaultTypography.BodyLarge, tokens.Comfortable,
+			tokens.DefaultTypography.SystemFont, tokens.Comfortable,
 			input.DropdownRenderState{Options: []string{"Comfortable", "Compact"}},
 		)},
 		{"checkbox.html", symbolSize, input.RenderCheckbox(
 			nil,
 			tokens.PlatformLight, tokens.Spacing,
-			tokens.DefaultTypography.BodyLarge,
+			tokens.DefaultTypography.SystemFont,
 			input.CheckboxRenderState{Surface: tokens.PlatformLight.WindowBackground},
 		)},
 		{"checkbox-checked.html", symbolSize, input.RenderCheckbox(
 			nil,
 			tokens.PlatformLight, tokens.Spacing,
-			tokens.DefaultTypography.BodyLarge,
+			tokens.DefaultTypography.SystemFont,
 			input.CheckboxRenderState{Checked: true, Surface: tokens.PlatformLight.WindowBackground},
 		)},
 		{"radio-selected.html", symbolSize, input.RenderRadio(
 			nil,
 			tokens.PlatformLight, tokens.Spacing,
-			tokens.DefaultTypography.BodyLarge,
+			tokens.DefaultTypography.SystemFont,
 			input.RadioRenderState{Selected: true, Surface: tokens.PlatformLight.WindowBackground},
 		)},
 	}
@@ -126,16 +126,6 @@ func TestComponentMirrors(t *testing.T) {
 }
 
 // ONE CEILING. Every pair in this file is scored against [Tolerance] and
-// nothing else. Two of them — the tonal button and the dropdown trigger, the
-// push button's own fill under the platform's control text at the control
-// height — carried a measured ceiling above it until 2026-09-18, on the
-// reading that the two renderers place the same symbols one pixel apart and
-// weigh their stems differently inside a frame that is almost entirely label.
-//
-// Half of that gap was the sheet, not the rasterisers: it set every label a
-// fraction wider than the component because it spent the type roles' tracking
-// where the library's typeset spends none. With that fixed both pairs measure
-// under Tolerance on the authoritative machine — button-tonal 0.0174 and
-// dropdown 0.0176 against Tolerance's 0.0223 — with the nearest wrong variant
-// the calibration scores, the wrong radius, at 0.0255. So the ceiling is one
-// number again and a pair that drifts fails wherever it drifts.
+// nothing else. On the authoritative machine the tonal button and the
+// dropdown trigger score 0.0128 and the ghost button 0.0139, against
+// Tolerance's 0.0223. A pair that drifts fails wherever it drifts.

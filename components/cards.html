@@ -12,8 +12,8 @@ body {
   background: var(--platform-window-background);
   color: var(--platform-label);
   font-family: var(--font-family), system-ui, sans-serif;
-  font-size: var(--font-body-medium-size);
-  line-height: var(--font-body-medium-line-height);
+  font-size: var(--font-body-size);
+  line-height: var(--font-body-line-height);
   letter-spacing: 0;
 }
 main {
@@ -22,16 +22,16 @@ main {
   padding: var(--space-6) var(--space-6) var(--space-16);
 }
 h1 {
-  font-size: var(--font-headline-large-size);
-  line-height: var(--font-headline-large-line-height);
-  font-weight: var(--font-headline-large-weight);
+  font-size: var(--font-large-title-size);
+  line-height: var(--font-large-title-line-height);
+  font-weight: var(--font-large-title-weight);
   letter-spacing: 0;
   margin: var(--space-6) 0 var(--space-2);
 }
 h2 {
-  font-size: var(--font-title-large-size);
-  line-height: var(--font-title-large-line-height);
-  font-weight: var(--font-title-large-weight);
+  font-size: var(--font-title-2-size);
+  line-height: var(--font-title-2-line-height);
+  font-weight: var(--font-title-2-weight);
   letter-spacing: 0;
   margin: var(--space-10) 0 var(--space-3);
 }
@@ -40,9 +40,9 @@ h2 {
   color: var(--platform-secondary-label);
 }
 .annot {
-  font-size: var(--font-label-small-size);
-  line-height: var(--font-label-small-line-height);
-  font-weight: var(--font-label-small-weight);
+  font-size: var(--font-caption-1-size);
+  line-height: var(--font-caption-1-line-height);
+  font-weight: var(--font-caption-1-weight);
   letter-spacing: 0;
   color: var(--platform-secondary-label);
 }
@@ -65,12 +65,12 @@ h2 {
 .cell .card, .cell .group { width: 17.5rem; }
 /* Slot typography is the content's, not the card's — the Gio card draws no
    text of its own, and the group draws only its own title. These are this
-   page's example slots: a title-medium header, a body-medium body in the
-   platform's secondary label, a label-medium footer in its link colour. */
+   page's example slots: a title-2 header, a body body in the
+   platform's secondary label, a small-system-font footer in its link colour. */
 .card-title {
-  font-size: var(--font-title-medium-size);
-  line-height: var(--font-title-medium-line-height);
-  font-weight: var(--font-title-medium-weight);
+  font-size: var(--font-title-2-size);
+  line-height: var(--font-title-2-line-height);
+  font-weight: var(--font-title-2-weight);
   letter-spacing: 0;
 }
 .card-body {
@@ -78,9 +78,9 @@ h2 {
   color: var(--platform-secondary-label);
 }
 .card-footer {
-  font-size: var(--font-label-medium-size);
-  line-height: var(--font-label-medium-line-height);
-  font-weight: var(--font-label-medium-weight);
+  font-size: var(--font-small-system-font-size);
+  line-height: var(--font-small-system-font-line-height);
+  font-weight: var(--font-small-system-font-weight);
   letter-spacing: 0;
   color: var(--platform-control-accent);
 }
@@ -91,7 +91,7 @@ h2 {
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-lg);
-  font-weight: var(--font-title-medium-weight);
+  font-weight: var(--font-title-2-weight);
 }
 .dark.row {
   border-color: var(--platform-separator);

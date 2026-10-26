@@ -5,7 +5,7 @@
      fill of the surface it is in and paints nothing there, so the page's own
      window background shows through and the platform's separator is the
      whole of what says where it ends. The title is the group's own,
-     label-large in the platform's secondary label; the rest mirrors
+     the group title's style in the platform's secondary label; the rest mirrors
      group_test.go's content. -->
 <meta charset="utf-8">
 <link rel="stylesheet" href="/styles.css">
@@ -14,17 +14,15 @@
   body { background: var(--platform-window-background); font-family: var(--font-family); }
   .group { width: 280px; height: 200px; }
   .slot-b {
-    font-size: var(--font-body-medium-size);
-    line-height: var(--font-body-medium-line-height);
-    font-weight: var(--font-body-medium-weight);
-    letter-spacing: var(--font-body-medium-tracking);
+    font-size: var(--font-callout-size);
+    line-height: var(--font-callout-line-height);
+    font-weight: var(--font-callout-weight);
     color: var(--platform-label);
   }
   .slot-m {
-    font-size: var(--font-body-medium-size);
-    line-height: var(--font-body-medium-line-height);
-    font-weight: var(--font-body-medium-weight);
-    letter-spacing: var(--font-body-medium-tracking);
+    font-size: var(--font-callout-size);
+    line-height: var(--font-callout-line-height);
+    font-weight: var(--font-callout-weight);
     color: var(--platform-secondary-label);
   }
 </style>

@@ -8,19 +8,20 @@ import (
 
 // cellPx is the box-filter cell size of [Distance], in source pixels. Four
 // pixels is roughly the scale of antialiasing and glyph-shaping disagreement
-// between two renderers: averaging over a 4×4 box smooths those away while a
-// wrong colour role, corner radius or control size — which move whole
-// regions, not edge pixels — still shifts the cell means.
+// between two renderers: averaging over a 4×4 box smooths those away. A
+// wrong colour role or control size moves whole regions, not edge pixels,
+// and so still shifts the cell means.
 const cellPx = 4
 
 // Tolerance is the perceptual distance below which two renders read as the
 // same component. It is calibrated in TestCalibration from real pairs on the
-// authoritative machine, never in the abstract; the package comment carries
-// the measured clusters and the arithmetic that places the threshold between
-// them. The floor it sits above is the cross-renderer one — a different text
-// shaper, a different rasteriser, a different gamma — and not byte-count
-// divergence between two Gio backends, which is antialiasing and gradient
-// dithering, exactly the noise the box filter averages away.
+// authoritative machine, never in the abstract. The package comment
+// records the measured scores: every matching pair at most 0.0150, the
+// nearest wrong variant at 0.1455. The floor it sits above is the
+// cross-renderer one — a different text shaper, a different rasteriser, a
+// different gamma — and not byte-count divergence between two Gio backends,
+// which is antialiasing and gradient dithering, exactly the noise the box
+// filter averages away.
 const Tolerance = 0.0223
 
 // Distance reports the perceptual distance between two equally-sized images

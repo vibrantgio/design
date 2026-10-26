@@ -34,7 +34,7 @@ never invent a class, a token, or a size variant.
   the bordered toolbar control at `--density-toolbar-control-height`. A
   button has no selected state. There is **no size modifier** — density is
   the size axis.
-- **Badges** — `.badge`: label-medium text in
+- **Badges** — `.badge`: small-system-font text in
   `--platform-alternate-selected-control-text` on a fill of
   `--platform-system-gray`, side padding `--space-2`, no vertical padding,
   corner `--radius-base`. Read, not used — no interaction states. Status
@@ -98,10 +98,11 @@ never invent a class, a token, or a size variant.
   platform states at a coverage carries its alpha and composites over
   whatever is beneath, which is how one value reads right on every fill.
 - Type: `--font-family`, `--font-family-code`, and per-role
-  `--font-<role>-size`/`-line-height`/`-weight`/`-tracking` for roles
-  `display-large`…`body-small` plus `code` (e.g.
-  `--font-title-medium-size`). Set all four together; never a bare
-  `font-size`.
+  `--font-<role>-size`/`-line-height`/`-weight` for the platform's roles
+  `large-title`…`empty-state-line`, the group title's `label-large`, the
+  sidebar section title's `label-small`, and `code` (e.g.
+  `--font-title-2-size`). Set all three together; never a bare
+  `font-size`. A role adds no tracking.
 - Density: `--density-control-height`, `--density-chip-height`,
   `--density-field-height`, `--density-row-height`,
   `--density-checkbox-row-height`, `--density-toolbar-control-height`,

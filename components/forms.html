@@ -12,8 +12,8 @@ body {
   background: var(--platform-window-background);
   color: var(--platform-label);
   font-family: var(--font-family), system-ui, sans-serif;
-  font-size: var(--font-body-medium-size);
-  line-height: var(--font-body-medium-line-height);
+  font-size: var(--font-body-size);
+  line-height: var(--font-body-line-height);
   letter-spacing: 0;
 }
 main {
@@ -22,16 +22,16 @@ main {
   padding: var(--space-6) var(--space-6) var(--space-16);
 }
 h1 {
-  font-size: var(--font-headline-large-size);
-  line-height: var(--font-headline-large-line-height);
-  font-weight: var(--font-headline-large-weight);
+  font-size: var(--font-large-title-size);
+  line-height: var(--font-large-title-line-height);
+  font-weight: var(--font-large-title-weight);
   letter-spacing: 0;
   margin: var(--space-6) 0 var(--space-2);
 }
 h2 {
-  font-size: var(--font-title-large-size);
-  line-height: var(--font-title-large-line-height);
-  font-weight: var(--font-title-large-weight);
+  font-size: var(--font-title-2-size);
+  line-height: var(--font-title-2-line-height);
+  font-weight: var(--font-title-2-weight);
   letter-spacing: 0;
   margin: var(--space-10) 0 var(--space-3);
 }
@@ -40,9 +40,9 @@ h2 {
   color: var(--platform-secondary-label);
 }
 .annot {
-  font-size: var(--font-label-small-size);
-  line-height: var(--font-label-small-line-height);
-  font-weight: var(--font-label-small-weight);
+  font-size: var(--font-caption-1-size);
+  line-height: var(--font-caption-1-line-height);
+  font-weight: var(--font-caption-1-weight);
   letter-spacing: 0;
   color: var(--platform-secondary-label);
 }
@@ -72,8 +72,8 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  font-size: var(--font-body-medium-size);
-  line-height: var(--font-body-medium-line-height);
+  font-size: var(--font-body-size);
+  line-height: var(--font-body-line-height);
   letter-spacing: 0;
 }
 </style>
@@ -81,7 +81,7 @@ h2 {
 <body>
 <main>
 <h1>Forms</h1>
-<p class="intro">Form controls are native elements wearing the token sheet's classes &mdash; no script anywhere on this page. <code>.input</code> dresses a text <code>&lt;input&gt;</code>; a pop-up trigger is <code>&lt;select class="input select"&gt;</code> inside a <code>.select-wrap</code>, which draws the platform's pop-up mark; <code>.checkbox</code> and <code>.radio</code> dress their native input types. Resolution mirrors <code>components/input</code> and <code>components/picker</code>: the platform's text background under <code>body-large</code> text, the measured field edge (<code>--platform-field-edge</code>) on the resting edge of the field, the checkbox and the radio alike, the platform's placeholder text, focus adding the ring on the box the control already draws and moving nothing, and a switched-off control fading to the push button's own fill at <code>--disabled-coverage</code> over the surface it stands on. A text field's floor is <code>--density-field-height</code> and a trigger's is <code>--density-control-height</code>: the platform draws a field taller than the button beside it.</p>
+<p class="intro">Form controls are native elements wearing the token sheet's classes &mdash; no script anywhere on this page. <code>.input</code> dresses a text <code>&lt;input&gt;</code>; a pop-up trigger is <code>&lt;select class="input select"&gt;</code> inside a <code>.select-wrap</code>, which draws the platform's pop-up mark; <code>.checkbox</code> and <code>.radio</code> dress their native input types. Resolution mirrors <code>components/input</code> and <code>components/picker</code>: the platform's text background under <code>system-font</code> text, the measured field edge (<code>--platform-field-edge</code>) on the resting edge of the field, the checkbox and the radio alike, the platform's placeholder text, focus adding the ring on the box the control already draws and moving nothing, and a switched-off control fading to the push button's own fill at <code>--disabled-coverage</code> over the surface it stands on. A text field's floor is <code>--density-field-height</code> and a trigger's is <code>--density-control-height</code>: the platform draws a field taller than the button beside it.</p>
 
 <section>
 <h2>Text field — <code>.input</code></h2>

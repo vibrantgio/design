@@ -108,7 +108,7 @@ func TestNavigationMirrors(t *testing.T) {
 				{Title: "Components", Active: true},
 			}},
 			tokens.PlatformLight, tokens.Spacing,
-			tokens.DefaultTypography.LabelLarge, tokens.Comfortable,
+			tokens.DefaultTypography.SystemFont, tokens.Comfortable,
 		)},
 		{"tabs.html", tabsSize, tabs.Render(
 			shaper,
@@ -118,14 +118,14 @@ func TestNavigationMirrors(t *testing.T) {
 			}},
 			0,
 			tokens.PlatformLight, tokens.Spacing,
-			tokens.DefaultTypography.LabelLarge, tokens.Comfortable,
+			tokens.DefaultTypography.SystemFont, tokens.Comfortable,
 		)},
 		{"sidebar.html", sidebarSize, sidebar.Render(
 			shaper,
 			sidebar.Props{Items: navItems()},
 			false,
 			tokens.PlatformLight, tokens.Spacing,
-			tokens.DefaultTypography.LabelLarge, tokens.DefaultTypography.LabelSmall,
+			tokens.DefaultTypography.SystemFont, sidebar.SectionStyle(tokens.DefaultTypography),
 			tokens.Comfortable,
 		)},
 		{"sidebar-collapsed.html", sidebarCollapsedSize, sidebar.Render(
@@ -133,7 +133,7 @@ func TestNavigationMirrors(t *testing.T) {
 			sidebar.Props{Items: navItems()},
 			true,
 			tokens.PlatformLight, tokens.Spacing,
-			tokens.DefaultTypography.LabelLarge, tokens.DefaultTypography.LabelSmall,
+			tokens.DefaultTypography.SystemFont, sidebar.SectionStyle(tokens.DefaultTypography),
 			tokens.Comfortable,
 		)},
 		{"breadcrumb.html", breadcrumbSize, breadcrumb.Render(
@@ -142,7 +142,7 @@ func TestNavigationMirrors(t *testing.T) {
 				{Title: "Home"}, {Title: "Design"}, {Title: "Tokens"},
 			}},
 			tokens.PlatformLight, tokens.Spacing,
-			tokens.DefaultTypography.TitleSmall,
+			tokens.DefaultTypography.SystemFont,
 		)},
 	}
 

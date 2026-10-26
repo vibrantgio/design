@@ -12,8 +12,8 @@ body {
   background: var(--platform-window-background);
   color: var(--platform-label);
   font-family: var(--font-family), system-ui, sans-serif;
-  font-size: var(--font-body-medium-size);
-  line-height: var(--font-body-medium-line-height);
+  font-size: var(--font-body-size);
+  line-height: var(--font-body-line-height);
   letter-spacing: 0;
 }
 main {
@@ -28,23 +28,23 @@ main {
   gap: var(--space-4);
 }
 h1 {
-  font-size: var(--font-headline-large-size);
-  line-height: var(--font-headline-large-line-height);
-  font-weight: var(--font-headline-large-weight);
+  font-size: var(--font-large-title-size);
+  line-height: var(--font-large-title-line-height);
+  font-weight: var(--font-large-title-weight);
   letter-spacing: 0;
   margin: var(--space-6) 0 var(--space-2);
 }
 h2 {
-  font-size: var(--font-title-large-size);
-  line-height: var(--font-title-large-line-height);
-  font-weight: var(--font-title-large-weight);
+  font-size: var(--font-title-2-size);
+  line-height: var(--font-title-2-line-height);
+  font-weight: var(--font-title-2-weight);
   letter-spacing: 0;
   margin: var(--space-10) 0 var(--space-3);
 }
 h3 {
-  font-size: var(--font-title-medium-size);
-  line-height: var(--font-title-medium-line-height);
-  font-weight: var(--font-title-medium-weight);
+  font-size: var(--font-title-3-size);
+  line-height: var(--font-title-3-line-height);
+  font-weight: var(--font-title-3-weight);
   letter-spacing: 0;
   margin: var(--space-6) 0 var(--space-2);
 }
@@ -53,18 +53,18 @@ h3 {
   color: var(--platform-secondary-label);
 }
 .annot {
-  font-size: var(--font-label-small-size);
-  line-height: var(--font-label-small-line-height);
-  font-weight: var(--font-label-small-weight);
+  font-size: var(--font-caption-1-size);
+  line-height: var(--font-caption-1-line-height);
+  font-weight: var(--font-caption-1-weight);
   letter-spacing: 0;
   color: var(--platform-secondary-label);
   margin: var(--space-1) 0 0;
 }
 .mode-toggle {
   font-family: var(--font-family), system-ui, sans-serif;
-  font-size: var(--font-label-large-size);
-  line-height: var(--font-label-large-line-height);
-  font-weight: var(--font-label-large-weight);
+  font-size: var(--font-system-font-size);
+  line-height: var(--font-system-font-line-height);
+  font-weight: var(--font-system-font-weight);
   letter-spacing: 0;
   padding: var(--space-2) var(--space-4);
   color: var(--platform-label);
@@ -92,70 +92,74 @@ h3 {
 <h1>Type</h1>
 <button type="button" class="mode-toggle">Light / dark</button>
 </div>
-<p class="intro">Every type role at its real size, weight and line height, styled through the <code>--font-&lt;role&gt;-*</code> tokens. The face is the family the tokens name &mdash; Roboto, and Roboto Mono for the code style &mdash; via <code>var(--font-family)</code> and <code>var(--font-family-code)</code>; the browser must have them installed, otherwise the system fallback face renders at the same metrics. Each role's recorded tracking is printed beside it and spent by nothing: the library's typeset lays a label out at the role's size, weight and line height and spends no letter spacing at all, so a specimen set with the token would be a fraction wider than the component beside it.</p>
+<p class="intro">Every type role at its real size, weight and line height, styled through the <code>--font-&lt;role&gt;-*</code> tokens. The face is the family the tokens name &mdash; Roboto, and Roboto Mono for the code style &mdash; via <code>var(--font-family)</code> and <code>var(--font-family-code)</code>; the browser must have them installed, otherwise the system fallback face renders at the same metrics. A role adds no tracking: the typeface's own spacing sets the text.</p>
 <section class="type-role">
-<p class="specimen" style="font-size: var(--font-display-large-size); line-height: var(--font-display-large-line-height); font-weight: var(--font-display-large-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">display-large &middot; 57px / 64px &middot; weight 400 &middot; tracking -0.25px, spent nowhere</p>
+<p class="specimen" style="font-size: var(--font-large-title-size); line-height: var(--font-large-title-line-height); font-weight: var(--font-large-title-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
+<p class="annot">large-title &middot; 26px / 32px &middot; weight 400</p>
 </section>
 <section class="type-role">
-<p class="specimen" style="font-size: var(--font-display-medium-size); line-height: var(--font-display-medium-line-height); font-weight: var(--font-display-medium-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">display-medium &middot; 45px / 52px &middot; weight 400 &middot; tracking 0px, spent nowhere</p>
+<p class="specimen" style="font-size: var(--font-title-1-size); line-height: var(--font-title-1-line-height); font-weight: var(--font-title-1-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
+<p class="annot">title-1 &middot; 22px / 26px &middot; weight 400</p>
 </section>
 <section class="type-role">
-<p class="specimen" style="font-size: var(--font-display-small-size); line-height: var(--font-display-small-line-height); font-weight: var(--font-display-small-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">display-small &middot; 36px / 44px &middot; weight 400 &middot; tracking 0px, spent nowhere</p>
+<p class="specimen" style="font-size: var(--font-title-2-size); line-height: var(--font-title-2-line-height); font-weight: var(--font-title-2-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
+<p class="annot">title-2 &middot; 17px / 22px &middot; weight 400</p>
 </section>
 <section class="type-role">
-<p class="specimen" style="font-size: var(--font-headline-large-size); line-height: var(--font-headline-large-line-height); font-weight: var(--font-headline-large-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">headline-large &middot; 32px / 40px &middot; weight 400 &middot; tracking 0px, spent nowhere</p>
+<p class="specimen" style="font-size: var(--font-title-3-size); line-height: var(--font-title-3-line-height); font-weight: var(--font-title-3-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
+<p class="annot">title-3 &middot; 15px / 20px &middot; weight 400</p>
 </section>
 <section class="type-role">
-<p class="specimen" style="font-size: var(--font-headline-medium-size); line-height: var(--font-headline-medium-line-height); font-weight: var(--font-headline-medium-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">headline-medium &middot; 28px / 36px &middot; weight 400 &middot; tracking 0px, spent nowhere</p>
+<p class="specimen" style="font-size: var(--font-headline-size); line-height: var(--font-headline-line-height); font-weight: var(--font-headline-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
+<p class="annot">headline &middot; 13px / 16px &middot; weight 700</p>
 </section>
 <section class="type-role">
-<p class="specimen" style="font-size: var(--font-headline-small-size); line-height: var(--font-headline-small-line-height); font-weight: var(--font-headline-small-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">headline-small &middot; 24px / 32px &middot; weight 400 &middot; tracking 0px, spent nowhere</p>
+<p class="specimen" style="font-size: var(--font-subheadline-size); line-height: var(--font-subheadline-line-height); font-weight: var(--font-subheadline-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
+<p class="annot">subheadline &middot; 11px / 14px &middot; weight 400</p>
 </section>
 <section class="type-role">
-<p class="specimen" style="font-size: var(--font-title-large-size); line-height: var(--font-title-large-line-height); font-weight: var(--font-title-large-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">title-large &middot; 22px / 28px &middot; weight 400 &middot; tracking 0px, spent nowhere</p>
+<p class="specimen" style="font-size: var(--font-body-size); line-height: var(--font-body-line-height); font-weight: var(--font-body-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
+<p class="annot">body &middot; 13px / 16px &middot; weight 400</p>
 </section>
 <section class="type-role">
-<p class="specimen" style="font-size: var(--font-title-medium-size); line-height: var(--font-title-medium-line-height); font-weight: var(--font-title-medium-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">title-medium &middot; 16px / 24px &middot; weight 500 &middot; tracking 0.15px, spent nowhere</p>
+<p class="specimen" style="font-size: var(--font-callout-size); line-height: var(--font-callout-line-height); font-weight: var(--font-callout-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
+<p class="annot">callout &middot; 12px / 15px &middot; weight 400</p>
 </section>
 <section class="type-role">
-<p class="specimen" style="font-size: var(--font-title-small-size); line-height: var(--font-title-small-line-height); font-weight: var(--font-title-small-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">title-small &middot; 14px / 20px &middot; weight 500 &middot; tracking 0.1px, spent nowhere</p>
+<p class="specimen" style="font-size: var(--font-footnote-size); line-height: var(--font-footnote-line-height); font-weight: var(--font-footnote-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
+<p class="annot">footnote &middot; 10px / 13px &middot; weight 400</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-caption-1-size); line-height: var(--font-caption-1-line-height); font-weight: var(--font-caption-1-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
+<p class="annot">caption-1 &middot; 10px / 13px &middot; weight 400</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-caption-2-size); line-height: var(--font-caption-2-line-height); font-weight: var(--font-caption-2-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
+<p class="annot">caption-2 &middot; 10px / 13px &middot; weight 510</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-system-font-size); line-height: var(--font-system-font-line-height); font-weight: var(--font-system-font-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
+<p class="annot">system-font &middot; 13px / 16px &middot; weight 400</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-small-system-font-size); line-height: var(--font-small-system-font-line-height); font-weight: var(--font-small-system-font-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
+<p class="annot">small-system-font &middot; 11px / 13px &middot; weight 400</p>
+</section>
+<section class="type-role">
+<p class="specimen" style="font-size: var(--font-empty-state-line-size); line-height: var(--font-empty-state-line-line-height); font-weight: var(--font-empty-state-line-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
+<p class="annot">empty-state-line &middot; 28px / 33px &middot; weight 400</p>
 </section>
 <section class="type-role">
 <p class="specimen" style="font-size: var(--font-label-large-size); line-height: var(--font-label-large-line-height); font-weight: var(--font-label-large-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">label-large &middot; 14px / 20px &middot; weight 500 &middot; tracking 0.1px, spent nowhere</p>
-</section>
-<section class="type-role">
-<p class="specimen" style="font-size: var(--font-label-medium-size); line-height: var(--font-label-medium-line-height); font-weight: var(--font-label-medium-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">label-medium &middot; 12px / 16px &middot; weight 500 &middot; tracking 0.5px, spent nowhere</p>
+<p class="annot">label-large &middot; 14px / 20px &middot; weight 500</p>
 </section>
 <section class="type-role">
 <p class="specimen" style="font-size: var(--font-label-small-size); line-height: var(--font-label-small-line-height); font-weight: var(--font-label-small-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">label-small &middot; 11px / 16px &middot; weight 500 &middot; tracking 0.5px, spent nowhere</p>
-</section>
-<section class="type-role">
-<p class="specimen" style="font-size: var(--font-body-large-size); line-height: var(--font-body-large-line-height); font-weight: var(--font-body-large-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">body-large &middot; 16px / 24px &middot; weight 400 &middot; tracking 0.5px, spent nowhere</p>
-</section>
-<section class="type-role">
-<p class="specimen" style="font-size: var(--font-body-medium-size); line-height: var(--font-body-medium-line-height); font-weight: var(--font-body-medium-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">body-medium &middot; 14px / 20px &middot; weight 400 &middot; tracking 0.25px, spent nowhere</p>
-</section>
-<section class="type-role">
-<p class="specimen" style="font-size: var(--font-body-small-size); line-height: var(--font-body-small-line-height); font-weight: var(--font-body-small-weight); letter-spacing: 0">The five boxing wizards jump quickly</p>
-<p class="annot">body-small &middot; 12px / 16px &middot; weight 400 &middot; tracking 0.4px, spent nowhere</p>
+<p class="annot">label-small &middot; 11px / 16px &middot; weight 500</p>
 </section>
 <section class="type-role">
 <p class="specimen" style="font-family: var(--font-family-code), monospace; font-size: var(--font-code-size); line-height: var(--font-code-line-height); font-weight: var(--font-code-weight); letter-spacing: 0">if mono[0] != prose { align() }</p>
-<p class="annot">code &middot; 14px / 20px &middot; weight 400 &middot; tracking 0.25px, spent nowhere</p>
+<p class="annot">code &middot; 13px / 16px &middot; weight 400</p>
 </section>
 </main>
 <script>

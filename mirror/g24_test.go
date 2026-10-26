@@ -74,12 +74,12 @@ func actionChip(c color.NRGBA, heightDp float32) layout.Widget {
 }
 
 // bodyLine mirrors popover_test.go's textContent: one non-wrapping
-// body-medium line in the platform's label, flattened onto the window
+// callout line in the platform's label, flattened onto the window
 // background the popover is filled with, drawn through theme/typeset so the
 // line box is the role's LineHeight — which is exactly what makes the
 // browser's line box comparable.
 func bodyLine(shaper *text.Shaper, s string) layout.Widget {
-	style := tokens.DefaultTypography.BodyMedium
+	style := tokens.DefaultTypography.Callout
 	return func(gtx layout.Context) layout.Dimensions {
 		m := op.Record(gtx.Ops)
 		paint.ColorOp{Color: vgcolor.Flatten(tokens.PlatformLight.Label, tokens.PlatformLight.WindowBackground)}.Add(gtx.Ops)
@@ -132,7 +132,7 @@ func TestOverlayMirrors(t *testing.T) {
 			dialog.Props{Title: "Preferences", Body: grow(slotGrey, 40), Shaper: shaper},
 			true,
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
-			tokens.DefaultTypography.TitleMedium, tokens.Comfortable,
+			tokens.DefaultTypography.Title2, tokens.Comfortable,
 		)},
 		{"dialog-decision.html", lightBg, dialog.Render(
 			shaper,
@@ -148,7 +148,7 @@ func TestOverlayMirrors(t *testing.T) {
 			},
 			true,
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
-			tokens.DefaultTypography.TitleMedium, tokens.Comfortable,
+			tokens.DefaultTypography.Title2, tokens.Comfortable,
 		)},
 		{"popover-bottom.html", lightBg, popover.Render(
 			popover.Props{
@@ -164,7 +164,7 @@ func TestOverlayMirrors(t *testing.T) {
 			tooltip.Props{Text: "Save", Trigger: chip(chipBlue, 60, 28), Placement: tooltip.Top, Shaper: shaper},
 			true,
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
-			tokens.DefaultTypography.LabelSmall,
+			tokens.DefaultTypography.SmallSystemFont,
 		)},
 		{"toast-stack.html", lightSurface, notifications.Render(
 			shaper,
@@ -175,7 +175,7 @@ func TestOverlayMirrors(t *testing.T) {
 				{ID: 3, Status: toast.Warning, Text: "Connection is slow"},
 			},
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
-			tokens.DefaultTypography.LabelMedium,
+			tokens.DefaultTypography.SmallSystemFont,
 		)},
 	}
 
