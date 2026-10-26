@@ -30,9 +30,9 @@ import (
 )
 
 // navbarSize is the navbar capture viewport: the navbar goldens' 480 width
-// at the toolbar band patterns/shell hands the bar — pane.BandDp, 52, which
-// takes no density — because the bar fills whatever it is given and the band
-// is the height the class layer publishes as --navbar-band.
+// at the bar's own height, the toolbar band's depth — pane.BandDp, 52, which
+// takes no density. The class layer publishes the same depth as
+// --navbar-band.
 var navbarSize = image.Pt(480, int(pane.BandDp))
 
 // tabsSize is the tabs capture viewport — TestTabsGolden's 240x128 frame:
