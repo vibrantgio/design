@@ -49,7 +49,7 @@
 //	Gio filled button vs its bundle mirror:             0.0053
 //	stability: same page captured twice in Chromium:    0.0000
 //	vs the mirror with the wrong colour (systemRed):    0.6553
-//	vs the mirror with the wrong size (compact 19 dp):  0.1455
+//	vs the mirror with the wrong size (19 dp):          0.1455
 //
 // [Tolerance] is 0.0223. Every matching pair in the package scores at most
 // 0.0150. The nearest wrong variant, the wrong size, scores 0.1455. Every
