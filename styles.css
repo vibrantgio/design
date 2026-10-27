@@ -728,10 +728,16 @@
    The corner is the measured 5 dp: a circular fit to the per-row coverage of
    the switched-off boxes' corner ramp in save-dialog-{light,dark}.png answers
    5.04 and 5.34 against the same fit's habit of sitting a fifth over
-   everywhere in that reference. The edge is the measured 1 dp of the
+   everywhere in that reference. The radio's edge is the measured 1 dp of the
    platform's field hairline - the Save panel's "Tags:" field is the sheet's
    one unfocused enabled control that draws an edge at all, and it draws a
    single pixel of it.
+
+   Unchecked, the box is one fill and no edge: the platform's separator over
+   the surface the box stands on, darker in light and lighter in dark. MEASURED,
+   the find bar's Replace box in both schemes: its fill is the separator over
+   the bar, to the byte. The border keeps its width in transparent, so the
+   drawn box does not move.
 
    Checked, the box is the platform's accent under a check mark in
    alternateSelectedControlText, because a fill says a colour was applied and
@@ -779,6 +785,9 @@
 }
 .checkbox {
   border-radius: 5px;  /* checkboxCornerRadius: measured */
+  border-color: transparent;
+  background-color: var(--platform-separator);  /* uncheckedFill */
+  background-clip: border-box;
 }
 .checkbox:checked, .checkbox.is-checked {
   border-color: var(--platform-control-accent);
