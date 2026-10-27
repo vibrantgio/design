@@ -29,7 +29,7 @@
   --platform-selected-text-background: #b3d7ff;
   --platform-unemphasized-selected-text-background: #dcdcdc;
   --platform-unemphasized-selected-text: #000000;
-  --platform-find-highlight: #faefbd;
+  --platform-highlight-fill: #faefbd;
   --platform-separator: #00000019;
   --platform-grid: #e6e6e6;
   --platform-seam: #e6e6e6;
@@ -211,7 +211,7 @@
   --platform-selected-text-background: #3f638b;
   --platform-unemphasized-selected-text-background: #464646;
   --platform-unemphasized-selected-text: #ffffff;
-  --platform-find-highlight: #6e6e4d;
+  --platform-highlight-fill: #6e6e4d;
   --platform-separator: #ffffff19;
   --platform-grid: #1a1a1a;
   --platform-seam: #000000;

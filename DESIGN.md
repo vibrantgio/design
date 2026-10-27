@@ -105,16 +105,16 @@ and the theme observable carries the current one to every component.
 
 ### The names are the platform's
 
-Forty-four fields carry AppKit's names. Forty-three were read off AppKit
-with a command-line program under both appearances, converted to sRGB with
-alpha kept, and are stored with that program in the reference; a test pins
-both sets against the stored catalogue. The forty-fourth, `FindHighlight`,
-is measured off Mail's find bar, because AppKit's own value is not what the
-platform's applications paint. Twenty-eight more are fills the platform
+Forty-three fields carry AppKit's names. They were read off AppKit with a
+command-line program under both appearances, converted to sRGB with alpha
+kept, and are stored with that program in the reference; a test pins both
+sets against the stored catalogue. Thirty-one more are fills the platform
 draws without giving them a name — among them the sidebar material, the
 grouped box, the push button's fill, the hover and press overlays, the
 floating shadow, the field's hairline, the overlay scrollbar's thumb, the
-alternating row, the dim behind a sheet and the toolbar's controls. They
+alternating row, the dim behind a sheet, the toolbar's controls and the
+highlight's fill, which Mail's find bar paints and AppKit's own value does
+not match. They
 were measured off stored captures of the platform's windows — the
 alternating row read off the array AppKit answers with and confirmed
 against a capture — and each carries its provenance beside its value. No
