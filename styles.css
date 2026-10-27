@@ -94,8 +94,25 @@
   --platform-toolbar-checked-overlay: #0000001a;
   --platform-pane-rim: #ffffff;
   --platform-pane-shadow: #0000000d;
+  --platform-help-tag-edge: #0000002d;
+  --platform-help-tag-shadow: #0000001c;
   --toolbar-control-shadow-reach: 23px;
   --toolbar-control-shadow-offset: 9px;
+  --help-tag-shadow-offset: 2px;
+  --help-tag-shadow-layer-0: #00000005;
+  --help-tag-shadow-layer-1: #00000005;
+  --help-tag-shadow-layer-2: #00000005;
+  --help-tag-shadow-layer-3: #00000004;
+  --help-tag-shadow-layer-4: #00000003;
+  --help-tag-shadow-layer-5: #00000002;
+  --help-tag-shadow-layer-6: #00000002;
+  --help-tag-shadow-layer-7: #00000001;
+  --help-tag-shadow-layer-8: #00000001;
+  --help-tag-shadow-layer-9: #00000001;
+  --help-tag-shadow-layer-10: #00000000;
+  --help-tag-shadow-layer-11: #00000000;
+  --help-tag-rim-layer-1: #ffffff17;
+  --help-tag-rim-layer-2: #ffffff00;
   --font-family: "Roboto";
   --font-family-code: "Roboto Mono";
   --font-large-title-size: 26px;
@@ -276,8 +293,25 @@
   --platform-toolbar-checked-overlay: #ffffff29;
   --platform-pane-rim: #3a3a3a;
   --platform-pane-shadow: #0000000d;
+  --platform-help-tag-edge: #00000073;
+  --platform-help-tag-shadow: #00000023;
   --toolbar-control-shadow-reach: 2px;
   --toolbar-control-shadow-offset: 6px;
+  --help-tag-shadow-offset: 2px;
+  --help-tag-shadow-layer-0: #00000006;
+  --help-tag-shadow-layer-1: #00000007;
+  --help-tag-shadow-layer-2: #00000007;
+  --help-tag-shadow-layer-3: #00000004;
+  --help-tag-shadow-layer-4: #00000004;
+  --help-tag-shadow-layer-5: #00000003;
+  --help-tag-shadow-layer-6: #00000002;
+  --help-tag-shadow-layer-7: #00000002;
+  --help-tag-shadow-layer-8: #00000001;
+  --help-tag-shadow-layer-9: #00000000;
+  --help-tag-shadow-layer-10: #00000001;
+  --help-tag-shadow-layer-11: #00000000;
+  --help-tag-rim-layer-1: #ffffff20;
+  --help-tag-rim-layer-2: #ffffff08;
 }
 
 .compact {
@@ -1273,10 +1307,10 @@
    the floating toast (components/toast, stood in a column by
    patterns/notifications). On this platform a floating surface is filled with
    the window's own background, and what says it floats is the measured
-   shadow — not a lighter fill, and not a level. The popover and the tooltip
-   carry the separator around theirs as well, because a still surface flush
-   against the plane behind it needs the line; the dialog does not, the scrim
-   being what parts it.
+   shadow — not a lighter fill, and not a level. The popover carries the
+   separator around its fill as well, because a still surface flush against
+   the plane behind it needs the line; the dialog does not, the scrim being
+   what parts it. The tooltip draws the help tag's own edge, rim and shadow.
 
    The shadow is a measurement rather than a blur radius: it stands at the
    platform's floating shadow at the surface's edge and falls LINEARLY to
@@ -1554,20 +1588,38 @@
 }
 
 /* Tooltip (components/tooltip tooltip.go drawSurface): the window background
-   inside the platform's separator under its text in the platform's label
-   colour, the small system font, radius Sm, S2/S1 padding measured from the outer edge,
-   clamped to the 24x16 dp minimum. It casts no shadow: the hairline is the
-   whole of a still tooltip's edge, and what places it draws whatever shadow
-   the placement owes. The same in both appearances. */
+   under its text in the platform's label colour, the small system font,
+   radius Sm, S2/S1 padding, clamped to the 24x16 dp minimum. A tooltip is at
+   the floating level, so it casts a shadow: its edge, rim and shadow are the
+   platform's help tag's, measured per appearance. The edge is one pixel
+   outside the bounds, the rim is on the first pixels inside them, and the
+   shadow is cast from the bounds moved --help-tag-shadow-offset down.
+   Plain box-shadows draw the edge's corner pixel at the side's coverage and
+   the shadow's corners square, not at the measured corner values. */
 .tooltip {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   min-width: 24px;
   min-height: 16px;
-  padding: calc(var(--space-1) - 1px) calc(var(--space-2) - 1px);
-  border: 1px solid var(--platform-separator);
+  padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-sm);
+  box-shadow:
+    0 0 0 1px var(--platform-help-tag-edge),
+    0 var(--help-tag-shadow-offset) 0 0 var(--help-tag-shadow-layer-0),
+    0 var(--help-tag-shadow-offset) 0 1px var(--help-tag-shadow-layer-1),
+    0 var(--help-tag-shadow-offset) 0 2px var(--help-tag-shadow-layer-2),
+    0 var(--help-tag-shadow-offset) 0 3px var(--help-tag-shadow-layer-3),
+    0 var(--help-tag-shadow-offset) 0 4px var(--help-tag-shadow-layer-4),
+    0 var(--help-tag-shadow-offset) 0 5px var(--help-tag-shadow-layer-5),
+    0 var(--help-tag-shadow-offset) 0 6px var(--help-tag-shadow-layer-6),
+    0 var(--help-tag-shadow-offset) 0 7px var(--help-tag-shadow-layer-7),
+    0 var(--help-tag-shadow-offset) 0 8px var(--help-tag-shadow-layer-8),
+    0 var(--help-tag-shadow-offset) 0 9px var(--help-tag-shadow-layer-9),
+    0 var(--help-tag-shadow-offset) 0 10px var(--help-tag-shadow-layer-10),
+    0 var(--help-tag-shadow-offset) 0 11px var(--help-tag-shadow-layer-11),
+    inset 0 0 0 1px var(--help-tag-rim-layer-1),
+    inset 0 0 0 2px var(--help-tag-rim-layer-2);
   background: var(--platform-window-background);
   color: var(--platform-label);
   white-space: nowrap;
