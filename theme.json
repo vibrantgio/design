@@ -180,16 +180,16 @@
       "symbolSize": 20
     },
     "compact": {
-      "controlHeight": 19,
-      "chipHeight": 15,
+      "controlHeight": 20,
+      "chipHeight": 16,
       "textFieldHeight": 21,
-      "searchFieldHeight": 21,
-      "sidebarSearchFieldHeight": 22,
-      "rowHeight": 19,
+      "searchFieldHeight": 22,
+      "sidebarSearchFieldHeight": 28,
+      "rowHeight": 20,
       "contentListRowHeight": 32,
-      "checkboxRowHeight": 17,
+      "checkboxRowHeight": 20,
       "toolbarControlHeight": 36,
-      "paddingX": 7,
+      "paddingX": 11,
       "symbolSize": 19
     }
   },

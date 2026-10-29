@@ -216,21 +216,21 @@ shadow as twelve stacked spreads of `--help-tag-shadow-layer-*`.
 ## Density
 
 Two published settings, one variable family: comfortable (24 dp controls,
-20 dp chips, 8/2 dp padding) is the `:root` default; compact (19 dp
-controls, 15 dp chips, 7/0 dp padding) is the `.compact` class override,
+20 dp chips, 8 dp horizontal padding) is the `:root` default; compact (20 dp
+controls, 16 dp chips, 11 dp horizontal padding) is the `.compact` class override,
 scoping to any subtree the way `.dark` scopes colours. The chip height is
 the control height less 4 dp in both settings — one relation, not a second
 scale. A text field, a search field, a stacked row, a checkbox's row and a
 toolbar control are not that control and carry their own measured heights:
 `--density-text-field-height` (27 dp comfortable, 21 compact),
-`--density-search-field-height` (26 dp, 21 compact) for a search
+`--density-search-field-height` (26 dp, 22 compact) for a search
 field on the content,
-`--density-sidebar-search-field-height` (28 dp, 22 compact) for a
+`--density-sidebar-search-field-height` (28 dp in both) for a
 search field in a sidebar,
-`--density-row-height` (20 dp, 19 compact) for a table row,
+`--density-row-height` (20 dp in both) for a table row,
 `--density-content-list-row-height` (32 dp in both, no capture holding
 that row drawn small) for a content list row,
-`--density-checkbox-row-height` (22 dp, 17 compact) and
+`--density-checkbox-row-height` (22 dp, 20 compact) and
 `--density-toolbar-control-height` (36 dp in both, no capture holding a
 toolbar drawn small).
 A control's pointer target is the control: what it draws at

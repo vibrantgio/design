@@ -22,12 +22,19 @@ import (
 	"github.com/vibrantgio/theme/tokens"
 )
 
-// onBackground wraps a layout.Widget in a fill of the platform's window
+// onBackground wraps a layout.Widget in a fill of the light platform's window
 // background, matching the fixtures' body { background:
 // var(--platform-window-background) }.
 func onBackground(w layout.Widget) func(layout.Context) layout.Dimensions {
+	return onWindowOf(tokens.PlatformLight, w)
+}
+
+// onWindowOf wraps a layout.Widget in a fill of p's window background. A
+// fixture under the .dark class reads the dark window background from the
+// same body rule.
+func onWindowOf(p tokens.PlatformColors, w layout.Widget) func(layout.Context) layout.Dimensions {
 	return func(gtx layout.Context) layout.Dimensions {
-		paint.FillShape(gtx.Ops, tokens.PlatformLight.WindowBackground,
+		paint.FillShape(gtx.Ops, p.WindowBackground,
 			clip.Rect{Max: gtx.Constraints.Max}.Op())
 		return w(gtx)
 	}
@@ -64,54 +71,73 @@ func TestComponentMirrors(t *testing.T) {
 		fixture string
 		size    image.Point
 		gio     layout.Widget
+		dark    bool
 	}{
 		{"button-tonal.html", mirrorSize, button.Render(
 			shaper, "Save Changes",
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.SystemFont, tokens.Comfortable,
 			button.RenderState{Emphasis: button.Tonal, Surface: tokens.PlatformLight.WindowBackground},
-		)},
+		), false},
 		{"button-ghost.html", mirrorSize, button.Render(
 			shaper, "Save Changes",
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.SystemFont, tokens.Comfortable,
 			button.RenderState{Emphasis: button.Ghost, Surface: tokens.PlatformLight.WindowBackground},
-		)},
+		), false},
 		{"textfield.html", fieldSize, input.Render(
 			shaper, "Placeholder",
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.SystemFont, tokens.Comfortable,
 			input.RenderState{Surface: tokens.PlatformLight.WindowBackground},
-		)},
+		), false},
 		{"dropdown.html", triggerSize, input.RenderDropdown(
 			shaper,
 			tokens.PlatformLight, tokens.Spacing, tokens.Radius,
 			tokens.DefaultTypography.SystemFont, tokens.Comfortable,
 			input.DropdownRenderState{Options: []string{"Comfortable", "Compact"}},
-		)},
+		), false},
 		{"checkbox.html", symbolSize, input.RenderCheckbox(
 			nil,
 			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.SystemFont,
 			input.CheckboxRenderState{Surface: tokens.PlatformLight.WindowBackground},
-		)},
+		), false},
 		{"checkbox-checked.html", symbolSize, input.RenderCheckbox(
 			nil,
 			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.SystemFont,
 			input.CheckboxRenderState{Checked: true, Surface: tokens.PlatformLight.WindowBackground},
-		)},
+		), false},
 		{"radio-selected.html", symbolSize, input.RenderRadio(
 			nil,
 			tokens.PlatformLight, tokens.Spacing,
 			tokens.DefaultTypography.SystemFont,
 			input.RadioRenderState{Selected: true, Surface: tokens.PlatformLight.WindowBackground},
-		)},
+		), false},
+		// The unselected radio button in both schemes: one disc in the
+		// separator flattened onto the window background, with no edge.
+		{"radio.html", symbolSize, input.RenderRadio(
+			nil,
+			tokens.PlatformLight, tokens.Spacing,
+			tokens.DefaultTypography.SystemFont,
+			input.RadioRenderState{Surface: tokens.PlatformLight.WindowBackground},
+		), false},
+		{"radio-dark.html", symbolSize, input.RenderRadio(
+			nil,
+			tokens.PlatformDark, tokens.Spacing,
+			tokens.DefaultTypography.SystemFont,
+			input.RadioRenderState{Surface: tokens.PlatformDark.WindowBackground},
+		), true},
 	}
 
 	for _, c := range cases {
 		t.Run(c.fixture, func(t *testing.T) {
-			gio := golden.Capture(t, c.size, onBackground(c.gio))
+			platform := tokens.PlatformLight
+			if c.dark {
+				platform = tokens.PlatformDark
+			}
+			gio := golden.Capture(t, c.size, onWindowOf(platform, c.gio))
 			if !FixtureExists("fixtures/" + c.fixture) {
 				t.Fatalf("no embedded fixture %q — a typo here would screenshot a 404 page", c.fixture)
 			}

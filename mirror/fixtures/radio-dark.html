@@ -1,0 +1,17 @@
+<!doctype html>
+<!-- Mirror fixture (design/mirror) - NOT part of the published bundle.
+     components/input's unselected radio button in the dark scheme: the
+     published sheet's .radio class under the .dark class, one 16px disc in
+     the platform's separator over the window background, with no edge. Its
+     margin centres the symbol in the density's 22px checkbox row as the Gio
+     reference centres it.
+-->
+<html class="dark">
+<meta charset="utf-8">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  html, body { margin: 0; }
+  body { background: var(--platform-window-background); }
+  .radio { display: block; }
+</style>
+<input class="radio" type="radio">
