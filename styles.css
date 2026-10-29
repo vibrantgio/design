@@ -177,7 +177,8 @@
   --density-content-list-row-height: 32px;
   --density-checkbox-row-height: 22px;
   --density-toolbar-control-height: 36px;
-  --density-padding-x: 8px;
+  --density-padding-x: 13px;
+  --density-chip-padding-x: 8px;
   --density-symbol-size: 20px;
   --space-0: 0px;
   --space-1: 4px;
@@ -329,6 +330,7 @@
   --density-checkbox-row-height: 20px;
   --density-toolbar-control-height: 36px;
   --density-padding-x: 11px;
+  --density-chip-padding-x: 11px;
   --density-symbol-size: 19px;
 }
 

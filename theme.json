@@ -180,7 +180,8 @@
       "contentListRowHeight": 32,
       "checkboxRowHeight": 22,
       "toolbarControlHeight": 36,
-      "paddingX": 8,
+      "paddingX": 13,
+      "chipPaddingX": 8,
       "symbolSize": 20
     },
     "compact": {
@@ -194,6 +195,7 @@
       "checkboxRowHeight": 20,
       "toolbarControlHeight": 36,
       "paddingX": 11,
+      "chipPaddingX": 11,
       "symbolSize": 19
     }
   },
