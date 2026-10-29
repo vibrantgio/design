@@ -742,23 +742,22 @@
    only the mark says what that means: a column of fills carries completion in
    hue alone, which is the one channel a reader may not have.
 
-   The mark is drawn, not encoded. Gio strokes the icon set's centre line -
-   (4.5,12) -> (9,16.5) -> (19.5,6) on the set's 24-unit grid, a 2-unit
-   DIAGONAL band, round caps and joins - and at the 16 px symbol one grid unit
-   is 2/3 px, so the band is 1.333 px wide (+/-0.667 either side of the centre)
-   and the arms run from (3,8) to (6,11) to (13,4). Each arm is one background
-   layer: a linear-gradient banding its own box perpendicular to the arm,
-   45deg for the short "\" arm and 135deg for the long "/" one. Every stop is
-   written from 50% because each box is sized to its arm - the segment grown
-   by half a band along its own axis, which makes the arm the box's diagonal
-   and the box's corners the round caps' own tips:
-     short arm: 3.943 px square at 2.529,7.529   (3,8)->(6,11)
-     long arm:  7.943 px square at 5.529,3.529   (6,11)->(13,4)
-   CSS has no line cap, so the caps come out cut square inside those tips
-   rather than rounded - the same trade the icon set's own SVG files make when
-   they draw their caps as an explicit contour, and a sub-pixel one at this
-   size. background-origin is the border box so the grid is the 16 px symbol
-   the Gio side scales on, not the 14 px inside the transparent border. */
+   The mark is drawn, not encoded. It is the platform's measured mark: 10 x 10
+   px, 3 px in from each side, a stroke 2.06 px wide with its long arm at
+   56.6 degrees. Gio strokes its centre line (4.07,8.80) -> (6.93,12.03) ->
+   (11.73,4.75) on the 16 px symbol with round caps and joins. Each arm is one
+   background layer: a band 2.06 px wide (+/-1.03 either side of the 50%
+   line) on the diagonal of a box sized to the arm. A corner keyword aims the
+   gradient, so its 50% line runs through the box's other two corners at any
+   aspect: "to top right" for the short "\" arm and "to bottom right" for the
+   long "/" one. Each box is the arm grown by half the band along its own
+   axis, so the box's corners are the caps' tips:
+     short arm: 4.226 x 4.772 px at 3.387,8.029   (4.07,8.80)->(6.93,12.03)
+     long arm:  5.934 x 9.000 px at 6.363,3.890   (6.93,12.03)->(11.73,4.75)
+   CSS has no line cap, so the caps come out pointed at those tips rather
+   than rounded, a sub-pixel difference at this size. background-origin is
+   the border box so the coordinates are the 16 px symbol the Gio side draws
+   on, not the 14 px inside the transparent border. */
 .checkbox, .radio {
   box-sizing: border-box;
   appearance: none;
@@ -789,12 +788,12 @@
   background-color: var(--platform-control-accent);
   background-clip: border-box;
   background-image:
-    linear-gradient(45deg, transparent calc(50% - 0.667px), var(--platform-alternate-selected-control-text) calc(50% - 0.667px), var(--platform-alternate-selected-control-text) calc(50% + 0.667px), transparent calc(50% + 0.667px)),
-    linear-gradient(135deg, transparent calc(50% - 0.667px), var(--platform-alternate-selected-control-text) calc(50% - 0.667px), var(--platform-alternate-selected-control-text) calc(50% + 0.667px), transparent calc(50% + 0.667px));
+    linear-gradient(to top right, transparent calc(50% - 1.03px), var(--platform-alternate-selected-control-text) calc(50% - 1.03px), var(--platform-alternate-selected-control-text) calc(50% + 1.03px), transparent calc(50% + 1.03px)),
+    linear-gradient(to bottom right, transparent calc(50% - 1.03px), var(--platform-alternate-selected-control-text) calc(50% - 1.03px), var(--platform-alternate-selected-control-text) calc(50% + 1.03px), transparent calc(50% + 1.03px));
   background-origin: border-box;
   background-repeat: no-repeat;
-  background-position: 2.529px 7.529px, 5.529px 3.529px;
-  background-size: 3.943px 3.943px, 7.943px 7.943px;
+  background-position: 3.387px 8.029px, 6.363px 3.890px;
+  background-size: 4.226px 4.772px, 5.934px 9.000px;
 }
 /* Switched off, the symbol is ONE FILL AND NO EDGE at all. MEASURED,
    save-dialog-{light,dark}.png: both switched-off "Options:" checkboxes read
@@ -813,8 +812,8 @@
 }
 .checkbox:checked:disabled, .checkbox.is-checked:disabled {
   background-image:
-    linear-gradient(45deg, transparent calc(50% - 0.667px), var(--platform-tertiary-label) calc(50% - 0.667px), var(--platform-tertiary-label) calc(50% + 0.667px), transparent calc(50% + 0.667px)),
-    linear-gradient(135deg, transparent calc(50% - 0.667px), var(--platform-tertiary-label) calc(50% - 0.667px), var(--platform-tertiary-label) calc(50% + 0.667px), transparent calc(50% + 0.667px));
+    linear-gradient(to top right, transparent calc(50% - 1.03px), var(--platform-tertiary-label) calc(50% - 1.03px), var(--platform-tertiary-label) calc(50% + 1.03px), transparent calc(50% + 1.03px)),
+    linear-gradient(to bottom right, transparent calc(50% - 1.03px), var(--platform-tertiary-label) calc(50% - 1.03px), var(--platform-tertiary-label) calc(50% + 1.03px), transparent calc(50% + 1.03px));
 }
 
 /* Radio (components/input radio.go): the same 16 dp symbol as a circle.
@@ -1549,8 +1548,9 @@
   background: var(--platform-sidebar-selection);
 }
 /* The check beside the current item, drawn in the row's own foreground out of
-   the same two gradient bands the checkbox's mark is drawn from, in a 16 dp
-   box standing 10 in from the plane's leading edge. */
+   two gradient bands at 45 degrees, 1.333 px wide, on the centre line
+   (3,8) -> (6,11) -> (13,4), in a 16 dp box standing 10 in from the plane's
+   leading edge. */
 .menu-item.selected::after {
   content: "";
   position: absolute;
