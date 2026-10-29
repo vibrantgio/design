@@ -75,6 +75,7 @@
   --platform-card-fill: #f7f7f7;
   --platform-push-button-fill: #ececec;
   --platform-default-button-fill: #157efb;
+  --platform-accent-fill: #157bf5;
   --platform-hover-overlay: #0000000d;
   --platform-press-overlay: #00000019;
   --platform-floating-shadow: #00000013;
@@ -274,6 +275,7 @@
   --platform-card-fill: #252525;
   --platform-push-button-fill: #333a3f;
   --platform-default-button-fill: #157efb;
+  --platform-accent-fill: #1b81fb;
   --platform-hover-overlay: #ffffff18;
   --platform-press-overlay: #ffffff19;
   --platform-floating-shadow: #00000013;
@@ -784,8 +786,8 @@
   border-radius: 5px;  /* checkboxCornerRadius: measured */
 }
 .checkbox:checked, .checkbox.is-checked {
-  border-color: var(--platform-control-accent);
-  background-color: var(--platform-control-accent);
+  border-color: var(--platform-accent-fill);
+  background-color: var(--platform-accent-fill);
   background-clip: border-box;
   background-image:
     linear-gradient(to top right, transparent calc(50% - 1.03px), var(--platform-alternate-selected-control-text) calc(50% - 1.03px), var(--platform-alternate-selected-control-text) calc(50% + 1.03px), transparent calc(50% + 1.03px)),
@@ -823,7 +825,8 @@
    finder-view-options-{light,dark}.png: one fill from edge to edge, the
    separator over its surface to the byte.
 
-   Selected is the platform's accent filling the whole disc with the dot in
+   Selected is the accent fill the platform draws, measured per appearance,
+   filling the whole disc with the dot in
    alternateSelectedControlText at its centre - one fill and one mark, exactly
    the Gio nested ellipses, and no gap ring.
 
@@ -834,8 +837,8 @@
    give. */
 .radio { border-radius: var(--radius-full); }
 .radio:checked, .radio.is-checked {
-  border-color: var(--platform-control-accent);
-  background: radial-gradient(circle, var(--platform-alternate-selected-control-text) 2.5px, var(--platform-control-accent) 2.5px); /* radioDotSize: 5 dp, measured */
+  border-color: var(--platform-accent-fill);
+  background: radial-gradient(circle, var(--platform-alternate-selected-control-text) 2.5px, var(--platform-accent-fill) 2.5px); /* radioDotSize: 5 dp, measured */
   background-clip: border-box;
 }
 .radio:checked:disabled, .radio.is-checked:disabled {

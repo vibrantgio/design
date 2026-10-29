@@ -2,6 +2,7 @@
   "themeColour": "#007aff",
   "platform": {
     "light": {
+      "accent-fill": "#157bf5",
       "alternate-selected-control-text": "#ffffff",
       "alternating-content-background": "#f4f5f5",
       "card-fill": "#f7f7f7",
@@ -80,6 +81,7 @@
       "window-background": "#ffffff"
     },
     "dark": {
+      "accent-fill": "#1b81fb",
       "alternate-selected-control-text": "#ffffff",
       "alternating-content-background": "#ffffff0d",
       "card-fill": "#252525",
