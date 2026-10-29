@@ -74,6 +74,7 @@
   --platform-sidebar-symbol: #000000;
   --platform-card-fill: #f7f7f7;
   --platform-push-button-fill: #ececec;
+  --platform-disabled-control-fill: #f2f2f2;
   --platform-default-button-fill: #157efb;
   --platform-accent-fill: #157bf5;
   --platform-hover-overlay: #0000000d;
@@ -273,7 +274,8 @@
   --platform-sidebar-count: #a4a4a4;
   --platform-sidebar-symbol: #ffffff;
   --platform-card-fill: #252525;
-  --platform-push-button-fill: #333a3f;
+  --platform-push-button-fill: #2f2f2f;
+  --platform-disabled-control-fill: #292929;
   --platform-default-button-fill: #157efb;
   --platform-accent-fill: #1b81fb;
   --platform-hover-overlay: #ffffff18;
@@ -774,10 +776,17 @@
   background-clip: border-box;
   cursor: pointer;
 }
-/* Focus is the same ring every other control has, on the symbol's own
-   outline, riding in the slack the footprint holds around it - so nothing
-   about the control moves when it takes the keyboard. */
-.checkbox:focus-visible, .checkbox.is-focus,
+/* Focus is the same ring every other control has, in the slack the
+   footprint holds around the symbol - so nothing about the control moves
+   when it takes the keyboard. MEASURED, checkbox-focused-{light,dark}.png:
+   the checkbox's ring is 3 px outside the box and 1 px over it. No capture
+   holds a focused radio button, so the radio button takes the field's
+   placement, 2 px outside and 2 px over: that placement is unmeasured for
+   the radio button. */
+.checkbox:focus-visible, .checkbox.is-focus {
+  outline: var(--focus-ring-width) solid var(--platform-keyboard-focus-indicator);
+  outline-offset: -1px;  /* checkboxRingOver: 1 dp, measured */
+}
 .radio:focus-visible, .radio.is-focus {
   outline: var(--focus-ring-width) solid var(--platform-keyboard-focus-indicator);
   outline-offset: calc(var(--focus-ring-width) / -2);
@@ -798,18 +807,17 @@
   background-size: 4.226px 4.772px, 5.934px 9.000px;
 }
 /* Switched off, the symbol is ONE FILL AND NO EDGE at all. MEASURED,
-   save-dialog-{light,dark}.png: both switched-off "Options:" checkboxes read
-   the push button's own fill faded to --disabled-coverage over the sheet, to
-   the byte light and one 255th over on dark green and blue, and neither box
-   draws an edge column in either appearance - its rim is a one-pixel antialiased ramp from this fill
-   to the sheet. The border is kept at its width in transparent so the symbol's
-   drawn box does not move. Checked, the mark takes the colour the
+   save-panel-untinted-{light,dark}.png: both switched-off "Options:"
+   checkboxes read --platform-disabled-control-fill, and neither box draws an
+   edge column in either appearance. No capture
+   holds a switched-off radio button, so it takes the box's fill. The border is
+   kept at its width in transparent so the symbol's drawn box does not move. Checked, the mark takes the colour the
    switched-off title beside it takes, the platform's tertiary label, no
    stored capture holding a switched-off checked box. */
 .checkbox:disabled, .radio:disabled {
   cursor: default;
   border-color: transparent;
-  background-color: color-mix(in srgb, var(--platform-push-button-fill) var(--disabled-coverage), transparent);
+  background-color: var(--platform-disabled-control-fill);
   background-clip: border-box;
 }
 .checkbox:checked:disabled, .checkbox.is-checked:disabled {
@@ -842,7 +850,7 @@
   background-clip: border-box;
 }
 .radio:checked:disabled, .radio.is-checked:disabled {
-  background: radial-gradient(circle, var(--platform-tertiary-label) 2.5px, color-mix(in srgb, var(--platform-push-button-fill) var(--disabled-coverage), transparent) 2.5px);
+  background: radial-gradient(circle, var(--platform-tertiary-label) 2.5px, var(--platform-disabled-control-fill) 2.5px);
   background-clip: border-box;
 }
 
