@@ -39,6 +39,8 @@ github.com/vibrantgio/components v1.7.2-0.20261125123704-454acca220fa h1:IakdKIS
 github.com/vibrantgio/components v1.7.2-0.20261125123704-454acca220fa/go.mod h1:P7sTf4zkFIUDipCb5sDoK1ARS+AjGuZCbOP+lWd3QX8=
 github.com/vibrantgio/components v1.7.2-0.20261125132343-373a954abcf0 h1:DoJJDVO0mMWftdcj8MVLTVnDWkfmJGj9q2LMVbSW8DY=
 github.com/vibrantgio/components v1.7.2-0.20261125132343-373a954abcf0/go.mod h1:P7sTf4zkFIUDipCb5sDoK1ARS+AjGuZCbOP+lWd3QX8=
+github.com/vibrantgio/components v1.7.2-0.20261125142632-2c73e6e2437d h1:drjx0+5qtp16DJI7FC19cJQH3LYFMxPDOqnWHTo368g=
+github.com/vibrantgio/components v1.7.2-0.20261125142632-2c73e6e2437d/go.mod h1:P7sTf4zkFIUDipCb5sDoK1ARS+AjGuZCbOP+lWd3QX8=
 github.com/vibrantgio/effects v0.5.1 h1:RjD69J7lGQvQNTw6s2eycZ5DjiRzRyMwroAL11pa7sI=
 github.com/vibrantgio/effects v0.5.1/go.mod h1:OjZEPtkpg7eEk6bhyi2U7azi3szweYIOVJdNdsmuIMA=
 github.com/vibrantgio/effects v0.5.2-0.20261124175118-ab522e35148b h1:+wkcinZjy3RD6kYC1XskLIEIXMYw4vlpzvPGIGgrPJs=
